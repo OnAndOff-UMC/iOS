@@ -61,9 +61,14 @@ final class CustomPageControl: UIView {
             currentX += dot.frame.width + 10
         }
     }
-    /// 스크롤에 따라 페이지 인디케이터를 업데이트
+    /// 스크롤에 따라 페이지 인디케이터 업데이트
     func updateForScroll(offsetX: CGFloat, scrollViewWidth: CGFloat) {
         let page = offsetX / scrollViewWidth
+        
+        /// navigaion에 감싸졌을때 page에러
+        if page.isInfinite || page.isNaN {
+            return
+        }
         let currentPage = Int(page)
         let nextPage = currentPage + 1
         
@@ -83,4 +88,5 @@ final class CustomPageControl: UIView {
         }
         setNeedsLayout()
     }
+
 }

@@ -22,7 +22,8 @@ final class OnBoardingViewController : UIViewController {
         scrollView.delegate = self
         return scrollView
     }()
-    
+     var viewModel: OnBoardingViewModel
+
     private let customPageControl = CustomPageControl()
     private let nextButton = UIButton(type: .system)
     private let disposeBag = DisposeBag()
@@ -30,6 +31,17 @@ final class OnBoardingViewController : UIViewController {
     private var currentPage = BehaviorRelay<Int>(value: 0)
     private let totalPages = 3
     
+    // MARK: - Init
+    init(viewModel: OnBoardingViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -38,7 +50,7 @@ final class OnBoardingViewController : UIViewController {
         setupNextButton()
         setupBindings()
     }
-
+    
     private func setupScrollView() {
         view.addSubview(scrollView)
         
@@ -119,50 +131,50 @@ final class OnBoardingViewController : UIViewController {
         }
     }
     
-//    private func setupBindings() {
-//        nextButton.rx.tap
-//            .withLatestFrom(currentPage.asObservable())
-//            .map { ($0 + 1) % self.totalPages }
-//            .bind(to: currentPage)
-//            .disposed(by: disposeBag)
-//        
-//        currentPage.subscribe(onNext: { [weak self] page in
-//            guard let self = self else { return }
-//            
-//            let xOffset = CGFloat(page) * self.view.frame.width
-//            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
-//                self.scrollView.contentOffset = CGPoint(x: xOffset, y: 0)
-//            }, completion: nil)
-//            
-//            self.customPageControl.currentPage = page
-//        }).disposed(by: disposeBag)
-//    }
     private func setupBindings() {
+        let startButtonTapOnLastPage = nextButton.rx.tap
+            .withLatestFrom(currentPage.asObservable())
+            .filter { [weak self] page in
+                guard let self = self else { return false }
+                return page == self.totalPages - 1
+            }
+            .map { _ in Void() }
+        
+        let input = OnBoardingViewModel.Input(
+            startButtonTapped: startButtonTapOnLastPage
+        )
+        
+        let output = viewModel.bind(input: input)
+        
+        // 나머지 페이지에서 버튼이 눌렸을 때의 동작
         nextButton.rx.tap
             .withLatestFrom(currentPage.asObservable())
-            .map { [weak self] in
-                guard let self = self else { return 0 }
-                return ($0 + 1) % self.totalPages
+            .filter { [weak self] page in
+                guard let self = self else { return false }
+                return page < self.totalPages - 1
             }
-            .bind(to: currentPage)
-            .disposed(by: disposeBag)
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                let nextPage = (self.currentPage.value + 1) % self.totalPages
+                self.currentPage.accept(nextPage)
+            }).disposed(by: disposeBag)
         
+        // 현재 페이지 변경 감지
         currentPage.subscribe(onNext: { [weak self] page in
             guard let self = self else { return }
-
-            // 페이지에 따라 버튼 타이틀을 업데이트
+            
             let buttonTitle = page == self.totalPages - 1 ? "시작하기" : "다음"
             self.nextButton.setTitle(buttonTitle, for: .normal)
-
+            
             let xOffset = CGFloat(page) * self.view.frame.width
-            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
+            UIView.animate(withDuration: 0.5, delay: 0, options: .allowAnimatedContent, animations: {
                 self.scrollView.contentOffset = CGPoint(x: xOffset, y: 0)
             }, completion: nil)
             
             self.customPageControl.currentPage = page
         }).disposed(by: disposeBag)
     }
-
+    
 }
 
 // MARK: Extension - UIScrollViewDelegate
