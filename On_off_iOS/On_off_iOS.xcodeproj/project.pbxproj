@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		374FD4932B4268EC00F2E645 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 374FD4922B4268EC00F2E645 /* RxCocoa */; };
+		374FD4952B4268EC00F2E645 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 374FD4942B4268EC00F2E645 /* RxRelay */; };
+		374FD4972B4268EC00F2E645 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 374FD4962B4268EC00F2E645 /* RxSwift */; };
+		374FD49A2B42690D00F2E645 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 374FD4992B42690D00F2E645 /* SnapKit */; };
+		374FD49D2B4281E100F2E645 /* OnboardingCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374FD49C2B4281E100F2E645 /* OnboardingCustomView.swift */; };
+		374FD49F2B42825B00F2E645 /* CustomPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374FD49E2B42825B00F2E645 /* CustomPageControl.swift */; };
+		374FD4A22B4294F100F2E645 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374FD4A12B4294F100F2E645 /* LoginViewController.swift */; };
 		3B42300E2B41572200D0B038 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B42300D2B41572200D0B038 /* AppDelegate.swift */; };
 		3B4230102B41572200D0B038 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B42300F2B41572200D0B038 /* SceneDelegate.swift */; };
 		3B4230122B41572200D0B038 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4230112B41572200D0B038 /* ViewController.swift */; };
@@ -15,6 +22,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		374FD49C2B4281E100F2E645 /* OnboardingCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCustomView.swift; sourceTree = "<group>"; };
+		374FD49E2B42825B00F2E645 /* CustomPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPageControl.swift; sourceTree = "<group>"; };
+		374FD4A12B4294F100F2E645 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		3B42300A2B41572200D0B038 /* On_off_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = On_off_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B42300D2B41572200D0B038 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3B42300F2B41572200D0B038 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -29,12 +39,33 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				374FD4972B4268EC00F2E645 /* RxSwift in Frameworks */,
+				374FD49A2B42690D00F2E645 /* SnapKit in Frameworks */,
+				374FD4952B4268EC00F2E645 /* RxRelay in Frameworks */,
+				374FD4932B4268EC00F2E645 /* RxCocoa in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		374FD49B2B4281CA00F2E645 /* OnBoarding */ = {
+			isa = PBXGroup;
+			children = (
+				374FD49C2B4281E100F2E645 /* OnboardingCustomView.swift */,
+				374FD49E2B42825B00F2E645 /* CustomPageControl.swift */,
+			);
+			path = OnBoarding;
+			sourceTree = "<group>";
+		};
+		374FD4A02B4294DE00F2E645 /* LogIn */ = {
+			isa = PBXGroup;
+			children = (
+				374FD4A12B4294F100F2E645 /* LoginViewController.swift */,
+			);
+			path = LogIn;
+			sourceTree = "<group>";
+		};
 		3B4230012B41572200D0B038 = {
 			isa = PBXGroup;
 			children = (
@@ -54,6 +85,8 @@
 		3B42300C2B41572200D0B038 /* On_off_iOS */ = {
 			isa = PBXGroup;
 			children = (
+				374FD4A02B4294DE00F2E645 /* LogIn */,
+				374FD49B2B4281CA00F2E645 /* OnBoarding */,
 				3B4230112B41572200D0B038 /* ViewController.swift */,
 				3B4230212B41584300D0B038 /* Apps */,
 				3B4230162B41572400D0B038 /* Assets.xcassets */,
@@ -88,6 +121,12 @@
 			dependencies = (
 			);
 			name = On_off_iOS;
+			packageProductDependencies = (
+				374FD4922B4268EC00F2E645 /* RxCocoa */,
+				374FD4942B4268EC00F2E645 /* RxRelay */,
+				374FD4962B4268EC00F2E645 /* RxSwift */,
+				374FD4992B42690D00F2E645 /* SnapKit */,
+			);
 			productName = On_off_iOS;
 			productReference = 3B42300A2B41572200D0B038 /* On_off_iOS.app */;
 			productType = "com.apple.product-type.application";
@@ -116,6 +155,10 @@
 				Base,
 			);
 			mainGroup = 3B4230012B41572200D0B038;
+			packageReferences = (
+				374FD4912B4268EC00F2E645 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				374FD4982B42690D00F2E645 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = 3B42300B2B41572200D0B038 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -142,8 +185,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				374FD4A22B4294F100F2E645 /* LoginViewController.swift in Sources */,
+				374FD49F2B42825B00F2E645 /* CustomPageControl.swift in Sources */,
 				3B4230122B41572200D0B038 /* ViewController.swift in Sources */,
 				3B42300E2B41572200D0B038 /* AppDelegate.swift in Sources */,
+				374FD49D2B4281E100F2E645 /* OnboardingCustomView.swift in Sources */,
 				3B4230102B41572200D0B038 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -288,7 +334,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = SN5J3DYFX4;
+				DEVELOPMENT_TEAM = FQ9852Z3LX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = On_off_iOS/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -315,7 +361,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = SN5J3DYFX4;
+				DEVELOPMENT_TEAM = FQ9852Z3LX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = On_off_iOS/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -357,6 +403,48 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		374FD4912B4268EC00F2E645 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.6.0;
+			};
+		};
+		374FD4982B42690D00F2E645 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		374FD4922B4268EC00F2E645 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 374FD4912B4268EC00F2E645 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		374FD4942B4268EC00F2E645 /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 374FD4912B4268EC00F2E645 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
+		374FD4962B4268EC00F2E645 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 374FD4912B4268EC00F2E645 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		374FD4992B42690D00F2E645 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 374FD4982B42690D00F2E645 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3B4230022B41572200D0B038 /* Project object */;
 }
