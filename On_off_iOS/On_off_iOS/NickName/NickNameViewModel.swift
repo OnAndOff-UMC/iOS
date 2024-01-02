@@ -20,7 +20,9 @@ final class NickNameViewModel {
        }
 
        let isNicknameValid = PublishRelay<Bool>()
-
+    struct Output {
+        
+    }
 
 
     // MARK: - Init
@@ -31,14 +33,14 @@ final class NickNameViewModel {
     func bind(input: Input) {
         input.startButtonTapped
                 .bind { [weak self] in
-                    self?.moveToLogin()
+                    self?.moveToProfile()
                 }
                 .disposed(by: disposeBag)
     }
     
-    private func moveToLogin() {
-        let profileViewModel = LoginViewModel(navigationController: navigationController)
-        let vc = LoginViewController(viewModel: profileViewModel)
+    private func moveToProfile() {
+        let profileViewModel = ProfileSettingViewModel(navigationController: navigationController)
+        let vc = ProfileSettingViewController(viewModel: profileViewModel)
         navigationController.pushViewController(vc, animated: true)
     }
 }

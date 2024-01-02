@@ -24,27 +24,33 @@ final class NickNameViewController: UIViewController {
     private let nickNameLabel: UILabel = {
         let label = UILabel()
         label.text = "닉네임"
-        label.numberOfLines = 0
-        label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
+        label.textColor = .black
+        label.font = .systemFont(ofSize: 20, weight: .bold)
         return label
     }()
     
     private let nickNameTextField: UITextField = {
-        let textField = UITextField()
-        textField.borderStyle = .none
-        textField.placeholder = "닉네임을 입력하세요"
-        textField.font = UIFont.systemFont(ofSize: 18)
-
-        return textField
+        let field = UITextField()
+        field.attributedPlaceholder = NSAttributedString(string: "닉네임을 입력하세요",
+                                                         attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+        field.textAlignment = .left
+        field.font = UIFont.systemFont(ofSize: 11, weight: .regular)
+        field.backgroundColor = UIColor.clear
+        field.layer.borderWidth = 0
+        return field
+    }()
+    private lazy var nickNameLine: UIView = {
+        let lineView = UIView()
+        lineView.backgroundColor = .black
+        return lineView
     }()
     
     private let nickNameExplainLabel: UILabel = {
         let label = UILabel()
         label.text = " 한글, 영어, 숫자, 특수문자(. , ! _ ~)로만 구성할 수 있어요 "
         label.numberOfLines = 0
-        label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 15, weight: .bold)
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 13, weight: .bold)
         return label
     }()
     
@@ -80,6 +86,8 @@ final class NickNameViewController: UIViewController {
         view.addSubview(welcomeLabel)
         view.addSubview(nickNameLabel)
         view.addSubview(nickNameTextField)
+        view.addSubview(nickNameLine)
+        
         view.addSubview(nickNameExplainLabel)
         view.addSubview(checkButton)
         configureConstraints()
@@ -94,26 +102,36 @@ final class NickNameViewController: UIViewController {
         }
         
         nickNameLabel.snp.makeConstraints { make in
-            make.centerY.equalToSuperview().offset(50)
-            make.centerX.equalToSuperview()
+            make.top.equalTo(welcomeLabel.snp.bottom).offset(50)
+            make.leading.equalToSuperview().offset(50)
         }
         nickNameTextField.snp.makeConstraints { make in
-            make.top.equalTo(nickNameLabel.snp.bottom).offset(20)
+            make.top.equalTo(nickNameLabel.snp.bottom).offset(50)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.8)
         }
+        nickNameLine.snp.makeConstraints { make in
+            make.top.equalTo(nickNameTextField.snp.bottom).offset(8)
+            make.leading.trailing.equalToSuperview().inset(30)
+            make.height.equalTo(1)
+        }
 
         nickNameExplainLabel.snp.makeConstraints { make in
-            make.top.equalTo(nickNameLabel.snp.bottom).offset(20)
-            make.centerX.equalToSuperview()
+            make.top.equalTo(nickNameLine.snp.bottom).offset(20)
+            make.leading.trailing.equalToSuperview().inset(30)
         }
+   
         checkButton.snp.makeConstraints { make in
-            make.top.equalTo(nickNameExplainLabel.snp.bottom).offset(20)
+            make.bottom.equalToSuperview().inset(50)
             make.centerX.equalToSuperview()
-
         }
         
     }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        nickNameTextField.endEditing(true)
+    }
+    
     private func bind() {
       
         
@@ -121,4 +139,5 @@ final class NickNameViewController: UIViewController {
         
         viewModel.bind(input: input)
     }
+
 }

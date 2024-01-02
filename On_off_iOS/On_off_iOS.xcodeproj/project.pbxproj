@@ -143,6 +143,15 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		379380CC2B44282B00BB7BDE /* ProfileSetting */ = {
+			isa = PBXGroup;
+			children = (
+				378140622B42F07A00F2AA5A /* ProfileSettingViewController.swift */,
+				378140652B42F0AB00F2AA5A /* ProfileSettingViewModel.swift */,
+			);
+			path = ProfileSetting;
+			sourceTree = "<group>";
+		};
 		3B4230012B41572200D0B038 = {
 			isa = PBXGroup;
 			children = (
@@ -162,6 +171,7 @@
 		3B42300C2B41572200D0B038 /* On_off_iOS */ = {
 			isa = PBXGroup;
 			children = (
+				379380CC2B44282B00BB7BDE /* ProfileSetting */,
 				3781405F2B42E75000F2AA5A /* NickName */,
 				374FD4A02B4294DE00F2E645 /* LogIn */,
 				374FD49B2B4281CA00F2E645 /* OnBoarding */,
@@ -170,8 +180,6 @@
 				3B4230182B41572400D0B038 /* LaunchScreen.storyboard */,
 				3B42301B2B41572400D0B038 /* Info.plist */,
 				3787D0092B429F1700F054DD /* LaunchViewController.swift */,
-				378140622B42F07A00F2AA5A /* ProfileSettingViewController.swift */,
-				378140652B42F0AB00F2AA5A /* ProfileSettingViewModel.swift */,
 			);
 			path = On_off_iOS;
 			sourceTree = "<group>";
