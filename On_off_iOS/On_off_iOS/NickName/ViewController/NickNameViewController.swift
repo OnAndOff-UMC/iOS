@@ -29,6 +29,16 @@ final class NickNameViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
         return label
     }()
+    
+    private let nickNameTextField: UITextField = {
+        let textField = UITextField()
+        textField.borderStyle = .none
+        textField.placeholder = "닉네임을 입력하세요"
+        textField.font = UIFont.systemFont(ofSize: 18)
+
+        return textField
+    }()
+    
     private let nickNameExplainLabel: UILabel = {
         let label = UILabel()
         label.text = " 한글, 영어, 숫자, 특수문자(. , ! _ ~)로만 구성할 수 있어요 "
@@ -37,6 +47,7 @@ final class NickNameViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 15, weight: .bold)
         return label
     }()
+    
     private let checkButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("확인", for: .normal)
@@ -68,6 +79,7 @@ final class NickNameViewController: UIViewController {
     private func addSubviews(){
         view.addSubview(welcomeLabel)
         view.addSubview(nickNameLabel)
+        view.addSubview(nickNameTextField)
         view.addSubview(nickNameExplainLabel)
         view.addSubview(checkButton)
         configureConstraints()
@@ -85,7 +97,12 @@ final class NickNameViewController: UIViewController {
             make.centerY.equalToSuperview().offset(50)
             make.centerX.equalToSuperview()
         }
-        
+        nickNameTextField.snp.makeConstraints { make in
+            make.top.equalTo(nickNameLabel.snp.bottom).offset(20)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.8)
+        }
+
         nickNameExplainLabel.snp.makeConstraints { make in
             make.top.equalTo(nickNameLabel.snp.bottom).offset(20)
             make.centerX.equalToSuperview()
@@ -98,11 +115,10 @@ final class NickNameViewController: UIViewController {
         
     }
     private func bind() {
-        let input = NickNameViewModel.Input(
-            startButtonTapped: checkButton.rx.tap.asObservable()
-        )
+      
+        
+        let input = NickNameViewModel.Input(startButtonTapped: checkButton.rx.tap.asObservable())
         
         viewModel.bind(input: input)
     }
-
 }

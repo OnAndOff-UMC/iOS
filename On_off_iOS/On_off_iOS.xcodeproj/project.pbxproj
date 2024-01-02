@@ -16,6 +16,8 @@
 		374FD4A22B4294F100F2E645 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374FD4A12B4294F100F2E645 /* LoginViewController.swift */; };
 		374FD4A42B4297BE00F2E645 /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374FD4A32B4297BE00F2E645 /* OnBoardingViewController.swift */; };
 		378140612B42E83100F2AA5A /* NickNameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378140602B42E83100F2AA5A /* NickNameViewModel.swift */; };
+		378140632B42F07A00F2AA5A /* ProfileSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378140622B42F07A00F2AA5A /* ProfileSettingViewController.swift */; };
+		378140662B42F0AB00F2AA5A /* ProfileSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378140652B42F0AB00F2AA5A /* ProfileSettingViewModel.swift */; };
 		3787D0082B429C1100F054DD /* OnboardingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787D0072B429C1100F054DD /* OnboardingModel.swift */; };
 		3787D00A2B429F1700F054DD /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787D0092B429F1700F054DD /* LaunchViewController.swift */; };
 		3787D00F2B42AD6F00F054DD /* OnBoardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787D00E2B42AD6F00F054DD /* OnBoardingViewModel.swift */; };
@@ -33,6 +35,8 @@
 		374FD4A12B4294F100F2E645 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		374FD4A32B4297BE00F2E645 /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
 		378140602B42E83100F2AA5A /* NickNameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameViewModel.swift; sourceTree = "<group>"; };
+		378140622B42F07A00F2AA5A /* ProfileSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewController.swift; sourceTree = "<group>"; };
+		378140652B42F0AB00F2AA5A /* ProfileSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewModel.swift; sourceTree = "<group>"; };
 		3787D0072B429C1100F054DD /* OnboardingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingModel.swift; sourceTree = "<group>"; };
 		3787D0092B429F1700F054DD /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		3787D00E2B42AD6F00F054DD /* OnBoardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewModel.swift; sourceTree = "<group>"; };
@@ -83,9 +87,18 @@
 		3781405F2B42E75000F2AA5A /* NickName */ = {
 			isa = PBXGroup;
 			children = (
+				378140642B42F08400F2AA5A /* ViewController */,
 				378140602B42E83100F2AA5A /* NickNameViewModel.swift */,
 			);
 			path = NickName;
+			sourceTree = "<group>";
+		};
+		378140642B42F08400F2AA5A /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				3787D0122B42E0F000F054DD /* NickNameViewController.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		3787D00B2B42A84100F054DD /* View */ = {
@@ -157,7 +170,8 @@
 				3B4230182B41572400D0B038 /* LaunchScreen.storyboard */,
 				3B42301B2B41572400D0B038 /* Info.plist */,
 				3787D0092B429F1700F054DD /* LaunchViewController.swift */,
-				3787D0122B42E0F000F054DD /* NickNameViewController.swift */,
+				378140622B42F07A00F2AA5A /* ProfileSettingViewController.swift */,
+				378140652B42F0AB00F2AA5A /* ProfileSettingViewModel.swift */,
 			);
 			path = On_off_iOS;
 			sourceTree = "<group>";
@@ -258,9 +272,11 @@
 				374FD49F2B42825B00F2E645 /* CustomPageControl.swift in Sources */,
 				374FD4A42B4297BE00F2E645 /* OnBoardingViewController.swift in Sources */,
 				3787D0082B429C1100F054DD /* OnboardingModel.swift in Sources */,
+				378140662B42F0AB00F2AA5A /* ProfileSettingViewModel.swift in Sources */,
 				3B42300E2B41572200D0B038 /* AppDelegate.swift in Sources */,
 				374FD49D2B4281E100F2E645 /* OnboardingCustomView.swift in Sources */,
 				3B4230102B41572200D0B038 /* SceneDelegate.swift in Sources */,
+				378140632B42F07A00F2AA5A /* ProfileSettingViewController.swift in Sources */,
 				3787D0112B42E0B100F054DD /* LoginViewModel.swift in Sources */,
 				3787D00A2B429F1700F054DD /* LaunchViewController.swift in Sources */,
 			);
