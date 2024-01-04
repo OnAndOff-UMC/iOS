@@ -12,6 +12,10 @@ import SnapKit
 
 class HomeViewController: UIViewController {
     
+    // 날짜 데이터 예시
+    let dateData = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+    
+    
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = true
@@ -39,7 +43,7 @@ class HomeViewController: UIViewController {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.alwaysBounceHorizontal = true
         //        collectionView.delegate = self
-//        collectionView.dataSource = self
+        //        collectionView.dataSource = self
         return collectionView
     }()
     
@@ -68,6 +72,13 @@ class HomeViewController: UIViewController {
         //        bottomView.addSubview()
         
         configureConstraints()
+        // 추가된 부분: 날짜 collectionView의 데이터 소스와 델리게이트 설정
+        dateCollectionView.delegate = self
+        dateCollectionView.dataSource = self
+        dateCollectionView.register(DateCollectionViewCell.self, forCellWithReuseIdentifier: "DateCell")
+        
+        
+        
     }
     
     override func viewDidLoad() {
@@ -132,10 +143,11 @@ class HomeViewController: UIViewController {
         }
         
         topView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalToSuperview()
-            make.height.equalTo(view.snp.width).multipliedBy(0.15)
+            make.leading.trailing.equalToSuperview()
+            make.top.equalToSuperview().offset(50)
+            make.height.equalTo(view.snp.width).multipliedBy(0.3)
         }
-        
+
         bottomView.snp.makeConstraints { make in
             make.top.equalTo(topView.snp.bottom)
             make.leading.trailing.equalToSuperview()
@@ -144,12 +156,17 @@ class HomeViewController: UIViewController {
         
         dateCollectionView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
+            make.top.equalToSuperview().offset(30)
         }
+        
         tableView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
             make.height.equalTo(500)//임의의 수 ->적용 안됨
         }
     }
+    
+    
     
     //    private func calculateTableViewHeight() -> CGFloat {
     //
@@ -186,6 +203,8 @@ class HomeViewController: UIViewController {
     
     
     //}
+    
+    
     
     //extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     //    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -271,4 +290,21 @@ class HomeViewController: UIViewController {
     ////
     ////}
     ////
+}
+
+extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return dateData.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DateCell", for: indexPath) as! DateCollectionViewCell
+        cell.configureCell(date: dateData[indexPath.item])
+        return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        // 셀의 크기 설정
+        return CGSize(width: 100, height: collectionView.frame.height)
+    }
 }
