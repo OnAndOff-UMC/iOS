@@ -16,6 +16,7 @@
 		3B4230122B41572200D0B038 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4230112B41572200D0B038 /* ViewController.swift */; };
 		3B4230172B41572400D0B038 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B4230162B41572400D0B038 /* Assets.xcassets */; };
 		3B42301A2B41572400D0B038 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B4230182B41572400D0B038 /* LaunchScreen.storyboard */; };
+		3B9C89D12B4AED7C0083CF44 /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9C89D02B4AED7C0083CF44 /* StatisticsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		3B4230162B41572400D0B038 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3B4230192B41572400D0B038 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3B42301B2B41572400D0B038 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3B9C89D02B4AED7C0083CF44 /* StatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				3B4230112B41572200D0B038 /* ViewController.swift */,
+				3B9C89CF2B4AED640083CF44 /* Statistics */,
 				3B4230212B41584300D0B038 /* Apps */,
 				3B4230162B41572400D0B038 /* Assets.xcassets */,
 				3B4230182B41572400D0B038 /* LaunchScreen.storyboard */,
@@ -78,6 +81,22 @@
 				3B42300F2B41572200D0B038 /* SceneDelegate.swift */,
 			);
 			path = Apps;
+			sourceTree = "<group>";
+		};
+		3B9C89CF2B4AED640083CF44 /* Statistics */ = {
+			isa = PBXGroup;
+			children = (
+				3B9C89D22B4AED800083CF44 /* View */,
+			);
+			path = Statistics;
+			sourceTree = "<group>";
+		};
+		3B9C89D22B4AED800083CF44 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3B9C89D02B4AED7C0083CF44 /* StatisticsViewController.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -163,6 +182,7 @@
 				3B4230122B41572200D0B038 /* ViewController.swift in Sources */,
 				3B42300E2B41572200D0B038 /* AppDelegate.swift in Sources */,
 				3B4230102B41572200D0B038 /* SceneDelegate.swift in Sources */,
+				3B9C89D12B4AED7C0083CF44 /* StatisticsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,7 +326,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = FQ9852Z3LX;
+				DEVELOPMENT_TEAM = SN5J3DYFX4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = On_off_iOS/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -333,7 +353,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = FQ9852Z3LX;
+				DEVELOPMENT_TEAM = SN5J3DYFX4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = On_off_iOS/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
