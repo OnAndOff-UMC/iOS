@@ -11,6 +11,7 @@
 		37F9175B2B4AE36C00149BE7 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 37F9175A2B4AE36C00149BE7 /* RxRelay */; };
 		37F9175D2B4AE36C00149BE7 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 37F9175C2B4AE36C00149BE7 /* RxSwift */; };
 		37F917602B4AE3A800149BE7 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 37F9175F2B4AE3A800149BE7 /* SnapKit */; };
+		3B1658F72B4D8559004EFBC3 /* ChartCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1658F62B4D8559004EFBC3 /* ChartCustomView.swift */; };
 		3B42300E2B41572200D0B038 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B42300D2B41572200D0B038 /* AppDelegate.swift */; };
 		3B4230102B41572200D0B038 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B42300F2B41572200D0B038 /* SceneDelegate.swift */; };
 		3B4230122B41572200D0B038 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4230112B41572200D0B038 /* ViewController.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3B1658F62B4D8559004EFBC3 /* ChartCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartCustomView.swift; sourceTree = "<group>"; };
 		3B42300A2B41572200D0B038 /* On_off_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = On_off_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B42300D2B41572200D0B038 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3B42300F2B41572200D0B038 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				3B9C89D02B4AED7C0083CF44 /* StatisticsViewController.swift */,
+				3B1658F62B4D8559004EFBC3 /* ChartCustomView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -180,6 +183,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B4230122B41572200D0B038 /* ViewController.swift in Sources */,
+				3B1658F72B4D8559004EFBC3 /* ChartCustomView.swift in Sources */,
 				3B42300E2B41572200D0B038 /* AppDelegate.swift in Sources */,
 				3B4230102B41572200D0B038 /* SceneDelegate.swift in Sources */,
 				3B9C89D12B4AED7C0083CF44 /* StatisticsViewController.swift in Sources */,
