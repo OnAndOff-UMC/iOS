@@ -13,11 +13,10 @@ import UIKit
 
 final class StatisticsViewController: UIViewController {
     
-    /// 맨위 라벨
-    private lazy var monthChartTitle: UILabel = {
+    /// 달 차트 제목
+    private lazy var monthChartTitleLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .clear
-        label.text = "2023년 11월"
         label.font = .boldSystemFont(ofSize: 17)
         label.textColor = .black
         return label
@@ -32,10 +31,9 @@ final class StatisticsViewController: UIViewController {
     }()
     
     /// 차트 날짜
-    private lazy var chartTitle: UILabel = {
+    private lazy var weekChartTitleLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .clear
-        label.text = "11월 3주차"
         label.font = .boldSystemFont(ofSize: 17)
         label.textColor = .black
         return label
@@ -64,8 +62,8 @@ final class StatisticsViewController: UIViewController {
     /// AddSubViews
     private func addSubViews() {
         view.addSubview(weekChartUIView)
-        view.addSubview(chartTitle)
-        view.addSubview(monthChartTitle)
+        view.addSubview(weekChartTitleLabel)
+        view.addSubview(monthChartTitleLabel)
         view.addSubview(monthChartView)
         
         constraints()
@@ -73,13 +71,13 @@ final class StatisticsViewController: UIViewController {
     
     /// Set Constraints
     private func constraints() {
-        monthChartTitle.snp.makeConstraints { make in
+        monthChartTitleLabel.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(30)
             make.leading.equalToSuperview().offset(20)
         }
         
         monthChartView.snp.makeConstraints { make in
-            make.top.equalTo(monthChartTitle.snp.bottom).offset(20)
+            make.top.equalTo(monthChartTitleLabel.snp.bottom).offset(20)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
         }
@@ -93,7 +91,7 @@ final class StatisticsViewController: UIViewController {
             make.height.equalTo(weekChartUIView.snp.width).multipliedBy(0.7)
         }
         
-        chartTitle.snp.makeConstraints { make in
+        weekChartTitleLabel.snp.makeConstraints { make in
             make.bottom.equalTo(weekChartUIView.snp.top).offset(-30)
             make.leading.equalToSuperview().offset(20)
         }
@@ -103,20 +101,22 @@ final class StatisticsViewController: UIViewController {
     private func bind() {
         let output = viewModel.createoutput()
         
-        bindWeekChartUIView(output: output)
-        bindMonthChartUIView(output: output)
+        bindWeekView(output: output)
+        bindMonthView(output: output)
     }
     
     /// binding WeekChartUIView Data
-    private func bindWeekChartUIView(output: StatisticsViewModel.Output) {
+    private func bindWeekView(output: StatisticsViewModel.Output) {
         guard let statistics = output.weekStatisticsRelay.value else { return }
+        weekChartTitleLabel.text = output.weekTitleRelay.value
         weekChartUIView.inputData(statistics: statistics)
     }
     
     /// binding MonthChartUIView Data
-    private func bindMonthChartUIView(output: StatisticsViewModel.Output) {
+    private func bindMonthView(output: StatisticsViewModel.Output) {
         guard let statistics = output.monthStatisticsRelay.value else { return }
         monthChartView.inputData(statistics: statistics)
+        monthChartTitleLabel.text = output.monthTitleRelay.value
     }
 }
 
