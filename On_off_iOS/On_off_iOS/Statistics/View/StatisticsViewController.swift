@@ -14,7 +14,7 @@ import UIKit
 final class StatisticsViewController: UIViewController {
     
     /// 맨위 라벨
-    private lazy var dayChartTitle: UILabel = {
+    private lazy var monthChartTitle: UILabel = {
         let label = UILabel()
         label.backgroundColor = .clear
         label.text = "2023년 11월"
@@ -24,7 +24,7 @@ final class StatisticsViewController: UIViewController {
     }()
     
     /// 햇빛, 달 차트
-    private lazy var dayChartView: DayChartCustomView = {
+    private lazy var monthChartView: DayChartCustomView = {
         let view = DayChartCustomView()
         view.backgroundColor = .cyan
         view.layer.cornerRadius = 20
@@ -42,7 +42,7 @@ final class StatisticsViewController: UIViewController {
     }()
     
     /// 일간 그래프
-    private lazy var chartUIView: WeekChartCustomView = {
+    private lazy var weekChartUIView: WeekChartCustomView = {
         let view = WeekChartCustomView(frame: CGRect(x: 0, y: 0,
                                         width: Int(view.safeAreaLayoutGuide.layoutFrame.width),
                                         height: Int(view.safeAreaLayoutGuide.layoutFrame.width)))
@@ -50,55 +50,74 @@ final class StatisticsViewController: UIViewController {
         return view
     }()
     
+    private let viewModel: StatisticsViewModel = StatisticsViewModel()
+    
     // MARK: - View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
         addSubViews()
+        bind()
     }
-    
     
     /// AddSubViews
     private func addSubViews() {
-        view.addSubview(chartUIView)
+        view.addSubview(weekChartUIView)
         view.addSubview(chartTitle)
-        view.addSubview(dayChartTitle)
-        view.addSubview(dayChartView)
+        view.addSubview(monthChartTitle)
+        view.addSubview(monthChartView)
+        
         constraints()
     }
     
-    
     /// Set Constraints
     private func constraints() {
-        dayChartTitle.snp.makeConstraints { make in
+        monthChartTitle.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(30)
             make.leading.equalToSuperview().offset(20)
         }
         
-        dayChartView.snp.makeConstraints { make in
-            make.top.equalTo(dayChartTitle.snp.bottom).offset(20)
+        monthChartView.snp.makeConstraints { make in
+            make.top.equalTo(monthChartTitle.snp.bottom).offset(20)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
         }
         
-        chartUIView.transform = CGAffineTransform(rotationAngle: -.pi/2)
+        weekChartUIView.transform = CGAffineTransform(rotationAngle: -.pi/2)
         
-        chartUIView.snp.makeConstraints { make in
+        weekChartUIView.snp.makeConstraints { make in
             make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-40)
             make.centerX.equalToSuperview()
             make.width.equalTo(view.safeAreaLayoutGuide.layoutFrame.width)
-            make.height.equalTo(chartUIView.snp.width).multipliedBy(0.7)
+            make.height.equalTo(weekChartUIView.snp.width).multipliedBy(0.7)
         }
         
         chartTitle.snp.makeConstraints { make in
-            make.bottom.equalTo(chartUIView.snp.top).offset(-30)
+            make.bottom.equalTo(weekChartUIView.snp.top).offset(-30)
             make.leading.equalToSuperview().offset(20)
         }
-        
-   
     }
     
+    /// binding
+    private func bind() {
+        let output = viewModel.createoutput()
+        
+        bindWeekChartUIView(output: output)
+        bindMonthChartUIView(output: output)
+    }
+    
+    /// binding WeekChartUIView Data
+    private func bindWeekChartUIView(output: StatisticsViewModel.Output) {
+        guard let statistics = output.weekStatisticsRelay.value else { return }
+        weekChartUIView.inputData(statistics: statistics)
+    }
+    
+    /// binding MonthChartUIView Data
+    private func bindMonthChartUIView(output: StatisticsViewModel.Output) {
+        guard let statistics = output.monthStatisticsRelay.value else { return }
+        monthChartView.inputData(statistics: statistics)
+    }
 }
 
 import SwiftUI

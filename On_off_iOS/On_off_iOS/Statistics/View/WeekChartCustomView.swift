@@ -266,15 +266,14 @@ final class WeekChartCustomView: UIView {
     }
     
     /// Input Data
-    func inputData(monday: Float, tuesDay: Float,
-                   wendseday: Float, thursday: Float,
-                   friday: Float, saturday: Float, sunday: Float) {
-        mondayProgressView.progress = monday
-        tuesdayProgressView.progress = tuesDay
-        wendsedayProgressView.progress = wendseday
-        thursdayProgressView.progress = thursday
-        fridayProgressView.progress = friday
-        saturdayProgressView.progress = saturday
-        sundayProgressView.progress = sunday
+    func inputData(statistics: DayStatistics) {
+        print(#function, statistics)
+        mondayProgressView.progress = statistics.monday ?? 0
+        tuesdayProgressView.progress = statistics.tuesday ?? 0
+        wendsedayProgressView.progress = statistics.wendseday ?? 0
+        thursdayProgressView.progress = statistics.thursday ?? 0
+        fridayProgressView.progress = statistics.friday ?? 0
+        saturdayProgressView.progress = statistics.saturday ?? 0
+        sundayProgressView.progress = statistics.sunday ?? 0
     }
 }

@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import SnapKit
 
 final class DayChartCustomView: UIView {
     
@@ -19,7 +20,6 @@ final class DayChartCustomView: UIView {
         view.backgroundColor = .clear
         view.trackTintColor = .lightGray
         view.progressTintColor = .blue
-        view.setProgress(0.7, animated: true)
         return view
     }()
     
@@ -46,7 +46,6 @@ final class DayChartCustomView: UIView {
         view.backgroundColor = .clear
         view.trackTintColor = .lightGray
         view.progressTintColor = .blue
-        view.setProgress(0.7, animated: true)
         return view
     }()
     
@@ -74,6 +73,8 @@ final class DayChartCustomView: UIView {
         return view
     }()
     
+    private var dayConstraintItem: Constraint?
+    
     // MARK: - init
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -87,8 +88,20 @@ final class DayChartCustomView: UIView {
     /// Layout SubView
     override func layoutSubviews() {
         super.layoutSubviews()
+        
         dayTimeUIView.layer.cornerRadius = dayTimeUIView.frame.height/2
+        dayTimeUIView.snp.remakeConstraints { make in
+            make.centerY.equalTo(dayTimeProgressView.snp.centerY)
+            make.height.width.equalTo(dayTimeProgressView.snp.height).multipliedBy(1.2)
+            make.centerX.equalTo(dayTimeProgressView.snp.leading).offset(dayTimeProgressView.frame.width * CGFloat(dayTimeProgressView.progress))
+        }
+        
         nightTimeUIView.layer.cornerRadius = nightTimeUIView.frame.height/2
+        nightTimeUIView.snp.remakeConstraints { make in
+            make.centerY.equalTo(nightTimeProgressView.snp.centerY)
+            make.height.width.equalTo(nightTimeProgressView.snp.height).multipliedBy(1.2)
+            make.centerX.equalTo(nightTimeProgressView.snp.leading).offset(nightTimeProgressView.frame.width * CGFloat(nightTimeProgressView.progress))
+        }
     }
     
     /// AddSubViews
@@ -106,10 +119,6 @@ final class DayChartCustomView: UIView {
     
     /// Set Constraints
     private func constraints() {
-        dayTimeProgressView.snp.makeConstraints { make in
-            make.height.equalTo(30)
-        }
-        
         stackView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(30)
             make.leading.equalToSuperview().offset(30)
@@ -117,6 +126,9 @@ final class DayChartCustomView: UIView {
             make.bottom.equalToSuperview().offset(-30)
         }
         
+        dayTimeProgressView.snp.makeConstraints { make in
+            make.height.equalTo(30)
+        }
         
         dayTimeUIView.snp.makeConstraints { make in
             make.centerY.equalTo(dayTimeProgressView.snp.centerY)
@@ -144,6 +156,14 @@ final class DayChartCustomView: UIView {
             make.height.width.equalTo(nightTimeProgressView.snp.height).multipliedBy(0.7)
         }
         
+    }
+    
+    
+    /// Input Data about ProgressView
+    /// - Parameter statistics: 낮, 밤 비율 (0.0 ~ 1.0)
+    func inputData(statistics: MonthStatistics) {
+        dayTimeProgressView.progress = statistics.dayTime ?? 0
+        nightTimeProgressView.progress = statistics.nightTime ?? 0
     }
     
 }
