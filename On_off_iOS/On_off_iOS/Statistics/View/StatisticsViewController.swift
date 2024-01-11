@@ -13,12 +13,21 @@ import UIKit
 
 final class StatisticsViewController: UIViewController {
     
-    ///
-    private lazy var chartUIView: ChartCustomView = {
-        let view = ChartCustomView(frame: CGRect(x: 0, y: 0,
-                                        width: Int(view.safeAreaLayoutGuide.layoutFrame.width),
-                                        height: Int(view.safeAreaLayoutGuide.layoutFrame.width)))
-        view.backgroundColor = .green
+    /// 맨위 라벨
+    private lazy var dayChartTitle: UILabel = {
+        let label = UILabel()
+        label.backgroundColor = .clear
+        label.text = "2023년 11월"
+        label.font = .boldSystemFont(ofSize: 17)
+        label.textColor = .black
+        return label
+    }()
+    
+    /// 햇빛, 달 차트
+    private lazy var dayChartView: DayChartCustomView = {
+        let view = DayChartCustomView()
+        view.backgroundColor = .cyan
+        view.layer.cornerRadius = 20
         return view
     }()
     
@@ -28,7 +37,17 @@ final class StatisticsViewController: UIViewController {
         label.backgroundColor = .clear
         label.text = "11월 3주차"
         label.font = .boldSystemFont(ofSize: 17)
+        label.textColor = .black
         return label
+    }()
+    
+    /// 일간 그래프
+    private lazy var chartUIView: WeekChartCustomView = {
+        let view = WeekChartCustomView(frame: CGRect(x: 0, y: 0,
+                                        width: Int(view.safeAreaLayoutGuide.layoutFrame.width),
+                                        height: Int(view.safeAreaLayoutGuide.layoutFrame.width)))
+        view.backgroundColor = .clear
+        return view
     }()
     
     // MARK: - View Did Load
@@ -44,22 +63,40 @@ final class StatisticsViewController: UIViewController {
     private func addSubViews() {
         view.addSubview(chartUIView)
         view.addSubview(chartTitle)
+        view.addSubview(dayChartTitle)
+        view.addSubview(dayChartView)
         constraints()
     }
     
+    
     /// Set Constraints
     private func constraints() {
-    
-        chartUIView.snp.makeConstraints { make in
-            make.bottom.equalTo(view.safeAreaLayoutGuide)
-            make.horizontalEdges.equalToSuperview()
-        }
-        chartUIView.transform = CGAffineTransform(rotationAngle: -(.pi / 2)).translatedBy(x: 0, y: 0)
-        
-        chartTitle.snp.makeConstraints { make in
-            make.bottom.equalTo(chartUIView.snp.top).offset(-20)
+        dayChartTitle.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(30)
             make.leading.equalToSuperview().offset(20)
         }
+        
+        dayChartView.snp.makeConstraints { make in
+            make.top.equalTo(dayChartTitle.snp.bottom).offset(20)
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().offset(-20)
+        }
+        
+        chartUIView.transform = CGAffineTransform(rotationAngle: -.pi/2)
+        
+        chartUIView.snp.makeConstraints { make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-40)
+            make.centerX.equalToSuperview()
+            make.width.equalTo(view.safeAreaLayoutGuide.layoutFrame.width)
+            make.height.equalTo(chartUIView.snp.width).multipliedBy(0.7)
+        }
+        
+        chartTitle.snp.makeConstraints { make in
+            make.bottom.equalTo(chartUIView.snp.top).offset(-30)
+            make.leading.equalToSuperview().offset(20)
+        }
+        
+   
     }
     
 }

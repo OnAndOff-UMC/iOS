@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-final class ChartCustomView: UIView {
+final class WeekChartCustomView: UIView {
     
     /// Monday
     private lazy var mondayProgressView: UIProgressView = {
@@ -16,6 +16,7 @@ final class ChartCustomView: UIView {
         view.layoutIfNeeded()
         view.layer.cornerRadius = 15
         view.clipsToBounds = true
+        view.backgroundColor = .clear
         view.trackTintColor = .cyan
         view.progressTintColor = .yellow
         view.setProgress(0.7, animated: true)
@@ -33,8 +34,8 @@ final class ChartCustomView: UIView {
         return label
     }()
     
-    /// Tuesdays
-    private lazy var tuesdaysProgressView: UIProgressView = {
+    /// Tuesday
+    private lazy var tuesdayProgressView: UIProgressView = {
         let view = UIProgressView()
         view.layoutIfNeeded()
         view.layer.cornerRadius = 15
@@ -45,8 +46,8 @@ final class ChartCustomView: UIView {
         return view
     }()
     
-    /// Tuesdays Title
-    private lazy var tuesdaysTitle: UILabel = {
+    /// Tuesday Title
+    private lazy var tuesdayTitle: UILabel = {
         let label = UILabel()
         label.text = "Tue"
         label.textColor = .black
@@ -169,7 +170,7 @@ final class ChartCustomView: UIView {
     /// 요일 StackView
     private lazy var stackView: UIStackView = {
         let view = UIStackView(arrangedSubviews: [mondayProgressView,
-                                                  tuesdaysProgressView,
+                                                  tuesdayProgressView,
                                                   wendsedayProgressView,
                                                   thursdayProgressView,
                                                   fridayProgressView,
@@ -198,7 +199,7 @@ final class ChartCustomView: UIView {
         addSubview(stackView)
         
         addSubview(mondayTitle)
-        addSubview(tuesdaysTitle)
+        addSubview(tuesdayTitle)
         addSubview(wendsedayTitle)
         addSubview(thursdayTitle)
         addSubview(fridayTitle)
@@ -216,7 +217,7 @@ final class ChartCustomView: UIView {
             make.centerX.equalToSuperview()
             make.width.equalTo(self.frame.width*2/3);
         }
-//        stackView.transform = CGAffineTransform(rotationAngle: -(.pi / 2)).translatedBy(x: 0, y: 0)
+
         stackView.arrangedSubviews.forEach { view in
             view.layer.cornerRadius = view.frame.height * 3
         }
@@ -225,44 +226,55 @@ final class ChartCustomView: UIView {
             make.centerY.equalTo(mondayProgressView.snp.centerY)
             make.trailing.equalTo(mondayProgressView.snp.leading)
         }
-        mondayTitle.transform = CGAffineTransform(rotationAngle: (.pi / 2)).translatedBy(x: 0, y: 0)
+        mondayTitle.transform = CGAffineTransform(rotationAngle: (.pi / 2))
         
-        tuesdaysTitle.snp.makeConstraints { make in
-            make.centerY.equalTo(tuesdaysProgressView.snp.centerY)
+        tuesdayTitle.snp.makeConstraints { make in
+            make.centerY.equalTo(tuesdayProgressView.snp.centerY)
             make.centerX.equalTo(mondayTitle.snp.centerX)
         }
-        tuesdaysTitle.transform = CGAffineTransform(rotationAngle: (.pi / 2)).translatedBy(x: 0, y: 0)
+        tuesdayTitle.transform = CGAffineTransform(rotationAngle: (.pi / 2))
         
         wendsedayTitle.snp.makeConstraints { make in
             make.centerY.equalTo(wendsedayProgressView.snp.centerY)
             make.centerX.equalTo(mondayTitle.snp.centerX)
         }
-        wendsedayTitle.transform = CGAffineTransform(rotationAngle: (.pi / 2)).translatedBy(x: 0, y: 0)
+        wendsedayTitle.transform = CGAffineTransform(rotationAngle: (.pi / 2))
         
         thursdayTitle.snp.makeConstraints { make in
             make.centerY.equalTo(thursdayProgressView.snp.centerY)
             make.centerX.equalTo(mondayTitle.snp.centerX)
         }
-        thursdayTitle.transform = CGAffineTransform(rotationAngle: (.pi / 2)).translatedBy(x: 0, y: 0)
+        thursdayTitle.transform = CGAffineTransform(rotationAngle: (.pi / 2))
         
         fridayTitle.snp.makeConstraints { make in
             make.centerY.equalTo(fridayProgressView.snp.centerY)
             make.centerX.equalTo(mondayTitle.snp.centerX)
         }
-        fridayTitle.transform = CGAffineTransform(rotationAngle: (.pi / 2)).translatedBy(x: 0, y: 0)
+        fridayTitle.transform = CGAffineTransform(rotationAngle: (.pi / 2))
         
         saturdayTitle.snp.makeConstraints { make in
             make.centerY.equalTo(saturdayProgressView.snp.centerY)
             make.centerX.equalTo(mondayTitle.snp.centerX)
         }
-        saturdayTitle.transform = CGAffineTransform(rotationAngle: (.pi / 2)).translatedBy(x: 0, y: 0)
+        saturdayTitle.transform = CGAffineTransform(rotationAngle: (.pi / 2))
         
         sundayTitle.snp.makeConstraints { make in
             make.centerY.equalTo(sundayProgressView.snp.centerY)
             make.centerX.equalTo(mondayTitle.snp.centerX)
         }
-        sundayTitle.transform = CGAffineTransform(rotationAngle: (.pi / 2)).translatedBy(x: 0, y: 0)
+        sundayTitle.transform = CGAffineTransform(rotationAngle: (.pi / 2))
     }
     
-    
+    /// Input Data
+    func inputData(monday: Float, tuesDay: Float,
+                   wendseday: Float, thursday: Float,
+                   friday: Float, saturday: Float, sunday: Float) {
+        mondayProgressView.progress = monday
+        tuesdayProgressView.progress = tuesDay
+        wendsedayProgressView.progress = wendseday
+        thursdayProgressView.progress = thursday
+        fridayProgressView.progress = friday
+        saturdayProgressView.progress = saturday
+        sundayProgressView.progress = sunday
+    }
 }
