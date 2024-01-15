@@ -39,7 +39,6 @@ final class LoginViewModel {
     }
     
     private func moveToNickName() {
-        print("asdf")
         let vc = NickNameViewController(viewModel: NickNameViewModel(navigationController: navigationController))
         navigationController.pushViewController(vc, animated: true)
     }

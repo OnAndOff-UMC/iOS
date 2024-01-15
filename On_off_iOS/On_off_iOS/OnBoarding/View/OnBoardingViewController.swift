@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 
 final class OnBoardingViewController : UIViewController {
+    
     // MARK: - Properties
     // 스크롤 뷰: 온보딩 페이지를 표시
     private lazy var scrollView: UIScrollView = {
@@ -22,11 +23,12 @@ final class OnBoardingViewController : UIViewController {
         scrollView.delegate = self
         return scrollView
     }()
-     var viewModel: OnBoardingViewModel
+    var viewModel: OnBoardingViewModel
 
     private let customPageControl = CustomPageControl()
     private let nextButton = UIButton(type: .system)
     private let disposeBag = DisposeBag()
+    
     /// 현재 페이지 상태를 관리
     private var currentPage = BehaviorRelay<Int>(value: 0)
     private let totalPages = 3

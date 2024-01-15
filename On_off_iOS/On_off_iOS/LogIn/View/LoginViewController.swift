@@ -100,6 +100,7 @@ final class LoginViewController: UIViewController {
         }
         
     }
+
     private func bind() {
         let input = LoginViewModel.Input(
             kakaoButtonTapped: kakaoLoginButton.rx.tap.asObservable(),

@@ -66,6 +66,7 @@ final class ProfileSettingViewController: UIViewController {
         lineView.backgroundColor = .black
         return lineView
     }()
+    
     /// 연차
     private lazy var annual: UILabel = {
         let label = UILabel()
@@ -86,6 +87,7 @@ final class ProfileSettingViewController: UIViewController {
         field.layer.borderWidth = 0
         return field
     }()
+    
     private lazy var annualLine: UIView = {
         let lineView = UIView()
         lineView.backgroundColor = .black
@@ -128,6 +130,7 @@ final class ProfileSettingViewController: UIViewController {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
         return button
     }()
+    
     var viewModel: ProfileSettingViewModel
     private let disposeBag = DisposeBag()
     
@@ -141,7 +144,6 @@ final class ProfileSettingViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -164,7 +166,6 @@ final class ProfileSettingViewController: UIViewController {
         view.addSubview(fieldOfWorkTextField)
         view.addSubview(fieldOfWorkLine)
 
-        
         view.addSubview(job)
         view.addSubview(jobTextField)
         view.addSubview(jobLine)

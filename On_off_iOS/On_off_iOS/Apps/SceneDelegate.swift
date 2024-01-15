@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let onBoardingViewController = OnBoardingViewController(viewModel: OnBoardingViewModel(navigationController: navigationController))
         onBoardingViewController.viewModel.navigationController = navigationController
         
-        navigationController.viewControllers = [onBoardingViewController]
+        navigationController.viewControllers = [LaunchViewController()]//[onBoardingViewController]
         
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
