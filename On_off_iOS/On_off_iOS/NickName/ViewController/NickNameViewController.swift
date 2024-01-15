@@ -34,7 +34,7 @@ final class NickNameViewController: UIViewController {
         field.attributedPlaceholder = NSAttributedString(string: "닉네임을 입력하세요",
                                                          attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         field.textAlignment = .left
-        field.font = UIFont.systemFont(ofSize: 11, weight: .regular)
+        field.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         field.backgroundColor = UIColor.clear
         field.layer.borderWidth = 0
         return field
@@ -43,6 +43,15 @@ final class NickNameViewController: UIViewController {
         let lineView = UIView()
         lineView.backgroundColor = .black
         return lineView
+    }()
+    
+    private let checkLenghtLabel: UILabel = {
+        let label = UILabel()
+        label.text = "(0/10)"
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 13, weight: .bold)
+        return label
     }()
     
     private let nickNameExplainLabel: UILabel = {
@@ -60,6 +69,13 @@ final class NickNameViewController: UIViewController {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
         return button
     }()
+    
+    private lazy var checkButtonView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
+    
     var viewModel: NickNameViewModel
     private let disposeBag = DisposeBag()
     
@@ -74,22 +90,26 @@ final class NickNameViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
+    // MARK: ViewDidLoad()
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         addSubviews()
         bind()
     }
+    
     /// addSubviews
     private func addSubviews(){
         view.addSubview(welcomeLabel)
         view.addSubview(nickNameLabel)
         view.addSubview(nickNameTextField)
         view.addSubview(nickNameLine)
+        view.addSubview(checkLenghtLabel)
         
         view.addSubview(nickNameExplainLabel)
-        view.addSubview(checkButton)
+        view.addSubview(checkButtonView)
+        checkButtonView.addSubview(checkButton)
+
         configureConstraints()
     }
     
@@ -115,29 +135,55 @@ final class NickNameViewController: UIViewController {
             make.leading.trailing.equalToSuperview().inset(30)
             make.height.equalTo(1)
         }
-
+        
         nickNameExplainLabel.snp.makeConstraints { make in
             make.top.equalTo(nickNameLine.snp.bottom).offset(20)
             make.leading.trailing.equalToSuperview().inset(30)
         }
-   
-        checkButton.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().inset(50)
-            make.centerX.equalToSuperview()
+        checkLenghtLabel.snp.makeConstraints { make in
+            make.trailing.equalTo(nickNameLine.snp.trailing)
+            make.centerY.equalTo(nickNameTextField.snp.centerY)
         }
-        
+        checkButtonView.snp.makeConstraints { make in
+            make.bottom.equalToSuperview().inset(50)
+            make.height.equalTo(checkButtonView.snp.width).multipliedBy(0.2)
+            make.leading.trailing.equalToSuperview().inset(10)
+            
+            checkButton.snp.makeConstraints { make in
+                make.center.equalToSuperview()
+            }
+            
+        }
     }
+    
+    /// bind
+    private func bind() {
+        let input = NickNameViewModel.Input(startButtonTapped: checkButton.rx.tap.asObservable(),
+                                            nickNameTextChanged: nickNameTextField.rx.text.orEmpty.asObservable())
+        
+        let output = viewModel.bind(input: input)
+        
+        /// 글자수 출력 바인딩
+        output.nickNameLength
+         .map { "\($0)/10" }
+            .bind(to: checkLenghtLabel.rx.text)
+            .disposed(by: disposeBag)
+   
+        // 버튼 활성화 상태 및 색상 변경 바인딩
+        output.isCheckButtonEnabled
+               .observe(on: MainScheduler.instance)
+               .bind { [weak self] isEnabled in
+                   self?.checkButton.isEnabled = isEnabled
+                   self?.checkButtonView.backgroundColor = isEnabled ? UIColor.blue : UIColor.lightGray
+               }
+               .disposed(by: disposeBag)
+
+    }
+    
+    
+    // 키보드내리기
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         nickNameTextField.endEditing(true)
     }
-    
-    private func bind() {
-      
-        
-        let input = NickNameViewModel.Input(startButtonTapped: checkButton.rx.tap.asObservable())
-        
-        viewModel.bind(input: input)
-    }
-
 }

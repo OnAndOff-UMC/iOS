@@ -108,11 +108,19 @@
 			path = Launch;
 			sourceTree = "<group>";
 		};
+		376A4B5E2B551659004FBB56 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				378140602B42E83100F2AA5A /* NickNameViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		3781405F2B42E75000F2AA5A /* NickName */ = {
 			isa = PBXGroup;
 			children = (
+				376A4B5E2B551659004FBB56 /* ViewModel */,
 				378140642B42F08400F2AA5A /* ViewController */,
-				378140602B42E83100F2AA5A /* NickNameViewModel.swift */,
 			);
 			path = NickName;
 			sourceTree = "<group>";

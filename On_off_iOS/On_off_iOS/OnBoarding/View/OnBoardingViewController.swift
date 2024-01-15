@@ -146,7 +146,7 @@ final class OnBoardingViewController : UIViewController {
             startButtonTapped: startButtonTapOnLastPage
         )
         
-        let output = viewModel.bind(input: input)
+        let _ = viewModel.bind(input: input)
         
         // 나머지 페이지에서 버튼이 눌렸을 때의 동작
         nextButton.rx.tap
