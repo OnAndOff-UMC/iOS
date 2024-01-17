@@ -17,11 +17,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(windowScene: windowScene)
         let navigationController = UINavigationController()
-        
-        let onBoardingViewController = OnBoardingViewController(viewModel: OnBoardingViewModel(navigationController: navigationController))
-        onBoardingViewController.viewModel.navigationController = navigationController
-        
-        navigationController.viewControllers = [LaunchViewController()]//[onBoardingViewController]
+      
+        navigationController.viewControllers = [LaunchViewController()]
         
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()

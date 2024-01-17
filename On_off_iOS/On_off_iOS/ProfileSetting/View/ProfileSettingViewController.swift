@@ -93,33 +93,12 @@ final class ProfileSettingViewController: UIViewController {
         return lineView
     }()
     
-    /// 설명
-    private lazy var descriptions: UILabel = {
-        let label = UILabel()
-        label.text = "∙ 특수문자, 띄어쓰기를를 입력할 수 없습니다.\n∙ 최소 2글자, 최대 8글자 입력가능합니다."
-        label.numberOfLines = 2
-        label.textColor = .black
-        label.font = .systemFont(ofSize: 11)
-        return label
-    }()
-    
-    /// 완료 버튼
-    private lazy var doneButton: UIButton = {
-        let btn = UIButton()
-        btn.setTitle("완료", for: .normal)
-        btn.setTitleColor(.white, for: .normal)
-        btn.backgroundColor = .systemBlue
-        btn.layer.cornerRadius = 10
-        return btn
-    }()
-    
-
     private let nickNameExplainLabel: UILabel = {
         let label = UILabel()
         label.text = " 업무 분야, 직업, 연차는 추후에 ‘마이 페이지’에서 수정할 수 있어요. "
-        label.numberOfLines = 0
+        label.numberOfLines = 1
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 13, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 10, weight: .regular)
         return label
     }()
     
@@ -129,8 +108,13 @@ final class ProfileSettingViewController: UIViewController {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
         return button
     }()
+    private lazy var checkButtonView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .blue
+        return view
+    }()
     
-    var viewModel: ProfileSettingViewModel
+    private var viewModel: ProfileSettingViewModel
     private let disposeBag = DisposeBag()
     
     // MARK: - Init
@@ -144,13 +128,15 @@ final class ProfileSettingViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         addSubviews()
-        //bind()
+        setupBindings()
     }
-
+    
+    // 키보드내리기
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         fieldOfWorkTextField.endEditing(true)
@@ -164,79 +150,92 @@ final class ProfileSettingViewController: UIViewController {
         view.addSubview(fieldOfWork)
         view.addSubview(fieldOfWorkTextField)
         view.addSubview(fieldOfWorkLine)
-
+        
         view.addSubview(job)
         view.addSubview(jobTextField)
         view.addSubview(jobLine)
-
+        
         view.addSubview(annual)
         view.addSubview(annualTextField)
         view.addSubview(annualLine)
-
+        
         view.addSubview(nickNameExplainLabel)
-        view.addSubview(checkButton)
+        view.addSubview(checkButtonView)
+        checkButtonView.addSubview(checkButton)
         configureConstraints()
     }
     
     /// configureConstraints
     private func configureConstraints(){
-                
+        
         fieldOfWork.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(30)
-            make.leading.equalToSuperview().offset(30)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(100)
+            make.leading.equalToSuperview().offset(10)
         }
         fieldOfWorkTextField.snp.makeConstraints { make in
             make.top.equalTo(fieldOfWork.snp.bottom).offset(10)
-            make.centerX.equalToSuperview()
+            make.leading.equalToSuperview().inset(10)
             make.width.equalToSuperview().multipliedBy(0.8)
         }
         fieldOfWorkLine.snp.makeConstraints { make in
             make.top.equalTo(fieldOfWorkTextField.snp.bottom).offset(8)
-            make.leading.trailing.equalToSuperview().inset(30)
+            make.leading.trailing.equalToSuperview().inset(10)
             make.height.equalTo(1)
         }
         
         /// 직업
         job.snp.makeConstraints { make in
             make.top.equalTo(fieldOfWorkLine.snp.bottom).offset(50)
-            make.leading.equalToSuperview().offset(30)
+            make.leading.equalToSuperview().offset(10)
         }
         jobTextField.snp.makeConstraints { make in
             make.top.equalTo(job.snp.bottom).offset(10)
-            make.centerX.equalToSuperview()
+            make.leading.equalToSuperview().inset(10)
             make.width.equalToSuperview().multipliedBy(0.8)
         }
         jobLine.snp.makeConstraints { make in
             make.top.equalTo(jobTextField.snp.bottom).offset(8)
-            make.leading.trailing.equalToSuperview().inset(30)
+            make.leading.trailing.equalToSuperview().inset(10)
             make.height.equalTo(1)
         }
         
         /// 연차
         annual.snp.makeConstraints { make in
             make.top.equalTo(jobLine.snp.bottom).offset(50)
-            make.leading.equalToSuperview().offset(30)
+            make.leading.equalToSuperview().offset(10)
         }
         annualTextField.snp.makeConstraints { make in
             make.top.equalTo(annual.snp.bottom).offset(10)
-            make.centerX.equalToSuperview()
+            make.leading.equalToSuperview().inset(10)
             make.width.equalToSuperview().multipliedBy(0.8)
         }
         annualLine.snp.makeConstraints { make in
             make.top.equalTo(annualTextField.snp.bottom).offset(8)
-            make.leading.trailing.equalToSuperview().inset(30)
+            make.leading.trailing.equalToSuperview().inset(10)
             make.height.equalTo(1)
-
+            
         }
         nickNameExplainLabel.snp.makeConstraints { make in
             make.bottom.equalTo(checkButton.snp.top).offset(-20)
-            make.leading.trailing.equalToSuperview().inset(30)
+            make.leading.trailing.equalToSuperview().inset(10)
         }
         
-        checkButton.snp.makeConstraints { make in
+        checkButtonView.snp.makeConstraints { make in
             make.bottom.equalToSuperview().inset(50)
-            make.centerX.equalToSuperview()
+            make.height.equalTo(checkButtonView.snp.width).multipliedBy(0.15)
+            make.leading.trailing.equalToSuperview().inset(17)
+            
+        checkButton.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            }
         }
     }
-  
+    
+    /// 뷰모델과 setupBindings
+    private func setupBindings() {
+        let input = ProfileSettingViewModel.Input(startButtonTapped: checkButton.rx.tap.asObservable())
+        
+        viewModel.bind(input: input)
+        
+    }
 }

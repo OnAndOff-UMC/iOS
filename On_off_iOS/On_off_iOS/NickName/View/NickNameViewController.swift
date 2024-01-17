@@ -113,7 +113,7 @@ final class NickNameViewController: UIViewController {
         view.addSubview(nickNameExplainLabel)
         view.addSubview(checkButtonView)
         checkButtonView.addSubview(checkButton)
-
+        
         configureConstraints()
     }
     
@@ -121,7 +121,7 @@ final class NickNameViewController: UIViewController {
     private func configureConstraints(){
         
         welcomeLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(30)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(100)
             make.leading.equalToSuperview().offset(50)
         }
         
@@ -150,13 +150,11 @@ final class NickNameViewController: UIViewController {
         }
         checkButtonView.snp.makeConstraints { make in
             make.bottom.equalToSuperview().inset(50)
-            make.height.equalTo(checkButtonView.snp.width).multipliedBy(0.2)
-            make.leading.trailing.equalToSuperview().inset(10)
-            
-            checkButton.snp.makeConstraints { make in
-                make.center.equalToSuperview()
-            }
-            
+            make.height.equalTo(checkButtonView.snp.width).multipliedBy(0.15)
+            make.leading.trailing.equalToSuperview().inset(17)
+        }
+        checkButton.snp.makeConstraints { make in
+            make.center.equalToSuperview()
         }
     }
     

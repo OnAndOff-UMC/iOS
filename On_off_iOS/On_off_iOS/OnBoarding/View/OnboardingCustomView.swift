@@ -8,8 +8,15 @@
 import UIKit
 import SnapKit
 
+/// OnboardingCustomView
 final class OnboardingCustomView: UIView {
-    private let imageView = UIImageView()
+    
+    private lazy var onboardingImageView : UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    
     private let titleLabel = UILabel()
 
     // MARK: - Init
@@ -25,27 +32,26 @@ final class OnboardingCustomView: UIView {
 
     private func setupViews() {
         backgroundColor = .white
-        addSubview(imageView)
+        addSubview(onboardingImageView)
         addSubview(titleLabel)
 
-        imageView.contentMode = .scaleAspectFit
         titleLabel.numberOfLines = 0
         titleLabel.textAlignment = .center
 
-        imageView.snp.makeConstraints { make in
+        onboardingImageView.snp.makeConstraints { make in
             make.top.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.8)
             make.height.equalToSuperview().multipliedBy(0.5)
         }
 
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(imageView.snp.bottom).offset(10)
+            make.top.equalTo(onboardingImageView.snp.bottom).offset(10)
             make.leading.trailing.equalToSuperview().inset(20)
         }
     }
 
     func configure(imageName: String, text: String) {
-        imageView.image = UIImage(named: imageName)
+        onboardingImageView.image = UIImage(named: imageName)
         titleLabel.text = text
     }
 }

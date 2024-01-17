@@ -24,9 +24,7 @@ final class OnBoardingViewController : UIViewController {
         return scrollView
     }()
     let contentView = UIView()
-    
-    var viewModel: OnBoardingViewModel
-    
+        
     /// 현재 페이지 상태를 관리
     private var currentPage = BehaviorRelay<Int>(value: 0)
     private let totalPages = 3
@@ -56,8 +54,10 @@ final class OnBoardingViewController : UIViewController {
         button.setTitle("건너뛰기", for: .normal)
         return button
     }()
-    private let disposeBag = DisposeBag()
     
+    private let disposeBag = DisposeBag()
+    private var viewModel: OnBoardingViewModel
+
     // MARK: - Init
     init(viewModel: OnBoardingViewModel) {
         self.viewModel = viewModel
@@ -72,10 +72,16 @@ final class OnBoardingViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        setupUI()
         addSubViews()
         setupBindings()
+
     }
-    
+    private func setupUI(){
+        view.backgroundColor = .white
+        navigationController?.navigationBar.isHidden = true
+
+    }
     /// 온보딩 뷰들을 설정
     private func setupOnboardingViews(in contentView: UIView) {
         let onboardingData: [OnboardingItem] = [
@@ -194,6 +200,24 @@ final class OnBoardingViewController : UIViewController {
         // 현재 페이지 변경 감지
         currentPage.subscribe(onNext: { [weak self] page in
             guard let self = self else { return }
+            
+            let isLastPage = page == totalPages - 1
+            
+            // 마지막 페이지인 경우
+               if isLastPage {
+                   self.nextButton.snp.remakeConstraints { make in
+                       make.centerX.equalToSuperview()
+                       make.bottom.equalToSuperview().inset(30)
+                   }
+                   self.jumpButton.isHidden = true
+                   
+               } else {
+                   self.nextButton.snp.remakeConstraints { make in
+                       make.trailing.equalToSuperview().inset(17)
+                       make.bottom.equalToSuperview().inset(30)
+                   }
+                   self.jumpButton.isHidden = false
+               }
             
             let buttonTitle = page == self.totalPages - 1 ? "시작하기" : "다음"
             self.nextButton.setTitle(buttonTitle, for: .normal)

@@ -15,6 +15,10 @@
 		374FD49F2B42825B00F2E645 /* CustomPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374FD49E2B42825B00F2E645 /* CustomPageControl.swift */; };
 		374FD4A22B4294F100F2E645 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374FD4A12B4294F100F2E645 /* LoginViewController.swift */; };
 		374FD4A42B4297BE00F2E645 /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374FD4A32B4297BE00F2E645 /* OnBoardingViewController.swift */; };
+		3769A6862B58563000D79C33 /* SelectTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3769A6852B58563000D79C33 /* SelectTimeViewModel.swift */; };
+		3769A6882B58563C00D79C33 /* SelectTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3769A6872B58563C00D79C33 /* SelectTimeViewController.swift */; };
+		3769A68E2B585B6600D79C33 /* DayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3769A68D2B585B6600D79C33 /* DayButton.swift */; };
+		3769A6912B585BDE00D79C33 /* DayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3769A6902B585BDE00D79C33 /* DayModel.swift */; };
 		376A4B572B5504FE004FBB56 /* Lotties.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 376A4B562B5504FE004FBB56 /* Lotties.xcassets */; };
 		376A4B592B55054D004FBB56 /* onBoarding.json in Resources */ = {isa = PBXBuildFile; fileRef = 376A4B582B55054D004FBB56 /* onBoarding.json */; };
 		376A4B5C2B5506D7004FBB56 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 376A4B5B2B5506D7004FBB56 /* Lottie */; };
@@ -37,6 +41,10 @@
 		374FD49E2B42825B00F2E645 /* CustomPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPageControl.swift; sourceTree = "<group>"; };
 		374FD4A12B4294F100F2E645 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		374FD4A32B4297BE00F2E645 /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
+		3769A6852B58563000D79C33 /* SelectTimeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTimeViewModel.swift; sourceTree = "<group>"; };
+		3769A6872B58563C00D79C33 /* SelectTimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTimeViewController.swift; sourceTree = "<group>"; };
+		3769A68D2B585B6600D79C33 /* DayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayButton.swift; sourceTree = "<group>"; };
+		3769A6902B585BDE00D79C33 /* DayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayModel.swift; sourceTree = "<group>"; };
 		376A4B562B5504FE004FBB56 /* Lotties.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Lotties.xcassets; sourceTree = "<group>"; };
 		376A4B582B55054D004FBB56 /* onBoarding.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = onBoarding.json; sourceTree = "<group>"; };
 		378140602B42E83100F2AA5A /* NickNameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameViewModel.swift; sourceTree = "<group>"; };
@@ -75,8 +83,8 @@
 			isa = PBXGroup;
 			children = (
 				3787D00D2B42A85900F054DD /* Model */,
-				3787D00C2B42A84900F054DD /* ViewModel */,
 				3787D00B2B42A84100F054DD /* View */,
+				3787D00C2B42A84900F054DD /* ViewModel */,
 			);
 			path = OnBoarding;
 			sourceTree = "<group>";
@@ -88,6 +96,57 @@
 				3787D0142B42E5A500F054DD /* ViewModel */,
 			);
 			path = LogIn;
+			sourceTree = "<group>";
+		};
+		3769A6842B58561D00D79C33 /* SelectTime */ = {
+			isa = PBXGroup;
+			children = (
+				3769A6892B58564100D79C33 /* View */,
+				3769A68C2B5856C200D79C33 /* ViewModel */,
+				3769A68F2B585BCF00D79C33 /* Model */,
+			);
+			path = SelectTime;
+			sourceTree = "<group>";
+		};
+		3769A6892B58564100D79C33 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3769A6872B58563C00D79C33 /* SelectTimeViewController.swift */,
+				3769A68D2B585B6600D79C33 /* DayButton.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3769A68A2B58566400D79C33 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				378140622B42F07A00F2AA5A /* ProfileSettingViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3769A68B2B58566B00D79C33 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				378140652B42F0AB00F2AA5A /* ProfileSettingViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		3769A68C2B5856C200D79C33 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				3769A6852B58563000D79C33 /* SelectTimeViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		3769A68F2B585BCF00D79C33 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3769A6902B585BDE00D79C33 /* DayModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		376A4B552B5504AB004FBB56 /* Assets */ = {
@@ -120,17 +179,17 @@
 			isa = PBXGroup;
 			children = (
 				376A4B5E2B551659004FBB56 /* ViewModel */,
-				378140642B42F08400F2AA5A /* ViewController */,
+				378140642B42F08400F2AA5A /* View */,
 			);
 			path = NickName;
 			sourceTree = "<group>";
 		};
-		378140642B42F08400F2AA5A /* ViewController */ = {
+		378140642B42F08400F2AA5A /* View */ = {
 			isa = PBXGroup;
 			children = (
 				3787D0122B42E0F000F054DD /* NickNameViewController.swift */,
 			);
-			path = ViewController;
+			path = View;
 			sourceTree = "<group>";
 		};
 		3787D00B2B42A84100F054DD /* View */ = {
@@ -178,8 +237,8 @@
 		379380CC2B44282B00BB7BDE /* ProfileSetting */ = {
 			isa = PBXGroup;
 			children = (
-				378140622B42F07A00F2AA5A /* ProfileSettingViewController.swift */,
-				378140652B42F0AB00F2AA5A /* ProfileSettingViewModel.swift */,
+				3769A68A2B58566400D79C33 /* View */,
+				3769A68B2B58566B00D79C33 /* ViewModel */,
 			);
 			path = ProfileSetting;
 			sourceTree = "<group>";
@@ -203,6 +262,7 @@
 		3B42300C2B41572200D0B038 /* On_off_iOS */ = {
 			isa = PBXGroup;
 			children = (
+				3769A6842B58561D00D79C33 /* SelectTime */,
 				376A4B5D2B5514B4004FBB56 /* Launch */,
 				379380CC2B44282B00BB7BDE /* ProfileSetting */,
 				3781405F2B42E75000F2AA5A /* NickName */,
@@ -314,10 +374,14 @@
 				3787D00F2B42AD6F00F054DD /* OnBoardingViewModel.swift in Sources */,
 				374FD4A22B4294F100F2E645 /* LoginViewController.swift in Sources */,
 				374FD49F2B42825B00F2E645 /* CustomPageControl.swift in Sources */,
+				3769A6862B58563000D79C33 /* SelectTimeViewModel.swift in Sources */,
 				374FD4A42B4297BE00F2E645 /* OnBoardingViewController.swift in Sources */,
+				3769A6882B58563C00D79C33 /* SelectTimeViewController.swift in Sources */,
 				3787D0082B429C1100F054DD /* OnboardingModel.swift in Sources */,
 				378140662B42F0AB00F2AA5A /* ProfileSettingViewModel.swift in Sources */,
 				3B42300E2B41572200D0B038 /* AppDelegate.swift in Sources */,
+				3769A68E2B585B6600D79C33 /* DayButton.swift in Sources */,
+				3769A6912B585BDE00D79C33 /* DayModel.swift in Sources */,
 				374FD49D2B4281E100F2E645 /* OnboardingCustomView.swift in Sources */,
 				3B4230102B41572200D0B038 /* SceneDelegate.swift in Sources */,
 				378140632B42F07A00F2AA5A /* ProfileSettingViewController.swift in Sources */,

@@ -80,7 +80,7 @@ final class LoginViewController: UIViewController {
     private func configureConstraints(){
         
         welcomeLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(30)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(100)
             make.leading.equalToSuperview().offset(50)
         }
         
@@ -108,7 +108,6 @@ final class LoginViewController: UIViewController {
             kakaoButtonTapped: kakaoLoginButton.rx.tap.asObservable(),
             appleButtonTapped: appleLoginButton.rx.tap.asObservable()
         )
-        
         viewModel.bind(input: input)
     }
     
