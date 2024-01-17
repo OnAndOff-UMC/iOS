@@ -5,6 +5,7 @@
 //  Created by 정호진 on 1/7/24.
 //
 
+import FSCalendar
 import Foundation
 import RxCocoa
 import RxSwift
@@ -80,6 +81,22 @@ final class StatisticsViewController: UIViewController {
         return label
     }()
     
+    /// 캘린더 백그라운드 뷰
+    private lazy var calendarBackgroundUIView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .lightGray
+        view.layer.cornerRadius = 20
+        return view
+    }()
+    
+    /// 캘린더 뷰
+    private lazy var calendarView: FSCalendar = {
+        let view = FSCalendar()
+        view.scrollDirection = .horizontal
+        view.backgroundColor = .clear
+        return view
+    }()
+    
     private let viewModel: StatisticsViewModel = StatisticsViewModel()
     private let disposeBag = DisposeBag()
     
@@ -102,6 +119,9 @@ final class StatisticsViewController: UIViewController {
         contentView.addSubview(monthChartView)
         contentView.addSubview(writeRateUIView)
         writeRateUIView.addSubview(writeRateUILabel)
+        contentView.addSubview(calendarBackgroundUIView)
+        calendarBackgroundUIView.addSubview(calendarView)
+        
         constraints()
     }
     
@@ -147,7 +167,6 @@ final class StatisticsViewController: UIViewController {
         writeRateUIView.snp.makeConstraints { make in
             make.top.equalTo(weekChartUIView.snp.bottom).offset(50)
             make.horizontalEdges.equalToSuperview().inset(20)
-            make.bottom.equalToSuperview()
             make.height.equalTo(130)
         }
         
@@ -156,9 +175,20 @@ final class StatisticsViewController: UIViewController {
             make.verticalEdges.equalToSuperview().inset(20)
         }
         
+        calendarBackgroundUIView.snp.makeConstraints { make in
+            make.top.equalTo(writeRateUIView.snp.bottom).offset(30)
+            make.horizontalEdges.equalToSuperview().inset(30)
+            make.bottom.equalToSuperview()
+            make.height.equalTo(view.safeAreaLayoutGuide.layoutFrame.width).multipliedBy(0.5)
+        }
+        
+        calendarView.snp.makeConstraints { make in
+            make.top.bottom.leading.trailing.equalToSuperview()
+        }
+        
     }
     
-    /// binding
+    /// Binding
     private func bind() {
         let output = viewModel.createoutput()
         
@@ -191,6 +221,8 @@ final class StatisticsViewController: UIViewController {
             .disposed(by: disposeBag)
     }
 }
+
+
 
 import SwiftUI
 struct VCPreViewStatisticsViewController:PreviewProvider {
