@@ -10,10 +10,12 @@ import RxRelay
 import RxSwift
 import UIKit
 
+/// ProfileSettingViewModel
 final class ProfileSettingViewModel {
     private let disposeBag = DisposeBag()
-    var navigationController: UINavigationController
+    private var navigationController: UINavigationController
     
+    /// Input
     struct Input {
         let startButtonTapped: Observable<Void>
     }

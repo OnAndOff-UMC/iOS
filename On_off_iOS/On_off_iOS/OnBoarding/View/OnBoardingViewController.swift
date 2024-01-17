@@ -23,59 +23,59 @@ final class OnBoardingViewController : UIViewController {
         scrollView.delegate = self
         return scrollView
     }()
+    let contentView = UIView()
+    
     var viewModel: OnBoardingViewModel
-
-    private let customPageControl = CustomPageControl()
-    private let nextButton = UIButton(type: .system)
-    private let disposeBag = DisposeBag()
     
     /// 현재 페이지 상태를 관리
     private var currentPage = BehaviorRelay<Int>(value: 0)
     private let totalPages = 3
+    
+    private let customPageControl : CustomPageControl = {
+        let customPageControl = CustomPageControl()
+        customPageControl.numberOfPages = 3
+        return customPageControl
+    }()
+    
+    /// 다음, 건너뛰기 버튼아래 뷰
+    private lazy var buttonView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .blue
+        return view
+    }()
+    /// 다음버튼
+    private let nextButton : UIButton = {
+        let button = UIButton()
+        button.setTitle("다음 >", for: .normal)
+        return button
+    }()
+    
+    /// 건너뛰기 버튼
+    private let jumpButton : UIButton = {
+        let button = UIButton()
+        button.setTitle("건너뛰기", for: .normal)
+        return button
+    }()
+    private let disposeBag = DisposeBag()
     
     // MARK: - Init
     init(viewModel: OnBoardingViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
-    
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        setupScrollView()
-        setupCustomPageControl()
-        setupNextButton()
+        addSubViews()
         setupBindings()
     }
     
-    private func setupScrollView() {
-        view.addSubview(scrollView)
-        
-        scrollView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(70)
-            make.horizontalEdges.equalToSuperview()
-            make.bottom.equalToSuperview()
-        }
-        
-        setupContentView()
-    }
-    private func setupContentView() {
-        let contentView = UIView()
-        scrollView.addSubview(contentView)
-        
-        contentView.snp.makeConstraints { make in
-            make.edges.equalTo(scrollView)
-            make.height.equalTo(scrollView)
-            make.width.equalTo(scrollView.snp.width).multipliedBy(totalPages)
-        }
-        
-        setupOnboardingViews(in: contentView)
-    }
     /// 온보딩 뷰들을 설정
     private func setupOnboardingViews(in contentView: UIView) {
         let onboardingData: [OnboardingItem] = [
@@ -113,26 +113,55 @@ final class OnBoardingViewController : UIViewController {
         }
     }
     
-    private func setupCustomPageControl() {
-        customPageControl.numberOfPages = totalPages
+    /// addSubViews
+    private func addSubViews(){
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
         view.addSubview(customPageControl)
+        view.addSubview(buttonView)
+        buttonView.addSubview(nextButton)
+        buttonView.addSubview(jumpButton)
+
+        configureConstraints()
+        setupOnboardingViews(in: contentView)
+
+    }
+    
+    /// configureConstraints
+    private func configureConstraints() {
+        scrollView.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(70)
+            make.horizontalEdges.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+        
+        contentView.snp.makeConstraints { make in
+            make.edges.equalTo(scrollView)
+            make.height.equalTo(scrollView)
+            make.width.equalTo(scrollView.snp.width).multipliedBy(totalPages)
+        }
         
         customPageControl.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(80)
         }
-    }
-    
-    private func setupNextButton() {
-        nextButton.setTitle("다음", for: .normal)
-        view.addSubview(nextButton)
         
+        /// Bottom button View
+        buttonView.snp.makeConstraints { make in
+            make.leading.trailing.bottom.equalToSuperview()
+            make.height.equalTo(buttonView.snp.width).multipliedBy(0.2)
+        }
         nextButton.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
+            make.trailing.equalToSuperview().inset(17)
+            make.bottom.equalToSuperview().inset(30)
+        }
+        jumpButton.snp.makeConstraints { make in
+            make.leading.equalToSuperview().inset(17)
             make.bottom.equalToSuperview().inset(30)
         }
     }
     
+    /// ViewModel과 bind
     private func setupBindings() {
         let startButtonTapOnLastPage = nextButton.rx.tap
             .withLatestFrom(currentPage.asObservable())
@@ -143,7 +172,8 @@ final class OnBoardingViewController : UIViewController {
             .map { _ in Void() }
         
         let input = OnBoardingViewModel.Input(
-            startButtonTapped: startButtonTapOnLastPage
+            startButtonTapped: startButtonTapOnLastPage, 
+            jumpButtonTapped: jumpButton.rx.tap.asObservable()
         )
         
         let _ = viewModel.bind(input: input)

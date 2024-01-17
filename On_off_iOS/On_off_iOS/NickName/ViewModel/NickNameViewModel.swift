@@ -14,11 +14,13 @@ final class NickNameViewModel {
     private let disposeBag = DisposeBag()
     var navigationController: UINavigationController
 
+    /// Input
     struct Input {
         let startButtonTapped: Observable<Void>
         let nickNameTextChanged: Observable<String>
        }
     
+    /// Output
     struct Output {
         let nickNameFilteringRelay: BehaviorRelay<String> = BehaviorRelay<String>(value: "")
         let nickNameLength: PublishSubject<Int> = PublishSubject<Int>()
@@ -65,6 +67,7 @@ final class NickNameViewModel {
         return nickName.range(of: regex, options: .regularExpression) != nil
     }
     
+    /// 프로필설정으로 이동
     private func moveToProfile() {
         let profileViewModel = ProfileSettingViewModel(navigationController: navigationController)
         let vc = ProfileSettingViewController(viewModel: profileViewModel)

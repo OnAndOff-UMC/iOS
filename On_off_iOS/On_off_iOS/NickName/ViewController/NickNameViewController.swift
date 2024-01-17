@@ -21,9 +21,10 @@ final class NickNameViewController: UIViewController {
         return label
     }()
     
+    /// 닉네임 관련
     private let nickNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "닉네임"
+        label.text = "닉네임을 설정해주세요"
         label.textColor = .black
         label.font = .systemFont(ofSize: 20, weight: .bold)
         return label
@@ -39,21 +40,25 @@ final class NickNameViewController: UIViewController {
         field.layer.borderWidth = 0
         return field
     }()
+    
     private lazy var nickNameLine: UIView = {
         let lineView = UIView()
         lineView.backgroundColor = .black
         return lineView
     }()
     
+    /// 닉네임 글자 수
     private let checkLenghtLabel: UILabel = {
         let label = UILabel()
         label.text = "(0/10)"
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 13, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+        label.textColor = .lightGray
         return label
     }()
     
+    /// 닉네임 조건 설명
     private let nickNameExplainLabel: UILabel = {
         let label = UILabel()
         label.text = " 한글, 영어, 숫자, 특수문자(. , ! _ ~)로만 구성할 수 있어요 "
@@ -75,8 +80,7 @@ final class NickNameViewController: UIViewController {
         return view
     }()
     
-    
-    var viewModel: NickNameViewModel
+    private var viewModel: NickNameViewModel
     private let disposeBag = DisposeBag()
     
     // MARK: - Init
@@ -90,12 +94,12 @@ final class NickNameViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: ViewDidLoad()
+    // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         addSubviews()
-        bind()
+        setupBindings()
     }
     
     /// addSubviews
@@ -156,8 +160,8 @@ final class NickNameViewController: UIViewController {
         }
     }
     
-    /// bind
-    private func bind() {
+    /// 뷰모델과 setupBindings
+    private func setupBindings() {
         let input = NickNameViewModel.Input(startButtonTapped: checkButton.rx.tap.asObservable(),
                                             nickNameTextChanged: nickNameTextField.rx.text.orEmpty.asObservable())
         
@@ -165,7 +169,7 @@ final class NickNameViewController: UIViewController {
         
         /// 글자수 출력 바인딩
         output.nickNameLength
-         .map { "\($0)/10" }
+         .map { "(\($0)/10)" }
             .bind(to: checkLenghtLabel.rx.text)
             .disposed(by: disposeBag)
    
@@ -179,7 +183,6 @@ final class NickNameViewController: UIViewController {
                .disposed(by: disposeBag)
 
     }
-    
     
     // 키보드내리기
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

@@ -12,7 +12,6 @@ import RxCocoa
 ///로그인 화면
 final class LoginViewController: UIViewController {
     
-
     private let welcomeLabel: UILabel = {
         let label = UILabel()
         label.text = "반가워요!\n우리 같이 시작해볼까요?"
@@ -22,6 +21,7 @@ final class LoginViewController: UIViewController {
         return label
     }()
     
+    /// 로그인 버튼
     private let kakaoLoginButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("카카오 로그인 ", for: .normal)
@@ -35,6 +35,7 @@ final class LoginViewController: UIViewController {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
         return button
     }()
+    
     /// 이용약관 라벨
     private let termsLabel: UILabel = {
         let label = UILabel()
@@ -63,7 +64,7 @@ final class LoginViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         addSubviews()
-        bind()
+        setupBindings()
     }
     
     /// addSubviews
@@ -101,7 +102,8 @@ final class LoginViewController: UIViewController {
         
     }
 
-    private func bind() {
+    /// ViewModel과 bind
+    private func setupBindings() {
         let input = LoginViewModel.Input(
             kakaoButtonTapped: kakaoLoginButton.rx.tap.asObservable(),
             appleButtonTapped: appleLoginButton.rx.tap.asObservable()

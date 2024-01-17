@@ -14,8 +14,10 @@ final class OnBoardingViewModel {
     private let disposeBag = DisposeBag()
     var navigationController: UINavigationController
 
+    /// Input
     struct Input {
         let startButtonTapped: Observable<Void>
+        let jumpButtonTapped: Observable<Void>
     }
 
     // MARK: - Init
@@ -23,14 +25,23 @@ final class OnBoardingViewModel {
         self.navigationController = navigationController
     }
     
+    /// bind
+    /// - Parameter input:startButtonTapped, jumpButtonTapped
     func bind(input: Input) {
         input.startButtonTapped
                 .bind { [weak self] in
                     self?.moveToLogin()
                 }
                 .disposed(by: disposeBag)
+        
+        input.jumpButtonTapped
+                .bind { [weak self] in
+                    self?.moveToLogin()
+                }
+                .disposed(by: disposeBag)
     }
     
+    /// 로그인 화면으로 이동
     private func moveToLogin() {
         let loginViewModel = LoginViewModel(navigationController: navigationController)
         let vc = LoginViewController(viewModel: loginViewModel)

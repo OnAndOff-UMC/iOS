@@ -10,10 +10,12 @@ import RxRelay
 import RxSwift
 import UIKit
 
+/// LoginViewModel
 final class LoginViewModel {
     private let disposeBag = DisposeBag()
     var navigationController: UINavigationController
 
+    /// Input
     struct Input {
         let kakaoButtonTapped: Observable<Void>
         let appleButtonTapped: Observable<Void>
@@ -24,6 +26,8 @@ final class LoginViewModel {
         self.navigationController = navigationController
     }
     
+    /// bind
+    /// - Parameter input: kakaoButtonTapped, appleButtonTapped
     func bind(input: Input) {
         input.kakaoButtonTapped
                 .bind { [weak self] in
@@ -38,6 +42,7 @@ final class LoginViewModel {
                 .disposed(by: disposeBag)
     }
     
+    /// 닉네임 설정으로 이동
     private func moveToNickName() {
         let vc = NickNameViewController(viewModel: NickNameViewModel(navigationController: navigationController))
         navigationController.pushViewController(vc, animated: true)

@@ -21,7 +21,6 @@ final class ProfileSettingViewController: UIViewController {
         return label
     }()
     
-    /// 업무분야
     private lazy var fieldOfWorkTextField: UITextField = {
         let field = UITextField()
         field.attributedPlaceholder = NSAttributedString(string: "예시) 커머스, 여행, 소셜, AI, 제조업 등",
@@ -32,11 +31,13 @@ final class ProfileSettingViewController: UIViewController {
         field.layer.borderWidth = 0
         return field
     }()
+    
     private lazy var fieldOfWorkLine: UIView = {
         let lineView = UIView()
         lineView.backgroundColor = .black
         return lineView
     }()
+    
     /// 직업
     private lazy var job: UILabel = {
         let label = UILabel()
@@ -46,7 +47,6 @@ final class ProfileSettingViewController: UIViewController {
         return label
     }()
     
-    /// 직업
     private lazy var jobTextField: UITextField = {
         let field = UITextField()
         field.attributedPlaceholder = NSAttributedString(string: "예시) 서비스 기획자, UX 디자이너, 개발자 등",
@@ -76,7 +76,6 @@ final class ProfileSettingViewController: UIViewController {
         return label
     }()
     
-    /// 연차
     private lazy var annualTextField: UITextField = {
         let field = UITextField()
         field.attributedPlaceholder = NSAttributedString(string: "예시) 인턴, 신입, 1년, 5년 이상, 시니어 등 ",
