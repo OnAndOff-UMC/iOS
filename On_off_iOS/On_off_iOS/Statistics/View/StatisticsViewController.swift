@@ -76,7 +76,7 @@ final class StatisticsViewController: UIViewController {
         let label = UILabel()
         label.backgroundColor = .clear
         label.numberOfLines = 2
-        label.textAlignment = .center
+        label.textAlignment = .left
         label.textColor = .black
         return label
     }()
@@ -89,11 +89,36 @@ final class StatisticsViewController: UIViewController {
         return view
     }()
     
+    /// 이전 달로 이동 버튼
+    private let prevMonthButton: UIButton = {
+        let btn = UIButton(type: .system)
+        btn.setImage(UIImage(systemName: "chevron.left"), for: .normal)
+        btn.tintColor = .black
+        return btn
+    }()
+    
+    /// 다음 달로 이동 버튼
+    private let nextMonthButton: UIButton = {
+        let btn = UIButton(type: .system)
+        btn.setImage(UIImage(systemName: "chevron.right"), for: .normal)
+        btn.tintColor = .black
+        return btn
+    }()
+    
     /// 캘린더 뷰
     private lazy var calendarView: FSCalendar = {
         let view = FSCalendar()
         view.scrollDirection = .horizontal
         view.backgroundColor = .clear
+        view.delegate = self
+        view.dataSource = self
+        
+        // 오늘 날짜 색상 변경
+        view.appearance.todayColor = .clear
+        view.appearance.titleTodayColor = .black
+        
+        view.appearance.weekdayTextColor = .black
+        
         return view
     }()
     
@@ -171,7 +196,7 @@ final class StatisticsViewController: UIViewController {
         }
         
         writeRateUILabel.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(10)
+            make.centerX.equalToSuperview()
             make.verticalEdges.equalToSuperview().inset(20)
         }
         
@@ -220,6 +245,29 @@ final class StatisticsViewController: UIViewController {
             }
             .disposed(by: disposeBag)
     }
+    
+    /// Set Actions
+    private func setAction() {
+        [prevMonthButton, nextMonthButton].forEach {
+            $0.addTarget(self, action: #selector(moveMonthButtonDidTap(sender:)), for: .touchUpInside)
+        }
+    }
+    
+    /// 월 이동 버튼 눌렀을 때
+    @objc
+    private func moveMonthButtonDidTap(sender: UIButton) {
+        moveMonth(next: sender == nextMonthButton)
+    }
+    
+    /// 달 이동 로직
+    func moveMonth(next: Bool) {
+        calendarView.setCurrentPage(calendarView.currentPage + 1, animated: true)
+    }
+    
+}
+
+extension StatisticsViewController: FSCalendarDelegate, FSCalendarDataSource {
+    
 }
 
 

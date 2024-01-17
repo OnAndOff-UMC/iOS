@@ -12,6 +12,10 @@ import UIKit
 
 final class StatisticsViewModel {
     
+    struct Input {
+        
+    }
+    
     struct Output {
         var monthTitleRelay: BehaviorRelay<String> = BehaviorRelay(value: "")
         var monthStatisticsRelay: BehaviorRelay<MonthStatistics?> = BehaviorRelay(value: nil)
