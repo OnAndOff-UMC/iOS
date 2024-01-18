@@ -45,7 +45,7 @@ final class LoginViewController: UIViewController {
         return label
     }()
     
-    var viewModel: LoginViewModel
+    private let viewModel: LoginViewModel
     private let disposeBag = DisposeBag()
     
     // MARK: - Init

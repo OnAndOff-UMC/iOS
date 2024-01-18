@@ -21,6 +21,7 @@ final class ProfileSettingViewController: UIViewController {
         return label
     }()
     
+    /// 업무분야 - 텍스트 필드
     private lazy var fieldOfWorkTextField: UITextField = {
         let field = UITextField()
         field.attributedPlaceholder = NSAttributedString(string: "예시) 커머스, 여행, 소셜, AI, 제조업 등",
@@ -32,6 +33,7 @@ final class ProfileSettingViewController: UIViewController {
         return field
     }()
     
+    /// 업무분야 - 밑줄
     private lazy var fieldOfWorkLine: UIView = {
         let lineView = UIView()
         lineView.backgroundColor = .black
@@ -46,7 +48,7 @@ final class ProfileSettingViewController: UIViewController {
         label.font = .systemFont(ofSize: 20, weight: .bold)
         return label
     }()
-    
+    /// 직업 - 텍스트 필드
     private lazy var jobTextField: UITextField = {
         let field = UITextField()
         field.attributedPlaceholder = NSAttributedString(string: "예시) 서비스 기획자, UX 디자이너, 개발자 등",
@@ -61,6 +63,8 @@ final class ProfileSettingViewController: UIViewController {
         
         return field
     }()
+    
+    /// 직업 - 밑줄
     private lazy var jobLine : UIView = {
         let lineView = UIView()
         lineView.backgroundColor = .black
@@ -76,6 +80,7 @@ final class ProfileSettingViewController: UIViewController {
         return label
     }()
     
+    /// 연차 - 텍스트 필드
     private lazy var annualTextField: UITextField = {
         let field = UITextField()
         field.attributedPlaceholder = NSAttributedString(string: "예시) 인턴, 신입, 1년, 5년 이상, 시니어 등 ",
@@ -87,6 +92,7 @@ final class ProfileSettingViewController: UIViewController {
         return field
     }()
     
+    /// 연차 - 밑줄
     private lazy var annualLine: UIView = {
         let lineView = UIView()
         lineView.backgroundColor = .black
@@ -142,8 +148,8 @@ final class ProfileSettingViewController: UIViewController {
         fieldOfWorkTextField.endEditing(true)
         jobTextField.endEditing(true)
         annualTextField.endEditing(true)
-        
     }
+    
     /// addSubviews
     private func addSubviews(){
         

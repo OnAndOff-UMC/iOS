@@ -179,7 +179,6 @@ final class NickNameViewController: UIViewController {
                    self?.checkButtonView.backgroundColor = isEnabled ? UIColor.blue : UIColor.lightGray
                }
                .disposed(by: disposeBag)
-
     }
     
     // 키보드내리기

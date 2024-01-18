@@ -11,12 +11,14 @@ import SnapKit
 /// OnboardingCustomView
 final class OnboardingCustomView: UIView {
     
+    /// 온보딩 이미지뷰
     private lazy var onboardingImageView : UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
+    /// 온보딩 글
     private let titleLabel = UILabel()
 
     // MARK: - Init
@@ -30,6 +32,7 @@ final class OnboardingCustomView: UIView {
         setupViews()
     }
 
+    /// setupViews
     private func setupViews() {
         backgroundColor = .white
         addSubview(onboardingImageView)
@@ -50,6 +53,7 @@ final class OnboardingCustomView: UIView {
         }
     }
 
+    /// configure
     func configure(imageName: String, text: String) {
         onboardingImageView.image = UIImage(named: imageName)
         titleLabel.text = text

@@ -21,7 +21,7 @@ final class LaunchViewController: UIViewController {
         return view
     }()
 
-    // MARK: - Init
+    // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -40,8 +40,9 @@ final class LaunchViewController: UIViewController {
     /// 애니메이션 끝나는 시간
     private func setupPassTime(){
         animationView.play { [weak self] (finished) in
+            guard let self = self else { return }
             if finished {
-                self?.moveToMain()
+                moveToMain()
             }
         }
     }

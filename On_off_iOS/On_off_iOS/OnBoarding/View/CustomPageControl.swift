@@ -43,14 +43,15 @@ final class CustomPageControl: UIView {
                 dot.backgroundColor = .gray
                 dot.frame.size = activeDotSize
                 dot.layer.cornerRadius = activeDotSize.height / 2
-            } else {
+                continue
+            }
                 dot.backgroundColor = .lightGray
                 dot.frame.size = inactiveDotSize
                 dot.layer.cornerRadius = inactiveDotSize.height / 2
-            }
         }
         setNeedsLayout()
     }
+    
     /// 뷰의 서브뷰 레이아웃을 설정
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -61,6 +62,7 @@ final class CustomPageControl: UIView {
             currentX += dot.frame.width + 10
         }
     }
+    
     /// 스크롤에 따라 페이지 인디케이터 업데이트
     func updateForScroll(offsetX: CGFloat, scrollViewWidth: CGFloat) {
         let page = offsetX / scrollViewWidth
@@ -75,14 +77,16 @@ final class CustomPageControl: UIView {
         let progress = page - CGFloat(currentPage)
         
         for (index, dot) in dotViews.enumerated() {
+            dot.frame.size = inactiveDotSize
+            dot.frame.size = inactiveDotSize
+            
             if index == currentPage {
                 let activeWidth = inactiveDotSize.width + (activeDotSize.width - inactiveDotSize.width) * (1 - progress)
                 dot.frame.size = CGSize(width: activeWidth, height: dot.frame.height)
-            } else if index == nextPage {
+            }
+            if index == nextPage {
                 let activeWidth = inactiveDotSize.width + (activeDotSize.width - inactiveDotSize.width) * progress
                 dot.frame.size = CGSize(width: activeWidth, height: dot.frame.height)
-            } else {
-                dot.frame.size = inactiveDotSize
             }
             dot.layer.cornerRadius = dot.frame.height / 2
         }

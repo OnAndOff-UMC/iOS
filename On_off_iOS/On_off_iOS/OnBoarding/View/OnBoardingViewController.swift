@@ -202,7 +202,13 @@ final class OnBoardingViewController : UIViewController {
             guard let self = self else { return }
             
             let isLastPage = page == totalPages - 1
-            
+            self.nextButton.snp.remakeConstraints { make in
+                make.trailing.equalToSuperview().inset(17)
+                make.bottom.equalToSuperview().inset(30)
+            }
+                self.jumpButton.isHidden = false
+
+               
             // 마지막 페이지인 경우
                if isLastPage {
                    self.nextButton.snp.remakeConstraints { make in
@@ -210,13 +216,6 @@ final class OnBoardingViewController : UIViewController {
                        make.bottom.equalToSuperview().inset(30)
                    }
                    self.jumpButton.isHidden = true
-                   
-               } else {
-                   self.nextButton.snp.remakeConstraints { make in
-                       make.trailing.equalToSuperview().inset(17)
-                       make.bottom.equalToSuperview().inset(30)
-                   }
-                   self.jumpButton.isHidden = false
                }
             
             let buttonTitle = page == self.totalPages - 1 ? "시작하기" : "다음"
