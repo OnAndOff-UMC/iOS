@@ -11,7 +11,7 @@ import RxCocoa
 import SnapKit
 
 class HomeViewController: UIViewController, UICollectionViewDelegateFlowLayout {
-    private9 let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
     private var collectionView: UICollectionView!
     private let items: [String] = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]
     private let items2: [String] = ["18", "19", "20", "21", "22", "23", "24"]
