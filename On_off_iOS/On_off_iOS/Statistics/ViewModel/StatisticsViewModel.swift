@@ -20,12 +20,26 @@ final class StatisticsViewModel {
     }
     
     struct Output {
+        /// 달 제목
         var monthTitleRelay: BehaviorRelay<String> = BehaviorRelay(value: "")
+        
+        /// 햇빛, 달 통계
         var monthStatisticsRelay: BehaviorRelay<MonthStatistics?> = BehaviorRelay(value: nil)
+        
+        /// 몇 주차 제목
         var weekTitleRelay: BehaviorRelay<String> = BehaviorRelay(value: "")
+        
+        /// 주차 별 통계 (막대 그래프)
         var weekStatisticsRelay: BehaviorRelay<DayStatistics?> = BehaviorRelay(value: nil)
+        
+        /// 회고 작성 비율
         var writeRateRelay: BehaviorRelay<NSMutableAttributedString?> = BehaviorRelay(value: nil)
+        
+        /// 달 옮기는 Relay
         var moveMonthRelay: BehaviorSubject<Int> = BehaviorSubject(value: 0)
+        
+        /// 캘린더 작성 비율
+        var calendarListRelay: BehaviorRelay<[CalendarStatistics]> = BehaviorRelay(value: [])
     }
     
     /// Create Output
@@ -47,6 +61,7 @@ final class StatisticsViewModel {
         weekDummy(output: output)
         monthDummy(output: output)
         writeRateDummy(output: output)
+        dummyCalendar(output: output)
         return output
     }
     
@@ -62,7 +77,7 @@ final class StatisticsViewModel {
                                                         sunday: 0.2))
     }
     
-    /// 한달치 낮,밤 통계 
+    /// 한달치 낮, 밤 통계
     private func monthDummy(output: Output) {
         output.monthTitleRelay.accept("2023년 11월")
         output.monthStatisticsRelay.accept(MonthStatistics(dayTime: 0.3, nightTime: 0.6))
@@ -83,5 +98,17 @@ final class StatisticsViewModel {
         output.writeRateRelay.accept(attributedString)
     }
     
-    
+    /// 캘린더 더미 데이터
+    private func dummyCalendar(output: Output) {
+        let list = [
+            CalendarStatistics(date: "2024-01-24", rate: 0.25),
+            CalendarStatistics(date: "2024-01-02", rate: 0.5),
+            CalendarStatistics(date: "2024-01-04", rate: 0.75),
+            CalendarStatistics(date: "2024-01-10", rate: 1),
+            CalendarStatistics(date: "2024-01-14", rate: 0.5),
+            CalendarStatistics(date: "2024-01-24", rate: 0.25),
+        ]
+        
+        output.calendarListRelay.accept(list)
+    }
 }

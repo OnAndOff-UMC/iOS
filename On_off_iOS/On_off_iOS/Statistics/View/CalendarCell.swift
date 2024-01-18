@@ -17,7 +17,7 @@ final class CalendarCell: FSCalendarCell {
     /// 동그라미 뒷 배경
     private lazy var backGroundUIView: UIView = {
         let view = UIView()
-        view.backgroundColor = .blue
+        view.backgroundColor = .lightGray
         return view
     }()
 
@@ -26,7 +26,6 @@ final class CalendarCell: FSCalendarCell {
         let view = RateFillView()
         view.backgroundColor = .clear
         view.clipsToBounds = true
-        view.setPercent(0.5)
         return view
     }()
     
@@ -72,5 +71,13 @@ final class CalendarCell: FSCalendarCell {
         percentUIView.layer.cornerRadius = (frame.height - 10)/2
     }
     
+    
+    /// Input Data
+    /// - Parameter data: CalendarStatistics Data
+    func inputData(data: CalendarStatistics) {
+        if let rate = data.rate {
+            percentUIView.setPercent(rate)
+        }
+    }
     
 }

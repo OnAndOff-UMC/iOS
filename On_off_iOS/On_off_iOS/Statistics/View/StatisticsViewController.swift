@@ -132,6 +132,7 @@ final class StatisticsViewController: UIViewController {
     }()
     
     private let viewModel: StatisticsViewModel = StatisticsViewModel()
+    private var output: StatisticsViewModel.Output?
     private let disposeBag = DisposeBag()
     
     // MARK: - View Did Load
@@ -143,7 +144,7 @@ final class StatisticsViewController: UIViewController {
         bind()
     }
     
-    /// AddSubViews
+    /// Add SubViews
     private func addSubViews() {
         view.addSubview(monthChartTitleLabel)
         view.addSubview(scrollView)
@@ -221,7 +222,8 @@ final class StatisticsViewController: UIViewController {
         }
         
         calendarView.snp.makeConstraints { make in
-            make.top.bottom.leading.trailing.equalToSuperview()
+            make.top.leading.trailing.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-10)
         }
         
         prevMonthButton.snp.makeConstraints { make in
@@ -239,7 +241,7 @@ final class StatisticsViewController: UIViewController {
     private func bind() {
         let output = viewModel.createoutput(input: StatisticsViewModel.Input(prevButtonEvents: prevMonthButton.rx.tap,
                                                                              nextButtonEvents: nextMonthButton.rx.tap))
-        
+        self.output = output
         bindWeekView(output: output)
         bindMonthView(output: output)
         bindWriteRateUILabel(output: output)
@@ -283,6 +285,14 @@ final class StatisticsViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
+    /// MARK: Change Date -> String
+    private func formattingDate(date: Date) -> String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        
+        return dateFormatter.string(from: date)
+    }
 }
 
 extension StatisticsViewController: FSCalendarDelegate, FSCalendarDataSource {
@@ -290,6 +300,12 @@ extension StatisticsViewController: FSCalendarDelegate, FSCalendarDataSource {
         guard let cell = calendar.dequeueReusableCell(withIdentifier: CalendarCell.identifier, for: date, at: position) as? CalendarCell else { return FSCalendarCell()}
         cell.backgroundColor = .clear
         
+        output?.calendarListRelay.value
+            .forEach { data in
+                if formattingDate(date: date) == data.date {
+                    cell.inputData(data: data)
+                }
+            }
         return cell
     }
 }

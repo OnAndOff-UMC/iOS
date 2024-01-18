@@ -25,6 +25,7 @@
 		3BB806D82B5024BC00555E58 /* MonthStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB806D72B5024BC00555E58 /* MonthStatistics.swift */; };
 		3BD552662B58FA8C0043920E /* RateFillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD552652B58FA8C0043920E /* RateFillView.swift */; };
 		3BD552682B58FCF70043920E /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD552672B58FCF70043920E /* CalendarCell.swift */; };
+		3BD5526A2B5914B10043920E /* CalendarStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD552692B5914B10043920E /* CalendarStatistics.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		3BB806D72B5024BC00555E58 /* MonthStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthStatistics.swift; sourceTree = "<group>"; };
 		3BD552652B58FA8C0043920E /* RateFillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateFillView.swift; sourceTree = "<group>"; };
 		3BD552672B58FCF70043920E /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
+		3BD552692B5914B10043920E /* CalendarStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarStatistics.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +136,7 @@
 			children = (
 				3BB806D52B50228100555E58 /* DayStatistics.swift */,
 				3BB806D72B5024BC00555E58 /* MonthStatistics.swift */,
+				3BD552692B5914B10043920E /* CalendarStatistics.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -228,6 +231,7 @@
 				3B4230102B41572200D0B038 /* SceneDelegate.swift in Sources */,
 				3BD552682B58FCF70043920E /* CalendarCell.swift in Sources */,
 				3BD552662B58FA8C0043920E /* RateFillView.swift in Sources */,
+				3BD5526A2B5914B10043920E /* CalendarStatistics.swift in Sources */,
 				3B9C89D12B4AED7C0083CF44 /* StatisticsViewController.swift in Sources */,
 				3BB806D02B5012F400555E58 /* DayChartCustomView.swift in Sources */,
 				3BB806D62B50228100555E58 /* DayStatistics.swift in Sources */,

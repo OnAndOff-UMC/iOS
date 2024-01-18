@@ -14,10 +14,8 @@ final class RateFillView: UIView {
     
     override func draw(_ rect: CGRect) {
         let center = CGPoint(x: rect.midX, y: rect.midY)
- 
-        //x degree = x * π / 180 radian
+        
         let startAngle: CGFloat = (-(.pi) / 2)
-        let percent = percent
         let endAngle = percent * (.pi * 2)
         
         let path = UIBezierPath()
@@ -31,12 +29,18 @@ final class RateFillView: UIView {
         path.fill()
         path.close()
         
+        UIColor.lightGray.set()
+        if percent == 1.0 {
+            UIColor.green.set()
+            path.lineWidth = 1
+        }
+
         path.stroke()
     }
 
     
     /// 회고 작성 비율
-    /// - Parameter value: 작성한 %
+    /// - Parameter value: 작성한 회고 %
     func setPercent(_ value: CGFloat) {
          percent = value
          setNeedsDisplay()
