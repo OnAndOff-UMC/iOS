@@ -98,14 +98,6 @@ final class StatisticsViewController: UIViewController {
         return btn
     }()
     
-    /// 월 제목 타이틀
-    private let monthTitleUILabel: UILabel = {
-        let label = UILabel()
-        label.backgroundColor = .lightGray
-        label.text = "2024년 1월"
-        return label
-    }()
-    
     /// 다음 달로 이동 버튼
     private let nextMonthButton: UIButton = {
         let btn = UIButton(type: .system)
@@ -164,7 +156,6 @@ final class StatisticsViewController: UIViewController {
         calendarBackgroundUIView.addSubview(calendarView)
         
         contentView.addSubview(prevMonthButton)
-        contentView.addSubview(monthTitleUILabel)
         contentView.addSubview(nextMonthButton)
         
         constraints()
@@ -293,7 +284,9 @@ final class StatisticsViewController: UIViewController {
 }
 
 extension StatisticsViewController: FSCalendarDelegate, FSCalendarDataSource {
-    
+    func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
+        <#code#>
+    }
 }
 
 

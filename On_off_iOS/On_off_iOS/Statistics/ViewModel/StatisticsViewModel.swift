@@ -34,14 +34,12 @@ final class StatisticsViewModel {
         
         input.prevButtonEvents?
             .bind {
-                print("Tap")
                 output.moveMonthRelay.onNext(-1)
             }
             .disposed(by: disposeBag)
         
         input.nextButtonEvents?
             .bind {
-                print("Tapededed")
                 output.moveMonthRelay.onNext(1)
             }
             .disposed(by: disposeBag)
@@ -83,5 +81,10 @@ final class StatisticsViewModel {
         attributedString.append(NSMutableAttributedString(string: subTitle))
         
         output.writeRateRelay.accept(attributedString)
+    }
+    
+    ///
+    private func <#function name#>() {
+        
     }
 }
