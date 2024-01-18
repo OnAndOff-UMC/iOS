@@ -79,5 +79,4 @@ final class CalendarCell: FSCalendarCell {
             percentUIView.setPercent(rate)
         }
     }
-    
 }

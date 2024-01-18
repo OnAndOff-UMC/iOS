@@ -285,7 +285,7 @@ final class StatisticsViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    /// MARK: Change Date -> String
+    /// Change Date -> String
     private func formattingDate(date: Date) -> String{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -309,11 +309,6 @@ extension StatisticsViewController: FSCalendarDelegate, FSCalendarDataSource {
         return cell
     }
 }
-
-
-
-
-
 
 import SwiftUI
 struct VCPreViewStatisticsViewController:PreviewProvider {
