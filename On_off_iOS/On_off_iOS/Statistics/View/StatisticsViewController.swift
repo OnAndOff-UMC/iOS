@@ -115,6 +115,7 @@ final class StatisticsViewController: UIViewController {
         view.delegate = self
         view.dataSource = self
         view.locale = Locale(identifier: "ko_KR")
+        view.allowsSelection = false
         
         // 오늘 날짜 색상 변경
         view.appearance.todayColor = .clear
@@ -154,6 +155,7 @@ final class StatisticsViewController: UIViewController {
         writeRateUIView.addSubview(writeRateUILabel)
         contentView.addSubview(calendarBackgroundUIView)
         calendarBackgroundUIView.addSubview(calendarView)
+        calendarView.register(CalendarCell.self, forCellReuseIdentifier: CalendarCell.identifier)
         
         contentView.addSubview(prevMonthButton)
         contentView.addSubview(nextMonthButton)
@@ -285,9 +287,15 @@ final class StatisticsViewController: UIViewController {
 
 extension StatisticsViewController: FSCalendarDelegate, FSCalendarDataSource {
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
-        <#code#>
+        guard let cell = calendar.dequeueReusableCell(withIdentifier: CalendarCell.identifier, for: date, at: position) as? CalendarCell else { return FSCalendarCell()}
+        cell.backgroundColor = .clear
+        
+        return cell
     }
 }
+
+
+
 
 
 

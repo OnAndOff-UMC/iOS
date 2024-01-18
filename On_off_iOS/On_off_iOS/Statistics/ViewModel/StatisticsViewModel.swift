@@ -83,8 +83,5 @@ final class StatisticsViewModel {
         output.writeRateRelay.accept(attributedString)
     }
     
-    ///
-    private func <#function name#>() {
-        
-    }
+    
 }
