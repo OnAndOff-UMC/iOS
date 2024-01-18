@@ -279,7 +279,7 @@ final class StatisticsViewController: UIViewController {
                 guard let self = self else { return }
                 var dateComponents = DateComponents()
                 dateComponents.month = move
-                calendarView.currentPage = Calendar.current.date(byAdding: dateComponents, to: calendarView.currentPage)!
+                calendarView.currentPage = Calendar.current.date(byAdding: dateComponents, to: calendarView.currentPage) ?? Date()
                 calendarView.setCurrentPage(calendarView.currentPage, animated: true)
             }
             .disposed(by: disposeBag)
