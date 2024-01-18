@@ -6,14 +6,17 @@
 //
 
 import Foundation
+import RxCocoa
 import RxSwift
 import RxRelay
 import UIKit
 
 final class StatisticsViewModel {
+    private let disposeBag = DisposeBag()
     
     struct Input {
-        
+        let prevButtonEvents: ControlEvent<Void>?
+        let nextButtonEvents: ControlEvent<Void>?
     }
     
     struct Output {
@@ -22,11 +25,26 @@ final class StatisticsViewModel {
         var weekTitleRelay: BehaviorRelay<String> = BehaviorRelay(value: "")
         var weekStatisticsRelay: BehaviorRelay<DayStatistics?> = BehaviorRelay(value: nil)
         var writeRateRelay: BehaviorRelay<NSMutableAttributedString?> = BehaviorRelay(value: nil)
+        var moveMonthRelay: BehaviorSubject<Int> = BehaviorSubject(value: 0)
     }
     
     /// Create Output
-    func createoutput() -> Output {
+    func createoutput(input: Input) -> Output {
         let output = Output()
+        
+        input.prevButtonEvents?
+            .bind {
+                print("Tap")
+                output.moveMonthRelay.onNext(-1)
+            }
+            .disposed(by: disposeBag)
+        
+        input.nextButtonEvents?
+            .bind {
+                print("Tapededed")
+                output.moveMonthRelay.onNext(1)
+            }
+            .disposed(by: disposeBag)
         
         weekDummy(output: output)
         monthDummy(output: output)

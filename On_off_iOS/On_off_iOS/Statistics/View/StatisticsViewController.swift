@@ -94,7 +94,16 @@ final class StatisticsViewController: UIViewController {
         let btn = UIButton(type: .system)
         btn.setImage(UIImage(systemName: "chevron.left"), for: .normal)
         btn.tintColor = .black
+        btn.backgroundColor = .clear
         return btn
+    }()
+    
+    /// 월 제목 타이틀
+    private let monthTitleUILabel: UILabel = {
+        let label = UILabel()
+        label.backgroundColor = .lightGray
+        label.text = "2024년 1월"
+        return label
     }()
     
     /// 다음 달로 이동 버튼
@@ -102,6 +111,7 @@ final class StatisticsViewController: UIViewController {
         let btn = UIButton(type: .system)
         btn.setImage(UIImage(systemName: "chevron.right"), for: .normal)
         btn.tintColor = .black
+        btn.backgroundColor = .clear
         return btn
     }()
     
@@ -112,13 +122,19 @@ final class StatisticsViewController: UIViewController {
         view.backgroundColor = .clear
         view.delegate = self
         view.dataSource = self
+        view.locale = Locale(identifier: "ko_KR")
         
         // 오늘 날짜 색상 변경
         view.appearance.todayColor = .clear
         view.appearance.titleTodayColor = .black
         
+        // 캘린더 week 뷰 설정
         view.appearance.weekdayTextColor = .black
         
+        // 캘린더 헤더 뷰 설정
+        view.appearance.headerMinimumDissolvedAlpha = 0.0
+        view.appearance.headerTitleColor = .black
+        view.appearance.headerDateFormat = "YYYY년 MM월"
         return view
     }()
     
@@ -146,6 +162,10 @@ final class StatisticsViewController: UIViewController {
         writeRateUIView.addSubview(writeRateUILabel)
         contentView.addSubview(calendarBackgroundUIView)
         calendarBackgroundUIView.addSubview(calendarView)
+        
+        contentView.addSubview(prevMonthButton)
+        contentView.addSubview(monthTitleUILabel)
+        contentView.addSubview(nextMonthButton)
         
         constraints()
     }
@@ -211,15 +231,26 @@ final class StatisticsViewController: UIViewController {
             make.top.bottom.leading.trailing.equalToSuperview()
         }
         
+        prevMonthButton.snp.makeConstraints { make in
+            make.centerY.equalTo(calendarView.calendarHeaderView.snp.centerY).multipliedBy(1.1)
+            make.trailing.equalTo(calendarView.calendarHeaderView.snp.leading).offset(100)
+        }
+        
+        nextMonthButton.snp.makeConstraints { make in
+            make.centerY.equalTo(calendarView.calendarHeaderView.snp.centerY).multipliedBy(1.1)
+            make.leading.equalTo(calendarView.calendarHeaderView.snp.trailing).offset(-100)
+        }
     }
     
     /// Binding
     private func bind() {
-        let output = viewModel.createoutput()
+        let output = viewModel.createoutput(input: StatisticsViewModel.Input(prevButtonEvents: prevMonthButton.rx.tap,
+                                                                             nextButtonEvents: nextMonthButton.rx.tap))
         
         bindWeekView(output: output)
         bindMonthView(output: output)
         bindWriteRateUILabel(output: output)
+        bindMonthButtonAction(output: output)
     }
     
     /// binding WeekChartUIView Data
@@ -246,22 +277,17 @@ final class StatisticsViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    /// Set Actions
-    private func setAction() {
-        [prevMonthButton, nextMonthButton].forEach {
-            $0.addTarget(self, action: #selector(moveMonthButtonDidTap(sender:)), for: .touchUpInside)
-        }
-    }
-    
-    /// 월 이동 버튼 눌렀을 때
-    @objc
-    private func moveMonthButtonDidTap(sender: UIButton) {
-        moveMonth(next: sender == nextMonthButton)
-    }
-    
-    /// 달 이동 로직
-    func moveMonth(next: Bool) {
-        calendarView.setCurrentPage(calendarView.currentPage + 1, animated: true)
+    /// binding Month Button Action
+    private func bindMonthButtonAction(output: StatisticsViewModel.Output) {
+        output.moveMonthRelay
+            .bind { [weak self] move in
+                guard let self = self else { return }
+                var dateComponents = DateComponents()
+                dateComponents.month = move
+                calendarView.currentPage = Calendar.current.date(byAdding: dateComponents, to: calendarView.currentPage)!
+                calendarView.setCurrentPage(calendarView.currentPage, animated: true)
+            }
+            .disposed(by: disposeBag)
     }
     
 }
