@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		353EE8B52B4DA7740059FF78 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353EE8B42B4DA7740059FF78 /* HomeViewController.swift */; };
 		353EE8B72B4DAA010059FF78 /* Color+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353EE8B62B4DAA010059FF78 /* Color+Ex.swift */; };
+		35B9E63F2B58F63B00FC20C6 /* MainDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B9E63E2B58F63B00FC20C6 /* MainDay.swift */; };
+		35B9E6412B596B9800FC20C6 /* MainDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B9E6402B596B9800FC20C6 /* MainDate.swift */; };
+		35B9E6432B596C5A00FC20C6 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B9E6422B596C5A00FC20C6 /* HomeViewModel.swift */; };
+		35B9E6452B5977DD00FC20C6 /* DateCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B9E6442B5977DD00FC20C6 /* DateCustomView.swift */; };
 		37F917592B4AE36C00149BE7 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 37F917582B4AE36C00149BE7 /* RxCocoa */; };
 		37F9175B2B4AE36C00149BE7 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 37F9175A2B4AE36C00149BE7 /* RxRelay */; };
 		37F9175D2B4AE36C00149BE7 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 37F9175C2B4AE36C00149BE7 /* RxSwift */; };
@@ -29,6 +33,10 @@
 /* Begin PBXFileReference section */
 		353EE8B42B4DA7740059FF78 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		353EE8B62B4DAA010059FF78 /* Color+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Ex.swift"; sourceTree = "<group>"; };
+		35B9E63E2B58F63B00FC20C6 /* MainDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDay.swift; sourceTree = "<group>"; };
+		35B9E6402B596B9800FC20C6 /* MainDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDate.swift; sourceTree = "<group>"; };
+		35B9E6422B596C5A00FC20C6 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		35B9E6442B5977DD00FC20C6 /* DateCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCustomView.swift; sourceTree = "<group>"; };
 		3B1658F62B4D8559004EFBC3 /* WeekChartCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekChartCustomView.swift; sourceTree = "<group>"; };
 		3B42300A2B41572200D0B038 /* On_off_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = On_off_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B42300D2B41572200D0B038 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -62,9 +70,37 @@
 		353EE8B32B4DA7650059FF78 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				353EE8B42B4DA7740059FF78 /* HomeViewController.swift */,
+				35B9E63D2B58F5E400FC20C6 /* View */,
+				35B9E63B2B58F5CF00FC20C6 /* Model */,
+				35B9E63C2B58F5D900FC20C6 /* ViewModel */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		35B9E63B2B58F5CF00FC20C6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				35B9E63E2B58F63B00FC20C6 /* MainDay.swift */,
+				35B9E6402B596B9800FC20C6 /* MainDate.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		35B9E63C2B58F5D900FC20C6 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				35B9E6422B596C5A00FC20C6 /* HomeViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		35B9E63D2B58F5E400FC20C6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				353EE8B42B4DA7740059FF78 /* HomeViewController.swift */,
+				35B9E6442B5977DD00FC20C6 /* DateCustomView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		3B4230012B41572200D0B038 = {
@@ -86,8 +122,8 @@
 		3B42300C2B41572200D0B038 /* On_off_iOS */ = {
 			isa = PBXGroup;
 			children = (
-				353EE8B32B4DA7650059FF78 /* Home */,
 				3B4230112B41572200D0B038 /* ViewController.swift */,
+				353EE8B32B4DA7650059FF78 /* Home */,
 				3B9C89CF2B4AED640083CF44 /* Statistics */,
 				3B4230212B41584300D0B038 /* Apps */,
 				3B4230162B41572400D0B038 /* Assets.xcassets */,
@@ -228,9 +264,13 @@
 				3B1658F72B4D8559004EFBC3 /* WeekChartCustomView.swift in Sources */,
 				3B42300E2B41572200D0B038 /* AppDelegate.swift in Sources */,
 				3BB806D82B5024BC00555E58 /* MonthStatistics.swift in Sources */,
+				35B9E63F2B58F63B00FC20C6 /* MainDay.swift in Sources */,
 				3BB806D32B5021BC00555E58 /* StatisticsViewModel.swift in Sources */,
+				35B9E6412B596B9800FC20C6 /* MainDate.swift in Sources */,
 				3B4230102B41572200D0B038 /* SceneDelegate.swift in Sources */,
+				35B9E6452B5977DD00FC20C6 /* DateCustomView.swift in Sources */,
 				353EE8B52B4DA7740059FF78 /* HomeViewController.swift in Sources */,
+				35B9E6432B596C5A00FC20C6 /* HomeViewModel.swift in Sources */,
 				353EE8B72B4DAA010059FF78 /* Color+Ex.swift in Sources */,
 				3B9C89D12B4AED7C0083CF44 /* StatisticsViewController.swift in Sources */,
 				3BB806D02B5012F400555E58 /* DayChartCustomView.swift in Sources */,
