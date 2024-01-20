@@ -40,11 +40,15 @@ final class CustomTabBarController: UIViewController {
 
     private func setUpTabBarControllers() {
         for item in tabBar.items {
-            let vc = UIViewController()
-            vc.view.backgroundColor = .white
-
-            let title = String(describing: item)
-            addLabel(in: vc, text: title)
+            let vc: UIViewController
+            switch item {
+            case .statistics:
+                vc = StatisticsViewController()
+            case .home:
+                vc = StatisticsViewController()
+            case .my:
+                vc = StatisticsViewController()
+            }
 
             addChild(vc)
             view.addSubview(vc.view)
@@ -62,6 +66,8 @@ final class CustomTabBarController: UIViewController {
         view.bringSubviewToFront(shouldFrontView)
     }
 
+
+    
     private func setUpBind() {
         tabBar.rx.tapButton
             .bind { [weak self] index in
