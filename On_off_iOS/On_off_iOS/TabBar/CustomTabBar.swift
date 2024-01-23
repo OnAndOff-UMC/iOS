@@ -18,22 +18,22 @@ enum TabItem: Int, CaseIterable, Equatable {
     var normalImage: UIImage? {
         switch self {
         case .statistics:
-            return UIImage(named: "Statistics")
+            return UIImage(named: "statisticsuntapped")
         case .home:
-            return UIImage(named: "Home")
+            return UIImage(named: "homeuntapped")
         case .my:
-            return UIImage(named: "MyPage")
+            return UIImage(named: "mypageuntapped")
         }
     }
     
     var selectedImage: UIImage? {
         switch self {
         case .statistics:
-            return UIImage(named: "Statistics")
+            return UIImage(named: "statisticstapped")
         case .home:
-            return UIImage(named: "Home")
+            return UIImage(named: "hometapped")
         case .my:
-            return UIImage(named: "MyPage")
+            return UIImage(named: "mypagetapped")
         }
     }
 }

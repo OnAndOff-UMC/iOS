@@ -21,6 +21,6 @@ class ViewController: UIViewController {
         let tabBarController = CustomTabBarController()
         tabBarController.modalPresentationStyle = .fullScreen
 
-        present(tabBarController, animated: true)
+        present(tabBarController, animated: false)
     }
 }
