@@ -38,17 +38,18 @@
 		3B4230102B41572200D0B038 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B42300F2B41572200D0B038 /* SceneDelegate.swift */; };
 		3B4230172B41572400D0B038 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B4230162B41572400D0B038 /* Assets.xcassets */; };
 		3B42301A2B41572400D0B038 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B4230182B41572400D0B038 /* LaunchScreen.storyboard */; };
+		3B8570CB2B582B4E000BC503 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 3B8570CA2B582B4E000BC503 /* FSCalendar */; };
 		3B9C89D12B4AED7C0083CF44 /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9C89D02B4AED7C0083CF44 /* StatisticsViewController.swift */; };
 		3BB806D02B5012F400555E58 /* DayChartCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB806CF2B5012F400555E58 /* DayChartCustomView.swift */; };
 		3BB806D32B5021BC00555E58 /* StatisticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB806D22B5021BC00555E58 /* StatisticsViewModel.swift */; };
 		3BB806D62B50228100555E58 /* DayStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB806D52B50228100555E58 /* DayStatistics.swift */; };
 		3BB806D82B5024BC00555E58 /* MonthStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB806D72B5024BC00555E58 /* MonthStatistics.swift */; };
+		3BD552662B58FA8C0043920E /* RateFillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD552652B58FA8C0043920E /* RateFillView.swift */; };
+		3BD552682B58FCF70043920E /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD552672B58FCF70043920E /* CalendarCell.swift */; };
+		3BD5526A2B5914B10043920E /* CalendarStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD552692B5914B10043920E /* CalendarStatistics.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3584F3AB2B5A5CC7007ACB57 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
-		3584F3AD2B5A5FEB007ACB57 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
-		3584F3AF2B5A6013007ACB57 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		374FD49C2B4281E100F2E645 /* OnboardingCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCustomView.swift; sourceTree = "<group>"; };
 		374FD49E2B42825B00F2E645 /* CustomPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPageControl.swift; sourceTree = "<group>"; };
 		374FD4A12B4294F100F2E645 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -79,6 +80,9 @@
 		3BB806D22B5021BC00555E58 /* StatisticsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewModel.swift; sourceTree = "<group>"; };
 		3BB806D52B50228100555E58 /* DayStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayStatistics.swift; sourceTree = "<group>"; };
 		3BB806D72B5024BC00555E58 /* MonthStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthStatistics.swift; sourceTree = "<group>"; };
+		3BD552652B58FA8C0043920E /* RateFillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateFillView.swift; sourceTree = "<group>"; };
+		3BD552672B58FCF70043920E /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
+		3BD552692B5914B10043920E /* CalendarStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarStatistics.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +95,7 @@
 				374FD49A2B42690D00F2E645 /* SnapKit in Frameworks */,
 				374FD4952B4268EC00F2E645 /* RxRelay in Frameworks */,
 				374FD4932B4268EC00F2E645 /* RxCocoa in Frameworks */,
+				3B8570CB2B582B4E000BC503 /* FSCalendar in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,7 +295,6 @@
 		3B42300C2B41572200D0B038 /* On_off_iOS */ = {
 			isa = PBXGroup;
 			children = (
-				3584F3AA2B5A5CB8007ACB57 /* TabBar */,
 				3B9C89CF2B4AED640083CF44 /* Statistics */,
 				3769A6842B58561D00D79C33 /* SelectTime */,
 				376A4B5D2B5514B4004FBB56 /* Launch */,
@@ -329,6 +333,8 @@
 			isa = PBXGroup;
 			children = (
 				3B9C89D02B4AED7C0083CF44 /* StatisticsViewController.swift */,
+				3BD552672B58FCF70043920E /* CalendarCell.swift */,
+				3BD552652B58FA8C0043920E /* RateFillView.swift */,
 				3BB806CF2B5012F400555E58 /* DayChartCustomView.swift */,
 				3B1658F62B4D8559004EFBC3 /* WeekChartCustomView.swift */,
 			);
@@ -348,6 +354,7 @@
 			children = (
 				3BB806D52B50228100555E58 /* DayStatistics.swift */,
 				3BB806D72B5024BC00555E58 /* MonthStatistics.swift */,
+				3BD552692B5914B10043920E /* CalendarStatistics.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -374,6 +381,7 @@
 				374FD4962B4268EC00F2E645 /* RxSwift */,
 				374FD4992B42690D00F2E645 /* SnapKit */,
 				376A4B5B2B5506D7004FBB56 /* Lottie */,
+				3B8570CA2B582B4E000BC503 /* FSCalendar */,
 			);
 			productName = On_off_iOS;
 			productReference = 3B42300A2B41572200D0B038 /* On_off_iOS.app */;
@@ -407,6 +415,7 @@
 				374FD4912B4268EC00F2E645 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				374FD4982B42690D00F2E645 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				376A4B5A2B5506D7004FBB56 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				3B8570C92B582B4E000BC503 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 			);
 			productRefGroup = 3B42300B2B41572200D0B038 /* Products */;
 			projectDirPath = "";
@@ -460,6 +469,9 @@
 				3584F3B02B5A6013007ACB57 /* ViewController.swift in Sources */,
 				3787D0112B42E0B100F054DD /* LoginViewModel.swift in Sources */,
 				3787D00A2B429F1700F054DD /* LaunchViewController.swift in Sources */,
+				3BD552682B58FCF70043920E /* CalendarCell.swift in Sources */,
+				3BD552662B58FA8C0043920E /* RateFillView.swift in Sources */,
+				3BD5526A2B5914B10043920E /* CalendarStatistics.swift in Sources */,
 				3B9C89D12B4AED7C0083CF44 /* StatisticsViewController.swift in Sources */,
 				3BB806D02B5012F400555E58 /* DayChartCustomView.swift in Sources */,
 				3BB806D62B50228100555E58 /* DayStatistics.swift in Sources */,
@@ -606,7 +618,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = FQ9852Z3LX;
+				DEVELOPMENT_TEAM = SN5J3DYFX4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = On_off_iOS/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -633,7 +645,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = FQ9852Z3LX;
+				DEVELOPMENT_TEAM = SN5J3DYFX4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = On_off_iOS/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -701,6 +713,14 @@
 				minimumVersion = 4.3.4;
 			};
 		};
+		3B8570C92B582B4E000BC503 /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WenchaoD/FSCalendar.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.8.4;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -728,6 +748,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 376A4B5A2B5506D7004FBB56 /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
+		};
+		3B8570CA2B582B4E000BC503 /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3B8570C92B582B4E000BC503 /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
