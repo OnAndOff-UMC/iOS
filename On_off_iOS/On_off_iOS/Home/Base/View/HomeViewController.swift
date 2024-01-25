@@ -19,7 +19,7 @@ final class HomeViewController: UIViewController {
         return view
     }()
     
-    /// On, Off Button
+    /// On - Off Button
     private lazy var onOffButton: UIButton = {
         let btn = UIButton()
         btn.backgroundColor = .clear
@@ -35,7 +35,7 @@ final class HomeViewController: UIViewController {
         return label
     }()
     
-    /// On-Off 에 따른 이미지 뷰
+    /// On - Off 에 따른 이미지 뷰
     private lazy var dayImageView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFill
@@ -63,7 +63,7 @@ final class HomeViewController: UIViewController {
         return view
     }()
     
-    /// On-Off 될때 바뀌는 UIView
+    /// On - Off 될때 바뀌는 UIView
     private lazy var blankOnOffUIView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -96,7 +96,7 @@ final class HomeViewController: UIViewController {
         
     }
     
-    /// On-Off 공통 UI Add View
+    /// On - Off 공통 UI Add View
     private func addBaseSubViews() {
         view.addSubview(safeAreaTopUIView)
         view.addSubview(onOffButton)
@@ -109,7 +109,7 @@ final class HomeViewController: UIViewController {
         baseConstraints()
     }
     
-    /// On-Off 공통 UI Constraints
+    /// On - Off 공통 UI Constraints
     private func baseConstraints() {
         onOffButton.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(5)
@@ -166,7 +166,7 @@ final class HomeViewController: UIViewController {
         bindBlankViewShadowColor(output: output)
     }
     
-    /// binding Day CollectionView Cell
+    /// Binding Day CollectionView Cell
     private func bindDayCollectionView(output: HomeViewModel.Output) {
         output.dayListRelay
             .bind(to: dayCollectionView.rx

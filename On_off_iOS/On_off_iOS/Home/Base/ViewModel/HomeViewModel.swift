@@ -16,19 +16,18 @@ final class HomeViewModel {
     
     struct Input {
         let onOffButtonEvents: ControlEvent<Void>
-        
     }
     
     struct Output {
         /// On-Off 에 따른 Button Image
-        ///  on or off
+        /// On or Off
         var buttonOnOffRelay: BehaviorRelay<UIImage?> = BehaviorRelay(value: nil)
         
         /// Title(제목) Relay
         var titleRelay: BehaviorRelay<NSMutableAttributedString?> = BehaviorRelay(value: nil)
         
         /// On-Off 에 따른 Title Image
-        ///  moon or sun
+        /// moon or sun
         var dayImageRelay: BehaviorRelay<UIImage?> = BehaviorRelay(value: nil)
         
         /// 현재 달, 연도
@@ -43,14 +42,13 @@ final class HomeViewModel {
         /// Day Collection 배경 색
         var dayCollectionViewBackgroundColorRelay: BehaviorRelay<UIColor> = BehaviorRelay(value: UIColor.cyan)
         
-        /// On-Off 변하는 UIView그림자 색
+        /// On - Off 변하는 UIView 그림자 색
         var blankUIViewShadowColorRelay: BehaviorRelay<UIColor> = BehaviorRelay(value: UIColor.purple)
         
         /// On Off 버튼 터치에 따른 값 변환
-        /// true: On
-        /// false: Off
+        /// True: On
+        /// False: Off
         var toggleOnOffButtonRelay: BehaviorRelay<Bool> = BehaviorRelay(value: true)
-        
     }
     
     /// Create Output
@@ -107,7 +105,7 @@ final class HomeViewModel {
         output.dayImageRelay.accept(UIImage(named: "moon"))
         output.buttonOnOffRelay.accept(UIImage(named: "off"))
         output.backgroundColorRelay.accept(.blue)
-        output.titleRelay.accept(setTitleOptions(nickName: "조디조디조디조디조디", nickNameColor: .yellow,
+        output.titleRelay.accept(setTitleOptions(nickName: "조디조디조디조디조디", nickNameColor: .cyan,
                                                  subTitle:  "님,\n오늘 하루도 고생하셨어요", subTitleColor: .white,
                                                  output: output))
         output.monthRelay.accept(setMonthOptions(month: "2023년 11월",
@@ -116,19 +114,6 @@ final class HomeViewModel {
         output.dayCollectionViewBackgroundColorRelay.accept(.purple)
         output.blankUIViewShadowColorRelay.accept(.white)
     }
-    
-    /// dummy about dayListRelay
-    private func dummyDayListRelay(output: Output) {
-        let list = [DayInfo(date: "20", day: "Mon"),
-                    DayInfo(date: "21", day: "Tue"),
-                    DayInfo(date: "22", day: "Wed"),
-                    DayInfo(date: "23", day: "Thr"),
-                    DayInfo(date: "24", day: "Fri"),
-                    DayInfo(date: "25", day: "Sat"),
-                    DayInfo(date: "26", day: "Sun")]
-        output.dayListRelay.accept(list)
-    }
-    
     
     /// Month Label On Off에 따라 설정 변경
     /// - Parameters:
@@ -177,5 +162,15 @@ final class HomeViewModel {
         return nickNameAttributedString
     }
     
-    
+    /// Dummy About DayListRelay
+    private func dummyDayListRelay(output: Output) {
+        let list = [DayInfo(date: "20", day: "Mon"),
+                    DayInfo(date: "21", day: "Tue"),
+                    DayInfo(date: "22", day: "Wed"),
+                    DayInfo(date: "23", day: "Thr"),
+                    DayInfo(date: "24", day: "Fri"),
+                    DayInfo(date: "25", day: "Sat"),
+                    DayInfo(date: "26", day: "Sun")]
+        output.dayListRelay.accept(list)
+    }
 }

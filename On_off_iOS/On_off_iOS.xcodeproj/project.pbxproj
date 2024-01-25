@@ -278,10 +278,7 @@
 		3B0129C12B623BA900B191AD /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				3B0129C22B623BB900B191AD /* HomeViewController.swift */,
-				3B0129CD2B624E8C00B191AD /* DayCollectionViewCell.swift */,
-				3B0129C92B624CAE00B191AD /* HomeViewModel.swift */,
-				3B0129CB2B624D6000B191AD /* Home.swift */,
+				3B0129CF2B62BA8100B191AD /* Base */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -293,6 +290,41 @@
 				3B0129C72B6246E900B191AD /* Ext + UIImage.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		3B0129CF2B62BA8100B191AD /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				3B0129D22B62BA9100B191AD /* Model */,
+				3B0129D12B62BA8E00B191AD /* ViewModel */,
+				3B0129D02B62BA8A00B191AD /* View */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		3B0129D02B62BA8A00B191AD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3B0129CD2B624E8C00B191AD /* DayCollectionViewCell.swift */,
+				3B0129C22B623BB900B191AD /* HomeViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3B0129D12B62BA8E00B191AD /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				3B0129C92B624CAE00B191AD /* HomeViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		3B0129D22B62BA9100B191AD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3B0129CB2B624D6000B191AD /* Home.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		3B4230012B41572200D0B038 = {
