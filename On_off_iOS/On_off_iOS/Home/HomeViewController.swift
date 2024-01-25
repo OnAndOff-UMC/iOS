@@ -13,10 +13,15 @@ import UIKit
 
 final class HomeViewController: UIViewController {
     
+    /// Safe Area Top Layout UIView
+    private lazy var safeAreaTopUIView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
     /// On, Off Button
     private lazy var onOffButton: UIButton = {
         let btn = UIButton()
-        btn.setImage(UIImage(named: "on")?.resize(newWidth: 50), for: .normal)
         btn.backgroundColor = .clear
         return btn
     }()
@@ -24,9 +29,6 @@ final class HomeViewController: UIViewController {
     /// Title Label
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-//        label.text = "조디조디조디조디조디님,\n오늘 하루도 파이팅!"
-        label.text = "조디조디조디조디조디님,\n오늘 하루도 고생하셨어요"
-        label.textColor = .black
         label.numberOfLines = 2
         label.font = .systemFont(ofSize: 24)
         label.backgroundColor = .clear
@@ -35,7 +37,7 @@ final class HomeViewController: UIViewController {
     
     /// On-Off 에 따른 이미지 뷰
     private lazy var dayImageView: UIImageView = {
-        let view = UIImageView(image: UIImage(named: "moon"))
+        let view = UIImageView()
         view.contentMode = .scaleAspectFill
         view.backgroundColor = .clear
         return view
@@ -44,9 +46,8 @@ final class HomeViewController: UIViewController {
     /// 현재 달, 연도
     private lazy var monthLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 16)
+        label.font = .systemFont(ofSize: 16, weight: .bold)
         label.textColor = .purple
-        label.text = "2023년 11월"
         label.backgroundColor = .clear
         return label
     }()
@@ -62,25 +63,48 @@ final class HomeViewController: UIViewController {
         return view
     }()
     
+    /// On-Off 될때 바뀌는 UIView
+    private lazy var blankOnOffUIView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
+        view.layer.cornerRadius = 25
+        
+        view.layer.shadowRadius = 10
+        view.layer.shadowOffset = CGSize(width: 0, height: -10)
+        view.layer.shadowOpacity = 0.5
+        
+        return view
+    }()
+    
     private let disposeBag = DisposeBag()
     private let viewModel = HomeViewModel()
     
     // MARK: - View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        
+
         addBaseSubViews()
         bind()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        blankOnOffUIView.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0,
+                                                                      width: blankOnOffUIView.frame.width,
+                                                                      height: blankOnOffUIView.frame.height - 50)).cgPath
+        
+    }
+    
     /// On-Off 공통 UI Add View
     private func addBaseSubViews() {
+        view.addSubview(safeAreaTopUIView)
         view.addSubview(onOffButton)
         view.addSubview(titleLabel)
         view.addSubview(dayImageView)
         view.addSubview(monthLabel)
         view.addSubview(dayCollectionView)
+        view.addSubview(blankOnOffUIView)
         
         baseConstraints()
     }
@@ -88,8 +112,14 @@ final class HomeViewController: UIViewController {
     /// On-Off 공통 UI Constraints
     private func baseConstraints() {
         onOffButton.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(10)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(5)
             make.trailing.equalTo(view.safeAreaLayoutGuide).offset(-10)
+        }
+        
+        safeAreaTopUIView.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview()
+            make.bottom.equalTo(onOffButton.snp.top)
+            make.height.equalTo(200)
         }
         
         titleLabel.snp.makeConstraints { make in
@@ -105,33 +135,46 @@ final class HomeViewController: UIViewController {
         
         monthLabel.snp.makeConstraints { make in
             make.leading.equalTo(titleLabel.snp.leading)
-            make.top.equalTo(titleLabel.snp.bottom).offset(20)
+            make.top.equalTo(titleLabel.snp.bottom).offset(10)
         }
         
         dayCollectionView.snp.makeConstraints { make in
             make.top.equalTo(monthLabel.snp.bottom).offset(10)
-            make.horizontalEdges.equalToSuperview().inset(10)
+            make.leading.equalToSuperview().offset(10)
+            make.trailing.equalToSuperview().offset(-6)
             make.height.equalTo(70)
+        }
+        
+        blankOnOffUIView.snp.makeConstraints { make in
+            make.top.equalTo(dayCollectionView.snp.bottom).offset(20)
+            make.horizontalEdges.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
     }
     
     /// Binding
     private func bind() {
-        let input = HomeViewModel.Input()
+        let input = HomeViewModel.Input(onOffButtonEvents: onOffButton.rx.tap)
         let output = viewModel.createOutput(input: input)
         
-        bindingDayCollectionView(output: output)
+        bindDayCollectionView(output: output)
+        bindMonthLabel(output: output)
+        bindTitleLabel(output: output)
+        bindDayImageView(output: output)
+        bindOnOffButton(output: output)
+        bindBackGroundColor(output: output)
+        bindBlankViewShadowColor(output: output)
     }
     
     /// binding Day CollectionView Cell
-    private func bindingDayCollectionView(output: HomeViewModel.Output) {
+    private func bindDayCollectionView(output: HomeViewModel.Output) {
         output.dayListRelay
             .bind(to: dayCollectionView.rx
                 .items(cellIdentifier: DayCollectionViewCell.identifier,
                        cellType: DayCollectionViewCell.self))
         { row, element, cell in
             cell.backgroundColor = .clear
-            cell.inputData(info: element)
+            cell.inputData(info: element, color: output.dayCollectionViewBackgroundColorRelay.value)
         }
         .disposed(by: disposeBag)
         
@@ -139,12 +182,79 @@ final class HomeViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
+    /// Binding Month Label
+    private func bindMonthLabel(output: HomeViewModel.Output) {
+        output.monthRelay
+            .bind { [weak self] month in
+                guard let self = self else { return }
+                monthLabel.attributedText = month
+                dayCollectionView.reloadData()
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    /// Binding Title Label
+    private func bindTitleLabel(output: HomeViewModel.Output) {
+        output.titleRelay
+            .bind { [weak self] title in
+                guard let self = self else { return }
+                titleLabel.attributedText = title
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    /// Binding Day Image View
+    private func bindDayImageView(output: HomeViewModel.Output) {
+        output.dayImageRelay
+            .bind(to: dayImageView.rx.image)
+            .disposed(by: disposeBag)
+    }
+    
+    /// Binding On Off Button
+    private func bindOnOffButton(output: HomeViewModel.Output) {
+        output.buttonOnOffRelay
+            .bind { [weak self] image in
+                guard let self = self else { return }
+                onOffButton.setImage(image?.resize(newWidth: 50), for: .normal)
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    /// Binding BackGround Color
+    private func bindBackGroundColor(output: HomeViewModel.Output) {
+        output.backgroundColorRelay
+            .bind { [weak self] color in
+                guard let self = self else { return }
+                view.backgroundColor = color
+                safeAreaTopUIView.backgroundColor = color
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    /// Binding BlankView Shadow Color
+    private func bindBlankViewShadowColor(output: HomeViewModel.Output) {
+        output.blankUIViewShadowColorRelay
+            .bind { [weak self] color in
+                guard let self = self else { return }
+                blankOnOffUIView.layer.shadowColor = color.cgColor
+            }
+            .disposed(by: disposeBag)
+    }
+    
 }
 
-extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: collectionView.frame.width/7, height: collectionView.frame.height)
+extension HomeViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let interval: CGFloat = 10
+        let width: CGFloat = (collectionView.frame.width - interval * 2) / 8
+        return CGSize(width: width, height: collectionView.frame.height)
     }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat { 10 }
 }
 
 import SwiftUI

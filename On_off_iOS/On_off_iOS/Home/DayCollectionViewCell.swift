@@ -45,8 +45,7 @@ final class DayCollectionViewCell: UICollectionViewCell {
     /// 동그란 모양을 위한 UIView
     private lazy var cornerUIView: UIView = {
         let view = UIView()
-        view.backgroundColor = .cyan
-        view.layer.cornerRadius = 25
+        view.layer.cornerRadius = 20
         return view
     }()
     
@@ -83,9 +82,11 @@ final class DayCollectionViewCell: UICollectionViewCell {
     
     /// Input Data About Day, Date
     /// - Parameter info: DayInfo
-    func inputData(info: DayInfo) {
+    /// - Parameter color: BackGround Color
+    func inputData(info: DayInfo, color: UIColor) {
         dayLabel.text = info.day ?? ""
         dateLabel.text = info.date ?? ""
+        cornerUIView.backgroundColor = color
     }
 }
 
