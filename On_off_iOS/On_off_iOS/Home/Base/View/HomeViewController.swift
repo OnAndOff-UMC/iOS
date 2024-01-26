@@ -59,7 +59,7 @@ final class HomeViewController: UIViewController {
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.backgroundColor = .clear
         view.isScrollEnabled = false
-        view.register(DayCollectionViewCell.self, forCellWithReuseIdentifier: DayCollectionViewCell.identifier)
+        view.register(DayCollectionViewCell.self, forCellWithReuseIdentifier: CellIdentifier.DayCollectionViewCell.rawValue)
         return view
     }()
     
@@ -170,7 +170,7 @@ final class HomeViewController: UIViewController {
     private func bindDayCollectionView(output: HomeViewModel.Output) {
         output.dayListRelay
             .bind(to: dayCollectionView.rx
-                .items(cellIdentifier: DayCollectionViewCell.identifier,
+                .items(cellIdentifier: CellIdentifier.DayCollectionViewCell.rawValue,
                        cellType: DayCollectionViewCell.self))
         { row, element, cell in
             cell.backgroundColor = .clear

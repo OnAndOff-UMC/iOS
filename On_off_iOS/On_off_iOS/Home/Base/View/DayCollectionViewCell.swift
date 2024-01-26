@@ -10,8 +10,7 @@ import SnapKit
 import UIKit
 
 final class DayCollectionViewCell: UICollectionViewCell {
-    static let identifier = "DayCollectionViewCell"
-    
+
     /// 요일 라벨
     private lazy var dayLabel: UILabel = {
         let label = UILabel()
