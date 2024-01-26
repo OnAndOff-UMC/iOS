@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		356C050A2B5F942A00D74BB8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356C05072B5F942A00D74BB8 /* ViewController.swift */; };
-		356C050B2B5F942A00D74BB8 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356C05082B5F942A00D74BB8 /* CustomTabBar.swift */; };
-		356C050C2B5F942A00D74BB8 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356C05092B5F942A00D74BB8 /* TabBarController.swift */; };
 		3584F3AC2B5A5CC7007ACB57 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		3584F3AE2B5A5FEB007ACB57 /* (null) in Sources */ = {isa = PBXBuildFile; };
-		3584F3B02B5A6013007ACB57 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		35AC0F502B64025300AB0A6B /* TabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35AC0F4F2B64025300AB0A6B /* TabItem.swift */; };
+		35AC0F522B64030400AB0A6B /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35AC0F512B64030400AB0A6B /* TabBarController.swift */; };
+		35AC0F542B64039700AB0A6B /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35AC0F532B64039700AB0A6B /* CustomTabBar.swift */; };
+		35AC0F582B64126D00AB0A6B /* CustomTabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35AC0F572B64126D00AB0A6B /* CustomTabBarViewModel.swift */; };
 		374FD4932B4268EC00F2E645 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 374FD4922B4268EC00F2E645 /* RxCocoa */; };
 		374FD4952B4268EC00F2E645 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 374FD4942B4268EC00F2E645 /* RxRelay */; };
 		374FD4972B4268EC00F2E645 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 374FD4962B4268EC00F2E645 /* RxSwift */; };
@@ -60,9 +60,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		356C05072B5F942A00D74BB8 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		356C05082B5F942A00D74BB8 /* CustomTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
-		356C05092B5F942A00D74BB8 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		35AC0F4F2B64025300AB0A6B /* TabItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItem.swift; sourceTree = "<group>"; };
+		35AC0F512B64030400AB0A6B /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		35AC0F532B64039700AB0A6B /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
+		35AC0F572B64126D00AB0A6B /* CustomTabBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarViewModel.swift; sourceTree = "<group>"; };
 		374FD49C2B4281E100F2E645 /* OnboardingCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCustomView.swift; sourceTree = "<group>"; };
 		374FD49E2B42825B00F2E645 /* CustomPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPageControl.swift; sourceTree = "<group>"; };
 		374FD4A12B4294F100F2E645 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -122,21 +123,45 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		356C05062B5F942A00D74BB8 /* TabBar */ = {
+		35984F222B63EE8000A5F6F2 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
-				356C05072B5F942A00D74BB8 /* ViewController.swift */,
-				356C05082B5F942A00D74BB8 /* CustomTabBar.swift */,
-				356C05092B5F942A00D74BB8 /* TabBarController.swift */,
+				35AC0F552B64117E00AB0A6B /* Model */,
+				35AC0F562B64125300AB0A6B /* ViewModel */,
+				35AC0F592B6412A600AB0A6B /* View */,
 			);
 			path = TabBar;
+			sourceTree = "<group>";
+		};
+		35AC0F552B64117E00AB0A6B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				35AC0F4F2B64025300AB0A6B /* TabItem.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		35AC0F562B64125300AB0A6B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				35AC0F572B64126D00AB0A6B /* CustomTabBarViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		35AC0F592B6412A600AB0A6B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				35AC0F532B64039700AB0A6B /* CustomTabBar.swift */,
+				35AC0F512B64030400AB0A6B /* TabBarController.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		374FD49B2B4281CA00F2E645 /* OnBoarding */ = {
 			isa = PBXGroup;
 			children = (
 				3787D00D2B42A85900F054DD /* Model */,
-				3787D00B2B42A84100F054DD /* View */,
 				3787D00C2B42A84900F054DD /* ViewModel */,
 			);
 			path = OnBoarding;
@@ -307,6 +332,7 @@
 		3B0129C42B6242D400B191AD /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				3787D00B2B42A84100F054DD /* View */,
 				3B0129C52B6242F800B191AD /* Ext + ViewController.swift */,
 				3B0129C72B6246E900B191AD /* Ext + UIImage.swift */,
 			);
@@ -367,6 +393,7 @@
 		3B42300C2B41572200D0B038 /* On_off_iOS */ = {
 			isa = PBXGroup;
 			children = (
+				35984F222B63EE8000A5F6F2 /* TabBar */,
 				3B0129C12B623BA900B191AD /* Home */,
 				3B9C89CF2B4AED640083CF44 /* Statistics */,
 				3769A6842B58561D00D79C33 /* SelectTime */,
@@ -537,14 +564,15 @@
 				3769A6862B58563000D79C33 /* SelectTimeViewModel.swift in Sources */,
 				374FD4A42B4297BE00F2E645 /* OnBoardingViewController.swift in Sources */,
 				3769A6882B58563C00D79C33 /* SelectTimeViewController.swift in Sources */,
+				35AC0F582B64126D00AB0A6B /* CustomTabBarViewModel.swift in Sources */,
 				3787D0082B429C1100F054DD /* OnboardingModel.swift in Sources */,
-				356C050A2B5F942A00D74BB8 /* ViewController.swift in Sources */,
 				378140662B42F0AB00F2AA5A /* ProfileSettingViewModel.swift in Sources */,
 				3B1658F72B4D8559004EFBC3 /* WeekChartCustomView.swift in Sources */,
 				3B42300E2B41572200D0B038 /* AppDelegate.swift in Sources */,
 				3769A68E2B585B6600D79C33 /* DayButton.swift in Sources */,
 				3B0129CE2B624E8D00B191AD /* DayCollectionViewCell.swift in Sources */,
 				3769A6912B585BDE00D79C33 /* DayModel.swift in Sources */,
+				35AC0F542B64039700AB0A6B /* CustomTabBar.swift in Sources */,
 				3B0129CC2B624D6000B191AD /* Home.swift in Sources */,
 				374FD49D2B4281E100F2E645 /* OnboardingCustomView.swift in Sources */,
 				3BB806D82B5024BC00555E58 /* MonthStatistics.swift in Sources */,
@@ -552,14 +580,15 @@
 				3BB806D32B5021BC00555E58 /* StatisticsViewModel.swift in Sources */,
 				3B0129C82B6246E900B191AD /* Ext + UIImage.swift in Sources */,
 				3B4230102B41572200D0B038 /* SceneDelegate.swift in Sources */,
-				356C050B2B5F942A00D74BB8 /* CustomTabBar.swift in Sources */,
 				3584F3AC2B5A5CC7007ACB57 /* (null) in Sources */,
 				378140632B42F07A00F2AA5A /* ProfileSettingViewController.swift in Sources */,
 				3B0129C32B623BB900B191AD /* HomeViewController.swift in Sources */,
 				3787D0112B42E0B100F054DD /* LoginViewModel.swift in Sources */,
 				3787D00A2B429F1700F054DD /* LaunchViewController.swift in Sources */,
 				3BD552682B58FCF70043920E /* CalendarCell.swift in Sources */,
+				35AC0F522B64030400AB0A6B /* TabBarController.swift in Sources */,
 				3BD552662B58FA8C0043920E /* RateFillView.swift in Sources */,
+				35AC0F502B64025300AB0A6B /* TabItem.swift in Sources */,
 				3BD5526A2B5914B10043920E /* CalendarStatistics.swift in Sources */,
 				3B9C89D12B4AED7C0083CF44 /* StatisticsViewController.swift in Sources */,
 				3B0129C62B6242F800B191AD /* Ext + ViewController.swift in Sources */,
