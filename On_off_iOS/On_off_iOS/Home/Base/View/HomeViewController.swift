@@ -63,9 +63,23 @@ final class HomeViewController: UIViewController {
         return view
     }()
     
-    /// On - Off 될때 바뀌는 UIView
-    private lazy var blankOnOffUIView: UIView = {
+    /// On UIView
+    private lazy var onUIView: UIView = {
         let view = UIView()
+        view.backgroundColor = .white
+        view.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
+        view.layer.cornerRadius = 25
+        
+        view.layer.shadowRadius = 10
+        view.layer.shadowOffset = CGSize(width: 0, height: -10)
+        view.layer.shadowOpacity = 0.5
+        
+        return view
+    }()
+    
+    /// Off UIView
+    private lazy var offUIView: OffUIView = {
+        let view = OffUIView()
         view.backgroundColor = .white
         view.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
         view.layer.cornerRadius = 25
@@ -90,9 +104,9 @@ final class HomeViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        blankOnOffUIView.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0,
-                                                                      width: blankOnOffUIView.frame.width,
-                                                                      height: blankOnOffUIView.frame.height - 50)).cgPath
+        onUIView.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0,
+                                                                      width: onUIView.frame.width,
+                                                                      height: onUIView.frame.height - 50)).cgPath
         
     }
     
@@ -104,7 +118,6 @@ final class HomeViewController: UIViewController {
         view.addSubview(dayImageView)
         view.addSubview(monthLabel)
         view.addSubview(dayCollectionView)
-        view.addSubview(blankOnOffUIView)
         
         baseConstraints()
     }
@@ -144,8 +157,34 @@ final class HomeViewController: UIViewController {
             make.trailing.equalToSuperview().offset(-6)
             make.height.equalTo(70)
         }
+    }
+    
+    /// Off  UI Add View
+    private func addOffSubViews() {
+        view.addSubview(offUIView)
         
-        blankOnOffUIView.snp.makeConstraints { make in
+        offConstraints()
+    }
+    
+    /// Off UI Constraints
+    private func offConstraints() {
+        offUIView.snp.makeConstraints { make in
+            make.top.equalTo(dayCollectionView.snp.bottom).offset(20)
+            make.horizontalEdges.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+    }
+    
+    /// On  UI Add View
+    private func addOnSubViews() {
+        view.addSubview(onUIView)
+        
+        onConstraints()
+    }
+    
+    /// On UI Constraints
+    private func onConstraints() {
+        onUIView.snp.makeConstraints { make in
             make.top.equalTo(dayCollectionView.snp.bottom).offset(20)
             make.horizontalEdges.equalToSuperview()
             make.bottom.equalToSuperview()
@@ -164,6 +203,7 @@ final class HomeViewController: UIViewController {
         bindOnOffButton(output: output)
         bindBackGroundColor(output: output)
         bindBlankViewShadowColor(output: output)
+        bindToggleOnOffButton(output: output)
     }
     
     /// Binding Day CollectionView Cell
@@ -236,7 +276,23 @@ final class HomeViewController: UIViewController {
         output.blankUIViewShadowColorRelay
             .bind { [weak self] color in
                 guard let self = self else { return }
-                blankOnOffUIView.layer.shadowColor = color.cgColor
+                onUIView.layer.shadowColor = color.cgColor
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    /// Binding toggle On - Off Button
+    private func bindToggleOnOffButton(output: HomeViewModel.Output) {
+        output.toggleOnOffButtonRelay
+            .bind { [weak self] check in
+                guard let self = self else { return }
+                if check {
+                    offUIView.removeFromSuperview()
+                    addOnSubViews()
+                    return
+                }
+                onUIView.removeFromSuperview()
+                addOffSubViews()
             }
             .disposed(by: disposeBag)
     }
