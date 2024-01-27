@@ -28,6 +28,16 @@ final class OffUIView: UIView {
         return view
     }()
     
+    /// 오늘의 회고 제목 버튼
+    private lazy var todayMemoirsLabel: UIButton = {
+        let button = UIButton()
+        button.setTitle("오늘의 회고", for: .normal)
+        button.backgroundColor = .clear
+        button.setTitleColor(.systemBlue, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 16)
+        return button
+    }()
+    
     // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -42,6 +52,7 @@ final class OffUIView: UIView {
     private func addSubViews() {
         addSubview(scrollView)
         scrollView.addSubview(contentView)
+        contentView.addSubview(todayMemoirsLabel)
         
         constraints()
     }
@@ -62,5 +73,26 @@ final class OffUIView: UIView {
             make.width.equalTo(scrollView.snp.width)
         }
         
+        todayMemoirsLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(20)
+            make.leading.equalToSuperview().offset(10)
+        }
+        
+    }
+}
+
+
+import SwiftUI
+struct VCPreViewHomeViewController:PreviewProvider {
+    static var previews: some View {
+        HomeViewController().toPreview().previewDevice("iPhone 15 Pro")
+        // 실행할 ViewController이름 구분해서 잘 지정하기
+    }
+}
+
+struct VCPreViewHomeViewController2:PreviewProvider {
+    static var previews: some View {
+        HomeViewController().toPreview().previewDevice("iPhone SE (3rd generation)")
+        // 실행할 ViewController이름 구분해서 잘 지정하기
     }
 }
