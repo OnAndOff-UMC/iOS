@@ -8,8 +8,6 @@
 import Foundation
 import UIKit
 import SnapKit
-import RxSwift
-import RxCocoa
 
 enum TabItem: Int, CaseIterable {
     case statistics

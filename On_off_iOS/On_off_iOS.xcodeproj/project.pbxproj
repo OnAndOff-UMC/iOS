@@ -11,8 +11,6 @@
 		3584F3AE2B5A5FEB007ACB57 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		35AC0F502B64025300AB0A6B /* TabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35AC0F4F2B64025300AB0A6B /* TabItem.swift */; };
 		35AC0F522B64030400AB0A6B /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35AC0F512B64030400AB0A6B /* TabBarController.swift */; };
-		35AC0F542B64039700AB0A6B /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35AC0F532B64039700AB0A6B /* CustomTabBar.swift */; };
-		35AC0F582B64126D00AB0A6B /* CustomTabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35AC0F572B64126D00AB0A6B /* CustomTabBarViewModel.swift */; };
 		374FD4932B4268EC00F2E645 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 374FD4922B4268EC00F2E645 /* RxCocoa */; };
 		374FD4952B4268EC00F2E645 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 374FD4942B4268EC00F2E645 /* RxRelay */; };
 		374FD4972B4268EC00F2E645 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 374FD4962B4268EC00F2E645 /* RxSwift */; };
@@ -62,8 +60,6 @@
 /* Begin PBXFileReference section */
 		35AC0F4F2B64025300AB0A6B /* TabItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItem.swift; sourceTree = "<group>"; };
 		35AC0F512B64030400AB0A6B /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
-		35AC0F532B64039700AB0A6B /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
-		35AC0F572B64126D00AB0A6B /* CustomTabBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarViewModel.swift; sourceTree = "<group>"; };
 		374FD49C2B4281E100F2E645 /* OnboardingCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCustomView.swift; sourceTree = "<group>"; };
 		374FD49E2B42825B00F2E645 /* CustomPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPageControl.swift; sourceTree = "<group>"; };
 		374FD4A12B4294F100F2E645 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -127,7 +123,6 @@
 			isa = PBXGroup;
 			children = (
 				35AC0F552B64117E00AB0A6B /* Model */,
-				35AC0F562B64125300AB0A6B /* ViewModel */,
 				35AC0F592B6412A600AB0A6B /* View */,
 			);
 			path = TabBar;
@@ -141,18 +136,9 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		35AC0F562B64125300AB0A6B /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				35AC0F572B64126D00AB0A6B /* CustomTabBarViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
 		35AC0F592B6412A600AB0A6B /* View */ = {
 			isa = PBXGroup;
 			children = (
-				35AC0F532B64039700AB0A6B /* CustomTabBar.swift */,
 				35AC0F512B64030400AB0A6B /* TabBarController.swift */,
 			);
 			path = View;
@@ -564,7 +550,6 @@
 				3769A6862B58563000D79C33 /* SelectTimeViewModel.swift in Sources */,
 				374FD4A42B4297BE00F2E645 /* OnBoardingViewController.swift in Sources */,
 				3769A6882B58563C00D79C33 /* SelectTimeViewController.swift in Sources */,
-				35AC0F582B64126D00AB0A6B /* CustomTabBarViewModel.swift in Sources */,
 				3787D0082B429C1100F054DD /* OnboardingModel.swift in Sources */,
 				378140662B42F0AB00F2AA5A /* ProfileSettingViewModel.swift in Sources */,
 				3B1658F72B4D8559004EFBC3 /* WeekChartCustomView.swift in Sources */,
@@ -572,7 +557,6 @@
 				3769A68E2B585B6600D79C33 /* DayButton.swift in Sources */,
 				3B0129CE2B624E8D00B191AD /* DayCollectionViewCell.swift in Sources */,
 				3769A6912B585BDE00D79C33 /* DayModel.swift in Sources */,
-				35AC0F542B64039700AB0A6B /* CustomTabBar.swift in Sources */,
 				3B0129CC2B624D6000B191AD /* Home.swift in Sources */,
 				374FD49D2B4281E100F2E645 /* OnboardingCustomView.swift in Sources */,
 				3BB806D82B5024BC00555E58 /* MonthStatistics.swift in Sources */,
