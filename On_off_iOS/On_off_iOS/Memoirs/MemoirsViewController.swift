@@ -179,7 +179,6 @@ final class MemoirsViewController: UIViewController {
         contentView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
             make.width.equalToSuperview()
-            // contentView의 높이는 내부 콘텐츠에 따라 달라질 것입니다.
         }
 
         writeButton.snp.makeConstraints { make in
@@ -188,7 +187,6 @@ final class MemoirsViewController: UIViewController {
             make.width.height.equalTo(50)
         }
 
-        
         emoticonView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(15)
             make.leading.trailing.equalToSuperview()

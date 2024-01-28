@@ -19,6 +19,8 @@ final class WriteLearnedViewModel {
     struct Input {
         let startButtonTapped: Observable<Void>
         let textChanged: Observable<String>
+        let backButtonTapped: Observable<Void>
+
     }
     
     /// Output
@@ -51,6 +53,13 @@ final class WriteLearnedViewModel {
             }
             .disposed(by: disposeBag)
         
+        /// 뒤로가기 버튼 클릭
+        input.backButtonTapped
+            .bind { [weak self] in
+                guard let self = self else { return }
+                moveToBack()
+            }
+            .disposed(by: disposeBag)
         return output
     }
     
@@ -59,5 +68,10 @@ final class WriteLearnedViewModel {
         let writeImprovementViewModel = WriteImprovementViewModel(navigationController: navigationController)
         let vc = WriteImprovementViewController(viewModel: writeImprovementViewModel)
         navigationController.pushViewController(vc, animated: false)
+    }
+    
+    /// 뒤로 이동
+    private func moveToBack() {
+        navigationController.popViewController(animated: false)
     }
 }

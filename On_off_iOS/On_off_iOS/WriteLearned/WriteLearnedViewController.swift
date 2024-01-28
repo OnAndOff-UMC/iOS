@@ -11,66 +11,59 @@ import RxCocoa
 
 final class WriteLearnedViewController: UIViewController {
     
-    /// 상위 동그라미 스택뷰
-    private var stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = .equalSpacing
-        stackView.alignment = .center
-        stackView.spacing = 10
-        return stackView
+    /// customBackButton
+    private let backButton : UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "〈 뒤로가기", style: .plain, target: nil, action: nil)
+        button.tintColor = .black
+        return button
     }()
     
-    /// dot
-    private let circleViews = (1...4).map { _ -> UIView in
-         let view = UIView()
-         view.backgroundColor = .red
-         return view
-     }
-    /// 현재 dot
-    private let longView : UIView = {
-        let view = UIView()
-        view.backgroundColor = .blue
-        return view
+    /// pageControl
+    private lazy var pageControlImage: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "PageControl2"))
+        imageView.contentMode = .scaleAspectFit
+        return imageView
     }()
     
     /// 사용자 명
     private let userNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "고생했어요! "
+        label.text = "조디님"
         label.numberOfLines = 0
-        label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
+        label.textAlignment = .center
+        label.textColor = .black
+        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         return label
     }()
     
     /// welcomeLabel
     private let welcomeLabel: UILabel = {
         let label = UILabel()
-        label.text = "스스로에게 칭찬 한 마디를 쓴다면?"
+        label.text = "오늘 어떤 일을 했나요? 배운 게 있나요?"
         label.numberOfLines = 0
-        label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
+        label.textAlignment = .center
+        label.textColor = .black
+
+        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         return label
     }()
     
-    /// 회고글 View
-    private lazy var textFieldView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .lightGray
-        return view
+    /// 회고록 작성페이지 그림
+    private lazy var textpageImage: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "TextpageImage1"))
+        imageView.contentMode = .scaleAspectFit
+        return imageView
     }()
     
     /// 회고글 TextField
-    private let textField: UITextField = {
-        let field = UITextField()
-        field.attributedPlaceholder = NSAttributedString(string: "배운점을 입력하세요",
-                                                         attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
-        field.textAlignment = .left
-        field.font = UIFont.systemFont(ofSize: 13, weight: .regular)
-        field.backgroundColor = UIColor.clear
-        field.layer.borderWidth = 0
-        return field
+    private let textView: UITextView = {
+        let textView = UITextView()
+        textView.textAlignment = .left
+        textView.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+        textView.backgroundColor = UIColor.clear
+        textView.layer.borderWidth = 0
+        textView.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        return textView
     }()
     
     /// 글자 수
@@ -84,22 +77,25 @@ final class WriteLearnedViewController: UIViewController {
         return label
     }()
     
-    /// 확인 버튼
+    /// 다음 버튼
     private let checkButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("확인", for: .normal)
+        button.setTitle("다음 >", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+        button.titleLabel?.tintColor = .white
         return button
     }()
     
-    /// 확인 버튼 뷰
+    /// 다음 버튼 뷰
     private lazy var checkButtonView: UIView = {
         let view = UIView()
         view.backgroundColor = .blue
+        view.layer.cornerRadius = 20
+        view.layer.masksToBounds = true
         return view
     }()
     
-    private var viewModel: WriteLearnedViewModel
+    private let viewModel: WriteLearnedViewModel
     private let disposeBag = DisposeBag()
     
     // MARK: - Init
@@ -119,112 +115,101 @@ final class WriteLearnedViewController: UIViewController {
         view.backgroundColor = .white
         addSubviews()
         setupBindings()
+        settingCheckButtonView()
+    }
+
+    /// 확인 버튼 속성 설정
+    private func settingCheckButtonView(){
+        checkButtonView.layer.cornerRadius = view.frame.width * 0.3 * 0.25
+        checkButtonView.layer.masksToBounds = true
     }
 
     /// addSubviews
     private func addSubviews() {
-        view.addSubview(stackView)
-
-        stackView.addArrangedSubview(circleViews[0])
-        stackView.addArrangedSubview(longView)
-        circleViews[1...].forEach { circleView in
-            stackView.addArrangedSubview(circleView)
-        }
+        
+        view.addSubview(pageControlImage)
         
         view.addSubview(userNameLabel)
         view.addSubview(welcomeLabel)
-
-        view.addSubview(textFieldView)
-        textFieldView.addSubview(textField)
+        
+        view.addSubview(textpageImage)
+        view.addSubview(textView)
         view.addSubview(checkLenghtLabel)
-            
+        
         view.addSubview(checkButtonView)
         checkButtonView.addSubview(checkButton)
-            
+        
         configureConstraints()
     }
-        
+    
     /// configureConstraints
     private func configureConstraints() {
-            
-        // 가로 길이가 2배인 뷰의 제약 조건
-        longView.snp.makeConstraints { make in
-                make.width.equalTo(100)
-                make.height.equalTo(50)
-            }
-            
-        // 동그라미 뷰들의 제약 조건
-        circleViews.forEach { circleView in
-            circleView.snp.makeConstraints { make in
-                make.width.height.equalTo(50)
-            }
-            circleView.layer.cornerRadius = 25 // 반지름 25로 설정하여 동그라미 형태 만듦
-        }
+        
+        self.navigationItem.leftBarButtonItem = backButton
 
-            // 스택 뷰의 제약 조건
-            stackView.snp.makeConstraints { make in
-                make.height.equalTo(view.snp.width).multipliedBy(0.2)
-                make.top.equalTo(view.safeAreaLayoutGuide).inset(10)
-                make.centerX.equalToSuperview()
-            }
-
-            userNameLabel.snp.makeConstraints { make in
-                make.top.equalTo(stackView.snp.bottom).offset(10)
-                make.leading.equalToSuperview().offset(10)
-            }
-
-            welcomeLabel.snp.makeConstraints { make in
-                make.top.equalTo(userNameLabel.snp.bottom).offset(10)
-                make.leading.equalToSuperview().offset(10)
-            }
-            
-            textFieldView.snp.makeConstraints { make in
-                make.top.equalTo(welcomeLabel.snp.bottom).offset(10)
-                make.leading.trailing.equalToSuperview().inset(10)
-                make.height.equalTo(textFieldView.snp.width).multipliedBy(1.12)
-            }
-            
-            textField.snp.makeConstraints { make in
-                make.edges.equalToSuperview().inset(10)
-            }
-            
-            checkLenghtLabel.snp.makeConstraints { make in
-                make.top.equalTo(textFieldView.snp.bottom).offset(10)
-                make.trailing.equalTo(textFieldView)
-            }
-            
-            checkButtonView.snp.makeConstraints { make in
-                make.bottom.equalToSuperview().inset(50)
-                make.leading.trailing.equalToSuperview().inset(17)
-                make.height.equalTo(checkButtonView.snp.width).multipliedBy(0.15)
-            }
-            
-            checkButton.snp.makeConstraints { make in
-                make.center.equalToSuperview()
-            }
+        pageControlImage.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.width.equalTo(view.snp.width).multipliedBy(0.25)
+            make.top.equalTo(view.safeAreaLayoutGuide).inset(10)
+            make.height.equalTo(pageControlImage.snp.width).multipliedBy(0.1)
         }
         
-        /// 뷰모델과 setupBindings
-        private func setupBindings() {
-            let input = WriteLearnedViewModel.Input(startButtonTapped: checkButton.rx.tap.asObservable(),
-                                                textChanged: textField.rx.text.orEmpty.asObservable())
-            
-            let output = viewModel.bind(input: input)
-            
+        userNameLabel.snp.makeConstraints { make in
+            make.top.equalTo(pageControlImage.snp.bottom).offset(10)
+            make.centerX.equalToSuperview()
+        }
+        
+        welcomeLabel.snp.makeConstraints { make in
+            make.top.equalTo(userNameLabel.snp.bottom).offset(10)
+            make.centerX.equalToSuperview()
+        }
+        
+        textpageImage.snp.makeConstraints { make in
+            make.top.equalTo(welcomeLabel.snp.bottom).offset(10)
+            make.leading.trailing.equalToSuperview().inset(10)
+            make.height.equalTo(textpageImage.snp.width)
+        }
+        
+        textView.snp.makeConstraints { make in
+            make.top.equalTo(textpageImage).offset(50)
+            make.bottom.equalTo(textpageImage).offset(-50)
+            make.horizontalEdges.equalTo(textpageImage).inset(30)
+        }
+        
+        checkLenghtLabel.snp.makeConstraints { make in
+            make.top.equalTo(textpageImage.snp.bottom).offset(10)
+            make.trailing.equalTo(textView)
+        }
+        
+        checkButtonView.snp.makeConstraints { make in
+            make.bottom.equalToSuperview().inset(50)
+            make.trailing.equalToSuperview().inset(20)
+            make.width.equalTo(view.snp.width).multipliedBy(0.3)
+            make.height.equalTo(checkButtonView.snp.width).multipliedBy(0.5)
+        }
+        
+        checkButton.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
+    }
+    
+    /// 뷰모델과 setupBindings
+    private func setupBindings() {
+        let input = WriteLearnedViewModel.Input(startButtonTapped: checkButton.rx.tap.asObservable(),
+                                                textChanged: textView.rx.text.orEmpty.asObservable(), backButtonTapped: backButton.rx.tap.asObservable())
+        
+        let output = viewModel.bind(input: input)
+        
         /// 글자수 출력 바인딩
         output.textLength
             .map { "(\($0)/500)" }
             .bind(to: checkLenghtLabel.rx.text)
             .disposed(by: disposeBag)
-        }
-        
-    /// 뒤로가기
-    private func backButton() {
-        navigationController?.popViewController(animated: false)
     }
-        // 키보드내리기
-        override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-            super.touchesBegan(touches, with: event)
-            textField.endEditing(true)
-        }
+    
+    // 키보드내리기
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        textView.endEditing(true)
     }
+}

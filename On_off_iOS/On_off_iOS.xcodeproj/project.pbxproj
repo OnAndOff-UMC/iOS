@@ -40,6 +40,8 @@
 		3787D00F2B42AD6F00F054DD /* OnBoardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787D00E2B42AD6F00F054DD /* OnBoardingViewModel.swift */; };
 		3787D0112B42E0B100F054DD /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787D0102B42E0B100F054DD /* LoginViewModel.swift */; };
 		3787D0132B42E0F000F054DD /* NickNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787D0122B42E0F000F054DD /* NickNameViewController.swift */; };
+		37CFD3002B66533900E00D92 /* ExpressedIconViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CFD2FF2B66533900E00D92 /* ExpressedIconViewController.swift */; };
+		37CFD3022B66534400E00D92 /* ExpressedIconViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CFD3012B66534400E00D92 /* ExpressedIconViewModel.swift */; };
 		3B1658F72B4D8559004EFBC3 /* WeekChartCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1658F62B4D8559004EFBC3 /* WeekChartCustomView.swift */; };
 		3B42300E2B41572200D0B038 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B42300D2B41572200D0B038 /* AppDelegate.swift */; };
 		3B4230102B41572200D0B038 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B42300F2B41572200D0B038 /* SceneDelegate.swift */; };
@@ -81,6 +83,8 @@
 		3787D00E2B42AD6F00F054DD /* OnBoardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewModel.swift; sourceTree = "<group>"; };
 		3787D0102B42E0B100F054DD /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		3787D0122B42E0F000F054DD /* NickNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameViewController.swift; sourceTree = "<group>"; };
+		37CFD2FF2B66533900E00D92 /* ExpressedIconViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressedIconViewController.swift; sourceTree = "<group>"; };
+		37CFD3012B66534400E00D92 /* ExpressedIconViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressedIconViewModel.swift; sourceTree = "<group>"; };
 		3B1658F62B4D8559004EFBC3 /* WeekChartCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekChartCustomView.swift; sourceTree = "<group>"; };
 		3B42300A2B41572200D0B038 /* On_off_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = On_off_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B42300D2B41572200D0B038 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -320,6 +324,15 @@
 			path = ProfileSetting;
 			sourceTree = "<group>";
 		};
+		37CFD2FE2B6652DA00E00D92 /* ExpressedIcon */ = {
+			isa = PBXGroup;
+			children = (
+				37CFD2FF2B66533900E00D92 /* ExpressedIconViewController.swift */,
+				37CFD3012B66534400E00D92 /* ExpressedIconViewModel.swift */,
+			);
+			path = ExpressedIcon;
+			sourceTree = "<group>";
+		};
 		3B4230012B41572200D0B038 = {
 			isa = PBXGroup;
 			children = (
@@ -339,6 +352,7 @@
 		3B42300C2B41572200D0B038 /* On_off_iOS */ = {
 			isa = PBXGroup;
 			children = (
+				37CFD2FE2B6652DA00E00D92 /* ExpressedIcon */,
 				371B9EB52B5B06E5006AC06D /* WritePraised */,
 				371B9EB22B5B06B0006AC06D /* WriteImprovement */,
 				371B9EAF2B5B066F006AC06D /* WriteLearned */,
@@ -504,6 +518,7 @@
 				3B42300E2B41572200D0B038 /* AppDelegate.swift in Sources */,
 				371B9EBB2B5B0737006AC06D /* WritePraisedViewController.swift in Sources */,
 				3769A68E2B585B6600D79C33 /* DayButton.swift in Sources */,
+				37CFD3022B66534400E00D92 /* ExpressedIconViewModel.swift in Sources */,
 				3769A6912B585BDE00D79C33 /* DayModel.swift in Sources */,
 				371B9EBF2B5B075A006AC06D /* WriteImprovementViewController.swift in Sources */,
 				374FD49D2B4281E100F2E645 /* OnboardingCustomView.swift in Sources */,
@@ -517,6 +532,7 @@
 				371B9EB92B5B0723006AC06D /* WritePraisedViewModel.swift in Sources */,
 				371B9EA72B5AD838006AC06D /* MemoirsViewController.swift in Sources */,
 				371B9EAE2B5AFD42006AC06D /* StartToWriteViewModel.swift in Sources */,
+				37CFD3002B66533900E00D92 /* ExpressedIconViewController.swift in Sources */,
 				3787D00A2B429F1700F054DD /* LaunchViewController.swift in Sources */,
 				3B9C89D12B4AED7C0083CF44 /* StatisticsViewController.swift in Sources */,
 				371B9EC52B5B0B61006AC06D /* WriteLearnedViewController.swift in Sources */,

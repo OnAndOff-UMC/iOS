@@ -11,27 +11,26 @@ import RxCocoa
 
 /// 작성 시작 ViewController
 final class StartToWriteViewController: UIViewController {
-    /// 상위 동그라미 스택뷰
-    private var stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = .equalSpacing
-        stackView.alignment = .center
-        stackView.spacing = 10
-        return stackView
+    
+    /// customBackButton
+    private let backButton : UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "〈 뒤로가기", style: .plain, target: nil, action: nil)
+        button.tintColor = .black
+        return button
+    }()
+
+    /// pageControl
+    private lazy var pageControlImage: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "PageControl1"))
+        imageView.contentMode = .scaleAspectFit
+        return imageView
     }()
     
-    /// dot
-    private let circleViews = (1...4).map { _ -> UIView in
-         let view = UIView()
-         view.backgroundColor = .red
-         return view
-     }
-    /// 현재 dot
-    private let longView : UIView = {
-        let view = UIView()
-        view.backgroundColor = .blue
-        return view
+    /// StartToWriteImage
+    private lazy var startToWriteImage: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "StartToWriteImage"))
+        imageView.contentMode = .scaleAspectFit
+        return imageView
     }()
     
     /// 소개글
@@ -40,10 +39,10 @@ final class StartToWriteViewController: UIViewController {
         label.text = "오늘 하루도 수고했어요\n회고로 이제 일에서 완전히 OFF 하세요"
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         return label
     }()
-
+    
     /// 시작하기 버튼
     private let startButton: UIButton = {
         let button = UIButton(type: .system)
@@ -59,7 +58,7 @@ final class StartToWriteViewController: UIViewController {
         return view
     }()
     
-    private var viewModel: StartToWriteViewModel
+    private let viewModel: StartToWriteViewModel
     private let disposeBag = DisposeBag()
     
     // MARK: - Init
@@ -67,7 +66,6 @@ final class StartToWriteViewController: UIViewController {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
-    
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -79,20 +77,20 @@ final class StartToWriteViewController: UIViewController {
         view.backgroundColor = .white
         addSubviews()
         setupBindings()
+        setupStartButtonView()
+    }
+    
+    /// 시작  버튼 속성 설정
+    private func setupStartButtonView(){
+        startButtonView.layer.cornerRadius = view.frame.width * 0.8 * 0.15
+        startButtonView.layer.masksToBounds = true
     }
     
     /// addSubviews
     private func addSubviews(){
-        view.addSubview(stackView)
-        // 길쭉한 동그라미 뷰 추가
-        stackView.addArrangedSubview(longView)
-
-        // 2 번째동그라미 부터 추가
-        for i in 0..<circleViews.count {
-            stackView.addArrangedSubview(circleViews[i])
-        }
         
-
+        view.addSubview(pageControlImage)
+        view.addSubview(startToWriteImage)
         view.addSubview(welcomeLabel)
         view.addSubview(startButtonView)
         startButtonView.addSubview(startButton)
@@ -101,33 +99,26 @@ final class StartToWriteViewController: UIViewController {
     }
     
     /// configureConstraints
-    private func configureConstraints(){
-        // 가로 길이가 2배인 뷰의 제약 조건
-        longView.snp.makeConstraints { make in
-                make.width.equalTo(100)
-                make.height.equalTo(50)
-            }
-            
-        // 동그라미 뷰들의 제약 조건
-        circleViews.forEach { circleView in
-            circleView.snp.makeConstraints { make in
-                make.width.height.equalTo(50)
-            }
-            circleView.layer.cornerRadius = 25 // 반지름 25로 설정하여 동그라미 형태 만듦
-        }
+    private func configureConstraints() {
         
-        // 스택 뷰의 제약 조건
-        stackView.snp.makeConstraints { make in
-            make.height.equalTo(view.snp.width).multipliedBy(0.2)
-            make.top.equalTo(view.safeAreaLayoutGuide).inset(10)
+        self.navigationItem.leftBarButtonItem = backButton
+
+        pageControlImage.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
+            make.width.equalTo(view.snp.width).multipliedBy(0.25)
+            make.top.equalTo(view.safeAreaLayoutGuide).inset(10)
+            make.height.equalTo(pageControlImage.snp.width).multipliedBy(0.1)
+        }
+        startToWriteImage.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.height.equalTo(startToWriteImage.snp.width).multipliedBy(0.6)
+            make.center.equalToSuperview()
         }
 
-        
         startButtonView.snp.makeConstraints { make in
             make.bottom.equalToSuperview().inset(50)
             make.height.equalTo(startButtonView.snp.width).multipliedBy(0.15)
-            make.leading.trailing.equalToSuperview().inset(17)
+            make.width.equalTo(view.snp.width).multipliedBy(0.8)
         }
         
         startButton.snp.makeConstraints { make in
@@ -142,9 +133,10 @@ final class StartToWriteViewController: UIViewController {
     
     /// 뷰모델과 setupBindings
     private func setupBindings() {
-        let input = StartToWriteViewModel.Input(startButtonTapped: startButton.rx.tap.asObservable())
-    
-        let output = viewModel.bind(input: input)
-
+        let input = StartToWriteViewModel.Input(startButtonTapped: startButton.rx.tap.asObservable(),
+                                                backButtonTapped: backButton.rx.tap.asObservable())
+        
+        let _ = viewModel.bind(input: input)
+        
     }
 }

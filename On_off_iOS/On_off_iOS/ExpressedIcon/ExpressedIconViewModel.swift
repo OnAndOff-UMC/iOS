@@ -1,8 +1,8 @@
 //
-//  WriteImprovementViewModel.swift
+//  ExpressedIconViewModel.swift
 //  On_off_iOS
 //
-//  Created by 박다미 on 2024/01/20.
+//  Created by 박다미 on 2024/01/28.
 //
 
 import RxCocoa
@@ -10,15 +10,14 @@ import RxRelay
 import RxSwift
 import UIKit
 
-/// WriteImprovementViewModel
-final class WriteImprovementViewModel {
+/// ExpressedIconViewModel
+final class ExpressedIconViewModel {
     private let disposeBag = DisposeBag()
     var navigationController: UINavigationController
 
     /// Input
     struct Input {
         let startButtonTapped: Observable<Void>
-        let textChanged: Observable<String>
         let backButtonTapped: Observable<Void>
     }
     
@@ -39,12 +38,6 @@ final class WriteImprovementViewModel {
     func bind(input: Input) -> Output {
         let output = Output()
 
-        /// textLength
-        input.textChanged
-            .map { $0.count }
-            .bind(to: output.textLength)
-            .disposed(by: disposeBag)
-
         /// 완료버튼 클릭
         input.startButtonTapped
             .bind { [weak self] in
@@ -63,11 +56,9 @@ final class WriteImprovementViewModel {
         return output
     }
     
-    /// Improvement 화면으로 이동
+    /// Memoirs 초기 화면으로 이동
     private func moveToImprovement() {
-        let writePraisedViewModel = WritePraisedViewModel(navigationController: navigationController)
-        let vc = WritePraisedViewController(viewModel: writePraisedViewModel)
-        navigationController.pushViewController(vc, animated: false)
+
     }
     
     /// 뒤로 이동
@@ -75,3 +66,4 @@ final class WriteImprovementViewModel {
         navigationController.popViewController(animated: false)
     }
 }
+

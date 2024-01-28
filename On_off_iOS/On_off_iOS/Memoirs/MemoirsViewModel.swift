@@ -43,7 +43,7 @@ final class MemoirsViewModel {
         input.bookMarkButtonTapped
             .bind { [weak self] in
                 guard let self = self else { return }
-print("북마크")
+                print("북마크")
             }
             .disposed(by: disposeBag)
         

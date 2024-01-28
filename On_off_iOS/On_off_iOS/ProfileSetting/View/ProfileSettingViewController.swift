@@ -48,6 +48,7 @@ final class ProfileSettingViewController: UIViewController {
         label.font = .systemFont(ofSize: 20, weight: .bold)
         return label
     }()
+    
     /// 직업 - 텍스트 필드
     private lazy var jobTextField: UITextField = {
         let field = UITextField()
@@ -114,6 +115,7 @@ final class ProfileSettingViewController: UIViewController {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
         return button
     }()
+    
     private lazy var checkButtonView: UIView = {
         let view = UIView()
         view.backgroundColor = .blue
