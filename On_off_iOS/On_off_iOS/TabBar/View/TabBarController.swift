@@ -27,8 +27,6 @@ final class TabBarController: UITabBarController {
         // 뷰 컨트롤러 배열 설정
         viewControllers = [statisticsVC, homeVC, myVC]
 
-        // 탭 바 높이 설정
-        tabBar.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height * 0.5
     }
 
     private func createViewController(for tabItem: TabItem) -> UIViewController {
@@ -50,8 +48,6 @@ final class TabBarController: UITabBarController {
             selectedImage: tabItem.selectedImage?.withRenderingMode(.alwaysOriginal)
         )
 
-//        // 뷰 컨트롤러를 네비게이션 컨트롤러로 감싸서 반환
-//        return UINavigationController(rootViewController: viewController)
         return viewController
     }
 
