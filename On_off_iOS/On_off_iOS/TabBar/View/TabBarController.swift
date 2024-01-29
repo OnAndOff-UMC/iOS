@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import SnapKit
 
-class TabBarController: UITabBarController {
+final class TabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +28,7 @@ class TabBarController: UITabBarController {
         viewControllers = [statisticsVC, homeVC, myVC]
 
         // 탭 바 높이 설정
-        tabBar.frame.size.height = UIScreen.main.bounds.height * 0.5
+        tabBar.frame.size.height = view.safeAreaLayoutGuide.layoutFrame.height * 0.5
     }
 
     private func createViewController(for tabItem: TabItem) -> UIViewController {
@@ -50,8 +50,9 @@ class TabBarController: UITabBarController {
             selectedImage: tabItem.selectedImage?.withRenderingMode(.alwaysOriginal)
         )
 
-        // 뷰 컨트롤러를 네비게이션 컨트롤러로 감싸서 반환
-        return UINavigationController(rootViewController: viewController)
+//        // 뷰 컨트롤러를 네비게이션 컨트롤러로 감싸서 반환
+//        return UINavigationController(rootViewController: viewController)
+        return viewController
     }
 
     private func configureTabBar() {

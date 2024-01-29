@@ -147,6 +147,7 @@
 		374FD49B2B4281CA00F2E645 /* OnBoarding */ = {
 			isa = PBXGroup;
 			children = (
+				3787D00B2B42A84100F054DD /* View */,
 				3787D00D2B42A85900F054DD /* Model */,
 				3787D00C2B42A84900F054DD /* ViewModel */,
 			);
@@ -318,7 +319,6 @@
 		3B0129C42B6242D400B191AD /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				3787D00B2B42A84100F054DD /* View */,
 				3B0129C52B6242F800B191AD /* Ext + ViewController.swift */,
 				3B0129C72B6246E900B191AD /* Ext + UIImage.swift */,
 			);
