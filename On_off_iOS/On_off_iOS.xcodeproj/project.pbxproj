@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		355283122B68CB70002BBFFD /* Ext + UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355283112B68CB70002BBFFD /* Ext + UIFont.swift */; };
 		355283142B68CC94002BBFFD /* Ext + UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355283132B68CC94002BBFFD /* Ext + UIColor.swift */; };
+		3552831A2B6A0C5F002BBFFD /* OnViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355283192B6A0C5F002BBFFD /* OnViewModel.swift */; };
+		3552831C2B6A0C6A002BBFFD /* OnViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3552831B2B6A0C6A002BBFFD /* OnViewController.swift */; };
+		3552831E2B6A0C77002BBFFD /* On.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3552831D2B6A0C77002BBFFD /* On.swift */; };
+		355283202B6A0E0E002BBFFD /* OnDayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3552831F2B6A0E0E002BBFFD /* OnDayCollectionViewCell.swift */; };
 		3584F3AC2B5A5CC7007ACB57 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		3584F3AE2B5A5FEB007ACB57 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		35AC0F502B64025300AB0A6B /* TabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35AC0F4F2B64025300AB0A6B /* TabItem.swift */; };
@@ -41,7 +45,6 @@
 		3B0129C82B6246E900B191AD /* Ext + UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0129C72B6246E900B191AD /* Ext + UIImage.swift */; };
 		3B0129CA2B624CAE00B191AD /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0129C92B624CAE00B191AD /* HomeViewModel.swift */; };
 		3B0129CC2B624D6000B191AD /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0129CB2B624D6000B191AD /* Home.swift */; };
-		3B0129CE2B624E8D00B191AD /* DayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0129CD2B624E8C00B191AD /* DayCollectionViewCell.swift */; };
 		3B1658F72B4D8559004EFBC3 /* WeekChartCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1658F62B4D8559004EFBC3 /* WeekChartCustomView.swift */; };
 		3B42300E2B41572200D0B038 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B42300D2B41572200D0B038 /* AppDelegate.swift */; };
 		3B4230102B41572200D0B038 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B42300F2B41572200D0B038 /* SceneDelegate.swift */; };
@@ -62,6 +65,10 @@
 /* Begin PBXFileReference section */
 		355283112B68CB70002BBFFD /* Ext + UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext + UIFont.swift"; sourceTree = "<group>"; };
 		355283132B68CC94002BBFFD /* Ext + UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext + UIColor.swift"; sourceTree = "<group>"; };
+		355283192B6A0C5F002BBFFD /* OnViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnViewModel.swift; sourceTree = "<group>"; };
+		3552831B2B6A0C6A002BBFFD /* OnViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnViewController.swift; sourceTree = "<group>"; };
+		3552831D2B6A0C77002BBFFD /* On.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = On.swift; sourceTree = "<group>"; };
+		3552831F2B6A0E0E002BBFFD /* OnDayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnDayCollectionViewCell.swift; sourceTree = "<group>"; };
 		35AC0F4F2B64025300AB0A6B /* TabItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItem.swift; sourceTree = "<group>"; };
 		35AC0F512B64030400AB0A6B /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		35E0C7292B68C7E3006BF427 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
@@ -96,7 +103,6 @@
 		3B0129C72B6246E900B191AD /* Ext + UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext + UIImage.swift"; sourceTree = "<group>"; };
 		3B0129C92B624CAE00B191AD /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		3B0129CB2B624D6000B191AD /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
-		3B0129CD2B624E8C00B191AD /* DayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCollectionViewCell.swift; sourceTree = "<group>"; };
 		3B1658F62B4D8559004EFBC3 /* WeekChartCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekChartCustomView.swift; sourceTree = "<group>"; };
 		3B42300A2B41572200D0B038 /* On_off_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = On_off_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B42300D2B41572200D0B038 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -132,6 +138,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		355283152B6A0BFE002BBFFD /* On */ = {
+			isa = PBXGroup;
+			children = (
+				355283162B6A0C12002BBFFD /* Model */,
+				355283182B6A0C38002BBFFD /* ViewModel */,
+				355283172B6A0C18002BBFFD /* View */,
+			);
+			path = On;
+			sourceTree = "<group>";
+		};
+		355283162B6A0C12002BBFFD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3552831D2B6A0C77002BBFFD /* On.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		355283172B6A0C18002BBFFD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3552831B2B6A0C6A002BBFFD /* OnViewController.swift */,
+				3552831F2B6A0E0E002BBFFD /* OnDayCollectionViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		355283182B6A0C38002BBFFD /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				355283192B6A0C5F002BBFFD /* OnViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		35984F222B63EE8000A5F6F2 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -340,6 +381,7 @@
 		3B0129C12B623BA900B191AD /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				355283152B6A0BFE002BBFFD /* On */,
 				3B0129CF2B62BA8100B191AD /* Base */,
 			);
 			path = Home;
@@ -369,7 +411,6 @@
 		3B0129D02B62BA8A00B191AD /* View */ = {
 			isa = PBXGroup;
 			children = (
-				3B0129CD2B624E8C00B191AD /* DayCollectionViewCell.swift */,
 				3B0129C22B623BB900B191AD /* HomeViewController.swift */,
 			);
 			path = View;
@@ -521,7 +562,7 @@
 		3B4230022B41572200D0B038 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				BuildIndependentTargetsInParallel = 1;
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
@@ -574,7 +615,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B51B5272B63DF9500E5FEF9 /* CellIdentifier.swift in Sources */,
+				3552831C2B6A0C6A002BBFFD /* OnViewController.swift in Sources */,
 				378140612B42E83100F2AA5A /* NickNameViewModel.swift in Sources */,
+				3552831E2B6A0C77002BBFFD /* On.swift in Sources */,
 				3787D0132B42E0F000F054DD /* NickNameViewController.swift in Sources */,
 				3787D00F2B42AD6F00F054DD /* OnBoardingViewModel.swift in Sources */,
 				374FD4A22B4294F100F2E645 /* LoginViewController.swift in Sources */,
@@ -582,6 +625,7 @@
 				355283122B68CB70002BBFFD /* Ext + UIFont.swift in Sources */,
 				355283142B68CC94002BBFFD /* Ext + UIColor.swift in Sources */,
 				3769A6862B58563000D79C33 /* SelectTimeViewModel.swift in Sources */,
+				3552831A2B6A0C5F002BBFFD /* OnViewModel.swift in Sources */,
 				374FD4A42B4297BE00F2E645 /* OnBoardingViewController.swift in Sources */,
 				3769A6882B58563C00D79C33 /* SelectTimeViewController.swift in Sources */,
 				3787D0082B429C1100F054DD /* OnboardingModel.swift in Sources */,
@@ -589,7 +633,6 @@
 				3B1658F72B4D8559004EFBC3 /* WeekChartCustomView.swift in Sources */,
 				3B42300E2B41572200D0B038 /* AppDelegate.swift in Sources */,
 				3769A68E2B585B6600D79C33 /* DayButton.swift in Sources */,
-				3B0129CE2B624E8D00B191AD /* DayCollectionViewCell.swift in Sources */,
 				3769A6912B585BDE00D79C33 /* DayModel.swift in Sources */,
 				3B0129CC2B624D6000B191AD /* Home.swift in Sources */,
 				374FD49D2B4281E100F2E645 /* OnboardingCustomView.swift in Sources */,
@@ -605,6 +648,7 @@
 				3787D00A2B429F1700F054DD /* LaunchViewController.swift in Sources */,
 				3BD552682B58FCF70043920E /* CalendarCell.swift in Sources */,
 				35AC0F522B64030400AB0A6B /* TabBarController.swift in Sources */,
+				355283202B6A0E0E002BBFFD /* OnDayCollectionViewCell.swift in Sources */,
 				3BD552662B58FA8C0043920E /* RateFillView.swift in Sources */,
 				35AC0F502B64025300AB0A6B /* TabItem.swift in Sources */,
 				3BD5526A2B5914B10043920E /* CalendarStatistics.swift in Sources */,
@@ -754,9 +798,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = SN5J3DYFX4;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = SN5J3DYFX4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = On_off_iOS/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -770,6 +816,8 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "UMC-OnAndOff.On-off-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = On_Off_ProvisioningFile_Develop;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -781,6 +829,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
