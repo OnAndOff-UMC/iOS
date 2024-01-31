@@ -79,7 +79,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
-        print("STart😡")
+        print("Start😡")
         print(response.notification.request.content.title, response.notification.request.content.body)
         
         let userInfo = response.notification.request.content.userInfo
