@@ -36,7 +36,7 @@ final class StartToWriteViewController: UIViewController {
     /// 소개글
     private let welcomeLabel: UILabel = {
         let label = UILabel()
-        label.text = "오늘 하루도 수고했어요\n회고로 이제 일에서 완전히 OFF 하세요"
+        label.text = MemoirsText.getText(for: .encouragement)
         label.numberOfLines = 0
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
@@ -82,7 +82,8 @@ final class StartToWriteViewController: UIViewController {
     
     /// 시작  버튼 속성 설정
     private func setupStartButtonView(){
-        startButtonView.layer.cornerRadius = view.frame.width * 0.8 * 0.15
+        let cornerRadius = UICalculator.calculate(for: .longButtonCornerRadius, width: view.frame.width)
+        startButtonView.layer.cornerRadius = cornerRadius
         startButtonView.layer.masksToBounds = true
     }
     
@@ -109,6 +110,7 @@ final class StartToWriteViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide).inset(10)
             make.height.equalTo(pageControlImage.snp.width).multipliedBy(0.1)
         }
+        
         startToWriteImage.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(20)
             make.height.equalTo(startToWriteImage.snp.width).multipliedBy(0.6)
@@ -117,8 +119,9 @@ final class StartToWriteViewController: UIViewController {
 
         startButtonView.snp.makeConstraints { make in
             make.bottom.equalToSuperview().inset(50)
-            make.height.equalTo(startButtonView.snp.width).multipliedBy(0.15)
             make.width.equalTo(view.snp.width).multipliedBy(0.8)
+            make.height.equalTo(startButtonView.snp.width).multipliedBy(0.15)
+            make.centerX.equalToSuperview()
         }
         
         startButton.snp.makeConstraints { make in

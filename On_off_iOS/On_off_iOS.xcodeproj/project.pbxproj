@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3708261B2B66962000FBCAAF /* ExpressedIconModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3708261A2B66962000FBCAAF /* ExpressedIconModel.swift */; };
+		3708261D2B66995600FBCAAF /* MemoirsTextModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3708261C2B66995600FBCAAF /* MemoirsTextModel.swift */; };
+		3708261F2B6699E000FBCAAF /* MemoirsText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3708261E2B6699E000FBCAAF /* MemoirsText.swift */; };
+		370826212B669BFC00FBCAAF /* UICalculate+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370826202B669BFC00FBCAAF /* UICalculate+Ex.swift */; };
 		371B9EA72B5AD838006AC06D /* MemoirsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371B9EA62B5AD838006AC06D /* MemoirsViewController.swift */; };
 		371B9EA92B5AD847006AC06D /* MemoirsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371B9EA82B5AD847006AC06D /* MemoirsViewModel.swift */; };
 		371B9EAC2B5AFD37006AC06D /* StartToWriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371B9EAB2B5AFD37006AC06D /* StartToWriteViewController.swift */; };
@@ -42,6 +46,8 @@
 		3787D0132B42E0F000F054DD /* NickNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787D0122B42E0F000F054DD /* NickNameViewController.swift */; };
 		37CFD3002B66533900E00D92 /* ExpressedIconViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CFD2FF2B66533900E00D92 /* ExpressedIconViewController.swift */; };
 		37CFD3022B66534400E00D92 /* ExpressedIconViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CFD3012B66534400E00D92 /* ExpressedIconViewModel.swift */; };
+		37DEF20D2B66B31D00AF47DB /* MemoirsCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DEF20C2B66B31D00AF47DB /* MemoirsCompleteViewController.swift */; };
+		37DEF20F2B66B32A00AF47DB /* MemoirsCompleteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DEF20E2B66B32A00AF47DB /* MemoirsCompleteViewModel.swift */; };
 		3B1658F72B4D8559004EFBC3 /* WeekChartCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1658F62B4D8559004EFBC3 /* WeekChartCustomView.swift */; };
 		3B42300E2B41572200D0B038 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B42300D2B41572200D0B038 /* AppDelegate.swift */; };
 		3B4230102B41572200D0B038 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B42300F2B41572200D0B038 /* SceneDelegate.swift */; };
@@ -55,6 +61,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3708261A2B66962000FBCAAF /* ExpressedIconModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressedIconModel.swift; sourceTree = "<group>"; };
+		3708261C2B66995600FBCAAF /* MemoirsTextModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoirsTextModel.swift; sourceTree = "<group>"; };
+		3708261E2B6699E000FBCAAF /* MemoirsText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoirsText.swift; sourceTree = "<group>"; };
+		370826202B669BFC00FBCAAF /* UICalculate+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICalculate+Ex.swift"; sourceTree = "<group>"; };
 		371B9EA62B5AD838006AC06D /* MemoirsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoirsViewController.swift; sourceTree = "<group>"; };
 		371B9EA82B5AD847006AC06D /* MemoirsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoirsViewModel.swift; sourceTree = "<group>"; };
 		371B9EAB2B5AFD37006AC06D /* StartToWriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartToWriteViewController.swift; sourceTree = "<group>"; };
@@ -85,6 +95,8 @@
 		3787D0122B42E0F000F054DD /* NickNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameViewController.swift; sourceTree = "<group>"; };
 		37CFD2FF2B66533900E00D92 /* ExpressedIconViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressedIconViewController.swift; sourceTree = "<group>"; };
 		37CFD3012B66534400E00D92 /* ExpressedIconViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressedIconViewModel.swift; sourceTree = "<group>"; };
+		37DEF20C2B66B31D00AF47DB /* MemoirsCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoirsCompleteViewController.swift; sourceTree = "<group>"; };
+		37DEF20E2B66B32A00AF47DB /* MemoirsCompleteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoirsCompleteViewModel.swift; sourceTree = "<group>"; };
 		3B1658F62B4D8559004EFBC3 /* WeekChartCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekChartCustomView.swift; sourceTree = "<group>"; };
 		3B42300A2B41572200D0B038 /* On_off_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = On_off_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B42300D2B41572200D0B038 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -120,6 +132,8 @@
 			children = (
 				371B9EA62B5AD838006AC06D /* MemoirsViewController.swift */,
 				371B9EA82B5AD847006AC06D /* MemoirsViewModel.swift */,
+				3708261C2B66995600FBCAAF /* MemoirsTextModel.swift */,
+				3708261E2B6699E000FBCAAF /* MemoirsText.swift */,
 			);
 			path = Memoirs;
 			sourceTree = "<group>";
@@ -329,8 +343,26 @@
 			children = (
 				37CFD2FF2B66533900E00D92 /* ExpressedIconViewController.swift */,
 				37CFD3012B66534400E00D92 /* ExpressedIconViewModel.swift */,
+				3708261A2B66962000FBCAAF /* ExpressedIconModel.swift */,
 			);
 			path = ExpressedIcon;
+			sourceTree = "<group>";
+		};
+		37DEF20A2B66B2F300AF47DB /* MemoirsComplete */ = {
+			isa = PBXGroup;
+			children = (
+				37DEF20B2B66B30D00AF47DB /* ViewController */,
+				37DEF20E2B66B32A00AF47DB /* MemoirsCompleteViewModel.swift */,
+			);
+			path = MemoirsComplete;
+			sourceTree = "<group>";
+		};
+		37DEF20B2B66B30D00AF47DB /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				37DEF20C2B66B31D00AF47DB /* MemoirsCompleteViewController.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		3B4230012B41572200D0B038 = {
@@ -352,6 +384,7 @@
 		3B42300C2B41572200D0B038 /* On_off_iOS */ = {
 			isa = PBXGroup;
 			children = (
+				37DEF20A2B66B2F300AF47DB /* MemoirsComplete */,
 				37CFD2FE2B6652DA00E00D92 /* ExpressedIcon */,
 				371B9EB52B5B06E5006AC06D /* WritePraised */,
 				371B9EB22B5B06B0006AC06D /* WriteImprovement */,
@@ -369,6 +402,7 @@
 				376A4B552B5504AB004FBB56 /* Assets */,
 				3B4230182B41572400D0B038 /* LaunchScreen.storyboard */,
 				3B42301B2B41572400D0B038 /* Info.plist */,
+				370826202B669BFC00FBCAAF /* UICalculate+Ex.swift */,
 			);
 			path = On_off_iOS;
 			sourceTree = "<group>";
@@ -452,7 +486,7 @@
 		3B4230022B41572200D0B038 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				BuildIndependentTargetsInParallel = 1;
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
@@ -505,6 +539,8 @@
 			files = (
 				378140612B42E83100F2AA5A /* NickNameViewModel.swift in Sources */,
 				3787D0132B42E0F000F054DD /* NickNameViewController.swift in Sources */,
+				3708261B2B66962000FBCAAF /* ExpressedIconModel.swift in Sources */,
+				370826212B669BFC00FBCAAF /* UICalculate+Ex.swift in Sources */,
 				3787D00F2B42AD6F00F054DD /* OnBoardingViewModel.swift in Sources */,
 				371B9EC32B5B076E006AC06D /* WriteLearnedViewModel.swift in Sources */,
 				374FD4A22B4294F100F2E645 /* LoginViewController.swift in Sources */,
@@ -516,6 +552,7 @@
 				378140662B42F0AB00F2AA5A /* ProfileSettingViewModel.swift in Sources */,
 				3B1658F72B4D8559004EFBC3 /* WeekChartCustomView.swift in Sources */,
 				3B42300E2B41572200D0B038 /* AppDelegate.swift in Sources */,
+				37DEF20D2B66B31D00AF47DB /* MemoirsCompleteViewController.swift in Sources */,
 				371B9EBB2B5B0737006AC06D /* WritePraisedViewController.swift in Sources */,
 				3769A68E2B585B6600D79C33 /* DayButton.swift in Sources */,
 				37CFD3022B66534400E00D92 /* ExpressedIconViewModel.swift in Sources */,
@@ -529,11 +566,14 @@
 				378140632B42F07A00F2AA5A /* ProfileSettingViewController.swift in Sources */,
 				3787D0112B42E0B100F054DD /* LoginViewModel.swift in Sources */,
 				371B9EBD2B5B0753006AC06D /* WriteImprovementViewModel.swift in Sources */,
+				3708261F2B6699E000FBCAAF /* MemoirsText.swift in Sources */,
 				371B9EB92B5B0723006AC06D /* WritePraisedViewModel.swift in Sources */,
 				371B9EA72B5AD838006AC06D /* MemoirsViewController.swift in Sources */,
+				3708261D2B66995600FBCAAF /* MemoirsTextModel.swift in Sources */,
 				371B9EAE2B5AFD42006AC06D /* StartToWriteViewModel.swift in Sources */,
 				37CFD3002B66533900E00D92 /* ExpressedIconViewController.swift in Sources */,
 				3787D00A2B429F1700F054DD /* LaunchViewController.swift in Sources */,
+				37DEF20F2B66B32A00AF47DB /* MemoirsCompleteViewModel.swift in Sources */,
 				3B9C89D12B4AED7C0083CF44 /* StatisticsViewController.swift in Sources */,
 				371B9EC52B5B0B61006AC06D /* WriteLearnedViewController.swift in Sources */,
 				3BB806D02B5012F400555E58 /* DayChartCustomView.swift in Sources */,
@@ -680,9 +720,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = FQ9852Z3LX;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = SN5J3DYFX4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = On_off_iOS/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -696,6 +739,8 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "UMC-OnAndOff.On-off-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = On_Off_ProvisioningFile_Develop;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -707,9 +752,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = FQ9852Z3LX;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = SN5J3DYFX4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = On_off_iOS/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -723,6 +771,8 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "UMC-OnAndOff.On-off-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = On_Off_ProvisioningFile_Develop;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

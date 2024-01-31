@@ -9,6 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+/// WritePraisedViewController
 final class WritePraisedViewController: UIViewController {
     
     /// customBackButton
@@ -28,7 +29,7 @@ final class WritePraisedViewController: UIViewController {
     /// 가장 윗줄 label
     private let welcomeUpperLabel: UILabel = {
         let label = UILabel()
-        label.text = "어려웠다거나 아쉬운 것도 있나요?"
+        label.text = MemoirsText.getText(for: .difficultyPrompt)
         label.numberOfLines = 0
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
@@ -38,7 +39,7 @@ final class WritePraisedViewController: UIViewController {
     /// welcomeLabel
     private let welcomeBottomLabel: UILabel = {
         let label = UILabel()
-        label.text = "다음엔 더 잘할 수 있을거예요"
+        label.text = MemoirsText.getText(for: .improvementPrompt)
         label.numberOfLines = 0
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
@@ -115,7 +116,8 @@ final class WritePraisedViewController: UIViewController {
     
     /// 확인 버튼 속성 설정
     private func settingCheckButtonView(){
-        checkButtonView.layer.cornerRadius = view.frame.width * 0.3 * 0.25
+        let cornerRadius = UICalculator.calculate(for: .shortButtonCornerRadius, width: view.frame.width)
+        checkButtonView.layer.cornerRadius = cornerRadius
         checkButtonView.layer.masksToBounds = true
     }
     

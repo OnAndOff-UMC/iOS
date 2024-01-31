@@ -28,7 +28,7 @@ final class WriteImprovementViewController: UIViewController {
     /// 윗줄 welcomeUpperLabel
     private let welcomeUpperLabel: UILabel = {
         let label = UILabel()
-        label.text = "고생했어요"
+        label.text = MemoirsText.getText(for: .praise)
         label.numberOfLines = 0
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
@@ -38,7 +38,7 @@ final class WriteImprovementViewController: UIViewController {
     /// 밑줄 welcomeDownLabel
     private let welcomeBottomLabel: UILabel = {
         let label = UILabel()
-        label.text = "스스로에게 칭찬 한 마디를 쓴다면?"
+        label.text = MemoirsText.getText(for: .selfPraisePrompt)
         label.numberOfLines = 0
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
@@ -116,7 +116,8 @@ final class WriteImprovementViewController: UIViewController {
     
     /// 확인 버튼 속성 설정
     private func settingCheckButtonView(){
-        checkButtonView.layer.cornerRadius = view.frame.width * 0.3 * 0.25
+        let cornerRadius = UICalculator.calculate(for: .shortButtonCornerRadius, width: view.frame.width)
+        checkButtonView.layer.cornerRadius = cornerRadius
         checkButtonView.layer.masksToBounds = true
     }
     

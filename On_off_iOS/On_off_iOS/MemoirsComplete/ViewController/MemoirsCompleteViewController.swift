@@ -1,16 +1,16 @@
 //
-//  ExpressedIconViewController.swift
+//  MemoirsCompleteViewController.swift
 //  On_off_iOS
 //
-//  Created by 박다미 on 2024/01/28.
+//  Created by 박다미 on 2024/01/29.
 //
 
 import UIKit
 import RxSwift
 import RxCocoa
 
-/// ExpressedIconViewController
-final class ExpressedIconViewController: UIViewController {
+/// MemoirsCompleteViewController
+final class MemoirsCompleteViewController: UIViewController {
     
     /// customBackButton
     private let backButton : UIBarButtonItem = {
@@ -19,17 +19,10 @@ final class ExpressedIconViewController: UIViewController {
         return button
     }()
     
-    /// pageControl
-    private lazy var pageControlImage: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "PageControl5"))
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
-    
     /// welcomeLabel
     private let welcomeLabel: UILabel = {
         let label = UILabel()
-        label.text = MemoirsText.getText(for: .iconSelection)
+        label.text = MemoirsText.getText(for: .memorialCompleted)
         label.numberOfLines = 0
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
@@ -37,33 +30,16 @@ final class ExpressedIconViewController: UIViewController {
     }()
     
     /// 회고록 작성페이지 그림
-    private lazy var textpageImage: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "TextpageImage4"))
+    private lazy var MemoirsCompleteImage: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "MemoirsCompleteImage"))
         imageView.contentMode = .scaleAspectFit
         return imageView
-    }()
-    
-    /// 회고글 View
-    private lazy var textFieldView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .clear
-        return view
-    }()
-    
-    /// 회고글 TextField
-    private let textField: UITextField = {
-        let field = UITextField()
-        field.textAlignment = .left
-        field.font = UIFont.systemFont(ofSize: 13, weight: .regular)
-        field.backgroundColor = UIColor.clear
-        field.layer.borderWidth = 0
-        return field
     }()
     
     /// 확인 버튼
     private let saveButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("저장하기", for: .normal)
+        button.setTitle("오늘의 회고 완료", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
         button.titleLabel?.tintColor = .white
         return button
@@ -76,11 +52,11 @@ final class ExpressedIconViewController: UIViewController {
         return view
     }()
     
-    private let viewModel: ExpressedIconViewModel
+    private let viewModel: MemoirsCompleteViewModel
     private let disposeBag = DisposeBag()
     
     // MARK: - Init
-    init(viewModel: ExpressedIconViewModel) {
+    init(viewModel: MemoirsCompleteViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -100,7 +76,7 @@ final class ExpressedIconViewController: UIViewController {
     }
     
     /// 확인 버튼 속성 설정
-    private func settingCheckButtonView(){
+    private func settingCheckButtonView() {
         let cornerRadius = UICalculator.calculate(for: .longButtonCornerRadius, width: view.frame.width)
         saveButtonView.layer.cornerRadius = cornerRadius
         saveButtonView.layer.masksToBounds = true
@@ -109,13 +85,9 @@ final class ExpressedIconViewController: UIViewController {
     /// addSubviews
     private func addSubviews() {
         
-        view.addSubview(pageControlImage)
+        view.addSubview(MemoirsCompleteImage)
         view.addSubview(welcomeLabel)
-        
-        view.addSubview(textpageImage)
-        view.addSubview(textFieldView)
-        textFieldView.addSubview(textField)
-        
+          
         view.addSubview(saveButtonView)
         saveButtonView.addSubview(saveButton)
         
@@ -126,33 +98,12 @@ final class ExpressedIconViewController: UIViewController {
     private func configureConstraints() {
         
         self.navigationItem.leftBarButtonItem = backButton
-        
-        pageControlImage.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.width.equalTo(view.snp.width).multipliedBy(0.25)
-            make.top.equalTo(view.safeAreaLayoutGuide).inset(10)
-            make.height.equalTo(pageControlImage.snp.width).multipliedBy(0.1)
+        MemoirsCompleteImage.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.height.equalTo(MemoirsCompleteImage.snp.width).multipliedBy(0.6)
+            make.center.equalToSuperview()
         }
-        
-        welcomeLabel.snp.makeConstraints { make in
-            make.top.equalTo(pageControlImage.snp.bottom).offset(10)
-            make.centerX.equalToSuperview()
-        }
-        
-        textpageImage.snp.makeConstraints { make in
-            make.top.equalTo(welcomeLabel.snp.bottom).offset(10)
-            make.leading.trailing.equalToSuperview().inset(10)
-            make.height.equalTo(textFieldView.snp.width).multipliedBy(0.8)
-        }
-        
-        textFieldView.snp.makeConstraints { make in
-            make.edges.equalTo(textpageImage)
-        }
-        
-        textField.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(10)
-        }
-        
+
         saveButtonView.snp.makeConstraints { make in
             make.bottom.equalToSuperview().inset(50)
             make.width.equalTo(view.snp.width).multipliedBy(0.8)
@@ -163,20 +114,21 @@ final class ExpressedIconViewController: UIViewController {
         saveButton.snp.makeConstraints { make in
             make.center.equalToSuperview()
         }
+        
+        welcomeLabel.snp.makeConstraints { make in
+            make.bottom.equalTo(saveButtonView.snp.top).offset(-30)
+            make.centerX.equalToSuperview()
+        }
+
     }
     
     /// 뷰모델과 setupBindings
     private func setupBindings() {
-        let input = ExpressedIconViewModel.Input(startButtonTapped: saveButton.rx.tap.asObservable(),
+        let input = MemoirsCompleteViewModel.Input(completedButtonTapped: saveButton.rx.tap.asObservable(),
                                                  backButtonTapped: backButton.rx.tap.asObservable())
         
         let _ = viewModel.bind(input: input)
         
     }
-    
-    // 키보드내리기
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        textField.endEditing(true)
-    }
 }
+

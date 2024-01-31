@@ -28,7 +28,7 @@ final class WriteLearnedViewController: UIViewController {
     /// 사용자 명
     private let userNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "조디님"
+        label.text = MemoirsText.getText(for: .greetingWithName(name: "조디"))
         label.numberOfLines = 0
         label.textAlignment = .center
         label.textColor = .black
@@ -39,7 +39,7 @@ final class WriteLearnedViewController: UIViewController {
     /// welcomeLabel
     private let welcomeLabel: UILabel = {
         let label = UILabel()
-        label.text = "오늘 어떤 일을 했나요? 배운 게 있나요?"
+        label.text = MemoirsText.getText(for: .dailyReflection)
         label.numberOfLines = 0
         label.textAlignment = .center
         label.textColor = .black
@@ -120,7 +120,8 @@ final class WriteLearnedViewController: UIViewController {
 
     /// 확인 버튼 속성 설정
     private func settingCheckButtonView(){
-        checkButtonView.layer.cornerRadius = view.frame.width * 0.3 * 0.25
+        let cornerRadius = UICalculator.calculate(for: .shortButtonCornerRadius, width: view.frame.width)
+        checkButtonView.layer.cornerRadius = cornerRadius
         checkButtonView.layer.masksToBounds = true
     }
 
