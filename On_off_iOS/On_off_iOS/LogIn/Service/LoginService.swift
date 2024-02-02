@@ -62,10 +62,8 @@ final class LoginService: LoginProtocol {
     }
     
     /// 로그인 API
-    /// - Parameter request: Kakao, Apple에서 발급받는 Token, AuthType
-    /// - Returns: status, Tokens
-    // SignInService.swift
-
+    /// - Parameter request: Kakao, Apple에서 발급받는 Token
+    /// - Returns:  Tokens
     func signInService(request: KakaoLoginRequest) -> Observable<LoginResponse> {
         let url = Domain.RESTAPI + LoginPath.signIn.rawValue
         return Observable.create { observer in

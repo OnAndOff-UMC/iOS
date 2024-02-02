@@ -61,8 +61,6 @@
 		37C161522B6BE77A000E0B21 /* KakaoSDKTalk in Frameworks */ = {isa = PBXBuildFile; productRef = 37C161512B6BE77A000E0B21 /* KakaoSDKTalk */; };
 		37C161542B6BE77A000E0B21 /* KakaoSDKTemplate in Frameworks */ = {isa = PBXBuildFile; productRef = 37C161532B6BE77A000E0B21 /* KakaoSDKTemplate */; };
 		37C161562B6BE77A000E0B21 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = 37C161552B6BE77A000E0B21 /* KakaoSDKUser */; };
-		37C161582B6BEC4E000E0B21 /* SignInProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C161572B6BEC4E000E0B21 /* SignInProtocol.swift */; };
-		37C1615A2B6BECA2000E0B21 /* SignInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C161592B6BECA2000E0B21 /* SignInService.swift */; };
 		37C1615D2B6BEDED000E0B21 /* RxKakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 37C1615C2B6BEDED000E0B21 /* RxKakaoSDK */; };
 		37C1615F2B6BEDED000E0B21 /* RxKakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 37C1615E2B6BEDED000E0B21 /* RxKakaoSDKAuth */; };
 		37C161612B6BEDED000E0B21 /* RxKakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 37C161602B6BEDED000E0B21 /* RxKakaoSDKCommon */; };
@@ -136,8 +134,6 @@
 		37C161392B6BE43A000E0B21 /* SignUpProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpProtocol.swift; sourceTree = "<group>"; };
 		37C1613B2B6BE519000E0B21 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		37C1613D2B6BE6B3000E0B21 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
-		37C161572B6BEC4E000E0B21 /* SignInProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInProtocol.swift; sourceTree = "<group>"; };
-		37C161592B6BECA2000E0B21 /* SignInService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInService.swift; sourceTree = "<group>"; };
 		3B0129C22B623BB900B191AD /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		3B0129C52B6242F800B191AD /* Ext + ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext + ViewController.swift"; sourceTree = "<group>"; };
 		3B0129C72B6246E900B191AD /* Ext + UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext + UIImage.swift"; sourceTree = "<group>"; };
@@ -445,7 +441,6 @@
 			isa = PBXGroup;
 			children = (
 				37C161352B6BE3E4000E0B21 /* SignUpService.swift */,
-				37C161592B6BECA2000E0B21 /* SignInService.swift */,
 				37A1E9872B6CB1DD0013FFD7 /* LoginService.swift */,
 			);
 			path = Service;
@@ -455,7 +450,6 @@
 			isa = PBXGroup;
 			children = (
 				37C161392B6BE43A000E0B21 /* SignUpProtocol.swift */,
-				37C161572B6BEC4E000E0B21 /* SignInProtocol.swift */,
 				37A1E9892B6CB1F70013FFD7 /* LoginProtocol.swift */,
 			);
 			path = Protocol;
@@ -729,7 +723,6 @@
 				37C161242B6BD9F8000E0B21 /* LoginViewController.swift in Sources */,
 				3B51B5272B63DF9500E5FEF9 /* CellIdentifier.swift in Sources */,
 				378140612B42E83100F2AA5A /* NickNameViewModel.swift in Sources */,
-				37C161582B6BEC4E000E0B21 /* SignInProtocol.swift in Sources */,
 				3787D0132B42E0F000F054DD /* NickNameViewController.swift in Sources */,
 				3787D00F2B42AD6F00F054DD /* OnBoardingViewModel.swift in Sources */,
 				374FD49F2B42825B00F2E645 /* CustomPageControl.swift in Sources */,
@@ -741,7 +734,6 @@
 				3769A6882B58563C00D79C33 /* SelectTimeViewController.swift in Sources */,
 				37C1612C2B6BDEF8000E0B21 /* Header.swift in Sources */,
 				3787D0082B429C1100F054DD /* OnboardingModel.swift in Sources */,
-				37C1615A2B6BECA2000E0B21 /* SignInService.swift in Sources */,
 				378140662B42F0AB00F2AA5A /* ProfileSettingViewModel.swift in Sources */,
 				37C1613C2B6BE519000E0B21 /* Login.swift in Sources */,
 				3B1658F72B4D8559004EFBC3 /* WeekChartCustomView.swift in Sources */,

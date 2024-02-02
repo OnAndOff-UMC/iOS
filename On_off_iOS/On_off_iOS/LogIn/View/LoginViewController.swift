@@ -114,8 +114,8 @@ final class LoginViewController: UIViewController {
         
     }
     
-    /// 애플 로그인 과정을 시작하는 함수
-    @objc
+    /// 애플 로그인 과정을 시작
+        @objc
     private func onAppleLoginImageViewTapped() {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
@@ -143,6 +143,7 @@ final class LoginViewController: UIViewController {
     }
     
 }
+
 // MARK: - extension :ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding
 extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding{
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
