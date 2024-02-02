@@ -48,13 +48,19 @@ final class WriteLearnedViewModel {
 
         /// 완료버튼 클릭
         input.startButtonTapped
-            .bind { [weak self] in
-                if let placeName = selectedPlace.placeName {
-                    _ = KeychainWrapper.saveItem(value: placeName, forKey: SearchPlaceKeyChain.placeName.rawValue)
+            .withLatestFrom(input.textChanged)
+            .take(1)
+            .subscribe(onNext: { [weak self] text in
+                guard let self = self else { return }
+
+                // 키체인에 저장
+                let isSuccess = KeychainWrapper.saveItem(value: text, forKey: MemoirsKeyChain.MemoirsAnswer1.rawValue)
+                if isSuccess {
+                    self.moveToImprovement()
+                } else {
+                    // 오류 처리할거임
                 }
-                self?.moveToImprovement()
-            }
-            .disposed(by: disposeBag)
+            }).disposed(by: disposeBag)
         
         /// 뒤로가기 버튼 클릭
         input.backButtonTapped

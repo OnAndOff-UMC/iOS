@@ -51,6 +51,12 @@
 		37A1E9862B6C821A0013FFD7 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = 37A1E9852B6C821A0013FFD7 /* RxGesture */; };
 		37A1E9882B6CB1DD0013FFD7 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A1E9872B6CB1DD0013FFD7 /* LoginService.swift */; };
 		37A1E98A2B6CB1F70013FFD7 /* LoginProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A1E9892B6CB1F70013FFD7 /* LoginProtocol.swift */; };
+		37A1E98D2B6CCC020013FFD7 /* Memoirs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A1E98C2B6CCC020013FFD7 /* Memoirs.swift */; };
+		37A1E9912B6CD4200013FFD7 /* MemoirsKeychainConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A1E9902B6CD4200013FFD7 /* MemoirsKeychainConstraints.swift */; };
+		37A1E9942B6CDAD70013FFD7 /* ModalEmoticonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A1E9932B6CDAD70013FFD7 /* ModalEmoticonViewController.swift */; };
+		37A1E9972B6CDCEF0013FFD7 /* EmoticonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A1E9962B6CDCEF0013FFD7 /* EmoticonCollectionViewCell.swift */; };
+		37AEB1EC2B6CEE0E00A6CDD6 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 37AEB1EB2B6CEE0E00A6CDD6 /* Kingfisher */; };
+		37AEB1EE2B6CF3F400A6CDD6 /* ModalEmoticonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AEB1ED2B6CF3F400A6CDD6 /* ModalEmoticonViewModel.swift */; };
 		37B890742B6A1ECD008A8BBC /* Domain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B890732B6A1ECD008A8BBC /* Domain.swift */; };
 		37B890762B6A1EDC008A8BBC /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B890752B6A1EDC008A8BBC /* Endpoint.swift */; };
 		37C161232B6BD9F8000E0B21 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C161202B6BD9F7000E0B21 /* LoginViewModel.swift */; };
@@ -80,17 +86,16 @@
 		37C161612B6BEDED000E0B21 /* RxKakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 37C161602B6BEDED000E0B21 /* RxKakaoSDKCommon */; };
 		37C161632B6BEDED000E0B21 /* RxKakaoSDKFriend in Frameworks */ = {isa = PBXBuildFile; productRef = 37C161622B6BEDED000E0B21 /* RxKakaoSDKFriend */; };
 		37C161652B6BEDED000E0B21 /* RxKakaoSDKShare in Frameworks */ = {isa = PBXBuildFile; productRef = 37C161642B6BEDED000E0B21 /* RxKakaoSDKShare */; };
+		37CFD3002B66533900E00D92 /* ExpressedIconViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CFD2FF2B66533900E00D92 /* ExpressedIconViewController.swift */; };
+		37CFD3022B66534400E00D92 /* ExpressedIconViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CFD3012B66534400E00D92 /* ExpressedIconViewModel.swift */; };
+		37DEF20D2B66B31D00AF47DB /* MemoirsCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DEF20C2B66B31D00AF47DB /* MemoirsCompleteViewController.swift */; };
+		37DEF20F2B66B32A00AF47DB /* MemoirsCompleteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DEF20E2B66B32A00AF47DB /* MemoirsCompleteViewModel.swift */; };
 		3B0129C32B623BB900B191AD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0129C22B623BB900B191AD /* HomeViewController.swift */; };
 		3B0129C62B6242F800B191AD /* Ext + ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0129C52B6242F800B191AD /* Ext + ViewController.swift */; };
 		3B0129C82B6246E900B191AD /* Ext + UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0129C72B6246E900B191AD /* Ext + UIImage.swift */; };
 		3B0129CA2B624CAE00B191AD /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0129C92B624CAE00B191AD /* HomeViewModel.swift */; };
 		3B0129CC2B624D6000B191AD /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0129CB2B624D6000B191AD /* Home.swift */; };
 		3B0129CE2B624E8D00B191AD /* DayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0129CD2B624E8C00B191AD /* DayCollectionViewCell.swift */; };
-		37A1E98D2B6CCC020013FFD7 /* Memoirs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A1E98C2B6CCC020013FFD7 /* Memoirs.swift */; };
-		37CFD3002B66533900E00D92 /* ExpressedIconViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CFD2FF2B66533900E00D92 /* ExpressedIconViewController.swift */; };
-		37CFD3022B66534400E00D92 /* ExpressedIconViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CFD3012B66534400E00D92 /* ExpressedIconViewModel.swift */; };
-		37DEF20D2B66B31D00AF47DB /* MemoirsCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DEF20C2B66B31D00AF47DB /* MemoirsCompleteViewController.swift */; };
-		37DEF20F2B66B32A00AF47DB /* MemoirsCompleteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DEF20E2B66B32A00AF47DB /* MemoirsCompleteViewModel.swift */; };
 		3B1658F72B4D8559004EFBC3 /* WeekChartCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1658F62B4D8559004EFBC3 /* WeekChartCustomView.swift */; };
 		3B42300E2B41572200D0B038 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B42300D2B41572200D0B038 /* AppDelegate.swift */; };
 		3B4230102B41572200D0B038 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B42300F2B41572200D0B038 /* SceneDelegate.swift */; };
@@ -155,6 +160,11 @@
 		37A1E9832B6C7FC60013FFD7 /* On_off_iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = On_off_iOS.entitlements; sourceTree = "<group>"; };
 		37A1E9872B6CB1DD0013FFD7 /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		37A1E9892B6CB1F70013FFD7 /* LoginProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginProtocol.swift; sourceTree = "<group>"; };
+		37A1E98C2B6CCC020013FFD7 /* Memoirs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memoirs.swift; sourceTree = "<group>"; };
+		37A1E9902B6CD4200013FFD7 /* MemoirsKeychainConstraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoirsKeychainConstraints.swift; sourceTree = "<group>"; };
+		37A1E9932B6CDAD70013FFD7 /* ModalEmoticonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalEmoticonViewController.swift; sourceTree = "<group>"; };
+		37A1E9962B6CDCEF0013FFD7 /* EmoticonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmoticonCollectionViewCell.swift; sourceTree = "<group>"; };
+		37AEB1ED2B6CF3F400A6CDD6 /* ModalEmoticonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalEmoticonViewModel.swift; sourceTree = "<group>"; };
 		37B890732B6A1ECD008A8BBC /* Domain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Domain.swift; sourceTree = "<group>"; };
 		37B890752B6A1EDC008A8BBC /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		37C161202B6BD9F7000E0B21 /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -167,18 +177,16 @@
 		37C161392B6BE43A000E0B21 /* SignUpProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpProtocol.swift; sourceTree = "<group>"; };
 		37C1613B2B6BE519000E0B21 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		37C1613D2B6BE6B3000E0B21 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		37CFD2FF2B66533900E00D92 /* ExpressedIconViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressedIconViewController.swift; sourceTree = "<group>"; };
+		37CFD3012B66534400E00D92 /* ExpressedIconViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressedIconViewModel.swift; sourceTree = "<group>"; };
+		37DEF20C2B66B31D00AF47DB /* MemoirsCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoirsCompleteViewController.swift; sourceTree = "<group>"; };
+		37DEF20E2B66B32A00AF47DB /* MemoirsCompleteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoirsCompleteViewModel.swift; sourceTree = "<group>"; };
 		3B0129C22B623BB900B191AD /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		3B0129C52B6242F800B191AD /* Ext + ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext + ViewController.swift"; sourceTree = "<group>"; };
 		3B0129C72B6246E900B191AD /* Ext + UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext + UIImage.swift"; sourceTree = "<group>"; };
 		3B0129C92B624CAE00B191AD /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		3B0129CB2B624D6000B191AD /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		3B0129CD2B624E8C00B191AD /* DayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCollectionViewCell.swift; sourceTree = "<group>"; };
-		3B1658F62B4D8559004EFBC3 /* WeekChartCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekChartCustomView.swift; sourceTree = "<group>"; };
-		37A1E98C2B6CCC020013FFD7 /* Memoirs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memoirs.swift; sourceTree = "<group>"; };
-		37CFD2FF2B66533900E00D92 /* ExpressedIconViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressedIconViewController.swift; sourceTree = "<group>"; };
-		37CFD3012B66534400E00D92 /* ExpressedIconViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressedIconViewModel.swift; sourceTree = "<group>"; };
-		37DEF20C2B66B31D00AF47DB /* MemoirsCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoirsCompleteViewController.swift; sourceTree = "<group>"; };
-		37DEF20E2B66B32A00AF47DB /* MemoirsCompleteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoirsCompleteViewModel.swift; sourceTree = "<group>"; };
 		3B1658F62B4D8559004EFBC3 /* WeekChartCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekChartCustomView.swift; sourceTree = "<group>"; };
 		3B42300A2B41572200D0B038 /* On_off_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = On_off_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B42300D2B41572200D0B038 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -210,6 +218,7 @@
 				37C161292B6BDECF000E0B21 /* Alamofire in Frameworks */,
 				37C1614A2B6BE77A000E0B21 /* KakaoSDKFriend in Frameworks */,
 				37C161612B6BEDED000E0B21 /* RxKakaoSDKCommon in Frameworks */,
+				37AEB1EC2B6CEE0E00A6CDD6 /* Kingfisher in Frameworks */,
 				37C161542B6BE77A000E0B21 /* KakaoSDKTemplate in Frameworks */,
 				374FD4972B4268EC00F2E645 /* RxSwift in Frameworks */,
 				37C161482B6BE77A000E0B21 /* KakaoSDKCommon in Frameworks */,
@@ -461,6 +470,33 @@
 			path = ProfileSetting;
 			sourceTree = "<group>";
 		};
+		37A1E98B2B6CCBE70013FFD7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				37A1E98C2B6CCC020013FFD7 /* Memoirs.swift */,
+				37A1E9902B6CD4200013FFD7 /* MemoirsKeychainConstraints.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		37A1E9922B6CD8B70013FFD7 /* Emoticon */ = {
+			isa = PBXGroup;
+			children = (
+				37A1E9952B6CDCE50013FFD7 /* CollectionView */,
+				37A1E9932B6CDAD70013FFD7 /* ModalEmoticonViewController.swift */,
+				37AEB1ED2B6CF3F400A6CDD6 /* ModalEmoticonViewModel.swift */,
+			);
+			path = Emoticon;
+			sourceTree = "<group>";
+		};
+		37A1E9952B6CDCE50013FFD7 /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				37A1E9962B6CDCEF0013FFD7 /* EmoticonCollectionViewCell.swift */,
+			);
+			path = CollectionView;
+			sourceTree = "<group>";
+		};
 		37B890712B6A1EAD008A8BBC /* Constants */ = {
 			isa = PBXGroup;
 			children = (
@@ -542,6 +578,34 @@
 			path = Protocol;
 			sourceTree = "<group>";
 		};
+		37CFD2FE2B6652DA00E00D92 /* ExpressedIcon */ = {
+			isa = PBXGroup;
+			children = (
+				37A1E9922B6CD8B70013FFD7 /* Emoticon */,
+				37CFD2FF2B66533900E00D92 /* ExpressedIconViewController.swift */,
+				37CFD3012B66534400E00D92 /* ExpressedIconViewModel.swift */,
+				3708261A2B66962000FBCAAF /* ExpressedIconModel.swift */,
+			);
+			path = ExpressedIcon;
+			sourceTree = "<group>";
+		};
+		37DEF20A2B66B2F300AF47DB /* MemoirsComplete */ = {
+			isa = PBXGroup;
+			children = (
+				37DEF20B2B66B30D00AF47DB /* ViewController */,
+				37DEF20E2B66B32A00AF47DB /* MemoirsCompleteViewModel.swift */,
+			);
+			path = MemoirsComplete;
+			sourceTree = "<group>";
+		};
+		37DEF20B2B66B30D00AF47DB /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				37DEF20C2B66B31D00AF47DB /* MemoirsCompleteViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
 		3B0129C12B623BA900B191AD /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -594,41 +658,6 @@
 				3B0129CB2B624D6000B191AD /* Home.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		37A1E98B2B6CCBE70013FFD7 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				37A1E98C2B6CCC020013FFD7 /* Memoirs.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		37CFD2FE2B6652DA00E00D92 /* ExpressedIcon */ = {
-			isa = PBXGroup;
-			children = (
-				37CFD2FF2B66533900E00D92 /* ExpressedIconViewController.swift */,
-				37CFD3012B66534400E00D92 /* ExpressedIconViewModel.swift */,
-				3708261A2B66962000FBCAAF /* ExpressedIconModel.swift */,
-			);
-			path = ExpressedIcon;
-			sourceTree = "<group>";
-		};
-		37DEF20A2B66B2F300AF47DB /* MemoirsComplete */ = {
-			isa = PBXGroup;
-			children = (
-				37DEF20B2B66B30D00AF47DB /* ViewController */,
-				37DEF20E2B66B32A00AF47DB /* MemoirsCompleteViewModel.swift */,
-			);
-			path = MemoirsComplete;
-			sourceTree = "<group>";
-		};
-		37DEF20B2B66B30D00AF47DB /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				37DEF20C2B66B31D00AF47DB /* MemoirsCompleteViewController.swift */,
-			);
-			path = ViewController;
 			sourceTree = "<group>";
 		};
 		3B4230012B41572200D0B038 = {
@@ -782,6 +811,7 @@
 				37C161622B6BEDED000E0B21 /* RxKakaoSDKFriend */,
 				37C161642B6BEDED000E0B21 /* RxKakaoSDKShare */,
 				37A1E9852B6C821A0013FFD7 /* RxGesture */,
+				37AEB1EB2B6CEE0E00A6CDD6 /* Kingfisher */,
 			);
 			productName = On_off_iOS;
 			productReference = 3B42300A2B41572200D0B038 /* On_off_iOS.app */;
@@ -820,6 +850,7 @@
 				37C1613E2B6BE779000E0B21 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				37C1615B2B6BEDED000E0B21 /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */,
 				37A1E9842B6C821A0013FFD7 /* XCRemoteSwiftPackageReference "RxGesture" */,
+				37AEB1EA2B6CEE0E00A6CDD6 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 3B42300B2B41572200D0B038 /* Products */;
 			projectDirPath = "";
@@ -857,6 +888,7 @@
 				3708261B2B66962000FBCAAF /* ExpressedIconModel.swift in Sources */,
 				370826212B669BFC00FBCAAF /* UICalculate+Ex.swift in Sources */,
 				3787D00F2B42AD6F00F054DD /* OnBoardingViewModel.swift in Sources */,
+				37A1E9912B6CD4200013FFD7 /* MemoirsKeychainConstraints.swift in Sources */,
 				371B9EC32B5B076E006AC06D /* WriteLearnedViewModel.swift in Sources */,
 				374FD49F2B42825B00F2E645 /* CustomPageControl.swift in Sources */,
 				37C161232B6BD9F8000E0B21 /* LoginViewModel.swift in Sources */,
@@ -865,6 +897,7 @@
 				3769A6862B58563000D79C33 /* SelectTimeViewModel.swift in Sources */,
 				374FD4A42B4297BE00F2E645 /* OnBoardingViewController.swift in Sources */,
 				3769A6882B58563C00D79C33 /* SelectTimeViewController.swift in Sources */,
+				37A1E9972B6CDCEF0013FFD7 /* EmoticonCollectionViewCell.swift in Sources */,
 				37C1612C2B6BDEF8000E0B21 /* Header.swift in Sources */,
 				3787D0082B429C1100F054DD /* OnboardingModel.swift in Sources */,
 				378140662B42F0AB00F2AA5A /* ProfileSettingViewModel.swift in Sources */,
@@ -901,6 +934,7 @@
 				3708261D2B66995600FBCAAF /* MemoirsTextModel.swift in Sources */,
 				371B9EAE2B5AFD42006AC06D /* StartToWriteViewModel.swift in Sources */,
 				37CFD3002B66533900E00D92 /* ExpressedIconViewController.swift in Sources */,
+				37AEB1EE2B6CF3F400A6CDD6 /* ModalEmoticonViewModel.swift in Sources */,
 				3787D00A2B429F1700F054DD /* LaunchViewController.swift in Sources */,
 				3BD552682B58FCF70043920E /* CalendarCell.swift in Sources */,
 				35AC0F522B64030400AB0A6B /* TabBarController.swift in Sources */,
@@ -912,6 +946,7 @@
 				37DEF20F2B66B32A00AF47DB /* MemoirsCompleteViewModel.swift in Sources */,
 				3B9C89D12B4AED7C0083CF44 /* StatisticsViewController.swift in Sources */,
 				37C1613A2B6BE43A000E0B21 /* SignUpProtocol.swift in Sources */,
+				37A1E9942B6CDAD70013FFD7 /* ModalEmoticonViewController.swift in Sources */,
 				3B0129C62B6242F800B191AD /* Ext + ViewController.swift in Sources */,
 				371B9EC52B5B0B61006AC06D /* WriteLearnedViewController.swift in Sources */,
 				3BB806D02B5012F400555E58 /* DayChartCustomView.swift in Sources */,
@@ -1097,8 +1132,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = On_off_iOS/On_off_iOS.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -1182,6 +1215,14 @@
 				minimumVersion = 4.0.4;
 			};
 		};
+		37AEB1EA2B6CEE0E00A6CDD6 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.10.2;
+			};
+		};
 		37C161272B6BDECF000E0B21 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -1246,6 +1287,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 37A1E9842B6C821A0013FFD7 /* XCRemoteSwiftPackageReference "RxGesture" */;
 			productName = RxGesture;
+		};
+		37AEB1EB2B6CEE0E00A6CDD6 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 37AEB1EA2B6CEE0E00A6CDD6 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 		37C161282B6BDECF000E0B21 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;

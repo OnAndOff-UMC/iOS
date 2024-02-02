@@ -47,10 +47,19 @@ final class WriteImprovementViewModel {
 
         /// 완료버튼 클릭
         input.startButtonTapped
-            .bind { [weak self] in
-                self?.moveToImprovement()
-            }
-            .disposed(by: disposeBag)
+            .withLatestFrom(input.textChanged)
+            .take(1)
+            .subscribe(onNext: { [weak self] text in
+                guard let self = self else { return }
+
+                // 키체인에 저장
+                let isSuccess = KeychainWrapper.saveItem(value: text, forKey: MemoirsKeyChain.MemoirsAnswer2.rawValue)
+                if isSuccess {
+                    self.moveToPraisedView()
+                } else {
+                    // 오류 처리할거임
+                }
+            }).disposed(by: disposeBag)
         
         /// 뒤로가기 버튼 클릭
         input.backButtonTapped
@@ -64,7 +73,7 @@ final class WriteImprovementViewModel {
     }
     
     /// Improvement 화면으로 이동
-    private func moveToImprovement() {
+    private func moveToPraisedView() {
         let writePraisedViewModel = WritePraisedViewModel(navigationController: navigationController)
         let vc = WritePraisedViewController(viewModel: writePraisedViewModel)
         navigationController.pushViewController(vc, animated: false)

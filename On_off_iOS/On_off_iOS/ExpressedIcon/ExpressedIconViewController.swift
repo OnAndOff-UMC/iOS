@@ -43,23 +43,12 @@ final class ExpressedIconViewController: UIViewController {
         return imageView
     }()
     
-    /// 회고글 View
-    private lazy var textFieldView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .clear
-        return view
+    /// 이모티콘 이미지
+    private lazy var emoticonImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        return imageView
     }()
-    
-    /// 회고글 TextField
-    private let textField: UITextField = {
-        let field = UITextField()
-        field.textAlignment = .left
-        field.font = UIFont.systemFont(ofSize: 13, weight: .regular)
-        field.backgroundColor = UIColor.clear
-        field.layer.borderWidth = 0
-        return field
-    }()
-    
     /// 확인 버튼
     private let saveButton: UIButton = {
         let button = UIButton(type: .system)
@@ -113,8 +102,7 @@ final class ExpressedIconViewController: UIViewController {
         view.addSubview(welcomeLabel)
         
         view.addSubview(textpageImage)
-        view.addSubview(textFieldView)
-        textFieldView.addSubview(textField)
+        view.addSubview(emoticonImage)
         
         view.addSubview(saveButtonView)
         saveButtonView.addSubview(saveButton)
@@ -142,17 +130,12 @@ final class ExpressedIconViewController: UIViewController {
         textpageImage.snp.makeConstraints { make in
             make.top.equalTo(welcomeLabel.snp.bottom).offset(10)
             make.leading.trailing.equalToSuperview().inset(10)
-            make.height.equalTo(textFieldView.snp.width).multipliedBy(0.8)
+            make.height.equalTo(view.snp.height).multipliedBy(0.3)
         }
-        
-        textFieldView.snp.makeConstraints { make in
-            make.edges.equalTo(textpageImage)
+        emoticonImage.snp.makeConstraints { make in
+            make.center.equalTo(textpageImage.snp.center)
+            make.height.width.equalTo(textpageImage.snp.height).multipliedBy(0.8)
         }
-        
-        textField.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(10)
-        }
-        
         saveButtonView.snp.makeConstraints { make in
             make.bottom.equalToSuperview().inset(50)
             make.width.equalTo(view.snp.width).multipliedBy(0.8)
@@ -170,13 +153,32 @@ final class ExpressedIconViewController: UIViewController {
         let input = ExpressedIconViewModel.Input(startButtonTapped: saveButton.rx.tap.asObservable(),
                                                  backButtonTapped: backButton.rx.tap.asObservable())
         
+        // 이미지 뷰 탭 제스처에 대한 바인딩
+        textpageImage.rx.tapGesture()
+            .when(.recognized)
+            .subscribe(onNext: { [weak self] _ in
+                self?.presentModalEmoticonViewController()
+            })
+            .disposed(by: disposeBag)
+        
         let _ = viewModel.bind(input: input)
         
     }
     
-    // 키보드내리기
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        textField.endEditing(true)
+    /// 이모티콘 모달 띄우기
+    private func presentModalEmoticonViewController() {
+        let modalEmoticonViewController = ModalEmoticonViewController()
+        modalEmoticonViewController.onImageSelected = { [weak self] imageUrl in
+            self?.emoticonImage.kf.setImage(with: URL(string: imageUrl))
+        }
+
+        if #available(iOS 15.0, *) {
+            if let sheet = modalEmoticonViewController.sheetPresentationController {
+                sheet.detents = [.medium()]
+                sheet.prefersGrabberVisible = true
+            }
+        }
+
+        present(modalEmoticonViewController, animated: true, completion: nil)
     }
 }

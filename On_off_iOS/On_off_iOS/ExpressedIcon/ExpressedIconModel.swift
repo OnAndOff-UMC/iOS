@@ -5,13 +5,9 @@
 //  Created by 박다미 on 2024/01/28.
 //
 
-//import Foundation
-//
-//final class ExpressedIconModel {
-//    
-//    /// button calculateCornerRadius 계산
-//    func calculateCornerRadius(forWidth width: CGFloat) -> CGFloat {
-//        return width * 0.8 * 0.15 * 0.5
-//    }
-//}
+import Foundation
 
+struct Emoticon: Decodable {
+    let id: Int
+    let imageUrl: String
+}
