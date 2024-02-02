@@ -39,4 +39,31 @@ final class SignUpService: SignUpProtocol {
         }
     }
     
+    /// Access Token 유효성 검사
+    /// - Returns: true: AccessToken 유효, false: 만료
+    func checkAccessTokenValidation() -> Observable<Void> {
+        let url = Domain.RESTAPI + LoginPath.checkValidation.rawValue
+        let header = Header.header.getHeader()
+        
+        print(#function)
+        print(url)
+        
+        return Observable.create { observer in
+            AF.request(url,
+                       method: .get,
+                       headers: header)
+            .validate(statusCode: 204..<205)
+            .response { res in
+                switch res.result {
+                case .success:
+                    observer.onNext(())
+                case .failure(let error):
+                    print(#function)
+                    print(error)
+                    observer.onError(error)
+                }
+            }
+            return Disposables.create()
+        }
+    }
 }

@@ -11,7 +11,7 @@ import Foundation
 enum LoginPath: String {
     
     /// 유효성 검사
- //   case checkValidation = "/token/validate"
+    case checkValidation = "/token/validate"
     
     case signIn = "/oauth2/kakao/token/validate"
 }
