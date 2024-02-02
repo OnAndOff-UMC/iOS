@@ -19,7 +19,6 @@
 		374FD49A2B42690D00F2E645 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 374FD4992B42690D00F2E645 /* SnapKit */; };
 		374FD49D2B4281E100F2E645 /* OnboardingCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374FD49C2B4281E100F2E645 /* OnboardingCustomView.swift */; };
 		374FD49F2B42825B00F2E645 /* CustomPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374FD49E2B42825B00F2E645 /* CustomPageControl.swift */; };
-		374FD4A22B4294F100F2E645 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374FD4A12B4294F100F2E645 /* LoginViewController.swift */; };
 		374FD4A42B4297BE00F2E645 /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374FD4A32B4297BE00F2E645 /* OnBoardingViewController.swift */; };
 		3769A6862B58563000D79C33 /* SelectTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3769A6852B58563000D79C33 /* SelectTimeViewModel.swift */; };
 		3769A6882B58563C00D79C33 /* SelectTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3769A6872B58563C00D79C33 /* SelectTimeViewController.swift */; };
@@ -34,8 +33,41 @@
 		3787D0082B429C1100F054DD /* OnboardingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787D0072B429C1100F054DD /* OnboardingModel.swift */; };
 		3787D00A2B429F1700F054DD /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787D0092B429F1700F054DD /* LaunchViewController.swift */; };
 		3787D00F2B42AD6F00F054DD /* OnBoardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787D00E2B42AD6F00F054DD /* OnBoardingViewModel.swift */; };
-		3787D0112B42E0B100F054DD /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787D0102B42E0B100F054DD /* LoginViewModel.swift */; };
 		3787D0132B42E0F000F054DD /* NickNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787D0122B42E0F000F054DD /* NickNameViewController.swift */; };
+		37A1E9862B6C821A0013FFD7 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = 37A1E9852B6C821A0013FFD7 /* RxGesture */; };
+		37A1E9882B6CB1DD0013FFD7 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A1E9872B6CB1DD0013FFD7 /* LoginService.swift */; };
+		37A1E98A2B6CB1F70013FFD7 /* LoginProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A1E9892B6CB1F70013FFD7 /* LoginProtocol.swift */; };
+		37B890742B6A1ECD008A8BBC /* Domain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B890732B6A1ECD008A8BBC /* Domain.swift */; };
+		37B890762B6A1EDC008A8BBC /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B890752B6A1EDC008A8BBC /* Endpoint.swift */; };
+		37C161232B6BD9F8000E0B21 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C161202B6BD9F7000E0B21 /* LoginViewModel.swift */; };
+		37C161242B6BD9F8000E0B21 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C161222B6BD9F7000E0B21 /* LoginViewController.swift */; };
+		37C161262B6BDAD1000E0B21 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 37C161252B6BDAD0000E0B21 /* GoogleService-Info.plist */; };
+		37C161292B6BDECF000E0B21 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 37C161282B6BDECF000E0B21 /* Alamofire */; };
+		37C1612C2B6BDEF8000E0B21 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C1612B2B6BDEF8000E0B21 /* Header.swift */; };
+		37C161312B6BDF59000E0B21 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C161302B6BDF59000E0B21 /* KeychainWrapper.swift */; };
+		37C161342B6BDFB8000E0B21 /* LoginConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C161332B6BDFB8000E0B21 /* LoginConstants.swift */; };
+		37C161362B6BE3E4000E0B21 /* SignUpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C161352B6BE3E4000E0B21 /* SignUpService.swift */; };
+		37C1613A2B6BE43A000E0B21 /* SignUpProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C161392B6BE43A000E0B21 /* SignUpProtocol.swift */; };
+		37C1613C2B6BE519000E0B21 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C1613B2B6BE519000E0B21 /* Login.swift */; };
+		37C161402B6BE77A000E0B21 /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 37C1613F2B6BE77A000E0B21 /* KakaoSDK */; };
+		37C161422B6BE77A000E0B21 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 37C161412B6BE77A000E0B21 /* KakaoSDKAuth */; };
+		37C161442B6BE77A000E0B21 /* KakaoSDKCert in Frameworks */ = {isa = PBXBuildFile; productRef = 37C161432B6BE77A000E0B21 /* KakaoSDKCert */; };
+		37C161462B6BE77A000E0B21 /* KakaoSDKCertCore in Frameworks */ = {isa = PBXBuildFile; productRef = 37C161452B6BE77A000E0B21 /* KakaoSDKCertCore */; };
+		37C161482B6BE77A000E0B21 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 37C161472B6BE77A000E0B21 /* KakaoSDKCommon */; };
+		37C1614A2B6BE77A000E0B21 /* KakaoSDKFriend in Frameworks */ = {isa = PBXBuildFile; productRef = 37C161492B6BE77A000E0B21 /* KakaoSDKFriend */; };
+		37C1614C2B6BE77A000E0B21 /* KakaoSDKFriendCore in Frameworks */ = {isa = PBXBuildFile; productRef = 37C1614B2B6BE77A000E0B21 /* KakaoSDKFriendCore */; };
+		37C1614E2B6BE77A000E0B21 /* KakaoSDKNavi in Frameworks */ = {isa = PBXBuildFile; productRef = 37C1614D2B6BE77A000E0B21 /* KakaoSDKNavi */; };
+		37C161502B6BE77A000E0B21 /* KakaoSDKShare in Frameworks */ = {isa = PBXBuildFile; productRef = 37C1614F2B6BE77A000E0B21 /* KakaoSDKShare */; };
+		37C161522B6BE77A000E0B21 /* KakaoSDKTalk in Frameworks */ = {isa = PBXBuildFile; productRef = 37C161512B6BE77A000E0B21 /* KakaoSDKTalk */; };
+		37C161542B6BE77A000E0B21 /* KakaoSDKTemplate in Frameworks */ = {isa = PBXBuildFile; productRef = 37C161532B6BE77A000E0B21 /* KakaoSDKTemplate */; };
+		37C161562B6BE77A000E0B21 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = 37C161552B6BE77A000E0B21 /* KakaoSDKUser */; };
+		37C161582B6BEC4E000E0B21 /* SignInProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C161572B6BEC4E000E0B21 /* SignInProtocol.swift */; };
+		37C1615A2B6BECA2000E0B21 /* SignInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C161592B6BECA2000E0B21 /* SignInService.swift */; };
+		37C1615D2B6BEDED000E0B21 /* RxKakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 37C1615C2B6BEDED000E0B21 /* RxKakaoSDK */; };
+		37C1615F2B6BEDED000E0B21 /* RxKakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 37C1615E2B6BEDED000E0B21 /* RxKakaoSDKAuth */; };
+		37C161612B6BEDED000E0B21 /* RxKakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 37C161602B6BEDED000E0B21 /* RxKakaoSDKCommon */; };
+		37C161632B6BEDED000E0B21 /* RxKakaoSDKFriend in Frameworks */ = {isa = PBXBuildFile; productRef = 37C161622B6BEDED000E0B21 /* RxKakaoSDKFriend */; };
+		37C161652B6BEDED000E0B21 /* RxKakaoSDKShare in Frameworks */ = {isa = PBXBuildFile; productRef = 37C161642B6BEDED000E0B21 /* RxKakaoSDKShare */; };
 		3B0129C32B623BB900B191AD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0129C22B623BB900B191AD /* HomeViewController.swift */; };
 		3B0129C62B6242F800B191AD /* Ext + ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0129C52B6242F800B191AD /* Ext + ViewController.swift */; };
 		3B0129C82B6246E900B191AD /* Ext + UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0129C72B6246E900B191AD /* Ext + UIImage.swift */; };
@@ -75,7 +107,6 @@
 		35E0C7312B68C7E3006BF427 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		374FD49C2B4281E100F2E645 /* OnboardingCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCustomView.swift; sourceTree = "<group>"; };
 		374FD49E2B42825B00F2E645 /* CustomPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPageControl.swift; sourceTree = "<group>"; };
-		374FD4A12B4294F100F2E645 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		374FD4A32B4297BE00F2E645 /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
 		3769A6852B58563000D79C33 /* SelectTimeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTimeViewModel.swift; sourceTree = "<group>"; };
 		3769A6872B58563C00D79C33 /* SelectTimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTimeViewController.swift; sourceTree = "<group>"; };
@@ -89,8 +120,24 @@
 		3787D0072B429C1100F054DD /* OnboardingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingModel.swift; sourceTree = "<group>"; };
 		3787D0092B429F1700F054DD /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		3787D00E2B42AD6F00F054DD /* OnBoardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewModel.swift; sourceTree = "<group>"; };
-		3787D0102B42E0B100F054DD /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		3787D0122B42E0F000F054DD /* NickNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameViewController.swift; sourceTree = "<group>"; };
+		37A1E9832B6C7FC60013FFD7 /* On_off_iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = On_off_iOS.entitlements; sourceTree = "<group>"; };
+		37A1E9872B6CB1DD0013FFD7 /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
+		37A1E9892B6CB1F70013FFD7 /* LoginProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginProtocol.swift; sourceTree = "<group>"; };
+		37B890732B6A1ECD008A8BBC /* Domain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Domain.swift; sourceTree = "<group>"; };
+		37B890752B6A1EDC008A8BBC /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		37C161202B6BD9F7000E0B21 /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		37C161222B6BD9F7000E0B21 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		37C161252B6BDAD0000E0B21 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		37C1612B2B6BDEF8000E0B21 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
+		37C161302B6BDF59000E0B21 /* KeychainWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
+		37C161332B6BDFB8000E0B21 /* LoginConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginConstants.swift; sourceTree = "<group>"; };
+		37C161352B6BE3E4000E0B21 /* SignUpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpService.swift; sourceTree = "<group>"; };
+		37C161392B6BE43A000E0B21 /* SignUpProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpProtocol.swift; sourceTree = "<group>"; };
+		37C1613B2B6BE519000E0B21 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
+		37C1613D2B6BE6B3000E0B21 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		37C161572B6BEC4E000E0B21 /* SignInProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInProtocol.swift; sourceTree = "<group>"; };
+		37C161592B6BECA2000E0B21 /* SignInService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInService.swift; sourceTree = "<group>"; };
 		3B0129C22B623BB900B191AD /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		3B0129C52B6242F800B191AD /* Ext + ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext + ViewController.swift"; sourceTree = "<group>"; };
 		3B0129C72B6246E900B191AD /* Ext + UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext + UIImage.swift"; sourceTree = "<group>"; };
@@ -120,12 +167,31 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37C1614C2B6BE77A000E0B21 /* KakaoSDKFriendCore in Frameworks */,
+				37C161632B6BEDED000E0B21 /* RxKakaoSDKFriend in Frameworks */,
 				376A4B5C2B5506D7004FBB56 /* Lottie in Frameworks */,
+				37C161402B6BE77A000E0B21 /* KakaoSDK in Frameworks */,
+				37C161562B6BE77A000E0B21 /* KakaoSDKUser in Frameworks */,
+				37C161292B6BDECF000E0B21 /* Alamofire in Frameworks */,
+				37C1614A2B6BE77A000E0B21 /* KakaoSDKFriend in Frameworks */,
+				37C161612B6BEDED000E0B21 /* RxKakaoSDKCommon in Frameworks */,
+				37C161542B6BE77A000E0B21 /* KakaoSDKTemplate in Frameworks */,
 				374FD4972B4268EC00F2E645 /* RxSwift in Frameworks */,
+				37C161482B6BE77A000E0B21 /* KakaoSDKCommon in Frameworks */,
+				37C1615D2B6BEDED000E0B21 /* RxKakaoSDK in Frameworks */,
+				37A1E9862B6C821A0013FFD7 /* RxGesture in Frameworks */,
 				374FD49A2B42690D00F2E645 /* SnapKit in Frameworks */,
+				37C161522B6BE77A000E0B21 /* KakaoSDKTalk in Frameworks */,
 				374FD4952B4268EC00F2E645 /* RxRelay in Frameworks */,
+				37C161502B6BE77A000E0B21 /* KakaoSDKShare in Frameworks */,
 				374FD4932B4268EC00F2E645 /* RxCocoa in Frameworks */,
+				37C1615F2B6BEDED000E0B21 /* RxKakaoSDKAuth in Frameworks */,
 				3B8570CB2B582B4E000BC503 /* FSCalendar in Frameworks */,
+				37C161422B6BE77A000E0B21 /* KakaoSDKAuth in Frameworks */,
+				37C1614E2B6BE77A000E0B21 /* KakaoSDKNavi in Frameworks */,
+				37C161652B6BEDED000E0B21 /* RxKakaoSDKShare in Frameworks */,
+				37C161462B6BE77A000E0B21 /* KakaoSDKCertCore in Frameworks */,
+				37C161442B6BE77A000E0B21 /* KakaoSDKCert in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -181,15 +247,6 @@
 				3787D00C2B42A84900F054DD /* ViewModel */,
 			);
 			path = OnBoarding;
-			sourceTree = "<group>";
-		};
-		374FD4A02B4294DE00F2E645 /* LogIn */ = {
-			isa = PBXGroup;
-			children = (
-				3787D0152B42E5AC00F054DD /* View */,
-				3787D0142B42E5A500F054DD /* ViewModel */,
-			);
-			path = LogIn;
 			sourceTree = "<group>";
 		};
 		3769A6842B58561D00D79C33 /* SelectTime */ = {
@@ -312,22 +369,6 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		3787D0142B42E5A500F054DD /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				3787D0102B42E0B100F054DD /* LoginViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		3787D0152B42E5AC00F054DD /* View */ = {
-			isa = PBXGroup;
-			children = (
-				374FD4A12B4294F100F2E645 /* LoginViewController.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		379380CC2B44282B00BB7BDE /* ProfileSetting */ = {
 			isa = PBXGroup;
 			children = (
@@ -335,6 +376,89 @@
 				3769A68B2B58566B00D79C33 /* ViewModel */,
 			);
 			path = ProfileSetting;
+			sourceTree = "<group>";
+		};
+		37B890712B6A1EAD008A8BBC /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				37B890722B6A1EBC008A8BBC /* API */,
+				37C1612B2B6BDEF8000E0B21 /* Header.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		37B890722B6A1EBC008A8BBC /* API */ = {
+			isa = PBXGroup;
+			children = (
+				37B890732B6A1ECD008A8BBC /* Domain.swift */,
+				37B890752B6A1EDC008A8BBC /* Endpoint.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		37C1611E2B6BD9F7000E0B21 /* LogIn */ = {
+			isa = PBXGroup;
+			children = (
+				37C161382B6BE42F000E0B21 /* Protocol */,
+				37C161372B6BE3EB000E0B21 /* Service */,
+				37C161322B6BDFA3000E0B21 /* Model */,
+				37C1611F2B6BD9F7000E0B21 /* ViewModel */,
+				37C161212B6BD9F7000E0B21 /* View */,
+			);
+			path = LogIn;
+			sourceTree = "<group>";
+		};
+		37C1611F2B6BD9F7000E0B21 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				37C161202B6BD9F7000E0B21 /* LoginViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		37C161212B6BD9F7000E0B21 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				37C161222B6BD9F7000E0B21 /* LoginViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		37C1612F2B6BDF47000E0B21 /* KeyChain */ = {
+			isa = PBXGroup;
+			children = (
+				37C161302B6BDF59000E0B21 /* KeychainWrapper.swift */,
+			);
+			path = KeyChain;
+			sourceTree = "<group>";
+		};
+		37C161322B6BDFA3000E0B21 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				37C161332B6BDFB8000E0B21 /* LoginConstants.swift */,
+				37C1613B2B6BE519000E0B21 /* Login.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		37C161372B6BE3EB000E0B21 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				37C161352B6BE3E4000E0B21 /* SignUpService.swift */,
+				37C161592B6BECA2000E0B21 /* SignInService.swift */,
+				37A1E9872B6CB1DD0013FFD7 /* LoginService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		37C161382B6BE42F000E0B21 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				37C161392B6BE43A000E0B21 /* SignUpProtocol.swift */,
+				37C161572B6BEC4E000E0B21 /* SignInProtocol.swift */,
+				37A1E9892B6CB1F70013FFD7 /* LoginProtocol.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		3B0129C12B623BA900B191AD /* Home */ = {
@@ -410,6 +534,10 @@
 		3B42300C2B41572200D0B038 /* On_off_iOS */ = {
 			isa = PBXGroup;
 			children = (
+				37A1E9832B6C7FC60013FFD7 /* On_off_iOS.entitlements */,
+				37C1612F2B6BDF47000E0B21 /* KeyChain */,
+				37C1611E2B6BD9F7000E0B21 /* LogIn */,
+				37B890712B6A1EAD008A8BBC /* Constants */,
 				35984F222B63EE8000A5F6F2 /* TabBar */,
 				3B0129C12B623BA900B191AD /* Home */,
 				3B9C89CF2B4AED640083CF44 /* Statistics */,
@@ -417,7 +545,6 @@
 				376A4B5D2B5514B4004FBB56 /* Launch */,
 				379380CC2B44282B00BB7BDE /* ProfileSetting */,
 				3781405F2B42E75000F2AA5A /* NickName */,
-				374FD4A02B4294DE00F2E645 /* LogIn */,
 				374FD49B2B4281CA00F2E645 /* OnBoarding */,
 				3B4230212B41584300D0B038 /* Apps */,
 				376A4B552B5504AB004FBB56 /* Assets */,
@@ -426,6 +553,8 @@
 				35E0C7282B68C7AC006BF427 /* Fonts */,
 				3B4230182B41572400D0B038 /* LaunchScreen.storyboard */,
 				3B42301B2B41572400D0B038 /* Info.plist */,
+				37C161252B6BDAD0000E0B21 /* GoogleService-Info.plist */,
+				37C1613D2B6BE6B3000E0B21 /* Config.xcconfig */,
 			);
 			path = On_off_iOS;
 			sourceTree = "<group>";
@@ -510,6 +639,25 @@
 				374FD4992B42690D00F2E645 /* SnapKit */,
 				376A4B5B2B5506D7004FBB56 /* Lottie */,
 				3B8570CA2B582B4E000BC503 /* FSCalendar */,
+				37C161282B6BDECF000E0B21 /* Alamofire */,
+				37C1613F2B6BE77A000E0B21 /* KakaoSDK */,
+				37C161412B6BE77A000E0B21 /* KakaoSDKAuth */,
+				37C161432B6BE77A000E0B21 /* KakaoSDKCert */,
+				37C161452B6BE77A000E0B21 /* KakaoSDKCertCore */,
+				37C161472B6BE77A000E0B21 /* KakaoSDKCommon */,
+				37C161492B6BE77A000E0B21 /* KakaoSDKFriend */,
+				37C1614B2B6BE77A000E0B21 /* KakaoSDKFriendCore */,
+				37C1614D2B6BE77A000E0B21 /* KakaoSDKNavi */,
+				37C1614F2B6BE77A000E0B21 /* KakaoSDKShare */,
+				37C161512B6BE77A000E0B21 /* KakaoSDKTalk */,
+				37C161532B6BE77A000E0B21 /* KakaoSDKTemplate */,
+				37C161552B6BE77A000E0B21 /* KakaoSDKUser */,
+				37C1615C2B6BEDED000E0B21 /* RxKakaoSDK */,
+				37C1615E2B6BEDED000E0B21 /* RxKakaoSDKAuth */,
+				37C161602B6BEDED000E0B21 /* RxKakaoSDKCommon */,
+				37C161622B6BEDED000E0B21 /* RxKakaoSDKFriend */,
+				37C161642B6BEDED000E0B21 /* RxKakaoSDKShare */,
+				37A1E9852B6C821A0013FFD7 /* RxGesture */,
 			);
 			productName = On_off_iOS;
 			productReference = 3B42300A2B41572200D0B038 /* On_off_iOS.app */;
@@ -544,6 +692,10 @@
 				374FD4982B42690D00F2E645 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				376A4B5A2B5506D7004FBB56 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				3B8570C92B582B4E000BC503 /* XCRemoteSwiftPackageReference "FSCalendar" */,
+				37C161272B6BDECF000E0B21 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				37C1613E2B6BE779000E0B21 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
+				37C1615B2B6BEDED000E0B21 /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */,
+				37A1E9842B6C821A0013FFD7 /* XCRemoteSwiftPackageReference "RxGesture" */,
 			);
 			productRefGroup = 3B42300B2B41572200D0B038 /* Products */;
 			projectDirPath = "";
@@ -561,6 +713,7 @@
 			files = (
 				376A4B572B5504FE004FBB56 /* Lotties.xcassets in Resources */,
 				3B42301A2B41572400D0B038 /* LaunchScreen.storyboard in Resources */,
+				37C161262B6BDAD1000E0B21 /* GoogleService-Info.plist in Resources */,
 				376A4B592B55054D004FBB56 /* onBoarding.json in Resources */,
 				3B4230172B41572400D0B038 /* Assets.xcassets in Resources */,
 			);
@@ -573,42 +726,54 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37C161242B6BD9F8000E0B21 /* LoginViewController.swift in Sources */,
 				3B51B5272B63DF9500E5FEF9 /* CellIdentifier.swift in Sources */,
 				378140612B42E83100F2AA5A /* NickNameViewModel.swift in Sources */,
+				37C161582B6BEC4E000E0B21 /* SignInProtocol.swift in Sources */,
 				3787D0132B42E0F000F054DD /* NickNameViewController.swift in Sources */,
 				3787D00F2B42AD6F00F054DD /* OnBoardingViewModel.swift in Sources */,
-				374FD4A22B4294F100F2E645 /* LoginViewController.swift in Sources */,
 				374FD49F2B42825B00F2E645 /* CustomPageControl.swift in Sources */,
+				37C161232B6BD9F8000E0B21 /* LoginViewModel.swift in Sources */,
 				355283122B68CB70002BBFFD /* Ext + UIFont.swift in Sources */,
 				355283142B68CC94002BBFFD /* Ext + UIColor.swift in Sources */,
 				3769A6862B58563000D79C33 /* SelectTimeViewModel.swift in Sources */,
 				374FD4A42B4297BE00F2E645 /* OnBoardingViewController.swift in Sources */,
 				3769A6882B58563C00D79C33 /* SelectTimeViewController.swift in Sources */,
+				37C1612C2B6BDEF8000E0B21 /* Header.swift in Sources */,
 				3787D0082B429C1100F054DD /* OnboardingModel.swift in Sources */,
+				37C1615A2B6BECA2000E0B21 /* SignInService.swift in Sources */,
 				378140662B42F0AB00F2AA5A /* ProfileSettingViewModel.swift in Sources */,
+				37C1613C2B6BE519000E0B21 /* Login.swift in Sources */,
 				3B1658F72B4D8559004EFBC3 /* WeekChartCustomView.swift in Sources */,
 				3B42300E2B41572200D0B038 /* AppDelegate.swift in Sources */,
 				3769A68E2B585B6600D79C33 /* DayButton.swift in Sources */,
 				3B0129CE2B624E8D00B191AD /* DayCollectionViewCell.swift in Sources */,
 				3769A6912B585BDE00D79C33 /* DayModel.swift in Sources */,
+				37B890742B6A1ECD008A8BBC /* Domain.swift in Sources */,
 				3B0129CC2B624D6000B191AD /* Home.swift in Sources */,
 				374FD49D2B4281E100F2E645 /* OnboardingCustomView.swift in Sources */,
 				3BB806D82B5024BC00555E58 /* MonthStatistics.swift in Sources */,
+				37C161342B6BDFB8000E0B21 /* LoginConstants.swift in Sources */,
 				3584F3AE2B5A5FEB007ACB57 /* (null) in Sources */,
+				37C161312B6BDF59000E0B21 /* KeychainWrapper.swift in Sources */,
 				3BB806D32B5021BC00555E58 /* StatisticsViewModel.swift in Sources */,
 				3B0129C82B6246E900B191AD /* Ext + UIImage.swift in Sources */,
 				3B4230102B41572200D0B038 /* SceneDelegate.swift in Sources */,
 				3584F3AC2B5A5CC7007ACB57 /* (null) in Sources */,
+				37A1E9882B6CB1DD0013FFD7 /* LoginService.swift in Sources */,
 				378140632B42F07A00F2AA5A /* ProfileSettingViewController.swift in Sources */,
+				37B890762B6A1EDC008A8BBC /* Endpoint.swift in Sources */,
 				3B0129C32B623BB900B191AD /* HomeViewController.swift in Sources */,
-				3787D0112B42E0B100F054DD /* LoginViewModel.swift in Sources */,
 				3787D00A2B429F1700F054DD /* LaunchViewController.swift in Sources */,
 				3BD552682B58FCF70043920E /* CalendarCell.swift in Sources */,
 				35AC0F522B64030400AB0A6B /* TabBarController.swift in Sources */,
+				37A1E98A2B6CB1F70013FFD7 /* LoginProtocol.swift in Sources */,
+				37C161362B6BE3E4000E0B21 /* SignUpService.swift in Sources */,
 				3BD552662B58FA8C0043920E /* RateFillView.swift in Sources */,
 				35AC0F502B64025300AB0A6B /* TabItem.swift in Sources */,
 				3BD5526A2B5914B10043920E /* CalendarStatistics.swift in Sources */,
 				3B9C89D12B4AED7C0083CF44 /* StatisticsViewController.swift in Sources */,
+				37C1613A2B6BE43A000E0B21 /* SignUpProtocol.swift in Sources */,
 				3B0129C62B6242F800B191AD /* Ext + ViewController.swift in Sources */,
 				3BB806D02B5012F400555E58 /* DayChartCustomView.swift in Sources */,
 				3B0129CA2B624CAE00B191AD /* HomeViewModel.swift in Sources */,
@@ -632,6 +797,7 @@
 /* Begin XCBuildConfiguration section */
 		3B42301C2B41572400D0B038 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 37C1613D2B6BE6B3000E0B21 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -695,6 +861,7 @@
 		};
 		3B42301D2B41572400D0B038 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 37C1613D2B6BE6B3000E0B21 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -751,12 +918,16 @@
 		};
 		3B42301F2B41572400D0B038 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 37C1613D2B6BE6B3000E0B21 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = On_off_iOS/On_off_iOS.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = SN5J3DYFX4;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = SN5J3DYFX4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = On_off_iOS/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -770,6 +941,8 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "UMC-OnAndOff.On-off-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = On_Off_ProvisioningFile_Develop;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -778,9 +951,11 @@
 		};
 		3B4230202B41572400D0B038 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 37C1613D2B6BE6B3000E0B21 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = On_off_iOS/On_off_iOS.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
@@ -855,6 +1030,38 @@
 				minimumVersion = 4.3.4;
 			};
 		};
+		37A1E9842B6C821A0013FFD7 /* XCRemoteSwiftPackageReference "RxGesture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxGesture.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.4;
+			};
+		};
+		37C161272B6BDECF000E0B21 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.8.1;
+			};
+		};
+		37C1613E2B6BE779000E0B21 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.20.0;
+			};
+		};
+		37C1615B2B6BEDED000E0B21 /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao/kakao-ios-sdk-rx";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.20.0;
+			};
+		};
 		3B8570C92B582B4E000BC503 /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/WenchaoD/FSCalendar.git";
@@ -890,6 +1097,101 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 376A4B5A2B5506D7004FBB56 /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
+		};
+		37A1E9852B6C821A0013FFD7 /* RxGesture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 37A1E9842B6C821A0013FFD7 /* XCRemoteSwiftPackageReference "RxGesture" */;
+			productName = RxGesture;
+		};
+		37C161282B6BDECF000E0B21 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 37C161272B6BDECF000E0B21 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		37C1613F2B6BE77A000E0B21 /* KakaoSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 37C1613E2B6BE779000E0B21 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDK;
+		};
+		37C161412B6BE77A000E0B21 /* KakaoSDKAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 37C1613E2B6BE779000E0B21 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKAuth;
+		};
+		37C161432B6BE77A000E0B21 /* KakaoSDKCert */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 37C1613E2B6BE779000E0B21 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKCert;
+		};
+		37C161452B6BE77A000E0B21 /* KakaoSDKCertCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 37C1613E2B6BE779000E0B21 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKCertCore;
+		};
+		37C161472B6BE77A000E0B21 /* KakaoSDKCommon */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 37C1613E2B6BE779000E0B21 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKCommon;
+		};
+		37C161492B6BE77A000E0B21 /* KakaoSDKFriend */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 37C1613E2B6BE779000E0B21 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKFriend;
+		};
+		37C1614B2B6BE77A000E0B21 /* KakaoSDKFriendCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 37C1613E2B6BE779000E0B21 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKFriendCore;
+		};
+		37C1614D2B6BE77A000E0B21 /* KakaoSDKNavi */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 37C1613E2B6BE779000E0B21 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKNavi;
+		};
+		37C1614F2B6BE77A000E0B21 /* KakaoSDKShare */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 37C1613E2B6BE779000E0B21 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKShare;
+		};
+		37C161512B6BE77A000E0B21 /* KakaoSDKTalk */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 37C1613E2B6BE779000E0B21 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKTalk;
+		};
+		37C161532B6BE77A000E0B21 /* KakaoSDKTemplate */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 37C1613E2B6BE779000E0B21 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKTemplate;
+		};
+		37C161552B6BE77A000E0B21 /* KakaoSDKUser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 37C1613E2B6BE779000E0B21 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKUser;
+		};
+		37C1615C2B6BEDED000E0B21 /* RxKakaoSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 37C1615B2B6BEDED000E0B21 /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */;
+			productName = RxKakaoSDK;
+		};
+		37C1615E2B6BEDED000E0B21 /* RxKakaoSDKAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 37C1615B2B6BEDED000E0B21 /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */;
+			productName = RxKakaoSDKAuth;
+		};
+		37C161602B6BEDED000E0B21 /* RxKakaoSDKCommon */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 37C1615B2B6BEDED000E0B21 /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */;
+			productName = RxKakaoSDKCommon;
+		};
+		37C161622B6BEDED000E0B21 /* RxKakaoSDKFriend */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 37C1615B2B6BEDED000E0B21 /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */;
+			productName = RxKakaoSDKFriend;
+		};
+		37C161642B6BEDED000E0B21 /* RxKakaoSDKShare */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 37C1615B2B6BEDED000E0B21 /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */;
+			productName = RxKakaoSDKShare;
 		};
 		3B8570CA2B582B4E000BC503 /* FSCalendar */ = {
 			isa = XCSwiftPackageProductDependency;
