@@ -44,6 +44,7 @@
 		3787D00F2B42AD6F00F054DD /* OnBoardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787D00E2B42AD6F00F054DD /* OnBoardingViewModel.swift */; };
 		3787D0112B42E0B100F054DD /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787D0102B42E0B100F054DD /* LoginViewModel.swift */; };
 		3787D0132B42E0F000F054DD /* NickNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787D0122B42E0F000F054DD /* NickNameViewController.swift */; };
+		37A1E98D2B6CCC020013FFD7 /* Memoirs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A1E98C2B6CCC020013FFD7 /* Memoirs.swift */; };
 		37CFD3002B66533900E00D92 /* ExpressedIconViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CFD2FF2B66533900E00D92 /* ExpressedIconViewController.swift */; };
 		37CFD3022B66534400E00D92 /* ExpressedIconViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CFD3012B66534400E00D92 /* ExpressedIconViewModel.swift */; };
 		37DEF20D2B66B31D00AF47DB /* MemoirsCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DEF20C2B66B31D00AF47DB /* MemoirsCompleteViewController.swift */; };
@@ -93,6 +94,7 @@
 		3787D00E2B42AD6F00F054DD /* OnBoardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewModel.swift; sourceTree = "<group>"; };
 		3787D0102B42E0B100F054DD /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		3787D0122B42E0F000F054DD /* NickNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameViewController.swift; sourceTree = "<group>"; };
+		37A1E98C2B6CCC020013FFD7 /* Memoirs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memoirs.swift; sourceTree = "<group>"; };
 		37CFD2FF2B66533900E00D92 /* ExpressedIconViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressedIconViewController.swift; sourceTree = "<group>"; };
 		37CFD3012B66534400E00D92 /* ExpressedIconViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressedIconViewModel.swift; sourceTree = "<group>"; };
 		37DEF20C2B66B31D00AF47DB /* MemoirsCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoirsCompleteViewController.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 		371B9EA52B5AD7D8006AC06D /* Memoirs */ = {
 			isa = PBXGroup;
 			children = (
+				37A1E98B2B6CCBE70013FFD7 /* Model */,
 				371B9EA62B5AD838006AC06D /* MemoirsViewController.swift */,
 				371B9EA82B5AD847006AC06D /* MemoirsViewModel.swift */,
 				3708261C2B66995600FBCAAF /* MemoirsTextModel.swift */,
@@ -336,6 +339,14 @@
 				3769A68B2B58566B00D79C33 /* ViewModel */,
 			);
 			path = ProfileSetting;
+			sourceTree = "<group>";
+		};
+		37A1E98B2B6CCBE70013FFD7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				37A1E98C2B6CCC020013FFD7 /* Memoirs.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		37CFD2FE2B6652DA00E00D92 /* ExpressedIcon */ = {
@@ -577,6 +588,7 @@
 				3B9C89D12B4AED7C0083CF44 /* StatisticsViewController.swift in Sources */,
 				371B9EC52B5B0B61006AC06D /* WriteLearnedViewController.swift in Sources */,
 				3BB806D02B5012F400555E58 /* DayChartCustomView.swift in Sources */,
+				37A1E98D2B6CCC020013FFD7 /* Memoirs.swift in Sources */,
 				3BB806D62B50228100555E58 /* DayStatistics.swift in Sources */,
 				371B9EA92B5AD847006AC06D /* MemoirsViewModel.swift in Sources */,
 			);

@@ -49,6 +49,9 @@ final class WriteLearnedViewModel {
         /// 완료버튼 클릭
         input.startButtonTapped
             .bind { [weak self] in
+                if let placeName = selectedPlace.placeName {
+                    _ = KeychainWrapper.saveItem(value: placeName, forKey: SearchPlaceKeyChain.placeName.rawValue)
+                }
                 self?.moveToImprovement()
             }
             .disposed(by: disposeBag)
