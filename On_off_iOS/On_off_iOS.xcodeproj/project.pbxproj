@@ -57,6 +57,8 @@
 		37A1E9972B6CDCEF0013FFD7 /* EmoticonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A1E9962B6CDCEF0013FFD7 /* EmoticonCollectionViewCell.swift */; };
 		37AEB1EC2B6CEE0E00A6CDD6 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 37AEB1EB2B6CEE0E00A6CDD6 /* Kingfisher */; };
 		37AEB1EE2B6CF3F400A6CDD6 /* ModalEmoticonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AEB1ED2B6CF3F400A6CDD6 /* ModalEmoticonViewModel.swift */; };
+		37AEB1F22B6CFE3500A6CDD6 /* MemoirsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AEB1F12B6CFE3500A6CDD6 /* MemoirsService.swift */; };
+		37AEB1F52B6CFE6C00A6CDD6 /* MemoirsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AEB1F42B6CFE6C00A6CDD6 /* MemoirsProtocol.swift */; };
 		37B890742B6A1ECD008A8BBC /* Domain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B890732B6A1ECD008A8BBC /* Domain.swift */; };
 		37B890762B6A1EDC008A8BBC /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B890752B6A1EDC008A8BBC /* Endpoint.swift */; };
 		37C161232B6BD9F8000E0B21 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C161202B6BD9F7000E0B21 /* LoginViewModel.swift */; };
@@ -165,6 +167,8 @@
 		37A1E9932B6CDAD70013FFD7 /* ModalEmoticonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalEmoticonViewController.swift; sourceTree = "<group>"; };
 		37A1E9962B6CDCEF0013FFD7 /* EmoticonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmoticonCollectionViewCell.swift; sourceTree = "<group>"; };
 		37AEB1ED2B6CF3F400A6CDD6 /* ModalEmoticonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalEmoticonViewModel.swift; sourceTree = "<group>"; };
+		37AEB1F12B6CFE3500A6CDD6 /* MemoirsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoirsService.swift; sourceTree = "<group>"; };
+		37AEB1F42B6CFE6C00A6CDD6 /* MemoirsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoirsProtocol.swift; sourceTree = "<group>"; };
 		37B890732B6A1ECD008A8BBC /* Domain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Domain.swift; sourceTree = "<group>"; };
 		37B890752B6A1EDC008A8BBC /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		37C161202B6BD9F7000E0B21 /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -286,11 +290,13 @@
 		371B9EA52B5AD7D8006AC06D /* Memoirs */ = {
 			isa = PBXGroup;
 			children = (
+				37AEB1F32B6CFE6000A6CDD6 /* Protocol */,
 				37A1E98B2B6CCBE70013FFD7 /* Model */,
 				371B9EA62B5AD838006AC06D /* MemoirsViewController.swift */,
 				371B9EA82B5AD847006AC06D /* MemoirsViewModel.swift */,
 				3708261C2B66995600FBCAAF /* MemoirsTextModel.swift */,
 				3708261E2B6699E000FBCAAF /* MemoirsText.swift */,
+				37AEB1F12B6CFE3500A6CDD6 /* MemoirsService.swift */,
 			);
 			path = Memoirs;
 			sourceTree = "<group>";
@@ -495,6 +501,14 @@
 				37A1E9962B6CDCEF0013FFD7 /* EmoticonCollectionViewCell.swift */,
 			);
 			path = CollectionView;
+			sourceTree = "<group>";
+		};
+		37AEB1F32B6CFE6000A6CDD6 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				37AEB1F42B6CFE6C00A6CDD6 /* MemoirsProtocol.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		37B890712B6A1EAD008A8BBC /* Constants */ = {
@@ -903,6 +917,7 @@
 				378140662B42F0AB00F2AA5A /* ProfileSettingViewModel.swift in Sources */,
 				37C1613C2B6BE519000E0B21 /* Login.swift in Sources */,
 				3B1658F72B4D8559004EFBC3 /* WeekChartCustomView.swift in Sources */,
+				37AEB1F22B6CFE3500A6CDD6 /* MemoirsService.swift in Sources */,
 				3B42300E2B41572200D0B038 /* AppDelegate.swift in Sources */,
 				37DEF20D2B66B31D00AF47DB /* MemoirsCompleteViewController.swift in Sources */,
 				371B9EBB2B5B0737006AC06D /* WritePraisedViewController.swift in Sources */,
@@ -945,6 +960,7 @@
 				3BD5526A2B5914B10043920E /* CalendarStatistics.swift in Sources */,
 				37DEF20F2B66B32A00AF47DB /* MemoirsCompleteViewModel.swift in Sources */,
 				3B9C89D12B4AED7C0083CF44 /* StatisticsViewController.swift in Sources */,
+				37AEB1F52B6CFE6C00A6CDD6 /* MemoirsProtocol.swift in Sources */,
 				37C1613A2B6BE43A000E0B21 /* SignUpProtocol.swift in Sources */,
 				37A1E9942B6CDAD70013FFD7 /* ModalEmoticonViewController.swift in Sources */,
 				3B0129C62B6242F800B191AD /* Ext + ViewController.swift in Sources */,

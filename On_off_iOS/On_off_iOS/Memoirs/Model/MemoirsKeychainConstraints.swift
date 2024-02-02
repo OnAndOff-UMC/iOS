@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// MemoirsKeyChain : 키체인
 enum MemoirsKeyChain: String {
     case MemoirsAnswer1
     case MemoirsAnswer2

@@ -239,7 +239,7 @@ final class MemoirsViewController: UIViewController {
                                            menuButtonTapped: menuButton.rx.tap.asObservable(),
                                            writeButtonTapped: writeButton.rx.tap.asObservable())
 
-        let output = viewModel.bind(input: input)
+        let _ = viewModel.bind(input: input)
     }
     
     /// 네비게이션 바
