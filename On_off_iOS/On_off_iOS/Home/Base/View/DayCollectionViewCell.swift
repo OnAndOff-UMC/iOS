@@ -1,15 +1,14 @@
-//
 //  DayCollectionViewCell.swift
 //  On_off_iOS
 //
-//  Created by 신예진 on 1/31/24.
+//  Created by 정호진 on 1/25/24.
 //
 
 import Foundation
 import SnapKit
 import UIKit
 
-final class OnDayCollectionViewCell: UICollectionViewCell {
+final class DayCollectionViewCell: UICollectionViewCell {
 
     /// 요일 라벨
     private lazy var dayLabel: UILabel = {
@@ -88,4 +87,3 @@ final class OnDayCollectionViewCell: UICollectionViewCell {
         cornerUIView.backgroundColor = color
     }
 }
-

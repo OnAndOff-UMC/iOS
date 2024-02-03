@@ -7,12 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3543D0DF2B6D26E2008BC111 /* On.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3543D0DE2B6D26E2008BC111 /* On.swift */; };
+		3543D0E12B6D2727008BC111 /* OnViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3543D0E02B6D2727008BC111 /* OnViewModel.swift */; };
+		3543D0E32B6D274C008BC111 /* OnViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3543D0E22B6D274C008BC111 /* OnViewController.swift */; };
+		3543D0E52B6D27FB008BC111 /* DayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3543D0E42B6D27FB008BC111 /* DayCollectionViewCell.swift */; };
+		3543D0EB2B6D2AB4008BC111 /* TodayResolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3543D0EA2B6D2AB4008BC111 /* TodayResolution.swift */; };
+		3543D0ED2B6D2AD4008BC111 /* TodayResolutionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3543D0EC2B6D2AD4008BC111 /* TodayResolutionViewModel.swift */; };
+		3543D0EF2B6D2AE4008BC111 /* TodayResolutionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3543D0EE2B6D2AE4008BC111 /* TodayResolutionViewController.swift */; };
 		355283122B68CB70002BBFFD /* Ext + UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355283112B68CB70002BBFFD /* Ext + UIFont.swift */; };
 		355283142B68CC94002BBFFD /* Ext + UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355283132B68CC94002BBFFD /* Ext + UIColor.swift */; };
-		3552831A2B6A0C5F002BBFFD /* OnViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355283192B6A0C5F002BBFFD /* OnViewModel.swift */; };
-		3552831C2B6A0C6A002BBFFD /* OnViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3552831B2B6A0C6A002BBFFD /* OnViewController.swift */; };
-		3552831E2B6A0C77002BBFFD /* On.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3552831D2B6A0C77002BBFFD /* On.swift */; };
-		355283202B6A0E0E002BBFFD /* OnDayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3552831F2B6A0E0E002BBFFD /* OnDayCollectionViewCell.swift */; };
 		3584F3AC2B5A5CC7007ACB57 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		3584F3AE2B5A5FEB007ACB57 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		35AC0F502B64025300AB0A6B /* TabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35AC0F4F2B64025300AB0A6B /* TabItem.swift */; };
@@ -63,12 +66,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3543D0DE2B6D26E2008BC111 /* On.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = On.swift; sourceTree = "<group>"; };
+		3543D0E02B6D2727008BC111 /* OnViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnViewModel.swift; sourceTree = "<group>"; };
+		3543D0E22B6D274C008BC111 /* OnViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnViewController.swift; sourceTree = "<group>"; };
+		3543D0E42B6D27FB008BC111 /* DayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCollectionViewCell.swift; sourceTree = "<group>"; };
+		3543D0EA2B6D2AB4008BC111 /* TodayResolution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayResolution.swift; sourceTree = "<group>"; };
+		3543D0EC2B6D2AD4008BC111 /* TodayResolutionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayResolutionViewModel.swift; sourceTree = "<group>"; };
+		3543D0EE2B6D2AE4008BC111 /* TodayResolutionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayResolutionViewController.swift; sourceTree = "<group>"; };
 		355283112B68CB70002BBFFD /* Ext + UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext + UIFont.swift"; sourceTree = "<group>"; };
 		355283132B68CC94002BBFFD /* Ext + UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext + UIColor.swift"; sourceTree = "<group>"; };
-		355283192B6A0C5F002BBFFD /* OnViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnViewModel.swift; sourceTree = "<group>"; };
-		3552831B2B6A0C6A002BBFFD /* OnViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnViewController.swift; sourceTree = "<group>"; };
-		3552831D2B6A0C77002BBFFD /* On.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = On.swift; sourceTree = "<group>"; };
-		3552831F2B6A0E0E002BBFFD /* OnDayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnDayCollectionViewCell.swift; sourceTree = "<group>"; };
 		35AC0F4F2B64025300AB0A6B /* TabItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItem.swift; sourceTree = "<group>"; };
 		35AC0F512B64030400AB0A6B /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		35E0C7292B68C7E3006BF427 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
@@ -138,6 +144,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3543D0E62B6D29FA008BC111 /* TodayResolution */ = {
+			isa = PBXGroup;
+			children = (
+				3543D0E72B6D2A41008BC111 /* Model */,
+				3543D0E82B6D2A49008BC111 /* ViewModel */,
+				3543D0E92B6D2A70008BC111 /* View */,
+			);
+			path = TodayResolution;
+			sourceTree = "<group>";
+		};
+		3543D0E72B6D2A41008BC111 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3543D0EA2B6D2AB4008BC111 /* TodayResolution.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		3543D0E82B6D2A49008BC111 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				3543D0EC2B6D2AD4008BC111 /* TodayResolutionViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		3543D0E92B6D2A70008BC111 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3543D0EE2B6D2AE4008BC111 /* TodayResolutionViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		355283152B6A0BFE002BBFFD /* On */ = {
 			isa = PBXGroup;
 			children = (
@@ -151,7 +191,7 @@
 		355283162B6A0C12002BBFFD /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				3552831D2B6A0C77002BBFFD /* On.swift */,
+				3543D0DE2B6D26E2008BC111 /* On.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -159,8 +199,7 @@
 		355283172B6A0C18002BBFFD /* View */ = {
 			isa = PBXGroup;
 			children = (
-				3552831B2B6A0C6A002BBFFD /* OnViewController.swift */,
-				3552831F2B6A0E0E002BBFFD /* OnDayCollectionViewCell.swift */,
+				3543D0E22B6D274C008BC111 /* OnViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -168,7 +207,7 @@
 		355283182B6A0C38002BBFFD /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				355283192B6A0C5F002BBFFD /* OnViewModel.swift */,
+				3543D0E02B6D2727008BC111 /* OnViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -381,6 +420,7 @@
 		3B0129C12B623BA900B191AD /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				3543D0E62B6D29FA008BC111 /* TodayResolution */,
 				355283152B6A0BFE002BBFFD /* On */,
 				3B0129CF2B62BA8100B191AD /* Base */,
 			);
@@ -412,6 +452,7 @@
 			isa = PBXGroup;
 			children = (
 				3B0129C22B623BB900B191AD /* HomeViewController.swift */,
+				3543D0E42B6D27FB008BC111 /* DayCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -615,23 +656,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B51B5272B63DF9500E5FEF9 /* CellIdentifier.swift in Sources */,
-				3552831C2B6A0C6A002BBFFD /* OnViewController.swift in Sources */,
+				3543D0E32B6D274C008BC111 /* OnViewController.swift in Sources */,
 				378140612B42E83100F2AA5A /* NickNameViewModel.swift in Sources */,
-				3552831E2B6A0C77002BBFFD /* On.swift in Sources */,
 				3787D0132B42E0F000F054DD /* NickNameViewController.swift in Sources */,
 				3787D00F2B42AD6F00F054DD /* OnBoardingViewModel.swift in Sources */,
 				374FD4A22B4294F100F2E645 /* LoginViewController.swift in Sources */,
 				374FD49F2B42825B00F2E645 /* CustomPageControl.swift in Sources */,
+				3543D0E52B6D27FB008BC111 /* DayCollectionViewCell.swift in Sources */,
 				355283122B68CB70002BBFFD /* Ext + UIFont.swift in Sources */,
 				355283142B68CC94002BBFFD /* Ext + UIColor.swift in Sources */,
+				3543D0DF2B6D26E2008BC111 /* On.swift in Sources */,
+				3543D0E12B6D2727008BC111 /* OnViewModel.swift in Sources */,
 				3769A6862B58563000D79C33 /* SelectTimeViewModel.swift in Sources */,
-				3552831A2B6A0C5F002BBFFD /* OnViewModel.swift in Sources */,
 				374FD4A42B4297BE00F2E645 /* OnBoardingViewController.swift in Sources */,
 				3769A6882B58563C00D79C33 /* SelectTimeViewController.swift in Sources */,
 				3787D0082B429C1100F054DD /* OnboardingModel.swift in Sources */,
 				378140662B42F0AB00F2AA5A /* ProfileSettingViewModel.swift in Sources */,
 				3B1658F72B4D8559004EFBC3 /* WeekChartCustomView.swift in Sources */,
 				3B42300E2B41572200D0B038 /* AppDelegate.swift in Sources */,
+				3543D0EB2B6D2AB4008BC111 /* TodayResolution.swift in Sources */,
 				3769A68E2B585B6600D79C33 /* DayButton.swift in Sources */,
 				3769A6912B585BDE00D79C33 /* DayModel.swift in Sources */,
 				3B0129CC2B624D6000B191AD /* Home.swift in Sources */,
@@ -648,7 +691,7 @@
 				3787D00A2B429F1700F054DD /* LaunchViewController.swift in Sources */,
 				3BD552682B58FCF70043920E /* CalendarCell.swift in Sources */,
 				35AC0F522B64030400AB0A6B /* TabBarController.swift in Sources */,
-				355283202B6A0E0E002BBFFD /* OnDayCollectionViewCell.swift in Sources */,
+				3543D0EF2B6D2AE4008BC111 /* TodayResolutionViewController.swift in Sources */,
 				3BD552662B58FA8C0043920E /* RateFillView.swift in Sources */,
 				35AC0F502B64025300AB0A6B /* TabItem.swift in Sources */,
 				3BD5526A2B5914B10043920E /* CalendarStatistics.swift in Sources */,
@@ -657,6 +700,7 @@
 				3BB806D02B5012F400555E58 /* DayChartCustomView.swift in Sources */,
 				3B0129CA2B624CAE00B191AD /* HomeViewModel.swift in Sources */,
 				3BB806D62B50228100555E58 /* DayStatistics.swift in Sources */,
+				3543D0ED2B6D2AD4008BC111 /* TodayResolutionViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

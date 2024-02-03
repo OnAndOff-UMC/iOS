@@ -2,7 +2,7 @@
 //  OnViewController.swift
 //  On_off_iOS
 //
-//  Created by 신예진 on 1/31/24.
+//  Created by 신예진 on 2/2/24.
 //
 
 import Foundation
@@ -11,7 +11,7 @@ import RxSwift
 import SnapKit
 import UIKit
 
-final class OnViewController: UIViewController, UIScrollViewDelegate {
+final class OnViewController: UIViewController {
     
     /// Safe Area Top Layout UIView
     private lazy var safeAreaTopUIView: UIView = {
@@ -78,13 +78,14 @@ final class OnViewController: UIViewController, UIScrollViewDelegate {
     }()
     
     private let disposeBag = DisposeBag()
+    
     private let viewModel = OnViewModel()
     
     // MARK: - View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        addBaseSubViews()
+        
+        addOnSubViews()
         bind()
     }
     
@@ -97,7 +98,7 @@ final class OnViewController: UIViewController, UIScrollViewDelegate {
     }
     
     /// On - Off 공통 UI Add View
-    private func addBaseSubViews() {
+    private func addOnSubViews() {
         view.addSubview(safeAreaTopUIView)
         view.addSubview(onOffButton)
         view.addSubview(titleLabel)
@@ -106,11 +107,11 @@ final class OnViewController: UIViewController, UIScrollViewDelegate {
         view.addSubview(dayCollectionView)
         view.addSubview(blankOnOffUIView)
         
-        baseConstraints()
+        OnConstraints()
     }
     
     /// On - Off 공통 UI Constraints
-    private func baseConstraints() {
+    private func OnConstraints() {
         onOffButton.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(5)
             make.trailing.equalTo(view.safeAreaLayoutGuide).offset(-10)
@@ -137,7 +138,6 @@ final class OnViewController: UIViewController, UIScrollViewDelegate {
             make.leading.equalTo(titleLabel.snp.leading)
             make.top.equalTo(titleLabel.snp.bottom).offset(10)
         }
-        
         dayCollectionView.snp.makeConstraints { make in
             make.top.equalTo(monthLabel.snp.bottom).offset(10)
             make.leading.equalToSuperview().offset(10)
@@ -255,19 +255,4 @@ extension OnViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat { 10 }
-}
-
-import SwiftUI
-struct VCPreViewHomeViewController:PreviewProvider {
-    static var previews: some View {
-        OnViewController().toPreview().previewDevice("iPhone 15 Pro")
-        // 실행할 ViewController이름 구분해서 잘 지정하기
-    }
-}
-
-struct VCPreViewHomeViewController2:PreviewProvider {
-    static var previews: some View {
-        OnViewController().toPreview().previewDevice("iPhone SE (3rd generation)")
-        // 실행할 ViewController이름 구분해서 잘 지정하기
-    }
 }
