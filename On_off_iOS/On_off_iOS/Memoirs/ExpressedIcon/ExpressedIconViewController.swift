@@ -14,14 +14,14 @@ final class ExpressedIconViewController: UIViewController {
     
     /// customBackButton
     private let backButton : UIBarButtonItem = {
-        let button = UIBarButtonItem(title: "〈 뒤로가기", style: .plain, target: nil, action: nil)
+        let button = UIBarButtonItem(title: MemoirsText.getText(for: .backButton), style: .plain, target: nil, action: nil)
         button.tintColor = .black
         return button
     }()
     
     /// pageControl
     private lazy var pageControlImage: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "PageControl5"))
+        let imageView = UIImageView(image: UIImage(named: MemoirsImage.PageControl5.rawValue))
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
@@ -38,7 +38,7 @@ final class ExpressedIconViewController: UIViewController {
     
     /// 회고록 작성페이지 그림
     private lazy var textpageImage: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "TextpageImage4"))
+        let imageView = UIImageView(image: UIImage(named: MemoirsImage.TextpageImage4.rawValue))
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()

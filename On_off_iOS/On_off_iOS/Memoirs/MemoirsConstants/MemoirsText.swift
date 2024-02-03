@@ -10,8 +10,16 @@ import Foundation
 /// 회고록의 인삿말
 struct MemoirsText {
     enum TextType {
+        
+        /// custom backButton
+        case backButton
+        
+        /// 회고록 보는 페이지
+        case learnedToday
+        case praiseToday
+        case improveFuture
+        
         case encouragement
-        case greetingWithName(name: String)
         case dailyReflection
         case praise
         case selfPraisePrompt
@@ -25,11 +33,21 @@ struct MemoirsText {
     /// - Parameter type: TextType
     /// - Returns: String
     static func getText(for type: TextType) -> String {
+        
         switch type {
+        case .backButton:
+            return "〈 뒤로가기"
+            
+        case .learnedToday:
+            return "오늘 배운 점"
+        case .praiseToday:
+            return "오늘 칭찬할 점"
+        case .improveFuture:
+            return "앞으로 개선할 점"
+            
         case .encouragement:
             return "오늘 하루도 수고했어요\n회고로 이제 일에서 완전히 OFF 하세요"
-        case .greetingWithName(let name):
-            return "\(name)님"
+
         case .dailyReflection:
             return "오늘 어떤 일을 했나요? 배운 게 있나요?"
         case .praise:
@@ -44,6 +62,7 @@ struct MemoirsText {
             return "오늘을 표현할 수 있는 아이콘을 골라주세요\n오늘의 감정이나 인상적인 일을 떠올려보세요"
         case .memorialCompleted:
             return "오늘도 퇴근 완료!\n이제 퇴근 후 일상을 즐겨보세요"
+     
         }
     }
 }

@@ -12,12 +12,15 @@ import UIKit
 
 final class ModalEmoticonViewController: UIViewController {
     private let disposeBag = DisposeBag()
+    
     var onImageSelected: ((String) -> Void)?
+    
     /// 더미 이미지
     private var emoticons: [Emoticon] = (1...30).map { id in
         Emoticon(id: id, imageUrl: "https://onnoff-dev-s3.s3.ap-northeast-2.amazonaws.com/0d23ee61-810a-4cc6-8bf9-a10f424d002f.png")
     }
 
+    /// imageView collectionView
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -36,11 +39,13 @@ final class ModalEmoticonViewController: UIViewController {
         bindCollectionView()
     }
 
+    /// setupViews
     private func setupViews() {
         view.backgroundColor = .white
         view.addSubview(collectionView)
     }
 
+    /// setupConstraints
     private func setupConstraints() {
         collectionView.snp.makeConstraints { make in
             make.horizontalEdges.bottom.equalToSuperview().inset(10)
@@ -48,6 +53,7 @@ final class ModalEmoticonViewController: UIViewController {
         }
     }
     
+    /// bindCollectionView
     private func bindCollectionView() {
         
         Observable.just(emoticons)
@@ -69,6 +75,7 @@ final class ModalEmoticonViewController: UIViewController {
 extension ModalEmoticonViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
         // 한 줄에 5개의 이미지가 들어가도록 계산
         let width = collectionView.frame.width / 5 - 20
         return CGSize(width: width, height: width)

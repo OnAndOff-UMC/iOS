@@ -14,7 +14,6 @@
 		35AC0F502B64025300AB0A6B /* TabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35AC0F4F2B64025300AB0A6B /* TabItem.swift */; };
 		35AC0F522B64030400AB0A6B /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35AC0F512B64030400AB0A6B /* TabBarController.swift */; };
 		3708261B2B66962000FBCAAF /* ExpressedIconModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3708261A2B66962000FBCAAF /* ExpressedIconModel.swift */; };
-		3708261D2B66995600FBCAAF /* MemoirsTextModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3708261C2B66995600FBCAAF /* MemoirsTextModel.swift */; };
 		3708261F2B6699E000FBCAAF /* MemoirsText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3708261E2B6699E000FBCAAF /* MemoirsText.swift */; };
 		370826212B669BFC00FBCAAF /* UICalculate+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370826202B669BFC00FBCAAF /* UICalculate+Ex.swift */; };
 		371B9EA72B5AD838006AC06D /* MemoirsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371B9EA62B5AD838006AC06D /* MemoirsViewController.swift */; };
@@ -92,6 +91,11 @@
 		37CFD3022B66534400E00D92 /* ExpressedIconViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CFD3012B66534400E00D92 /* ExpressedIconViewModel.swift */; };
 		37DEF20D2B66B31D00AF47DB /* MemoirsCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DEF20C2B66B31D00AF47DB /* MemoirsCompleteViewController.swift */; };
 		37DEF20F2B66B32A00AF47DB /* MemoirsCompleteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DEF20E2B66B32A00AF47DB /* MemoirsCompleteViewModel.swift */; };
+		37FED6032B6E15000071BB23 /* MemoirsImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FED6022B6E15000071BB23 /* MemoirsImage.swift */; };
+		37FED6072B6E23560071BB23 /* BookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FED6062B6E23560071BB23 /* BookmarkViewController.swift */; };
+		37FED6092B6E235D0071BB23 /* BookmarkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FED6082B6E235D0071BB23 /* BookmarkViewModel.swift */; };
+		37FED60B2B6E23650071BB23 /* BookmarkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FED60A2B6E23650071BB23 /* BookmarkService.swift */; };
+		37FED60D2B6E29070071BB23 /* BookmarkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FED60C2B6E29070071BB23 /* BookmarkTableViewCell.swift */; };
 		3B0129C32B623BB900B191AD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0129C22B623BB900B191AD /* HomeViewController.swift */; };
 		3B0129C62B6242F800B191AD /* Ext + ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0129C52B6242F800B191AD /* Ext + ViewController.swift */; };
 		3B0129C82B6246E900B191AD /* Ext + UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0129C72B6246E900B191AD /* Ext + UIImage.swift */; };
@@ -130,7 +134,6 @@
 		35E0C7302B68C7E3006BF427 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		35E0C7312B68C7E3006BF427 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		3708261A2B66962000FBCAAF /* ExpressedIconModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressedIconModel.swift; sourceTree = "<group>"; };
-		3708261C2B66995600FBCAAF /* MemoirsTextModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoirsTextModel.swift; sourceTree = "<group>"; };
 		3708261E2B6699E000FBCAAF /* MemoirsText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoirsText.swift; sourceTree = "<group>"; };
 		370826202B669BFC00FBCAAF /* UICalculate+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICalculate+Ex.swift"; sourceTree = "<group>"; };
 		371B9EA62B5AD838006AC06D /* MemoirsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoirsViewController.swift; sourceTree = "<group>"; };
@@ -185,6 +188,11 @@
 		37CFD3012B66534400E00D92 /* ExpressedIconViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressedIconViewModel.swift; sourceTree = "<group>"; };
 		37DEF20C2B66B31D00AF47DB /* MemoirsCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoirsCompleteViewController.swift; sourceTree = "<group>"; };
 		37DEF20E2B66B32A00AF47DB /* MemoirsCompleteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoirsCompleteViewModel.swift; sourceTree = "<group>"; };
+		37FED6022B6E15000071BB23 /* MemoirsImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoirsImage.swift; sourceTree = "<group>"; };
+		37FED6062B6E23560071BB23 /* BookmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewController.swift; sourceTree = "<group>"; };
+		37FED6082B6E235D0071BB23 /* BookmarkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewModel.swift; sourceTree = "<group>"; };
+		37FED60A2B6E23650071BB23 /* BookmarkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkService.swift; sourceTree = "<group>"; };
+		37FED60C2B6E29070071BB23 /* BookmarkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkTableViewCell.swift; sourceTree = "<group>"; };
 		3B0129C22B623BB900B191AD /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		3B0129C52B6242F800B191AD /* Ext + ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext + ViewController.swift"; sourceTree = "<group>"; };
 		3B0129C72B6246E900B191AD /* Ext + UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext + UIImage.swift"; sourceTree = "<group>"; };
@@ -290,12 +298,17 @@
 		371B9EA52B5AD7D8006AC06D /* Memoirs */ = {
 			isa = PBXGroup;
 			children = (
+				37DEF20A2B66B2F300AF47DB /* MemoirsComplete */,
+				37CFD2FE2B6652DA00E00D92 /* ExpressedIcon */,
+				371B9EB52B5B06E5006AC06D /* WritePraised */,
+				371B9EB22B5B06B0006AC06D /* WriteImprovement */,
+				371B9EAF2B5B066F006AC06D /* WriteLearned */,
+				371B9EAA2B5AFD1F006AC06D /* StartToWrite */,
+				37FED6042B6E16490071BB23 /* MemoirsConstants */,
 				37AEB1F32B6CFE6000A6CDD6 /* Protocol */,
 				37A1E98B2B6CCBE70013FFD7 /* Model */,
 				371B9EA62B5AD838006AC06D /* MemoirsViewController.swift */,
 				371B9EA82B5AD847006AC06D /* MemoirsViewModel.swift */,
-				3708261C2B66995600FBCAAF /* MemoirsTextModel.swift */,
-				3708261E2B6699E000FBCAAF /* MemoirsText.swift */,
 				37AEB1F12B6CFE3500A6CDD6 /* MemoirsService.swift */,
 			);
 			path = Memoirs;
@@ -620,6 +633,26 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
+		37FED6042B6E16490071BB23 /* MemoirsConstants */ = {
+			isa = PBXGroup;
+			children = (
+				37FED6022B6E15000071BB23 /* MemoirsImage.swift */,
+				3708261E2B6699E000FBCAAF /* MemoirsText.swift */,
+			);
+			path = MemoirsConstants;
+			sourceTree = "<group>";
+		};
+		37FED6052B6E23380071BB23 /* Bookmark */ = {
+			isa = PBXGroup;
+			children = (
+				37FED6062B6E23560071BB23 /* BookmarkViewController.swift */,
+				37FED6082B6E235D0071BB23 /* BookmarkViewModel.swift */,
+				37FED60A2B6E23650071BB23 /* BookmarkService.swift */,
+				37FED60C2B6E29070071BB23 /* BookmarkTableViewCell.swift */,
+			);
+			path = Bookmark;
+			sourceTree = "<group>";
+		};
 		3B0129C12B623BA900B191AD /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -693,18 +726,13 @@
 		3B42300C2B41572200D0B038 /* On_off_iOS */ = {
 			isa = PBXGroup;
 			children = (
+				37FED6052B6E23380071BB23 /* Bookmark */,
 				37A1E9832B6C7FC60013FFD7 /* On_off_iOS.entitlements */,
 				37C1612F2B6BDF47000E0B21 /* KeyChain */,
 				37C1611E2B6BD9F7000E0B21 /* LogIn */,
 				37B890712B6A1EAD008A8BBC /* Constants */,
 				35984F222B63EE8000A5F6F2 /* TabBar */,
 				3B0129C12B623BA900B191AD /* Home */,
-				37DEF20A2B66B2F300AF47DB /* MemoirsComplete */,
-				37CFD2FE2B6652DA00E00D92 /* ExpressedIcon */,
-				371B9EB52B5B06E5006AC06D /* WritePraised */,
-				371B9EB22B5B06B0006AC06D /* WriteImprovement */,
-				371B9EAF2B5B066F006AC06D /* WriteLearned */,
-				371B9EAA2B5AFD1F006AC06D /* StartToWrite */,
 				371B9EA52B5AD7D8006AC06D /* Memoirs */,
 				3B9C89CF2B4AED640083CF44 /* Statistics */,
 				3769A6842B58561D00D79C33 /* SelectTime */,
@@ -907,6 +935,7 @@
 				374FD49F2B42825B00F2E645 /* CustomPageControl.swift in Sources */,
 				37C161232B6BD9F8000E0B21 /* LoginViewModel.swift in Sources */,
 				355283122B68CB70002BBFFD /* Ext + UIFont.swift in Sources */,
+				37FED60D2B6E29070071BB23 /* BookmarkTableViewCell.swift in Sources */,
 				355283142B68CC94002BBFFD /* Ext + UIColor.swift in Sources */,
 				3769A6862B58563000D79C33 /* SelectTimeViewModel.swift in Sources */,
 				374FD4A42B4297BE00F2E645 /* OnBoardingViewController.swift in Sources */,
@@ -919,6 +948,7 @@
 				3B1658F72B4D8559004EFBC3 /* WeekChartCustomView.swift in Sources */,
 				37AEB1F22B6CFE3500A6CDD6 /* MemoirsService.swift in Sources */,
 				3B42300E2B41572200D0B038 /* AppDelegate.swift in Sources */,
+				37FED6032B6E15000071BB23 /* MemoirsImage.swift in Sources */,
 				37DEF20D2B66B31D00AF47DB /* MemoirsCompleteViewController.swift in Sources */,
 				371B9EBB2B5B0737006AC06D /* WritePraisedViewController.swift in Sources */,
 				3769A68E2B585B6600D79C33 /* DayButton.swift in Sources */,
@@ -946,15 +976,16 @@
 				3708261F2B6699E000FBCAAF /* MemoirsText.swift in Sources */,
 				371B9EB92B5B0723006AC06D /* WritePraisedViewModel.swift in Sources */,
 				371B9EA72B5AD838006AC06D /* MemoirsViewController.swift in Sources */,
-				3708261D2B66995600FBCAAF /* MemoirsTextModel.swift in Sources */,
 				371B9EAE2B5AFD42006AC06D /* StartToWriteViewModel.swift in Sources */,
 				37CFD3002B66533900E00D92 /* ExpressedIconViewController.swift in Sources */,
 				37AEB1EE2B6CF3F400A6CDD6 /* ModalEmoticonViewModel.swift in Sources */,
 				3787D00A2B429F1700F054DD /* LaunchViewController.swift in Sources */,
 				3BD552682B58FCF70043920E /* CalendarCell.swift in Sources */,
+				37FED60B2B6E23650071BB23 /* BookmarkService.swift in Sources */,
 				35AC0F522B64030400AB0A6B /* TabBarController.swift in Sources */,
 				37A1E98A2B6CB1F70013FFD7 /* LoginProtocol.swift in Sources */,
 				37C161362B6BE3E4000E0B21 /* SignUpService.swift in Sources */,
+				37FED6072B6E23560071BB23 /* BookmarkViewController.swift in Sources */,
 				3BD552662B58FA8C0043920E /* RateFillView.swift in Sources */,
 				35AC0F502B64025300AB0A6B /* TabItem.swift in Sources */,
 				3BD5526A2B5914B10043920E /* CalendarStatistics.swift in Sources */,
@@ -967,6 +998,7 @@
 				371B9EC52B5B0B61006AC06D /* WriteLearnedViewController.swift in Sources */,
 				3BB806D02B5012F400555E58 /* DayChartCustomView.swift in Sources */,
 				3B0129CA2B624CAE00B191AD /* HomeViewModel.swift in Sources */,
+				37FED6092B6E235D0071BB23 /* BookmarkViewModel.swift in Sources */,
 				37A1E98D2B6CCC020013FFD7 /* Memoirs.swift in Sources */,
 				3BB806D62B50228100555E58 /* DayStatistics.swift in Sources */,
 				371B9EA92B5AD847006AC06D /* MemoirsViewModel.swift in Sources */,

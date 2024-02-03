@@ -13,7 +13,7 @@ import UIKit
 /// ExpressedIconViewModel
 final class ExpressedIconViewModel {
     private let disposeBag = DisposeBag()
-    var navigationController: UINavigationController
+    private var navigationController: UINavigationController
     private let memoirsService = MemoirsService()
     
     /// Input
@@ -42,9 +42,9 @@ final class ExpressedIconViewModel {
         /// 완료버튼 클릭
         input.startButtonTapped
             .bind { [weak self] in
-                self?.sendMemoirsData()
-                
-                self?.moveToImprovement()
+                guard let self = self else { return }
+                sendMemoirsData()
+                moveToImprovement()
             }
             .disposed(by: disposeBag)
         

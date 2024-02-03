@@ -1,5 +1,5 @@
 //
-//  StartToWriteViewModel.swift
+//  WriteLearnedViewModel.swift
 //  On_off_iOS
 //
 //  Created by 박다미 on 2024/01/20.
@@ -10,20 +10,22 @@ import RxRelay
 import RxSwift
 import UIKit
 
-/// StartToWriteViewModel
-final class StartToWriteViewModel {
+/// WriteLearnedViewModel
+final class WriteLearnedViewModel {
     private let disposeBag = DisposeBag()
     var navigationController: UINavigationController
 
     /// Input
     struct Input {
         let startButtonTapped: Observable<Void>
+        let textChanged: Observable<String>
         let backButtonTapped: Observable<Void>
-       }
+
+    }
     
     /// Output
     struct Output {
-    
+        let textLength: PublishSubject<Int> = PublishSubject<Int>()
     }
 
     // MARK: - Init
@@ -38,13 +40,27 @@ final class StartToWriteViewModel {
     func bind(input: Input) -> Output {
         let output = Output()
 
-        /// 시작하기 버튼 클릭
-        input.startButtonTapped
-            .bind { [weak self] in
-                guard let self = self else { return }
-                moveToWriteLearned()
-            }
+        /// textLength
+        input.textChanged
+            .map { $0.count }
+            .bind(to: output.textLength)
             .disposed(by: disposeBag)
+
+        /// 완료버튼 클릭
+        input.startButtonTapped
+            .withLatestFrom(input.textChanged)
+            .take(1)
+            .subscribe(onNext: { [weak self] text in
+                guard let self = self else { return }
+
+                // 키체인에 저장
+                let isSuccess = KeychainWrapper.saveItem(value: text, forKey: MemoirsKeyChain.MemoirsAnswer1.rawValue)
+                if isSuccess {
+                    self.moveToImprovement()
+                } else {
+                    // 오류 처리할거임
+                }
+            }).disposed(by: disposeBag)
         
         /// 뒤로가기 버튼 클릭
         input.backButtonTapped
@@ -53,18 +69,17 @@ final class StartToWriteViewModel {
                 moveToBack()
             }
             .disposed(by: disposeBag)
-        
         return output
     }
-
-    /// WriteLearnedViewController으로 이동
-    private func moveToWriteLearned() {
-        let writeLearnedViewModel = WriteLearnedViewModel(navigationController: navigationController)
-        let vc = WriteLearnedViewController(viewModel: writeLearnedViewModel)
+    
+    /// Improvement 화면으로 이동
+    private func moveToImprovement() {
+        let writeImprovementViewModel = WriteImprovementViewModel(navigationController: navigationController)
+        let vc = WriteImprovementViewController(viewModel: writeImprovementViewModel)
         navigationController.pushViewController(vc, animated: false)
     }
     
-    /// 뒤로 이동
+    /// 뒤로 이동 - animate 제거
     private func moveToBack() {
         navigationController.popViewController(animated: false)
     }

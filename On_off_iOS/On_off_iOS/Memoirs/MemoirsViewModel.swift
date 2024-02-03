@@ -14,19 +14,18 @@ import UIKit
 final class MemoirsViewModel {
     private let disposeBag = DisposeBag()
     var navigationController: UINavigationController
-
+    
     /// Input
     struct Input {
         let bookMarkButtonTapped: Observable<Void>
         let menuButtonTapped: Observable<Void>
         let writeButtonTapped: Observable<Void>
-       }
+    }
     
     /// Output
     struct Output {
- 
     }
-
+    
     // MARK: - Init
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -38,7 +37,7 @@ final class MemoirsViewModel {
     /// - Returns: Output 구조체
     func bind(input: Input) -> Output {
         let output = Output()
-
+        
         /// 북마크 버튼 클릭
         input.bookMarkButtonTapped
             .bind { [weak self] in

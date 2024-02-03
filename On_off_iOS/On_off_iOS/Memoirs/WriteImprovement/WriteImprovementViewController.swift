@@ -1,5 +1,5 @@
 //
-//  WritePraisedViewController.swift
+//  WriteImprovementViewController.swift
 //  On_off_iOS
 //
 //  Created by 박다미 on 2024/01/20.
@@ -9,37 +9,36 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-/// WritePraisedViewController
-final class WritePraisedViewController: UIViewController {
+final class WriteImprovementViewController: UIViewController {
     
     /// customBackButton
     private let backButton : UIBarButtonItem = {
-        let button = UIBarButtonItem(title: "〈 뒤로가기", style: .plain, target: nil, action: nil)
+        let button = UIBarButtonItem(title: MemoirsText.getText(for: .backButton), style: .plain, target: nil, action: nil)
         button.tintColor = .black
         return button
     }()
     
     /// pageControl
     private lazy var pageControlImage: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "PageControl4"))
+        let imageView = UIImageView(image: UIImage(named: MemoirsImage.PageControl3.rawValue))
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
-    /// 가장 윗줄 label
+    /// 윗줄 welcomeUpperLabel
     private let welcomeUpperLabel: UILabel = {
         let label = UILabel()
-        label.text = MemoirsText.getText(for: .difficultyPrompt)
+        label.text = MemoirsText.getText(for: .praise)
         label.numberOfLines = 0
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         return label
     }()
     
-    /// welcomeLabel
+    /// 밑줄 welcomeDownLabel
     private let welcomeBottomLabel: UILabel = {
         let label = UILabel()
-        label.text = MemoirsText.getText(for: .improvementPrompt)
+        label.text = MemoirsText.getText(for: .selfPraisePrompt)
         label.numberOfLines = 0
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
@@ -48,19 +47,18 @@ final class WritePraisedViewController: UIViewController {
     
     /// 회고록 작성페이지 그림
     private lazy var textpageImage: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "TextpageImage3"))
+        let imageView = UIImageView(image: UIImage(named: MemoirsImage.TextpageImage2.rawValue))
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
-    
+
     /// 회고글 TextField
     private let textView: UITextView = {
         let textView = UITextView()
         textView.textAlignment = .left
         textView.font = UIFont.systemFont(ofSize: 13, weight: .regular)
-        textView.backgroundColor = UIColor.clear
         textView.layer.borderWidth = 0
-        textView.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        textView.backgroundColor = .clear
         return textView
     }()
     
@@ -88,14 +86,16 @@ final class WritePraisedViewController: UIViewController {
     private lazy var checkButtonView: UIView = {
         let view = UIView()
         view.backgroundColor = .blue
+        view.layer.cornerRadius = 40
+        view.layer.masksToBounds = true
         return view
     }()
     
-    private let viewModel: WritePraisedViewModel
+    private let viewModel: WriteImprovementViewModel
     private let disposeBag = DisposeBag()
     
     // MARK: - Init
-    init(viewModel: WritePraisedViewModel) {
+    init(viewModel: WriteImprovementViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -110,8 +110,8 @@ final class WritePraisedViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         addSubviews()
+        setupBindings()
         settingCheckButtonView()
-        setupBindings()        
     }
     
     /// 확인 버튼 속성 설정
@@ -125,13 +125,15 @@ final class WritePraisedViewController: UIViewController {
     private func addSubviews() {
         
         view.addSubview(pageControlImage)
+        
         view.addSubview(welcomeUpperLabel)
         view.addSubview(welcomeBottomLabel)
         
         view.addSubview(textpageImage)
         view.addSubview(textView)
-        
+
         view.addSubview(checkLenghtLabel)
+        
         view.addSubview(checkButtonView)
         checkButtonView.addSubview(checkButton)
         
@@ -191,8 +193,9 @@ final class WritePraisedViewController: UIViewController {
     
     /// 뷰모델과 setupBindings
     private func setupBindings() {
-        let input = WritePraisedViewModel.Input(startButtonTapped: checkButton.rx.tap.asObservable(),
-                                                textChanged: textView.rx.text.orEmpty.asObservable(), backButtonTapped: backButton.rx.tap.asObservable())
+        let input = WriteImprovementViewModel.Input(startButtonTapped: checkButton.rx.tap.asObservable(),
+                                                    textChanged: textView.rx.text.orEmpty.asObservable(),
+                                                    backButtonTapped: backButton.rx.tap.asObservable())
         
         let output = viewModel.bind(input: input)
         

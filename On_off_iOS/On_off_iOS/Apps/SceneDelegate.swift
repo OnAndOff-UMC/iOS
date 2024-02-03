@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
       
         navigationController.viewControllers = [MemoirsViewController(viewModel: MemoirsViewModel(navigationController: navigationController))]//[LaunchViewController()]
         
-        window?.rootViewController = navigationController
+        window?.rootViewController = BookmarkViewController()//navigationController
         window?.makeKeyAndVisible()
     }
     

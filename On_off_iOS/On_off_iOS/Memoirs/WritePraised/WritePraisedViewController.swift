@@ -1,5 +1,5 @@
 //
-//  WriteLearnedViewController.swift
+//  WritePraisedViewController.swift
 //  On_off_iOS
 //
 //  Created by 박다미 on 2024/01/20.
@@ -9,48 +9,46 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-final class WriteLearnedViewController: UIViewController {
+/// WritePraisedViewController
+final class WritePraisedViewController: UIViewController {
     
     /// customBackButton
     private let backButton : UIBarButtonItem = {
-        let button = UIBarButtonItem(title: "〈 뒤로가기", style: .plain, target: nil, action: nil)
+        let button = UIBarButtonItem(title: MemoirsText.getText(for: .backButton), style: .plain, target: nil, action: nil)
         button.tintColor = .black
         return button
     }()
     
     /// pageControl
     private lazy var pageControlImage: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "PageControl2"))
+        let imageView = UIImageView(image: UIImage(named: MemoirsImage.PageControl4.rawValue))
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
-    /// 사용자 명
-    private let userNameLabel: UILabel = {
+    /// 가장 윗줄 label
+    private let welcomeUpperLabel: UILabel = {
         let label = UILabel()
-        label.text = MemoirsText.getText(for: .greetingWithName(name: "조디"))
+        label.text = MemoirsText.getText(for: .difficultyPrompt)
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         return label
     }()
     
     /// welcomeLabel
-    private let welcomeLabel: UILabel = {
+    private let welcomeBottomLabel: UILabel = {
         let label = UILabel()
-        label.text = MemoirsText.getText(for: .dailyReflection)
+        label.text = MemoirsText.getText(for: .improvementPrompt)
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.textColor = .black
-
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         return label
     }()
     
     /// 회고록 작성페이지 그림
     private lazy var textpageImage: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "TextpageImage1"))
+        let imageView = UIImageView(image: UIImage(named: MemoirsImage.TextpageImage3.rawValue))
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
@@ -77,7 +75,7 @@ final class WriteLearnedViewController: UIViewController {
         return label
     }()
     
-    /// 다음 버튼
+    /// 확인 버튼
     private let checkButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("다음 >", for: .normal)
@@ -86,20 +84,18 @@ final class WriteLearnedViewController: UIViewController {
         return button
     }()
     
-    /// 다음 버튼 뷰
+    /// 확인 버튼 뷰
     private lazy var checkButtonView: UIView = {
         let view = UIView()
         view.backgroundColor = .blue
-        view.layer.cornerRadius = 20
-        view.layer.masksToBounds = true
         return view
     }()
     
-    private let viewModel: WriteLearnedViewModel
+    private let viewModel: WritePraisedViewModel
     private let disposeBag = DisposeBag()
     
     // MARK: - Init
-    init(viewModel: WriteLearnedViewModel) {
+    init(viewModel: WritePraisedViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -114,29 +110,28 @@ final class WriteLearnedViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         addSubviews()
-        setupBindings()
         settingCheckButtonView()
+        setupBindings()        
     }
-
+    
     /// 확인 버튼 속성 설정
     private func settingCheckButtonView(){
         let cornerRadius = UICalculator.calculate(for: .shortButtonCornerRadius, width: view.frame.width)
         checkButtonView.layer.cornerRadius = cornerRadius
         checkButtonView.layer.masksToBounds = true
     }
-
+    
     /// addSubviews
     private func addSubviews() {
         
         view.addSubview(pageControlImage)
-        
-        view.addSubview(userNameLabel)
-        view.addSubview(welcomeLabel)
+        view.addSubview(welcomeUpperLabel)
+        view.addSubview(welcomeBottomLabel)
         
         view.addSubview(textpageImage)
         view.addSubview(textView)
-        view.addSubview(checkLenghtLabel)
         
+        view.addSubview(checkLenghtLabel)
         view.addSubview(checkButtonView)
         checkButtonView.addSubview(checkButton)
         
@@ -145,7 +140,7 @@ final class WriteLearnedViewController: UIViewController {
     
     /// configureConstraints
     private func configureConstraints() {
-        
+
         self.navigationItem.leftBarButtonItem = backButton
 
         pageControlImage.snp.makeConstraints { make in
@@ -155,18 +150,18 @@ final class WriteLearnedViewController: UIViewController {
             make.height.equalTo(pageControlImage.snp.width).multipliedBy(0.1)
         }
         
-        userNameLabel.snp.makeConstraints { make in
+        welcomeUpperLabel.snp.makeConstraints { make in
             make.top.equalTo(pageControlImage.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
         }
         
-        welcomeLabel.snp.makeConstraints { make in
-            make.top.equalTo(userNameLabel.snp.bottom).offset(10)
+        welcomeBottomLabel.snp.makeConstraints { make in
+            make.top.equalTo(welcomeUpperLabel.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
         }
         
         textpageImage.snp.makeConstraints { make in
-            make.top.equalTo(welcomeLabel.snp.bottom).offset(10)
+            make.top.equalTo(welcomeBottomLabel.snp.bottom).offset(10)
             make.leading.trailing.equalToSuperview().inset(10)
             make.height.equalTo(textpageImage.snp.width)
         }
@@ -196,7 +191,7 @@ final class WriteLearnedViewController: UIViewController {
     
     /// 뷰모델과 setupBindings
     private func setupBindings() {
-        let input = WriteLearnedViewModel.Input(startButtonTapped: checkButton.rx.tap.asObservable(),
+        let input = WritePraisedViewModel.Input(startButtonTapped: checkButton.rx.tap.asObservable(),
                                                 textChanged: textView.rx.text.orEmpty.asObservable(), backButtonTapped: backButton.rx.tap.asObservable())
         
         let output = viewModel.bind(input: input)

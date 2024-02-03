@@ -1,5 +1,5 @@
 //
-//  WriteImprovementViewController.swift
+//  WriteLearnedViewController.swift
 //  On_off_iOS
 //
 //  Created by 박다미 on 2024/01/20.
@@ -9,56 +9,60 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-final class WriteImprovementViewController: UIViewController {
+final class WriteLearnedViewController: UIViewController {
     
     /// customBackButton
     private let backButton : UIBarButtonItem = {
-        let button = UIBarButtonItem(title: "〈 뒤로가기", style: .plain, target: nil, action: nil)
+        let button = UIBarButtonItem(title: MemoirsText.getText(for: .backButton), style: .plain, target: nil, action: nil)
         button.tintColor = .black
         return button
     }()
     
     /// pageControl
     private lazy var pageControlImage: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "PageControl3"))
+        let imageView = UIImageView(image: UIImage(named: MemoirsImage.PageControl2.rawValue))
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
-    /// 윗줄 welcomeUpperLabel
-    private let welcomeUpperLabel: UILabel = {
+    /// 사용자 명
+    private let userNameLabel: UILabel = {
         let label = UILabel()
-        label.text = MemoirsText.getText(for: .praise)
+        label.text = "조디"
         label.numberOfLines = 0
         label.textAlignment = .center
+        label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         return label
     }()
     
-    /// 밑줄 welcomeDownLabel
-    private let welcomeBottomLabel: UILabel = {
+    /// welcomeLabel
+    private let welcomeLabel: UILabel = {
         let label = UILabel()
-        label.text = MemoirsText.getText(for: .selfPraisePrompt)
+        label.text = MemoirsText.getText(for: .dailyReflection)
         label.numberOfLines = 0
         label.textAlignment = .center
+        label.textColor = .black
+
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         return label
     }()
     
     /// 회고록 작성페이지 그림
     private lazy var textpageImage: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "TextpageImage2"))
+        let imageView = UIImageView(image: UIImage(named: MemoirsImage.TextpageImage1.rawValue))
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
-
+    
     /// 회고글 TextField
     private let textView: UITextView = {
         let textView = UITextView()
         textView.textAlignment = .left
         textView.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+        textView.backgroundColor = UIColor.clear
         textView.layer.borderWidth = 0
-        textView.backgroundColor = .clear
+        textView.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         return textView
     }()
     
@@ -73,7 +77,7 @@ final class WriteImprovementViewController: UIViewController {
         return label
     }()
     
-    /// 확인 버튼
+    /// 다음 버튼
     private let checkButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("다음 >", for: .normal)
@@ -82,20 +86,20 @@ final class WriteImprovementViewController: UIViewController {
         return button
     }()
     
-    /// 확인 버튼 뷰
+    /// 다음 버튼 뷰
     private lazy var checkButtonView: UIView = {
         let view = UIView()
         view.backgroundColor = .blue
-        view.layer.cornerRadius = 40
+        view.layer.cornerRadius = 20
         view.layer.masksToBounds = true
         return view
     }()
     
-    private let viewModel: WriteImprovementViewModel
+    private let viewModel: WriteLearnedViewModel
     private let disposeBag = DisposeBag()
     
     // MARK: - Init
-    init(viewModel: WriteImprovementViewModel) {
+    init(viewModel: WriteLearnedViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -113,25 +117,24 @@ final class WriteImprovementViewController: UIViewController {
         setupBindings()
         settingCheckButtonView()
     }
-    
+
     /// 확인 버튼 속성 설정
     private func settingCheckButtonView(){
         let cornerRadius = UICalculator.calculate(for: .shortButtonCornerRadius, width: view.frame.width)
         checkButtonView.layer.cornerRadius = cornerRadius
         checkButtonView.layer.masksToBounds = true
     }
-    
+
     /// addSubviews
     private func addSubviews() {
         
         view.addSubview(pageControlImage)
         
-        view.addSubview(welcomeUpperLabel)
-        view.addSubview(welcomeBottomLabel)
+        view.addSubview(userNameLabel)
+        view.addSubview(welcomeLabel)
         
         view.addSubview(textpageImage)
         view.addSubview(textView)
-
         view.addSubview(checkLenghtLabel)
         
         view.addSubview(checkButtonView)
@@ -142,7 +145,7 @@ final class WriteImprovementViewController: UIViewController {
     
     /// configureConstraints
     private func configureConstraints() {
-
+        
         self.navigationItem.leftBarButtonItem = backButton
 
         pageControlImage.snp.makeConstraints { make in
@@ -152,18 +155,18 @@ final class WriteImprovementViewController: UIViewController {
             make.height.equalTo(pageControlImage.snp.width).multipliedBy(0.1)
         }
         
-        welcomeUpperLabel.snp.makeConstraints { make in
+        userNameLabel.snp.makeConstraints { make in
             make.top.equalTo(pageControlImage.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
         }
         
-        welcomeBottomLabel.snp.makeConstraints { make in
-            make.top.equalTo(welcomeUpperLabel.snp.bottom).offset(10)
+        welcomeLabel.snp.makeConstraints { make in
+            make.top.equalTo(userNameLabel.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
         }
         
         textpageImage.snp.makeConstraints { make in
-            make.top.equalTo(welcomeBottomLabel.snp.bottom).offset(10)
+            make.top.equalTo(welcomeLabel.snp.bottom).offset(10)
             make.leading.trailing.equalToSuperview().inset(10)
             make.height.equalTo(textpageImage.snp.width)
         }
@@ -193,9 +196,8 @@ final class WriteImprovementViewController: UIViewController {
     
     /// 뷰모델과 setupBindings
     private func setupBindings() {
-        let input = WriteImprovementViewModel.Input(startButtonTapped: checkButton.rx.tap.asObservable(),
-                                                    textChanged: textView.rx.text.orEmpty.asObservable(),
-                                                    backButtonTapped: backButton.rx.tap.asObservable())
+        let input = WriteLearnedViewModel.Input(startButtonTapped: checkButton.rx.tap.asObservable(),
+                                                textChanged: textView.rx.text.orEmpty.asObservable(), backButtonTapped: backButton.rx.tap.asObservable())
         
         let output = viewModel.bind(input: input)
         

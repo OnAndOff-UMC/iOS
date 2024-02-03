@@ -17,6 +17,7 @@ final class EmoticonCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
+    // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -26,6 +27,7 @@ final class EmoticonCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    /// setupViews
     private func setupViews() {
         contentView.addSubview(imageView)
         imageView.snp.makeConstraints { make in

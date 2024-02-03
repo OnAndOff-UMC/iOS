@@ -14,21 +14,21 @@ final class StartToWriteViewController: UIViewController {
     
     /// customBackButton
     private let backButton : UIBarButtonItem = {
-        let button = UIBarButtonItem(title: "〈 뒤로가기", style: .plain, target: nil, action: nil)
+        let button = UIBarButtonItem(title: MemoirsText.getText(for: .backButton), style: .plain, target: nil, action: nil)
         button.tintColor = .black
         return button
     }()
 
     /// pageControl
     private lazy var pageControlImage: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "PageControl1"))
+        let imageView = UIImageView(image: UIImage(named: MemoirsImage.PageControl1.rawValue))
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
     /// StartToWriteImage
     private lazy var startToWriteImage: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "StartToWriteImage"))
+        let imageView = UIImageView(image: UIImage(named: MemoirsImage.PageControl1.rawValue))
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()

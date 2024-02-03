@@ -14,7 +14,7 @@ final class MemoirsCompleteViewController: UIViewController {
     
     /// customBackButton
     private let backButton : UIBarButtonItem = {
-        let button = UIBarButtonItem(title: "〈 뒤로가기", style: .plain, target: nil, action: nil)
+        let button = UIBarButtonItem(title: MemoirsText.getText(for: .backButton), style: .plain, target: nil, action: nil)
         button.tintColor = .black
         return button
     }()
@@ -31,7 +31,7 @@ final class MemoirsCompleteViewController: UIViewController {
     
     /// 회고록 작성페이지 그림
     private lazy var MemoirsCompleteImage: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "MemoirsCompleteImage"))
+        let imageView = UIImageView(image: UIImage(named: MemoirsImage.MemoirsCompleteImage.rawValue))
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
