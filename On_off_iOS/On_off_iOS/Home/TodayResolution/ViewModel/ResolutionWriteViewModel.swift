@@ -18,6 +18,7 @@ final class ResolutionWriteViewModel {
     
     struct Input {
         
+        
     }
     
     // MARK: - Init
@@ -26,7 +27,7 @@ final class ResolutionWriteViewModel {
     }
     
     /// bind
-    /// - Parameter input: kakaoButtonTapped, appleButtonTapped
+    /// - Parameter input:
     func bind(input: Input) {
 //        input.kakaoButtonTapped
 //                .bind { [weak self] in

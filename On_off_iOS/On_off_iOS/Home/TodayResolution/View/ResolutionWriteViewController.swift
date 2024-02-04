@@ -14,6 +14,34 @@ import SnapKit
 
 final class ResolutionWriteViewController: UIViewController {
     
+    /// customBackButton
+    private let backButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .plain, target: nil, action: nil)
+        button.tintColor = .OnOffBackButton
+        return button
+    }()
+    
+    // 오늘의 다짐 Title - 네비게이션
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "오늘의 다짐"
+        label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        label.textColor = .black
+        return label
+    }()
+    
+    /// 메뉴 버튼 - 네비게이션 바
+    private lazy var menuButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: UIImage(named: "menu"), style: .plain, target: nil, action: nil)
+        button.tintColor = .OnOffBackButton
+        button.rx.tap
+            .subscribe(onNext: { [weak self] in
+                print("메뉴 로직 구현")
+            })
+            .disposed(by: disposeBag)
+        return button
+    }()
+    
     //contentView
     private lazy var contentView: UIView = {
         let view = UIView()
@@ -60,9 +88,14 @@ final class ResolutionWriteViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.leftBarButtonItem = backButton
+        navigationItem.titleView = titleLabel
+
+        
         view.backgroundColor = .white
         addSubViews()
         constraints()
+        setupNavigationBar()
     }
     
     /// Add SubViews
@@ -76,13 +109,15 @@ final class ResolutionWriteViewController: UIViewController {
     
     /// Set Constraints
     private func constraints() {
-        
+                
         contentView.snp.makeConstraints { make in
             make.top.bottom.leading.trailing.equalToSuperview()
         }
         
         resolutioncontentView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalToSuperview().offset(30)
+            make.top.equalToSuperview().offset(130)
+            make.leading.equalToSuperview().offset(30)
+            make.trailing.equalToSuperview().offset(-30)
             make.height.equalTo(200)
         }
         
@@ -90,6 +125,11 @@ final class ResolutionWriteViewController: UIViewController {
             make.centerX.centerY.equalTo(resolutioncontentView)
         }
         
+    }
+    
+    /// 네비게이션 바
+    private func setupNavigationBar() {
+        navigationItem.rightBarButtonItems = [menuButton]
     }
     
     
