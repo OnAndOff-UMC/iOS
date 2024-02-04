@@ -75,7 +75,7 @@ final class TodayResolutionViewController: UIViewController {
         return label
     }()
     
-        private let viewModel: TodayResolutionViewModel
+    private let viewModel: TodayResolutionViewModel
     
     private let disposeBag = DisposeBag()
     
@@ -118,14 +118,12 @@ final class TodayResolutionViewController: UIViewController {
     private func constraints() {
         
         scrollView.snp.makeConstraints { make in
-            make.top.bottom.horizontalEdges.equalToSuperview()
+            make.edges.equalToSuperview()
         }
         
         contentView.snp.makeConstraints { make in
-            make.top.equalTo(scrollView.snp.top)
-            make.bottom.equalTo(scrollView.snp.bottom)
-            make.leading.equalTo(scrollView.snp.leading)
-            make.trailing.equalTo(scrollView.snp.trailing)
+            make.edges.equalToSuperview()
+            make.height.equalTo(1000)
             make.width.equalTo(scrollView.snp.width)
         }
         
