@@ -7,7 +7,6 @@
 
 import Foundation
 import RxSwift
-import RxRelay
 import RxCocoa
 import UIKit
 import SnapKit
@@ -41,15 +40,9 @@ final class TodayResolutionViewController: UIViewController {
     private lazy var todayResolutionTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "오늘의 다짐"
-//        label.backgroundColor = .OnOffLightPurple
         label.font = UIFont.pretendard(size: 25, weight: .bold)
         label.textColor = .OnOffPurple
-
-//        // 그림자 설정 -> 안 보임...
-//        label.layer.shadowColor = UIColor.OnOffLightPurple.cgColor
-//        label.layer.shadowOpacity = 0.5
-//        label.layer.shadowOffset = CGSize(width: 10, height: 4) // 수평 이동을 0으로 변경
-//        label.layer.shadowRadius = 8 // 그림자의 크기를 크게 조절
+        
         return label
     }()
     
@@ -61,7 +54,6 @@ final class TodayResolutionViewController: UIViewController {
         button.setImage(UIImage(systemName: "chevron.right"), for: .normal)
         return button
     }()
-
     
     /// 오늘의 다짐 띄워주는 뷰
     private lazy var resolutioncontentView: UIView = {
@@ -83,10 +75,20 @@ final class TodayResolutionViewController: UIViewController {
         return label
     }()
     
-    //    private let viewModel: TodayResolutionViewModel = TodayResolutionViewModel()
-    //    private var output: TodayResolutionViewModel.Output?
+        private let viewModel: TodayResolutionViewModel
     
     private let disposeBag = DisposeBag()
+    
+    // MARK: - Init
+    init(viewModel: TodayResolutionViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - View Did Load
     override func viewDidLoad() {
@@ -94,7 +96,6 @@ final class TodayResolutionViewController: UIViewController {
         
         view.backgroundColor = .white
         addSubViews()
-        //        bind()
         constraints()
     }
     
@@ -156,23 +157,14 @@ final class TodayResolutionViewController: UIViewController {
         
     }
     
-    
-    
-    
-    
-    
-    //    /// Binding
-    //    private func bind() {
-    //        let output = viewModel.createoutput(input: StatisticsViewModel.Input(prevButtonEvents: prevMonthButton.rx.tap,
-    //                                                                             nextButtonEvents: nextMonthButton.rx.tap))
-    //        self.output = output
-    //        bindWeekView(output: output)
-    //        bindMonthView(output: output)
-    //        bindWriteRateUILabel(output: output)
-    //        bindMonthButtonAction(output: output)
-    //    }
-    
-    
+    /// ViewModel과 bind
+    private func setupBindings() {
+//        let input = TodayResolutionViewModel.Input(
+//            kakaoButtonTapped: kakaoLoginButton.rx.tap.asObservable(),
+//            appleButtonTapped: appleLoginButton.rx.tap.asObservable()
+//        )
+//        viewModel.bind(input: input)
+    }
     
     
 }

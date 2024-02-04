@@ -1,8 +1,8 @@
 //
-//  TodayResolutionViewModel.swift
+//  ResolutionWriteViewModel.swift
 //  On_off_iOS
 //
-//  Created by 신예진 on 2/2/24.
+//  Created by 신예진 on 2/4/24.
 //
 
 import Foundation
@@ -11,12 +11,13 @@ import RxRelay
 import RxCocoa
 import UIKit
 
-final class TodayResolutionViewModel {
+final class ResolutionWriteViewModel {
+    
     private let disposeBag = DisposeBag()
     var navigationController: UINavigationController
     
     struct Input {
-        //let kakaoButtonTapped: Observable<Void> -> 버튼 탭
+        
     }
     
     // MARK: - Init
@@ -32,7 +33,7 @@ final class TodayResolutionViewModel {
 //                    self?.moveToNickName()
 //                }
 //                .disposed(by: disposeBag)
-//        
+//
 //        input.appleButtonTapped
 //                .bind { [weak self] in
 //                    self?.moveToNickName()
@@ -40,9 +41,5 @@ final class TodayResolutionViewModel {
 //                .disposed(by: disposeBag)
     }
     
-    /// 작성화면으로 이동
-    private func moveToWriteView() {
-        let vc = ResolutionWriteViewController(viewModel: ResolutionWriteViewModel(navigationController: navigationController))
-        navigationController.pushViewController(vc, animated: true)
-    }
+    
 }

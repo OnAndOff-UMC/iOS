@@ -14,6 +14,8 @@
 		3543D0EB2B6D2AB4008BC111 /* TodayResolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3543D0EA2B6D2AB4008BC111 /* TodayResolution.swift */; };
 		3543D0ED2B6D2AD4008BC111 /* TodayResolutionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3543D0EC2B6D2AD4008BC111 /* TodayResolutionViewModel.swift */; };
 		3543D0EF2B6D2AE4008BC111 /* TodayResolutionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3543D0EE2B6D2AE4008BC111 /* TodayResolutionViewController.swift */; };
+		3543D0F22B6F5FF0008BC111 /* ResolutionWriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3543D0F12B6F5FF0008BC111 /* ResolutionWriteViewController.swift */; };
+		3543D0F42B6F6C86008BC111 /* ResolutionWriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3543D0F32B6F6C86008BC111 /* ResolutionWriteViewModel.swift */; };
 		355283122B68CB70002BBFFD /* Ext + UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355283112B68CB70002BBFFD /* Ext + UIFont.swift */; };
 		355283142B68CC94002BBFFD /* Ext + UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355283132B68CC94002BBFFD /* Ext + UIColor.swift */; };
 		3584F3AC2B5A5CC7007ACB57 /* (null) in Sources */ = {isa = PBXBuildFile; };
@@ -73,6 +75,8 @@
 		3543D0EA2B6D2AB4008BC111 /* TodayResolution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayResolution.swift; sourceTree = "<group>"; };
 		3543D0EC2B6D2AD4008BC111 /* TodayResolutionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayResolutionViewModel.swift; sourceTree = "<group>"; };
 		3543D0EE2B6D2AE4008BC111 /* TodayResolutionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayResolutionViewController.swift; sourceTree = "<group>"; };
+		3543D0F12B6F5FF0008BC111 /* ResolutionWriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolutionWriteViewController.swift; sourceTree = "<group>"; };
+		3543D0F32B6F6C86008BC111 /* ResolutionWriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolutionWriteViewModel.swift; sourceTree = "<group>"; };
 		355283112B68CB70002BBFFD /* Ext + UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext + UIFont.swift"; sourceTree = "<group>"; };
 		355283132B68CC94002BBFFD /* Ext + UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext + UIColor.swift"; sourceTree = "<group>"; };
 		35AC0F4F2B64025300AB0A6B /* TabItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItem.swift; sourceTree = "<group>"; };
@@ -166,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				3543D0EC2B6D2AD4008BC111 /* TodayResolutionViewModel.swift */,
+				3543D0F32B6F6C86008BC111 /* ResolutionWriteViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -174,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				3543D0EE2B6D2AE4008BC111 /* TodayResolutionViewController.swift */,
+				3543D0F12B6F5FF0008BC111 /* ResolutionWriteViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -659,6 +665,7 @@
 				3543D0E32B6D274C008BC111 /* OnViewController.swift in Sources */,
 				378140612B42E83100F2AA5A /* NickNameViewModel.swift in Sources */,
 				3787D0132B42E0F000F054DD /* NickNameViewController.swift in Sources */,
+				3543D0F42B6F6C86008BC111 /* ResolutionWriteViewModel.swift in Sources */,
 				3787D00F2B42AD6F00F054DD /* OnBoardingViewModel.swift in Sources */,
 				374FD4A22B4294F100F2E645 /* LoginViewController.swift in Sources */,
 				374FD49F2B42825B00F2E645 /* CustomPageControl.swift in Sources */,
@@ -682,6 +689,7 @@
 				3BB806D82B5024BC00555E58 /* MonthStatistics.swift in Sources */,
 				3584F3AE2B5A5FEB007ACB57 /* (null) in Sources */,
 				3BB806D32B5021BC00555E58 /* StatisticsViewModel.swift in Sources */,
+				3543D0F22B6F5FF0008BC111 /* ResolutionWriteViewController.swift in Sources */,
 				3B0129C82B6246E900B191AD /* Ext + UIImage.swift in Sources */,
 				3B4230102B41572200D0B038 /* SceneDelegate.swift in Sources */,
 				3584F3AC2B5A5CC7007ACB57 /* (null) in Sources */,
