@@ -83,6 +83,7 @@ final class TodayResolutionViewController: UIViewController {
     init(viewModel: TodayResolutionViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        
     }
     
     @available(*, unavailable)
@@ -97,6 +98,7 @@ final class TodayResolutionViewController: UIViewController {
         view.backgroundColor = .white
         addSubViews()
         constraints()
+        setupBindings()
     }
     
     /// Add SubViews
@@ -159,11 +161,11 @@ final class TodayResolutionViewController: UIViewController {
     
     /// ViewModel과 bind
     private func setupBindings() {
-//        let input = TodayResolutionViewModel.Input(
-//            kakaoButtonTapped: kakaoLoginButton.rx.tap.asObservable(),
-//            appleButtonTapped: appleLoginButton.rx.tap.asObservable()
-//        )
-//        viewModel.bind(input: input)
+        
+        let input = TodayResolutionViewModel.Input(
+            buttonTapped: todayResolutionButton.rx.tap.asObservable()
+        )
+        viewModel.bind(input: input)
     }
     
     

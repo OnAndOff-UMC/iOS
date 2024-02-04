@@ -16,7 +16,7 @@ final class TodayResolutionViewModel {
     var navigationController: UINavigationController
     
     struct Input {
-        //let kakaoButtonTapped: Observable<Void> -> 버튼 탭
+        let buttonTapped: Observable<Void>
     }
     
     // MARK: - Init
@@ -27,17 +27,12 @@ final class TodayResolutionViewModel {
     /// bind
     /// - Parameter input: kakaoButtonTapped, appleButtonTapped
     func bind(input: Input) {
-//        input.kakaoButtonTapped
-//                .bind { [weak self] in
-//                    self?.moveToNickName()
-//                }
-//                .disposed(by: disposeBag)
-//        
-//        input.appleButtonTapped
-//                .bind { [weak self] in
-//                    self?.moveToNickName()
-//                }
-//                .disposed(by: disposeBag)
+        input.buttonTapped
+                .bind { [weak self] in
+                    self?.moveToWriteView()
+                }
+                .disposed(by: disposeBag)
+        
     }
     
     /// 작성화면으로 이동

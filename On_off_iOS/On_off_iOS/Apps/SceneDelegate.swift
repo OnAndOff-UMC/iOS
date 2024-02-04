@@ -17,9 +17,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(windowScene: windowScene)
         let navigationController = UINavigationController()
-      
-        navigationController.viewControllers = [TodayResolutionViewController()]
-        
+
+        let viewModel = TodayResolutionViewModel(navigationController: navigationController) // 인스턴스를 생성해서 전달
+        let todayResolutionViewController = TodayResolutionViewController(viewModel: viewModel)
+        navigationController.viewControllers = [todayResolutionViewController]
+
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
