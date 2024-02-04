@@ -12,11 +12,6 @@ import UIKit
 
 final class ModalEmoticonViewController: UIViewController {
     
-    private let disposeBag = DisposeBag()
-    private let memoirsService = MemoirsService()
-    
-    var onImageSelected: ((String) -> Void)?
-
     /// imageView collectionView
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -29,12 +24,27 @@ final class ModalEmoticonViewController: UIViewController {
         return collectionView
     }()
 
+    private let viewModel: ModalEmoticonViewModel
+    private let disposeBag = DisposeBag()
+    var onImageSelected: ((String) -> Void)?
+
+    // MARK: - Init
+    init(viewModel: ModalEmoticonViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         setupConstraints()
-        fetchEmoticonsAndBindToCollectionView()
+        setupBindings()
     }
 
     /// setupViews
@@ -51,30 +61,19 @@ final class ModalEmoticonViewController: UIViewController {
         }
     } 
     
-    private func fetchEmoticonsAndBindToCollectionView() {
-        memoirsService.getEmoticon()
-            .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] emoticonResponse in
-                guard let self = self else { return }
-                bindEmoticonsToCollectionView(emoticons: emoticonResponse.result)
-            }, onError: { error in
-                print(error.localizedDescription)
-            }).disposed(by: disposeBag)
-    }
-
-    private func bindEmoticonsToCollectionView(emoticons: [Emoticon]) {
+    private func setupBindings() {
         
-        Observable.just(emoticons)
+        let viewDidLoad = Observable.just(())
+        let imageSelected = collectionView.rx.modelSelected(Emoticon.self).asObservable()
+        
+        let input = ModalEmoticonViewModel.Input(viewDidLoad: viewDidLoad, imageSelected: imageSelected)
+        let output = viewModel.bind(input: input)
+        
+        output.emoticons
             .bind(to: collectionView.rx.items(cellIdentifier: CellIdentifier.EmoticonCollectionViewCell.rawValue, cellType: EmoticonCollectionViewCell.self)) { index, emoticon, cell in
                 cell.configure(with: emoticon.imageUrl)
-            }.disposed(by: disposeBag)
-
-        collectionView.rx.modelSelected(Emoticon.self)
-            .subscribe(onNext: { [weak self] emoticon in
-                print("선택된 emoticon: \(emoticon.emoticonId), URL: \(emoticon.imageUrl)")
-                self?.onImageSelected?(emoticon.imageUrl)
-                self?.dismiss(animated: true, completion: nil)
-            }).disposed(by: disposeBag)
+            }
+            .disposed(by: disposeBag)
     }
 }
 
@@ -84,7 +83,7 @@ extension ModalEmoticonViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         // 한 줄에 3개의 이미지가 들어가도록 너비 계산
-        let paddingSpace = 10 * (3 - 1)
+        let paddingSpace = 10 * (3 + 1)
         let availableWidth = collectionView.frame.width - CGFloat(paddingSpace) - collectionView.contentInset.left - collectionView.contentInset.right
         let widthPerItem = availableWidth / 3
         

@@ -165,10 +165,9 @@ final class ExpressedIconViewController: UIViewController {
         
     }
     
-    
     /// 이모티콘 모달 띄우기
     private func presentModalEmoticonViewController() {
-        let modalEmoticonViewController = ModalEmoticonViewController()
+        let modalEmoticonViewController = ModalEmoticonViewController(viewModel: ModalEmoticonViewModel())
         modalEmoticonViewController.onImageSelected = { [weak self] imageUrl in
             self?.emoticonImage.kf.setImage(with: URL(string: imageUrl))
         }

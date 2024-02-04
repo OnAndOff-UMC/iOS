@@ -90,17 +90,6 @@ final class ExpressedIconViewModel {
             .disposed(by: disposeBag)
     }
     
-    private func getEmoticonData() {
-        memoirsService.getEmoticon()
-            .subscribe(onNext: { response in
-                print("이모티콘 불러오기: \(response)")
-                
-            }, onError: { error in
-                print("이모티콘 불러오기 실패: \(error)")
-            })
-            .disposed(by: disposeBag)
-    }
-    
     /// Memoirs 초기 화면으로 이동
     private func moveToImprovement() {
         let memoirsCompleteViewModel = MemoirsCompleteViewModel(navigationController: navigationController)
