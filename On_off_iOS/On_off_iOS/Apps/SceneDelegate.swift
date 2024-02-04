@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         let navigationController = UINavigationController()
       
-        navigationController.viewControllers = [BookmarkViewController(viewModel:BookmarkViewModel(navigationController: navigationController))]//[MemoirsViewController(viewModel: MemoirsViewModel(navigationController: navigationController))]//[LaunchViewController()]
+        navigationController.viewControllers = [LaunchViewController()]
         
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()

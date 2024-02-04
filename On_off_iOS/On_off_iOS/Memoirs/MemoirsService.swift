@@ -39,10 +39,13 @@ final class MemoirsService: MemoirsProtocol {
     /// 이모티콘 띄우기
     func getEmoticon() -> RxSwift.Observable<EmoticonResponse> {
         let url = Domain.RESTAPI + MemoirsPath.getEmoticon.rawValue
+        let headers = Header.header.getHeader()
+        
         return Observable.create { observer in
             AF.request(url,
-                       method: .get)
-                .validate(statusCode: 200..<201) // 상태 코드 범위를 200~299로 확장
+                       method: .get,
+                       headers: headers)
+                .validate(statusCode: 200..<201)
                 .responseDecodable(of: EmoticonResponse.self) { response in
                     switch response.result {
                     case .success(let data):

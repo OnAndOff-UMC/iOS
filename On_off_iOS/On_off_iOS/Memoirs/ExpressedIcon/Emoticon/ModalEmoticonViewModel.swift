@@ -31,7 +31,7 @@ final class ModalEmoticonViewModel {
             .subscribe(onNext: { [weak self] response in
                 self?.emoticonsSubject.onNext(response.result)
             }, onError: { error in
-                print("Error fetching emoticons: \(error.localizedDescription)")
+                print("Error fetcing: \(error.localizedDescription)")
             }).disposed(by: disposeBag)
     }
 }

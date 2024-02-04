@@ -97,6 +97,8 @@ final class LoginViewModel {
                        if response.result.infoSet {
                            self?.moveToMain()
                        } else {
+                           _ = KeychainWrapper.saveItem(value: response.result.accessToken, forKey: LoginKeyChain.accessToken.rawValue)
+
                            self?.moveToNickName()
                        }
                    } else {
@@ -110,7 +112,7 @@ final class LoginViewModel {
   
     /// 닉네임 설정으로 이동
     private func moveToNickName() {
-        let vc = NickNameViewController(viewModel: NickNameViewModel(navigationController: navigationController))
+        let vc = BookmarkViewController(viewModel: BookmarkViewModel(navigationController: navigationController))
         navigationController.pushViewController(vc, animated: true)
     }
     /// 메인 화면으로 이동

@@ -51,7 +51,6 @@
 		37A1E9882B6CB1DD0013FFD7 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A1E9872B6CB1DD0013FFD7 /* LoginService.swift */; };
 		37A1E98A2B6CB1F70013FFD7 /* LoginProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A1E9892B6CB1F70013FFD7 /* LoginProtocol.swift */; };
 		37A1E98D2B6CCC020013FFD7 /* Memoirs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A1E98C2B6CCC020013FFD7 /* Memoirs.swift */; };
-		37A1E9912B6CD4200013FFD7 /* MemoirsKeychainConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A1E9902B6CD4200013FFD7 /* MemoirsKeychainConstraints.swift */; };
 		37A1E9942B6CDAD70013FFD7 /* ModalEmoticonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A1E9932B6CDAD70013FFD7 /* ModalEmoticonViewController.swift */; };
 		37A1E9972B6CDCEF0013FFD7 /* EmoticonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A1E9962B6CDCEF0013FFD7 /* EmoticonCollectionViewCell.swift */; };
 		37AEB1EC2B6CEE0E00A6CDD6 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 37AEB1EB2B6CEE0E00A6CDD6 /* Kingfisher */; };
@@ -87,6 +86,7 @@
 		37C161612B6BEDED000E0B21 /* RxKakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 37C161602B6BEDED000E0B21 /* RxKakaoSDKCommon */; };
 		37C161632B6BEDED000E0B21 /* RxKakaoSDKFriend in Frameworks */ = {isa = PBXBuildFile; productRef = 37C161622B6BEDED000E0B21 /* RxKakaoSDKFriend */; };
 		37C161652B6BEDED000E0B21 /* RxKakaoSDKShare in Frameworks */ = {isa = PBXBuildFile; productRef = 37C161642B6BEDED000E0B21 /* RxKakaoSDKShare */; };
+		37CC77752B6F9620007999E5 /* KeyChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CC77742B6F9620007999E5 /* KeyChain.swift */; };
 		37CFD3002B66533900E00D92 /* ExpressedIconViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CFD2FF2B66533900E00D92 /* ExpressedIconViewController.swift */; };
 		37CFD3022B66534400E00D92 /* ExpressedIconViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CFD3012B66534400E00D92 /* ExpressedIconViewModel.swift */; };
 		37DEF20D2B66B31D00AF47DB /* MemoirsCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DEF20C2B66B31D00AF47DB /* MemoirsCompleteViewController.swift */; };
@@ -166,7 +166,6 @@
 		37A1E9872B6CB1DD0013FFD7 /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		37A1E9892B6CB1F70013FFD7 /* LoginProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginProtocol.swift; sourceTree = "<group>"; };
 		37A1E98C2B6CCC020013FFD7 /* Memoirs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memoirs.swift; sourceTree = "<group>"; };
-		37A1E9902B6CD4200013FFD7 /* MemoirsKeychainConstraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoirsKeychainConstraints.swift; sourceTree = "<group>"; };
 		37A1E9932B6CDAD70013FFD7 /* ModalEmoticonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalEmoticonViewController.swift; sourceTree = "<group>"; };
 		37A1E9962B6CDCEF0013FFD7 /* EmoticonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmoticonCollectionViewCell.swift; sourceTree = "<group>"; };
 		37AEB1ED2B6CF3F400A6CDD6 /* ModalEmoticonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalEmoticonViewModel.swift; sourceTree = "<group>"; };
@@ -184,6 +183,7 @@
 		37C161392B6BE43A000E0B21 /* SignUpProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpProtocol.swift; sourceTree = "<group>"; };
 		37C1613B2B6BE519000E0B21 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		37C1613D2B6BE6B3000E0B21 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		37CC77742B6F9620007999E5 /* KeyChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChain.swift; sourceTree = "<group>"; };
 		37CFD2FF2B66533900E00D92 /* ExpressedIconViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressedIconViewController.swift; sourceTree = "<group>"; };
 		37CFD3012B66534400E00D92 /* ExpressedIconViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressedIconViewModel.swift; sourceTree = "<group>"; };
 		37DEF20C2B66B31D00AF47DB /* MemoirsCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoirsCompleteViewController.swift; sourceTree = "<group>"; };
@@ -493,7 +493,6 @@
 			isa = PBXGroup;
 			children = (
 				37A1E98C2B6CCC020013FFD7 /* Memoirs.swift */,
-				37A1E9902B6CD4200013FFD7 /* MemoirsKeychainConstraints.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -603,6 +602,15 @@
 				37A1E9892B6CB1F70013FFD7 /* LoginProtocol.swift */,
 			);
 			path = Protocol;
+			sourceTree = "<group>";
+		};
+		37CC77732B6F95F4007999E5 /* KeyChain */ = {
+			isa = PBXGroup;
+			children = (
+				37CC77742B6F9620007999E5 /* KeyChain.swift */,
+			);
+			name = KeyChain;
+			path = Bookmark/KeyChain;
 			sourceTree = "<group>";
 		};
 		37CFD2FE2B6652DA00E00D92 /* ExpressedIcon */ = {
@@ -726,6 +734,7 @@
 		3B42300C2B41572200D0B038 /* On_off_iOS */ = {
 			isa = PBXGroup;
 			children = (
+				37CC77732B6F95F4007999E5 /* KeyChain */,
 				37FED6052B6E23380071BB23 /* Bookmark */,
 				37A1E9832B6C7FC60013FFD7 /* On_off_iOS.entitlements */,
 				37C1612F2B6BDF47000E0B21 /* KeyChain */,
@@ -930,7 +939,6 @@
 				3708261B2B66962000FBCAAF /* ExpressedIconModel.swift in Sources */,
 				370826212B669BFC00FBCAAF /* UICalculate+Ex.swift in Sources */,
 				3787D00F2B42AD6F00F054DD /* OnBoardingViewModel.swift in Sources */,
-				37A1E9912B6CD4200013FFD7 /* MemoirsKeychainConstraints.swift in Sources */,
 				371B9EC32B5B076E006AC06D /* WriteLearnedViewModel.swift in Sources */,
 				374FD49F2B42825B00F2E645 /* CustomPageControl.swift in Sources */,
 				37C161232B6BD9F8000E0B21 /* LoginViewModel.swift in Sources */,
@@ -960,6 +968,7 @@
 				371B9EBF2B5B075A006AC06D /* WriteImprovementViewController.swift in Sources */,
 				374FD49D2B4281E100F2E645 /* OnboardingCustomView.swift in Sources */,
 				3BB806D82B5024BC00555E58 /* MonthStatistics.swift in Sources */,
+				37CC77752B6F9620007999E5 /* KeyChain.swift in Sources */,
 				37C161342B6BDFB8000E0B21 /* LoginConstants.swift in Sources */,
 				3584F3AE2B5A5FEB007ACB57 /* (null) in Sources */,
 				37C161312B6BDF59000E0B21 /* KeychainWrapper.swift in Sources */,
