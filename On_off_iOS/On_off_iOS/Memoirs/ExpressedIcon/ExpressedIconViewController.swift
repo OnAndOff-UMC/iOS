@@ -165,6 +165,7 @@ final class ExpressedIconViewController: UIViewController {
         
     }
     
+    
     /// 이모티콘 모달 띄우기
     private func presentModalEmoticonViewController() {
         let modalEmoticonViewController = ModalEmoticonViewController()
@@ -178,7 +179,6 @@ final class ExpressedIconViewController: UIViewController {
                 sheet.prefersGrabberVisible = true
             }
         }
-
         present(modalEmoticonViewController, animated: true, completion: nil)
     }
 }

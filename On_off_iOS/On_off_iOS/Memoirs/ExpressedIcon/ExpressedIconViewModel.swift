@@ -15,11 +15,12 @@ final class ExpressedIconViewModel {
     private let disposeBag = DisposeBag()
     private var navigationController: UINavigationController
     private let memoirsService = MemoirsService()
-    
+
     /// Input
     struct Input {
         let startButtonTapped: Observable<Void>
         let backButtonTapped: Observable<Void>
+//        let emoticonViewTapped: Observable<Void>
     }
     
     /// Output
@@ -78,7 +79,6 @@ final class ExpressedIconViewModel {
                 MemoirRequest.MemoirAnswer(questionId: 3, answer: answer3)
             ]
         )
-        
         memoirsService.saveMemoirs(request: request)
             .subscribe(onNext: { response in
                 print("회고록 저장 성공: \(response)")
@@ -86,6 +86,17 @@ final class ExpressedIconViewModel {
                 
             }, onError: { error in
                 print("회고록 저장 실패: \(error)")
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func getEmoticonData() {
+        memoirsService.getEmoticon()
+            .subscribe(onNext: { response in
+                print("이모티콘 불러오기: \(response)")
+                
+            }, onError: { error in
+                print("이모티콘 불러오기 실패: \(error)")
             })
             .disposed(by: disposeBag)
     }

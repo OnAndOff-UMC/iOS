@@ -17,6 +17,6 @@ enum LoginPath: String {
 
 /// 회고록
 enum MemoirsPath: String {
-    case MemoirsSave = "/Memoirs" //사용자ID넣기 수정
+    case memoirsSave = "/Memoirs" //사용자ID넣기 수정
+    case getEmoticon = "/emoticons"
 }
-

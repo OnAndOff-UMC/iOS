@@ -28,7 +28,7 @@ final class StartToWriteViewController: UIViewController {
     
     /// StartToWriteImage
     private lazy var startToWriteImage: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: MemoirsImage.PageControl1.rawValue))
+        let imageView = UIImageView(image: UIImage(named: MemoirsImage.MemoirsCompleteImage.rawValue))
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()

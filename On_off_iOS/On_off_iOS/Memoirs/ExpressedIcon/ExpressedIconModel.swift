@@ -7,7 +7,15 @@
 
 import Foundation
 
-struct Emoticon: Decodable {
-    let id: Int
+///이모티콘 정보
+struct EmoticonResponse: Codable {
+    let isSuccess: Bool
+    let code: String
+    let message: String
+    let result: [Emoticon]
+}
+
+struct Emoticon: Codable {
+    let emoticonId: Int
     let imageUrl: String
 }

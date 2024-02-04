@@ -39,3 +39,4 @@ struct MemoirResponse: Codable {
         }
     }
 }
+
