@@ -68,6 +68,7 @@ final class MemoirsViewController: UIViewController {
     /// emoticon 이미지
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.image = UIImage(named: "AppIcon")
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
@@ -147,6 +148,8 @@ final class MemoirsViewController: UIViewController {
         setupBindings()
     }
     
+ 
+
     /// 화면 설정 관련 함수
     private func setupView(){
         view.backgroundColor = .white
