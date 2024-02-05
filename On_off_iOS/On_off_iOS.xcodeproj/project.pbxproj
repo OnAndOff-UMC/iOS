@@ -87,6 +87,7 @@
 		37C161632B6BEDED000E0B21 /* RxKakaoSDKFriend in Frameworks */ = {isa = PBXBuildFile; productRef = 37C161622B6BEDED000E0B21 /* RxKakaoSDKFriend */; };
 		37C161652B6BEDED000E0B21 /* RxKakaoSDKShare in Frameworks */ = {isa = PBXBuildFile; productRef = 37C161642B6BEDED000E0B21 /* RxKakaoSDKShare */; };
 		37CC77752B6F9620007999E5 /* KeyChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CC77742B6F9620007999E5 /* KeyChain.swift */; };
+		37CC77792B6FA864007999E5 /* ModalEmoticonDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CC77782B6FA864007999E5 /* ModalEmoticonDelegate.swift */; };
 		37CFD3002B66533900E00D92 /* ExpressedIconViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CFD2FF2B66533900E00D92 /* ExpressedIconViewController.swift */; };
 		37CFD3022B66534400E00D92 /* ExpressedIconViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CFD3012B66534400E00D92 /* ExpressedIconViewModel.swift */; };
 		37DEF20D2B66B31D00AF47DB /* MemoirsCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DEF20C2B66B31D00AF47DB /* MemoirsCompleteViewController.swift */; };
@@ -184,6 +185,7 @@
 		37C1613B2B6BE519000E0B21 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		37C1613D2B6BE6B3000E0B21 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		37CC77742B6F9620007999E5 /* KeyChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChain.swift; sourceTree = "<group>"; };
+		37CC77782B6FA864007999E5 /* ModalEmoticonDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalEmoticonDelegate.swift; sourceTree = "<group>"; };
 		37CFD2FF2B66533900E00D92 /* ExpressedIconViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressedIconViewController.swift; sourceTree = "<group>"; };
 		37CFD3012B66534400E00D92 /* ExpressedIconViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressedIconViewModel.swift; sourceTree = "<group>"; };
 		37DEF20C2B66B31D00AF47DB /* MemoirsCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoirsCompleteViewController.swift; sourceTree = "<group>"; };
@@ -620,6 +622,7 @@
 				37CFD2FF2B66533900E00D92 /* ExpressedIconViewController.swift */,
 				37CFD3012B66534400E00D92 /* ExpressedIconViewModel.swift */,
 				3708261A2B66962000FBCAAF /* ExpressedIconModel.swift */,
+				37CC77782B6FA864007999E5 /* ModalEmoticonDelegate.swift */,
 			);
 			path = ExpressedIcon;
 			sourceTree = "<group>";
@@ -960,6 +963,7 @@
 				37DEF20D2B66B31D00AF47DB /* MemoirsCompleteViewController.swift in Sources */,
 				371B9EBB2B5B0737006AC06D /* WritePraisedViewController.swift in Sources */,
 				3769A68E2B585B6600D79C33 /* DayButton.swift in Sources */,
+				37CC77792B6FA864007999E5 /* ModalEmoticonDelegate.swift in Sources */,
 				3B0129CE2B624E8D00B191AD /* DayCollectionViewCell.swift in Sources */,
 				37CFD3022B66534400E00D92 /* ExpressedIconViewModel.swift in Sources */,
 				3769A6912B585BDE00D79C33 /* DayModel.swift in Sources */,

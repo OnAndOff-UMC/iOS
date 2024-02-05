@@ -26,7 +26,10 @@ final class ModalEmoticonViewController: UIViewController {
 
     private let viewModel: ModalEmoticonViewModel
     private let disposeBag = DisposeBag()
+   
     var onImageSelected: ((String) -> Void)?
+    
+    weak var delegate: ModalEmoticonDelegate?
 
     // MARK: - Init
     init(viewModel: ModalEmoticonViewModel) {
@@ -68,6 +71,13 @@ final class ModalEmoticonViewController: UIViewController {
         
         let input = ModalEmoticonViewModel.Input(viewDidLoad: viewDidLoad, imageSelected: imageSelected)
         let output = viewModel.bind(input: input)
+        
+        collectionView.rx.modelSelected(Emoticon.self)
+            .subscribe(onNext: { [weak self] emoticon in
+                self?.delegate?.emoticonSelected(emoticon: emoticon)
+                self?.dismiss(animated: true, completion: nil)
+            })
+            .disposed(by: disposeBag)
         
         output.emoticons
             .bind(to: collectionView.rx.items(cellIdentifier: CellIdentifier.EmoticonCollectionViewCell.rawValue, cellType: EmoticonCollectionViewCell.self)) { index, emoticon, cell in

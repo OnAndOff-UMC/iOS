@@ -12,7 +12,7 @@ final class ModalEmoticonViewModel {
     
     private let disposeBag = DisposeBag()
     private let memoirsService = MemoirsService()
-    
+
     /// Input
     struct Input {
         
@@ -51,7 +51,7 @@ final class ModalEmoticonViewModel {
         return Output(emoticons: emoticons)
     }
     
-    /// 서버에서 이모티콘 데이터 fetch
+    /// 서버에서 이모티콘 데이터 
     private func fetchEmoticons() -> Observable<[Emoticon]> {
         return memoirsService.getEmoticon()
             .map { $0.result }

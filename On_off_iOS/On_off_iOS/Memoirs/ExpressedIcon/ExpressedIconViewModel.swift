@@ -20,7 +20,7 @@ final class ExpressedIconViewModel {
     struct Input {
         let startButtonTapped: Observable<Void>
         let backButtonTapped: Observable<Void>
-//        let emoticonViewTapped: Observable<Void>
+      //  let emoticonIdSelected: Observable<Int>
     }
     
     /// Output
@@ -57,6 +57,11 @@ final class ExpressedIconViewModel {
             }
             .disposed(by: disposeBag)
         
+//        input.emoticonIdSelected
+//                   .subscribe(onNext: { [weak self] emoticonId in
+//                       print("선택된 이모티콘 ID: \(emoticonId)")
+//                   })
+//                   .disposed(by: disposeBag)
         return output
     }
     

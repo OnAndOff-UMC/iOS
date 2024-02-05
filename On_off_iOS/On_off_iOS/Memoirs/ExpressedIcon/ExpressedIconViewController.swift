@@ -168,6 +168,7 @@ final class ExpressedIconViewController: UIViewController {
     /// 이모티콘 모달 띄우기
     private func presentModalEmoticonViewController() {
         let modalEmoticonViewController = ModalEmoticonViewController(viewModel: ModalEmoticonViewModel())
+        modalEmoticonViewController.delegate = self
         modalEmoticonViewController.onImageSelected = { [weak self] imageUrl in
             self?.emoticonImage.kf.setImage(with: URL(string: imageUrl))
         }
@@ -179,5 +180,11 @@ final class ExpressedIconViewController: UIViewController {
             }
         }
         present(modalEmoticonViewController, animated: true, completion: nil)
+    }
+}
+
+extension ExpressedIconViewController: ModalEmoticonDelegate {
+    func emoticonSelected(emoticon: Emoticon) {
+        emoticonImage.kf.setImage(with: URL(string: emoticon.imageUrl))
     }
 }

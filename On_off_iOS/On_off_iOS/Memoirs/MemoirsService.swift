@@ -16,12 +16,13 @@ final class MemoirsService: MemoirsProtocol {
   /// 회고록 저장하기
     func saveMemoirs(request: MemoirRequest) -> RxSwift.Observable<MemoirResponse> {
         let url = Domain.RESTAPI + MemoirsPath.memoirsSave.rawValue
+        let headers = Header.header.getHeader()
+
         print(request)
         return Observable.create { observer in
             AF.request(url,
                        method: .post,
-                       parameters: request,
-                       encoder: JSONParameterEncoder.default)
+                       parameters: request, encoder: JSONParameterEncoder.default, headers: headers)
             .validate(statusCode: 200..<201)
             .responseDecodable(of: MemoirResponse.self) { response in
 
