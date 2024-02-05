@@ -77,6 +77,8 @@ final class NickNameViewController: UIViewController {
     
     private lazy var checkButtonView: UIView = {
         let view = UIView()
+        view.layer.cornerRadius = 40
+        view.layer.masksToBounds = true
         return view
     }()
     

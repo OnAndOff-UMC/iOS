@@ -9,6 +9,11 @@ import Foundation
 
 /// Cell Indeitifier들 작성!!!!
 enum CellIdentifier: String {
-    case DayCollectionViewCell
     
+    // MARK: CollectionViewCell
+    case DayCollectionViewCell
+    case EmoticonCollectionViewCell
+    
+    // MARK: TableViewCell
+    case BookmarkTableViewCell
 }

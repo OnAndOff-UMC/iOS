@@ -12,7 +12,7 @@ enum Header {
     case header
     
     func getHeader() -> HTTPHeaders {
-        let accessToken = KeychainWrapper.loadItem(forKey: SignIn.accessToken.rawValue) ?? ""
+        let accessToken = KeychainWrapper.loadItem(forKey: LoginKeyChain.accessToken.rawValue) ?? ""
         return ["Authorization": "Bearer \(accessToken)"]
     }
 }

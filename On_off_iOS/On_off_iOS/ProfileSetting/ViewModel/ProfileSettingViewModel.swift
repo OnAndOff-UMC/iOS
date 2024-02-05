@@ -37,6 +37,7 @@ final class ProfileSettingViewModel {
             }
             .disposed(by: disposeBag)
     }
+    
     /// 프로필설정으로 이동
     private func moveToSelectTime() {
         let selectTimeViewModel = SelectTimeViewModel(navigationController: navigationController)

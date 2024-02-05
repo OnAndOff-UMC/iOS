@@ -15,3 +15,9 @@ enum LoginPath: String {
     
     case signIn = "/oauth2/kakao/token/validate"
 }
+
+/// 회고록
+enum MemoirsPath: String {
+    case memoirsSave = "/Memoirs"
+    case getEmoticon = "/emoticons"
+}
