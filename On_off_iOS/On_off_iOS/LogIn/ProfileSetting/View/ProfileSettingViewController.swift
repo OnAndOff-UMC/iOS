@@ -22,15 +22,17 @@ final class ProfileSettingViewController: UIViewController {
     }()
     
     /// 업무분야 - 텍스트 필드
-    private lazy var fieldOfWorkTextField: UITextField = {
-        let field = UITextField()
-        field.attributedPlaceholder = NSAttributedString(string: "예시) 커머스, 여행, 소셜, AI, 제조업 등",
-                                                         attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
-        field.textAlignment = .left
-        field.font = UIFont.systemFont(ofSize: 11, weight: .regular)
-        field.backgroundColor = UIColor.clear
-        field.layer.borderWidth = 0
-        return field
+    private lazy var fieldOfWorkButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("선택해 주세요", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = .clear
+        button.layer.cornerRadius = 10
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.lightGray.cgColor
+        button.contentHorizontalAlignment = .left
+        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+        return button
     }()
     
     /// 업무분야 - 밑줄
@@ -81,16 +83,18 @@ final class ProfileSettingViewController: UIViewController {
         return label
     }()
     
-    /// 연차 - 텍스트 필드
-    private lazy var annualTextField: UITextField = {
-        let field = UITextField()
-        field.attributedPlaceholder = NSAttributedString(string: "예시) 인턴, 신입, 1년, 5년 이상, 시니어 등 ",
-                                                         attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
-        field.textAlignment = .left
-        field.backgroundColor = UIColor.clear
-        field.font = UIFont.systemFont(ofSize: 13, weight: .regular)
-        field.layer.borderWidth = 0
-        return field
+    /// 연차 - 버튼
+    private lazy var annualButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("선택해 주세요", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = .clear
+        button.layer.cornerRadius = 10
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.lightGray.cgColor
+        button.contentHorizontalAlignment = .left
+        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+        return button
     }()
     
     /// 연차 - 밑줄
@@ -147,16 +151,14 @@ final class ProfileSettingViewController: UIViewController {
     // 키보드내리기
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        fieldOfWorkTextField.endEditing(true)
         jobTextField.endEditing(true)
-        annualTextField.endEditing(true)
     }
     
     /// addSubviews
     private func addSubviews(){
         
         view.addSubview(fieldOfWork)
-        view.addSubview(fieldOfWorkTextField)
+        view.addSubview(fieldOfWorkButton)
         view.addSubview(fieldOfWorkLine)
         
         view.addSubview(job)
@@ -164,7 +166,7 @@ final class ProfileSettingViewController: UIViewController {
         view.addSubview(jobLine)
         
         view.addSubview(annual)
-        view.addSubview(annualTextField)
+        view.addSubview(annualButton)
         view.addSubview(annualLine)
         
         view.addSubview(nickNameExplainLabel)
@@ -180,13 +182,15 @@ final class ProfileSettingViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide).offset(100)
             make.leading.equalToSuperview().offset(10)
         }
-        fieldOfWorkTextField.snp.makeConstraints { make in
+        fieldOfWorkButton.snp.makeConstraints { make in
             make.top.equalTo(fieldOfWork.snp.bottom).offset(10)
             make.leading.equalToSuperview().inset(10)
             make.width.equalToSuperview().multipliedBy(0.8)
+            make.height.equalTo(fieldOfWorkButton.snp.width).multipliedBy(0.2)
+
         }
         fieldOfWorkLine.snp.makeConstraints { make in
-            make.top.equalTo(fieldOfWorkTextField.snp.bottom).offset(8)
+            make.top.equalTo(fieldOfWorkButton.snp.bottom).offset(8)
             make.leading.trailing.equalToSuperview().inset(10)
             make.height.equalTo(1)
         }
@@ -212,13 +216,15 @@ final class ProfileSettingViewController: UIViewController {
             make.top.equalTo(jobLine.snp.bottom).offset(50)
             make.leading.equalToSuperview().offset(10)
         }
-        annualTextField.snp.makeConstraints { make in
+        annualButton.snp.makeConstraints { make in
             make.top.equalTo(annual.snp.bottom).offset(10)
             make.leading.equalToSuperview().inset(10)
             make.width.equalToSuperview().multipliedBy(0.8)
+            make.height.equalTo(annualButton.snp.width).multipliedBy(0.2)
+
         }
         annualLine.snp.makeConstraints { make in
-            make.top.equalTo(annualTextField.snp.bottom).offset(8)
+            make.top.equalTo(annualButton.snp.bottom).offset(8)
             make.leading.trailing.equalToSuperview().inset(10)
             make.height.equalTo(1)
             
@@ -243,7 +249,44 @@ final class ProfileSettingViewController: UIViewController {
     private func setupBindings() {
         let input = ProfileSettingViewModel.Input(startButtonTapped: checkButton.rx.tap.asObservable())
         
+            fieldOfWorkButton.rx.tap
+                .subscribe(onNext: { [weak self] _ in
+                    self?.presentModalForProfileSetting(dataType: .fieldOfWork)
+                })
+                .disposed(by: disposeBag)
+            
+            annualButton.rx.tap
+                .subscribe(onNext: { [weak self] _ in
+                    self?.presentModalForProfileSetting(dataType: .experienceYear)
+                })
+                .disposed(by: disposeBag)
         viewModel.bind(input: input)
-        
+
+    }
+    
+    /// 이모티콘 모달 띄우기
+    private func presentModalForProfileSetting(dataType: ProfileDataType) {
+        let viewModel = ModalSelectProfileViewModel()
+        let modalSelectProfileViewController = ModalSelectProfileViewController(viewModel: viewModel, dataType: dataType)
+        modalSelectProfileViewController.delegate = self
+
+        if #available(iOS 15.0, *) {
+            if let sheet = modalSelectProfileViewController.sheetPresentationController {
+                sheet.detents = [.medium()]
+                sheet.prefersGrabberVisible = true
+            }
+        }
+        present(modalSelectProfileViewController, animated: true, completion: nil)
+    }
+
+}
+extension ProfileSettingViewController: ModalSelectProfileDelegate {
+    func optionSelected(data: String, dataType: ProfileDataType) {
+        switch dataType {
+        case .fieldOfWork:
+            self.fieldOfWorkButton.setTitle(data, for: .normal)
+        case .experienceYear:
+            self.annualButton.setTitle(data, for: .normal)
+        }
     }
 }

@@ -43,6 +43,11 @@
 		378140612B42E83100F2AA5A /* NickNameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378140602B42E83100F2AA5A /* NickNameViewModel.swift */; };
 		378140632B42F07A00F2AA5A /* ProfileSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378140622B42F07A00F2AA5A /* ProfileSettingViewController.swift */; };
 		378140662B42F0AB00F2AA5A /* ProfileSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378140652B42F0AB00F2AA5A /* ProfileSettingViewModel.swift */; };
+		378588EF2B707EED004E262F /* ModalSelectProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378588EE2B707EED004E262F /* ModalSelectProfileViewController.swift */; };
+		378588F22B707F0A004E262F /* ModalSelectProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378588F12B707F0A004E262F /* ModalSelectProfileViewModel.swift */; };
+		378588F72B708701004E262F /* ProfileDataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378588F62B708701004E262F /* ProfileDataType.swift */; };
+		378588F92B708F99004E262F /* ModalSelectProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378588F82B708F99004E262F /* ModalSelectProfileTableViewCell.swift */; };
+		378588FB2B7092F7004E262F /* ModalSelectProfileDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378588FA2B7092F7004E262F /* ModalSelectProfileDelegate.swift */; };
 		3787D0082B429C1100F054DD /* OnboardingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787D0072B429C1100F054DD /* OnboardingModel.swift */; };
 		3787D00A2B429F1700F054DD /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787D0092B429F1700F054DD /* LaunchViewController.swift */; };
 		3787D00F2B42AD6F00F054DD /* OnBoardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787D00E2B42AD6F00F054DD /* OnBoardingViewModel.swift */; };
@@ -159,6 +164,11 @@
 		378140602B42E83100F2AA5A /* NickNameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameViewModel.swift; sourceTree = "<group>"; };
 		378140622B42F07A00F2AA5A /* ProfileSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewController.swift; sourceTree = "<group>"; };
 		378140652B42F0AB00F2AA5A /* ProfileSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewModel.swift; sourceTree = "<group>"; };
+		378588EE2B707EED004E262F /* ModalSelectProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalSelectProfileViewController.swift; sourceTree = "<group>"; };
+		378588F12B707F0A004E262F /* ModalSelectProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalSelectProfileViewModel.swift; sourceTree = "<group>"; };
+		378588F62B708701004E262F /* ProfileDataType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDataType.swift; sourceTree = "<group>"; };
+		378588F82B708F99004E262F /* ModalSelectProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalSelectProfileTableViewCell.swift; sourceTree = "<group>"; };
+		378588FA2B7092F7004E262F /* ModalSelectProfileDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalSelectProfileDelegate.swift; sourceTree = "<group>"; };
 		3787D0072B429C1100F054DD /* OnboardingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingModel.swift; sourceTree = "<group>"; };
 		3787D0092B429F1700F054DD /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		3787D00E2B42AD6F00F054DD /* OnBoardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewModel.swift; sourceTree = "<group>"; };
@@ -456,6 +466,24 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		378588F02B707EF9004E262F /* Modal */ = {
+			isa = PBXGroup;
+			children = (
+				378588F32B707F17004E262F /* ModalCollectionView */,
+				378588EE2B707EED004E262F /* ModalSelectProfileViewController.swift */,
+				378588F12B707F0A004E262F /* ModalSelectProfileViewModel.swift */,
+				378588F82B708F99004E262F /* ModalSelectProfileTableViewCell.swift */,
+			);
+			path = Modal;
+			sourceTree = "<group>";
+		};
+		378588F32B707F17004E262F /* ModalCollectionView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ModalCollectionView;
+			sourceTree = "<group>";
+		};
 		3787D00B2B42A84100F054DD /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -546,11 +574,15 @@
 		37C1611E2B6BD9F7000E0B21 /* LogIn */ = {
 			isa = PBXGroup;
 			children = (
+				379380CC2B44282B00BB7BDE /* ProfileSetting */,
+				3781405F2B42E75000F2AA5A /* NickName */,
+				378588F02B707EF9004E262F /* Modal */,
 				37C161382B6BE42F000E0B21 /* Protocol */,
 				37C161372B6BE3EB000E0B21 /* Service */,
 				37C161322B6BDFA3000E0B21 /* Model */,
 				37C1611F2B6BD9F7000E0B21 /* ViewModel */,
 				37C161212B6BD9F7000E0B21 /* View */,
+				378588FA2B7092F7004E262F /* ModalSelectProfileDelegate.swift */,
 			);
 			path = LogIn;
 			sourceTree = "<group>";
@@ -584,6 +616,7 @@
 			children = (
 				37C161332B6BDFB8000E0B21 /* LoginConstants.swift */,
 				37C1613B2B6BE519000E0B21 /* Login.swift */,
+				378588F62B708701004E262F /* ProfileDataType.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -749,8 +782,6 @@
 				3B9C89CF2B4AED640083CF44 /* Statistics */,
 				3769A6842B58561D00D79C33 /* SelectTime */,
 				376A4B5D2B5514B4004FBB56 /* Launch */,
-				379380CC2B44282B00BB7BDE /* ProfileSetting */,
-				3781405F2B42E75000F2AA5A /* NickName */,
 				374FD49B2B4281CA00F2E645 /* OnBoarding */,
 				3B4230212B41584300D0B038 /* Apps */,
 				376A4B552B5504AB004FBB56 /* Assets */,
@@ -957,6 +988,7 @@
 				378140662B42F0AB00F2AA5A /* ProfileSettingViewModel.swift in Sources */,
 				37C1613C2B6BE519000E0B21 /* Login.swift in Sources */,
 				3B1658F72B4D8559004EFBC3 /* WeekChartCustomView.swift in Sources */,
+				378588EF2B707EED004E262F /* ModalSelectProfileViewController.swift in Sources */,
 				37AEB1F22B6CFE3500A6CDD6 /* MemoirsService.swift in Sources */,
 				3B42300E2B41572200D0B038 /* AppDelegate.swift in Sources */,
 				37FED6032B6E15000071BB23 /* MemoirsImage.swift in Sources */,
@@ -978,6 +1010,7 @@
 				37C161312B6BDF59000E0B21 /* KeychainWrapper.swift in Sources */,
 				3BB806D32B5021BC00555E58 /* StatisticsViewModel.swift in Sources */,
 				3B0129C82B6246E900B191AD /* Ext + UIImage.swift in Sources */,
+				378588F22B707F0A004E262F /* ModalSelectProfileViewModel.swift in Sources */,
 				3B4230102B41572200D0B038 /* SceneDelegate.swift in Sources */,
 				3584F3AC2B5A5CC7007ACB57 /* (null) in Sources */,
 				371B9EAC2B5AFD37006AC06D /* StartToWriteViewController.swift in Sources */,
@@ -990,8 +1023,10 @@
 				371B9EB92B5B0723006AC06D /* WritePraisedViewModel.swift in Sources */,
 				371B9EA72B5AD838006AC06D /* MemoirsViewController.swift in Sources */,
 				371B9EAE2B5AFD42006AC06D /* StartToWriteViewModel.swift in Sources */,
+				378588F72B708701004E262F /* ProfileDataType.swift in Sources */,
 				37CFD3002B66533900E00D92 /* ExpressedIconViewController.swift in Sources */,
 				37AEB1EE2B6CF3F400A6CDD6 /* ModalEmoticonViewModel.swift in Sources */,
+				378588F92B708F99004E262F /* ModalSelectProfileTableViewCell.swift in Sources */,
 				3787D00A2B429F1700F054DD /* LaunchViewController.swift in Sources */,
 				3BD552682B58FCF70043920E /* CalendarCell.swift in Sources */,
 				37FED60B2B6E23650071BB23 /* BookmarkService.swift in Sources */,
@@ -1007,6 +1042,7 @@
 				37AEB1F52B6CFE6C00A6CDD6 /* MemoirsProtocol.swift in Sources */,
 				37C1613A2B6BE43A000E0B21 /* SignUpProtocol.swift in Sources */,
 				37A1E9942B6CDAD70013FFD7 /* ModalEmoticonViewController.swift in Sources */,
+				378588FB2B7092F7004E262F /* ModalSelectProfileDelegate.swift in Sources */,
 				3B0129C62B6242F800B191AD /* Ext + ViewController.swift in Sources */,
 				371B9EC52B5B0B61006AC06D /* WriteLearnedViewController.swift in Sources */,
 				3BB806D02B5012F400555E58 /* DayChartCustomView.swift in Sources */,

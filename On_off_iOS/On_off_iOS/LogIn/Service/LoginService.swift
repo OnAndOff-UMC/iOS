@@ -81,4 +81,42 @@ final class LoginService: LoginProtocol {
             return Disposables.create()
         }
     }
+    
+    /// 직업 정보 가져오기
+    func fetchJobOptions() -> Observable<ProfileOptionResponse> {
+        let url = Domain.RESTAPI + LoginPath.job.rawValue
+        return Observable.create { observer in
+            AF.request(url, method: .get)
+                .validate()
+                .responseDecodable(of: ProfileOptionResponse.self) { response in
+                    switch response.result {
+                    case .success(let data):
+                        observer.onNext(data)
+                        observer.onCompleted()
+                    case .failure(let error):
+                        observer.onError(error)
+                    }
+                }
+            return Disposables.create()
+        }
+    }
+    
+    /// 연차 정보 가져오기
+    func fetchExperienceYearsOptions() -> Observable<ProfileOptionResponse> {
+        let url = Domain.RESTAPI + LoginPath.experienceYear.rawValue
+        return Observable.create { observer in
+            AF.request(url, method: .get)
+                .validate()
+                .responseDecodable(of: ProfileOptionResponse.self) { response in
+                    switch response.result {
+                    case .success(let data):
+                        observer.onNext(data)
+                        observer.onCompleted()
+                    case .failure(let error):
+                        observer.onError(error)
+                    }
+                }
+            return Disposables.create()
+        }
+    }
 }

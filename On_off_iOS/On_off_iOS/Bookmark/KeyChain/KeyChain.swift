@@ -18,4 +18,6 @@ enum MemoirsKeyChain: String {
 /// LoginKeyChain : 키체인
 enum LoginKeyChain: String {
     case accessToken
+    
+    case kakaoToken
 }

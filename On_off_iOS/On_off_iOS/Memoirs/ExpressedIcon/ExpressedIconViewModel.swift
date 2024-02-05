@@ -20,7 +20,6 @@ final class ExpressedIconViewModel {
     struct Input {
         let startButtonTapped: Observable<Void>
         let backButtonTapped: Observable<Void>
-      //  let emoticonIdSelected: Observable<Int>
     }
     
     /// Output

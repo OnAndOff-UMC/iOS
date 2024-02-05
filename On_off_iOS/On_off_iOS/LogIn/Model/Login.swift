@@ -40,4 +40,10 @@ struct LoginResult: Codable {
     let refreshToken: String
 }
 
+struct ProfileOptionResponse: Codable {
+    let isSuccess: Bool
+    let code: String
+    let message: String
+    let result: [String]
+}
 

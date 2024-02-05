@@ -22,7 +22,6 @@ final class LoginViewModel {
     /// Input
     struct Input {
         let kakaoButtonTapped: Observable<ControlEvent<UITapGestureRecognizer>.Element>
-      //  let appleButtonTapped: Observable<ControlEvent<UITapGestureRecognizer>.Element>
     }
     
     struct Output {
@@ -60,9 +59,25 @@ final class LoginViewModel {
         .disposed(by: disposeBag)
         return output
     }
+        // 서버 응답 처리
+    // MARK: - 카카오 로그인 로직
+         private func handleLoginResult(oauthToken: OAuthToken?, error: Error?) {
+          if let error = error {
+              print("Login Error: \(error.localizedDescription)")
+              return
+          }
+          
+          guard let oauthToken = oauthToken else { return }
+          // Keychain에 토큰 정보 저장
+          let saveSuccess = KeychainWrapper.saveItem(value: oauthToken.accessToken, forKey: LoginKeyChain.kakaoToken.rawValue)
+          
+          if saveSuccess {
+              moveToNickName()
+          } else {
+              print("Failed to kakaoToken")
+          }
+      }
     
-    // MARK: - API Connect
-    // 서버 응답 처리
     private func kakaoLogin() {
          if UserApi.isKakaoTalkLoginAvailable() {
              UserApi.shared.loginWithKakaoTalk(completion: { [weak self] (oauthToken, error) in
@@ -74,45 +89,37 @@ final class LoginViewModel {
              })
          }
      }
-    
-    /// 카카오톡로그인과 카카오 로그인 공통로직 서버 연결
-    private func handleLoginResult(oauthToken: OAuthToken?, error: Error?) {
-        if let error = error {
-            print("Login Error: \(error)")
-            return
-        }
-        
-        guard let oauthToken = oauthToken else { return }
-        sendTokenToServer(identityToken: oauthToken.idToken ?? "", accessToken: oauthToken.accessToken)
-    }
-    
-    // 서버로 토큰 정보 전송
-    private func sendTokenToServer(identityToken: String, accessToken: String) {
-           let request = KakaoLoginRequest(identityToken: identityToken, accessToken: accessToken)
-        let signUpService = SignUpService()
-           signUpService.signUpService(request: request)
-               .subscribe(onNext: { [weak self] response in
-                   if response.isSuccess {
-                       // 사용자 정보가 있는경우 - 메인, 없으면 정보 입력페이지로 이동
-                       if response.result.infoSet {
-                           self?.moveToMain()
-                       } else {
-                           _ = KeychainWrapper.saveItem(value: response.result.accessToken, forKey: LoginKeyChain.accessToken.rawValue)
 
-                           self?.moveToNickName()
-                       }
-                   } else {
-                       print("Login Failed: \(response.message)")
-                   }
-               }, onError: { error in
-                   print("Error sending tokens to server: \(error)")
-               })
-               .disposed(by: disposeBag)
-       }
+    
+//    // 서버로 토큰 정보 전송
+//    private func sendTokenToServer(identityToken: String, accessToken: String) {
+//           let request = KakaoLoginRequest(identityToken: identityToken, accessToken: accessToken)
+//        let signUpService = SignUpService()
+//           signUpService.signUpService(request: request)
+//               .subscribe(onNext: { [weak self] response in
+//                   if response.isSuccess {
+//                       // 사용자 정보가 있는경우 - 메인, 없으면 정보 입력페이지로 이동
+//                       if response.result.infoSet {
+//                           self?.moveToMain()
+//                       } else {
+//                           _ = KeychainWrapper.saveItem(value: response.result.accessToken, forKey: LoginKeyChain.accessToken.rawValue)
+//
+//                           self?.moveToNickName()
+//                       }
+//                   } else {
+//                       print("Login Failed: \(response.message)")
+//                       self?.moveToNickName()
+//
+//                   }
+//               }, onError: { error in
+//                   print("Error sending tokens to server: \(error)")
+//               })
+//               .disposed(by: disposeBag)
+//       }
   
     /// 닉네임 설정으로 이동
     private func moveToNickName() {
-        let vc = BookmarkViewController(viewModel: BookmarkViewModel(navigationController: navigationController))
+        let vc = NickNameViewController(viewModel: NickNameViewModel(navigationController: navigationController))
         navigationController.pushViewController(vc, animated: true)
     }
     /// 메인 화면으로 이동

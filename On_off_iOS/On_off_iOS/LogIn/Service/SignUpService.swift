@@ -17,7 +17,7 @@ final class SignUpService: SignUpProtocol {
     /// - Returns: 회원 상태, AccesToken, RefreshToken
     func signUpService(request: KakaoLoginRequest) -> Observable<LoginResponse> {
         let header = Header.header.getHeader()
-        let url = Domain.RESTAPI + LoginPath.signIn.rawValue
+        let url = Domain.RESTAPI + LoginPath.kakaoLogin.rawValue
   
         return Observable.create { observer in
             AF.request(url,
