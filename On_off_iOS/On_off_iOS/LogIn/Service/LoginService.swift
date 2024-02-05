@@ -69,14 +69,16 @@ final class LoginService: LoginProtocol {
         let headers = Header.header.getHeader()
 
         return Observable.create { observer in
-            print(request)
+            print("🍎\(request)")
             AF.request(url, method: .post,
                        parameters: request,
                        encoder: JSONParameterEncoder.default,
                        headers: headers)
                            .validate()
                            .responseDecodable(of: KakaoTokenValidationResponse.self) { response in
+
                                switch response.result {
+                                
                                case .success(let data):
                                    print("로그인 성공: \(response)")
                                    observer.onNext(data)

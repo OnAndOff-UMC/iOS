@@ -45,15 +45,14 @@ final class ProfileSettingViewModel {
         
         // 닉네임 텍스트 변경 관찰 및 유효성 검사
         input.jobTextChanged
-            .map { [weak self] nickName in
-                return (nickName.count, self?.isValidNickName(nickName) ?? false)
-            }
-            .do(onNext: { (length, isValid) in
-                output.isCheckButtonEnabled.accept(length >= 2 && length <= 30 && isValid)
-            })
-            .map { $0.0 } // 길이만 반환
-            .bind(to: output.jobLength)
-            .disposed(by: disposeBag)
+                .map { nickName in
+                    return nickName.count // 닉네임 길이만 반환
+                }
+                .do(onNext: { length in
+                    output.isCheckButtonEnabled.accept(length >= 2 && length <= 30) // 2자 이상 30자 이하 조건만 검사
+                })
+                .bind(to: output.jobLength)
+                .disposed(by: disposeBag)
         
         // 시작 버튼 탭 이벤트 처리
         input.startButtonTapped
@@ -95,11 +94,6 @@ final class ProfileSettingViewModel {
         return loginService.validateKakaoTokenAndSendInfo(request: request)
     }
     
-    /// 정규식을 사용해서 조건에 맞는지 확인
-    private func isValidNickName(_ nickName: String) -> Bool {
-        let regex = "^[가-힣A-Za-z0-9.,!_~]+$"
-        return nickName.range(of: regex, options: .regularExpression) != nil
-    }
     
     /// 프로필설정으로 이동
     private func moveToSelectTime() {
