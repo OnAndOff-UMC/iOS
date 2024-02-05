@@ -69,7 +69,7 @@ final class NickNameViewModel {
     
     /// 프로필설정으로 이동
     private func moveToProfile() {
-        let profileViewModel = ProfileSettingViewModel(navigationController: navigationController)
+        let profileViewModel = ProfileSettingViewModel(navigationController: navigationController, loginService: LoginService())
         let vc = ProfileSettingViewController(viewModel: profileViewModel)
         navigationController.pushViewController(vc, animated: true)
     }

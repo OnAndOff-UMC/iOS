@@ -64,12 +64,61 @@ final class LoginService: LoginProtocol {
     /// 로그인 API
     /// - Parameter request: Kakao, Apple에서 발급받는 Token
     /// - Returns:  Tokens
-    func signInService(request: KakaoLoginRequest) -> Observable<LoginResponse> {
-        let url = Domain.RESTAPI + LoginPath.signIn.rawValue
+    func validateKakaoTokenAndSendInfo(request: KakaoTokenValidationRequest) -> Observable<KakaoTokenValidationResponse> {
+        let url = Domain.RESTAPI + LoginPath.kakaoLogin.rawValue
+        let headers = Header.header.getHeader()
+
         return Observable.create { observer in
-            AF.request(url, method: .post, parameters: ["identityToken": request.identityToken, "accessToken": request.accessToken], encoder: JSONParameterEncoder.default)
+            print("🍎\(request)")
+            AF.request(url, method: .post,
+                       parameters: request,
+                       encoder: JSONParameterEncoder.default,
+                       headers: headers)
+                           .validate()
+                           .responseDecodable(of: KakaoTokenValidationResponse.self) { response in
+
+                               switch response.result {
+                                
+                               case .success(let data):
+                                   print("로그인 성공: \(response)")
+                                   observer.onNext(data)
+                                   observer.onCompleted()
+                                   
+                               case .failure(let error):
+                                   print("로그인 실패:")
+                                   observer.onError(error)
+                               }
+                           }
+                       return Disposables.create()
+        }
+    }
+    
+    /// 직업 정보 가져오기
+    func fetchJobOptions() -> Observable<ProfileOptionResponse> {
+        let url = Domain.RESTAPI + LoginPath.job.rawValue
+        return Observable.create { observer in
+            AF.request(url, method: .get)
                 .validate()
-                .responseDecodable(of: LoginResponse.self) { response in
+                .responseDecodable(of: ProfileOptionResponse.self) { response in
+                    switch response.result {
+                    case .success(let data):
+                        observer.onNext(data)
+                        observer.onCompleted()
+                    case .failure(let error):
+                        observer.onError(error)
+                    }
+                }
+            return Disposables.create()
+        }
+    }
+    
+    /// 연차 정보 가져오기
+    func fetchExperienceYearsOptions() -> Observable<ProfileOptionResponse> {
+        let url = Domain.RESTAPI + LoginPath.experienceYear.rawValue
+        return Observable.create { observer in
+            AF.request(url, method: .get)
+                .validate()
+                .responseDecodable(of: ProfileOptionResponse.self) { response in
                     switch response.result {
                     case .success(let data):
                         observer.onNext(data)

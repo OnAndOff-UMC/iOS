@@ -12,10 +12,31 @@ struct LoginRequest: Codable {
     let refreshToken: String
 }
 /// 카카오 로그인
-struct KakaoLoginRequest: Codable {
+struct KakaoTokenValidationRequest: Codable {
     let identityToken: String
     let accessToken: String
+    let additionalInfo: AdditionalInfo
 }
+struct AdditionalInfo: Codable {
+    let fieldOfWork: String
+    let job: String
+    let experienceYear: String
+}
+
+/// 카카오 로그인 결과 구조체
+struct KakaoTokenValidationResponse: Codable {
+    let isSuccess: Bool
+    let code: String
+    let message: String
+    let result: TokenResult
+}
+
+struct TokenResult: Codable {
+    let accessToken: String
+    let refreshToken: String
+}
+
+
  /// 애플 로그인 요청 구조체
 struct AppleLoginRequest: Codable {
     let oauthId: String
@@ -40,4 +61,10 @@ struct LoginResult: Codable {
     let refreshToken: String
 }
 
+struct ProfileOptionResponse: Codable {
+    let isSuccess: Bool
+    let code: String
+    let message: String
+    let result: [String]
+}
 
