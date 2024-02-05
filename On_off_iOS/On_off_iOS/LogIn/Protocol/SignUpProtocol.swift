@@ -7,10 +7,10 @@
 
 import Foundation
 import RxSwift
-
-protocol SignUpProtocol {
-    /// 회원가입할 떄 호출
-    /// - Parameter request: 서버에 보내는 회원가입 정보
-    /// - Returns: AccesToken, RefreshToken
-    func signUpService(request: KakaoLoginRequest) -> Observable<LoginResponse>
-}
+//
+//protocol SignUpProtocol {
+//    /// 회원가입할 떄 호출
+//    /// - Parameter request: 서버에 보내는 회원가입 정보
+//    /// - Returns: AccesToken, RefreshToken
+//    func validateKakaoTokenAndSendInfo(request: KakaoTokenValidationRequest) -> Observable<KakaoTokenValidationResponse>
+//}

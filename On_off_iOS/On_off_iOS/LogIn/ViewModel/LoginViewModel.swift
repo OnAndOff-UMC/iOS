@@ -18,7 +18,7 @@ final class LoginViewModel {
     private let disposeBag = DisposeBag()
     var navigationController: UINavigationController
     private var loginService: LoginService?
-
+    
     /// Input
     struct Input {
         let kakaoButtonTapped: Observable<ControlEvent<UITapGestureRecognizer>.Element>
@@ -27,7 +27,7 @@ final class LoginViewModel {
     struct Output {
         var checkSignInService: BehaviorRelay<String?> = BehaviorRelay(value: nil)
     }
-
+    
     // MARK: - Init
     init(navigationController: UINavigationController, loginService: LoginService) {
         self.navigationController = navigationController
@@ -40,7 +40,7 @@ final class LoginViewModel {
     /// - Returns: Output 구조체
     func bind(input: Input) -> Output {
         let output = createOutput(input: input)
-
+        
         return output
     }
     
@@ -52,81 +52,59 @@ final class LoginViewModel {
         let output = Output()
         input.kakaoButtonTapped
             .bind { [weak self] _ in
-            guard let self = self else {return}
-            print("called kakaoLogin")
-            kakaoLogin()
-        }
-        .disposed(by: disposeBag)
+                guard let self = self else {return}
+                print("called kakaoLogin")
+                kakaoLogin()
+            }
+            .disposed(by: disposeBag)
         return output
     }
-        // 서버 응답 처리
+    // 서버 응답 처리
     // MARK: - 카카오 로그인 로직
-         private func handleLoginResult(oauthToken: OAuthToken?, error: Error?) {
-          if let error = error {
-              print("Login Error: \(error.localizedDescription)")
-              return
-          }
-          
-          guard let oauthToken = oauthToken else { return }
-          // Keychain에 토큰 정보 저장
-          let saveSuccess = KeychainWrapper.saveItem(value: oauthToken.accessToken, forKey: LoginKeyChain.kakaoToken.rawValue)
-          
-          if saveSuccess {
-              moveToNickName()
-          } else {
-              print("Failed to kakaoToken")
-          }
-      }
-    
-    private func kakaoLogin() {
-         if UserApi.isKakaoTalkLoginAvailable() {
-             UserApi.shared.loginWithKakaoTalk(completion: { [weak self] (oauthToken, error) in
-                 self?.handleLoginResult(oauthToken: oauthToken, error: error)
-             })
-         } else {
-             UserApi.shared.loginWithKakaoAccount(completion: { [weak self] (oauthToken, error) in
-                 self?.handleLoginResult(oauthToken: oauthToken, error: error)
-             })
-         }
-     }
+    private func handleLoginResult(oauthToken: OAuthToken?, error: Error?) {
+        if let error = error {
+            print("Login Error: \(error.localizedDescription)")
+            return
+        }
+        
+        guard let oauthToken = oauthToken else { return }
+        // Keychain에 토큰 정보 저장
+        if let refreshToken = oauthToken.idToken {
+            let saveAccessTokenSuccess = KeychainWrapper.saveItem(value: oauthToken.accessToken, forKey: KakaoLoginKeyChain.accessToken.rawValue)
+            let saveIdTokenSuccess = KeychainWrapper.saveItem(value: oauthToken.idToken ?? "", forKey: KakaoLoginKeyChain.idToken.rawValue)
+            
+            // 저장 성공 여부 확인
+            if saveAccessTokenSuccess && saveIdTokenSuccess {
+                print("Access Token과 ID Token 저장 성공")
+                moveToNickName()
+            } else {
+                print("토큰 저장 실패")
+            }
+        }
+    }
 
-    
-//    // 서버로 토큰 정보 전송
-//    private func sendTokenToServer(identityToken: String, accessToken: String) {
-//           let request = KakaoLoginRequest(identityToken: identityToken, accessToken: accessToken)
-//        let signUpService = SignUpService()
-//           signUpService.signUpService(request: request)
-//               .subscribe(onNext: { [weak self] response in
-//                   if response.isSuccess {
-//                       // 사용자 정보가 있는경우 - 메인, 없으면 정보 입력페이지로 이동
-//                       if response.result.infoSet {
-//                           self?.moveToMain()
-//                       } else {
-//                           _ = KeychainWrapper.saveItem(value: response.result.accessToken, forKey: LoginKeyChain.accessToken.rawValue)
-//
-//                           self?.moveToNickName()
-//                       }
-//                   } else {
-//                       print("Login Failed: \(response.message)")
-//                       self?.moveToNickName()
-//
-//                   }
-//               }, onError: { error in
-//                   print("Error sending tokens to server: \(error)")
-//               })
-//               .disposed(by: disposeBag)
-//       }
-  
-    /// 닉네임 설정으로 이동
-    private func moveToNickName() {
-        let vc = NickNameViewController(viewModel: NickNameViewModel(navigationController: navigationController))
-        navigationController.pushViewController(vc, animated: true)
+private func kakaoLogin() {
+    if UserApi.isKakaoTalkLoginAvailable() {
+        UserApi.shared.loginWithKakaoTalk(completion: { [weak self] (oauthToken, error) in
+            self?.handleLoginResult(oauthToken: oauthToken, error: error)
+        })
+    } else {
+        UserApi.shared.loginWithKakaoAccount(completion: { [weak self] (oauthToken, error) in
+            self?.handleLoginResult(oauthToken: oauthToken, error: error)
+        })
     }
-    /// 메인 화면으로 이동
-    private func moveToMain() {
-        print("메인 이동")
-        let vc = NickNameViewController(viewModel: NickNameViewModel(navigationController: navigationController))
-        navigationController.pushViewController(vc, animated: true)
-    }
+}
+
+/// 닉네임 설정으로 이동
+private func moveToNickName() {
+    let vc = NickNameViewController(viewModel: NickNameViewModel(navigationController: navigationController))
+    navigationController.pushViewController(vc, animated: true)
+}
+/// 메인 화면으로 이동
+private func moveToMain() {
+    print("메인 이동")
+    let vc = NickNameViewController(viewModel: NickNameViewModel(navigationController: navigationController))
+    navigationController.pushViewController(vc, animated: true)
+}
 }
 

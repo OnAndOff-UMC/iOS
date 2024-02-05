@@ -31,7 +31,6 @@ final class ProfileSettingViewController: UIViewController {
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.lightGray.cgColor
         button.contentHorizontalAlignment = .left
-        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
         return button
     }()
     
@@ -67,6 +66,16 @@ final class ProfileSettingViewController: UIViewController {
         return field
     }()
     
+    /// 직업 - 글자수
+    private let checkLenghtJobLabel: UILabel = {
+        let label = UILabel()
+        label.text = "(0/30)"
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+        label.textColor = .lightGray
+        return label
+    }()
     /// 직업 - 밑줄
     private lazy var jobLine : UIView = {
         let lineView = UIView()
@@ -93,7 +102,6 @@ final class ProfileSettingViewController: UIViewController {
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.lightGray.cgColor
         button.contentHorizontalAlignment = .left
-        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
         return button
     }()
     
@@ -122,7 +130,8 @@ final class ProfileSettingViewController: UIViewController {
     
     private lazy var checkButtonView: UIView = {
         let view = UIView()
-        view.backgroundColor = .blue
+        view.layer.cornerRadius = 40
+        view.layer.masksToBounds = true
         return view
     }()
     
@@ -163,6 +172,7 @@ final class ProfileSettingViewController: UIViewController {
         
         view.addSubview(job)
         view.addSubview(jobTextField)
+        view.addSubview(checkLenghtJobLabel)
         view.addSubview(jobLine)
         
         view.addSubview(annual)
@@ -186,7 +196,7 @@ final class ProfileSettingViewController: UIViewController {
             make.top.equalTo(fieldOfWork.snp.bottom).offset(10)
             make.leading.equalToSuperview().inset(10)
             make.width.equalToSuperview().multipliedBy(0.8)
-            make.height.equalTo(fieldOfWorkButton.snp.width).multipliedBy(0.2)
+            make.height.equalTo(fieldOfWorkButton.snp.width).multipliedBy(0.1)
 
         }
         fieldOfWorkLine.snp.makeConstraints { make in
@@ -205,6 +215,12 @@ final class ProfileSettingViewController: UIViewController {
             make.leading.equalToSuperview().inset(10)
             make.width.equalToSuperview().multipliedBy(0.8)
         }
+        
+        checkLenghtJobLabel.snp.makeConstraints { make in
+            make.trailing.equalTo(jobLine.snp.trailing)
+            make.centerY.equalTo(jobTextField.snp.centerY)
+        }
+        
         jobLine.snp.makeConstraints { make in
             make.top.equalTo(jobTextField.snp.bottom).offset(8)
             make.leading.trailing.equalToSuperview().inset(10)
@@ -220,7 +236,7 @@ final class ProfileSettingViewController: UIViewController {
             make.top.equalTo(annual.snp.bottom).offset(10)
             make.leading.equalToSuperview().inset(10)
             make.width.equalToSuperview().multipliedBy(0.8)
-            make.height.equalTo(annualButton.snp.width).multipliedBy(0.2)
+            make.height.equalTo(annualButton.snp.width).multipliedBy(0.1)
 
         }
         annualLine.snp.makeConstraints { make in
@@ -247,7 +263,32 @@ final class ProfileSettingViewController: UIViewController {
     
     /// 뷰모델과 setupBindings
     private func setupBindings() {
-        let input = ProfileSettingViewModel.Input(startButtonTapped: checkButton.rx.tap.asObservable())
+        let input = ProfileSettingViewModel.Input(startButtonTapped: checkButton.rx.tap.asObservable(),
+                                                  jobTextChanged: jobTextField.rx.text.orEmpty.asObservable())
+        let output = viewModel.bind(input: input)
+        
+        /// 글자수 출력 바인딩
+        output.jobLength
+         .map { "(\($0)/30)" }
+            .bind(to: checkLenghtJobLabel.rx.text)
+            .disposed(by: disposeBag)
+   
+        // 버튼 활성화 상태 및 색상 변경 바인딩
+        output.isCheckButtonEnabled
+               .observe(on: MainScheduler.instance)
+               .bind { [weak self] isEnabled in
+                   self?.checkButton.isEnabled = isEnabled
+                   self?.checkButtonView.backgroundColor = isEnabled ? UIColor.blue : UIColor.lightGray
+               }
+               .disposed(by: disposeBag)
+        
+        checkButton.rx.tap
+            .bind { [weak self] in
+                if let job = self?.jobTextField.text {
+                    _ = KeychainWrapper.saveItem(value: job, forKey: ProfileKeyChain.job.rawValue)
+                }
+            }
+            .disposed(by: disposeBag)
         
             fieldOfWorkButton.rx.tap
                 .subscribe(onNext: { [weak self] _ in
@@ -260,8 +301,6 @@ final class ProfileSettingViewController: UIViewController {
                     self?.presentModalForProfileSetting(dataType: .experienceYear)
                 })
                 .disposed(by: disposeBag)
-        viewModel.bind(input: input)
-
     }
     
     /// 이모티콘 모달 띄우기
@@ -280,13 +319,17 @@ final class ProfileSettingViewController: UIViewController {
     }
 
 }
+
 extension ProfileSettingViewController: ModalSelectProfileDelegate {
     func optionSelected(data: String, dataType: ProfileDataType) {
         switch dataType {
         case .fieldOfWork:
             self.fieldOfWorkButton.setTitle(data, for: .normal)
+            _ = KeychainWrapper.saveItem(value: data, forKey: ProfileKeyChain.fieldOfWork.rawValue)
         case .experienceYear:
             self.annualButton.setTitle(data, for: .normal)
+            _ = KeychainWrapper.saveItem(value: data, forKey: ProfileKeyChain.experienceYear.rawValue)
+
         }
     }
 }
