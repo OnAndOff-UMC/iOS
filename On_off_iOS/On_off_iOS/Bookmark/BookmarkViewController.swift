@@ -29,6 +29,7 @@ final class BookmarkViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
@@ -59,7 +60,7 @@ final class BookmarkViewController: UIViewController {
     
     /// 뷰모델과 setupBindings
     private func setupBindings() {
-        // 셀이 선택되었을 때의 아이템 정보를 기반으로 Observable을 생성합니다.
+
         let cellTapped = tableView.rx.itemSelected
             .map { [unowned self] indexPath -> Item in
                 try! self.tableView.rx.model(at: indexPath)

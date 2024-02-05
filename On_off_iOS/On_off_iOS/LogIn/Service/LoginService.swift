@@ -82,6 +82,8 @@ final class LoginService: LoginProtocol {
                                case .success(let data):
                                    print("로그인 성공: \(response)")
                                    observer.onNext(data)
+                                   _ = KeychainWrapper.saveItem(value: data.result.accessToken, forKey: LoginKeyChain.accessToken.rawValue)
+
                                    observer.onCompleted()
                                    
                                case .failure(let error):

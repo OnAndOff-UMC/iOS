@@ -34,7 +34,7 @@ final class DayButton: UIButton {
     private func setupUI() {
         self.layer.cornerRadius = 5
         self.backgroundColor = UIColor.lightGray
-        self.setTitleColor(.white, for: .normal)
+        self.setTitleColor(.black, for: .normal)
     }
 
     /// 버튼 클릭 bind
@@ -50,6 +50,8 @@ final class DayButton: UIButton {
 
     /// 버튼 클릭시 토글적용 업데이트
     private func updateUI() {
-        self.backgroundColor = dayModel.isChecked ? UIColor.purple : UIColor.lightGray
+        self.backgroundColor = dayModel.isChecked ? .OnOffMain : .lightGray
+        self.setTitleColor(dayModel.isChecked ? .white : .black, for: .normal)
+
     }
 }

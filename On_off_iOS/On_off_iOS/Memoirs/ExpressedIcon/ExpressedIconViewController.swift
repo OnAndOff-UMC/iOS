@@ -61,7 +61,7 @@ final class ExpressedIconViewController: UIViewController {
     /// 확인 버튼 뷰
     private lazy var saveButtonView: UIView = {
         let view = UIView()
-        view.backgroundColor = .blue
+        view.backgroundColor = .OnOffMain
         return view
     }()
     
@@ -83,9 +83,14 @@ final class ExpressedIconViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        settingView()
         addSubviews()
         setupBindings()
         settingCheckButtonView()
+    }
+    
+    private func settingView(){
+        view.backgroundColor = .OnOffLightMain
     }
     
     /// 확인 버튼 속성 설정
@@ -132,10 +137,12 @@ final class ExpressedIconViewController: UIViewController {
             make.leading.trailing.equalToSuperview().inset(10)
             make.height.equalTo(view.snp.height).multipliedBy(0.3)
         }
+        
         emoticonImage.snp.makeConstraints { make in
             make.center.equalTo(textpageImage.snp.center)
             make.height.width.equalTo(textpageImage.snp.height).multipliedBy(0.8)
         }
+        
         saveButtonView.snp.makeConstraints { make in
             make.bottom.equalToSuperview().inset(50)
             make.width.equalTo(view.snp.width).multipliedBy(0.8)

@@ -87,7 +87,7 @@ final class WritePraisedViewController: UIViewController {
     /// 확인 버튼 뷰
     private lazy var checkButtonView: UIView = {
         let view = UIView()
-        view.backgroundColor = .blue
+        view.backgroundColor = .OnOffMain
         return view
     }()
     
@@ -109,9 +109,14 @@ final class WritePraisedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        settingView()
         addSubviews()
         settingCheckButtonView()
         setupBindings()        
+    }
+    
+    private func settingView(){
+        view.backgroundColor = .OnOffLightMain
     }
     
     /// 확인 버튼 속성 설정

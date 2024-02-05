@@ -40,7 +40,7 @@ final class CustomPageControl: UIView {
     private func updateDotStyles() {
         for (index, dot) in dotViews.enumerated() {
             if index == currentPage {
-                dot.backgroundColor = .gray
+                dot.backgroundColor = UIColor.OnOffMain
                 dot.frame.size = activeDotSize
                 dot.layer.cornerRadius = activeDotSize.height / 2
                 continue

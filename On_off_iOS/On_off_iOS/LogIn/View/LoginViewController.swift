@@ -20,9 +20,18 @@ final class LoginViewController: UIViewController {
         label.numberOfLines = 0
         label.textAlignment = .left
         label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
+        label.textColor = .white
         return label
     }()
     
+    /// 이미지뷰 생성 및 설정
+    private lazy var decorateImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "온보딩시작")
+        imageView.contentMode = .scaleAspectFit
+        imageView.isUserInteractionEnabled = true
+        return imageView
+    }()
     /// 카카오 로그인 이미지뷰 생성 및 설정
     private lazy var kakaoLoginImageView: UIImageView = {
         let imageView = UIImageView()
@@ -47,8 +56,8 @@ final class LoginViewController: UIViewController {
     private let termsLabel: UILabel = {
         let label = UILabel()
         label.text = "이용약관 및 개인정보 처리방침"
-        label.font = UIFont.systemFont(ofSize: 16)
-        label.textColor = .lightGray
+        label.font = UIFont.systemFont(ofSize: 10)
+        label.textColor = .white
         return label
     }()
     
@@ -71,14 +80,18 @@ final class LoginViewController: UIViewController {
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        settingUI()
         addSubviews()
         setupBindings()
     }
     
+    private func settingUI(){
+        view.backgroundColor = UIColor.OnOffMain
+    }
     /// addSubviews
     private func addSubviews(){
         view.addSubview(welcomeLabel)
+        view.addSubview(decorateImageView)
         view.addSubview(kakaoLoginImageView)
         view.addSubview(appleLoginImageView)
         view.addSubview(termsLabel)
@@ -92,10 +105,13 @@ final class LoginViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide).offset(100)
             make.leading.equalToSuperview().offset(50)
         }
-        
+        decorateImageView.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.height.width.equalTo(view.snp.width).multipliedBy(0.8)
+        }
         kakaoLoginImageView.snp.makeConstraints { make in
-            make.centerY.equalToSuperview().offset(50)
             make.centerX.equalToSuperview()
+            make.top.equalTo(decorateImageView.snp.bottom).offset(-20)
             make.width.equalToSuperview().multipliedBy(0.8)
             make.height.equalTo(kakaoLoginImageView.snp.width).multipliedBy(0.18)
         }
@@ -107,11 +123,9 @@ final class LoginViewController: UIViewController {
         }
         
         termsLabel.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().inset(20)
-            make.height.equalTo(view.snp.width).multipliedBy(0.1)
+            make.top.equalTo(appleLoginImageView.snp.bottom).offset(20)
             make.centerX.equalToSuperview()
         }
-        
     }
     
     /// 애플 로그인 과정을 시작
@@ -131,7 +145,6 @@ final class LoginViewController: UIViewController {
     private func setupBindings() {
         let input = LoginViewModel.Input(
             kakaoButtonTapped: kakaoLoginImageView.rx.tapGesture().when(.recognized).asObservable()
-            //appleButtonTapped: appleLoginImageView.rx.tapGesture().when(.recognized).asObservable()
         )
         
         // ViewModel bind 호출하고 output 받기

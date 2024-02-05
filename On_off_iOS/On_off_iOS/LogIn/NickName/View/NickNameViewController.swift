@@ -14,19 +14,34 @@ final class NickNameViewController: UIViewController {
     
     private let welcomeLabel: UILabel = {
         let label = UILabel()
-        label.text = "일의 성장과\n삶의 밸런스를 위한\n준비를 시작해볼까요?"
         label.numberOfLines = 0
         label.textAlignment = .left
         label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
+        
+        label.attributedText = .createAttributedText(
+            mainText: "일의 성장과\n삶의 밸런스를 위한\n준비를 시작해볼까요?",
+            highlightTexts: ["삶의 밸런스"],
+            attributes: [
+                .foregroundColor: UIColor.OnOffMain,
+                .font: UIFont.boldSystemFont(ofSize: 24)
+            ]
+        )
         return label
     }()
     
     /// 닉네임 관련
     private let nickNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "닉네임을 설정해주세요"
         label.textColor = .black
         label.font = .systemFont(ofSize: 20, weight: .bold)
+        label.attributedText = .createAttributedText(
+            mainText: "닉네임을 설정해주세요",
+            highlightTexts: ["닉네임"],
+            attributes: [
+                .foregroundColor: UIColor.OnOffMain,
+                .font: UIFont.boldSystemFont(ofSize: 20)
+            ]
+        )
         return label
     }()
     
@@ -77,8 +92,6 @@ final class NickNameViewController: UIViewController {
     
     private lazy var checkButtonView: UIView = {
         let view = UIView()
-        view.layer.cornerRadius = 40
-        view.layer.masksToBounds = true
         return view
     }()
     
@@ -100,8 +113,21 @@ final class NickNameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        settingView()
         addSubviews()
         setupBindings()
+    }
+    private func settingView(){
+        view.backgroundColor = .white
+        
+        /// 버튼 테두리 설정
+        setupcheckButtonView()
+    }
+    /// 버튼 테두리 설정
+    private func setupcheckButtonView(){
+        let cornerRadius = UICalculator.calculate(for: .longButtonCornerRadius, width: view.frame.width)
+        checkButtonView.layer.cornerRadius = cornerRadius
+        checkButtonView.layer.masksToBounds = true
     }
     
     /// addSubviews
@@ -177,8 +203,13 @@ final class NickNameViewController: UIViewController {
         output.isCheckButtonEnabled
                .observe(on: MainScheduler.instance)
                .bind { [weak self] isEnabled in
-                   self?.checkButton.isEnabled = isEnabled
-                   self?.checkButtonView.backgroundColor = isEnabled ? UIColor.blue : UIColor.lightGray
+                   guard let self = self else { return }
+                   checkButton.isEnabled = isEnabled
+                   checkButtonView.layer.borderColor = UIColor.OnOffMain.cgColor
+                   checkButtonView.layer.borderWidth = 1
+
+                   checkButtonView.backgroundColor = isEnabled ? UIColor.OnOffMain : .white
+                   checkButton.setTitleColor(isEnabled ? .white : UIColor.OnOffMain, for: .normal)
                }
                .disposed(by: disposeBag)
     }

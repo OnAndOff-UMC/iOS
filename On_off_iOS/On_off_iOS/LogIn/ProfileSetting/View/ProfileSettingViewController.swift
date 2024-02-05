@@ -27,17 +27,23 @@ final class ProfileSettingViewController: UIViewController {
         button.setTitle("선택해 주세요", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .clear
-        button.layer.cornerRadius = 10
-        button.layer.borderWidth = 1
+        button.layer.borderWidth = 0
         button.layer.borderColor = UIColor.lightGray.cgColor
         button.contentHorizontalAlignment = .left
         return button
     }()
     
+    private lazy var fieldOfWorkDownImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "chevron.down")
+        imageView.tintColor = .black
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
     /// 업무분야 - 밑줄
     private lazy var fieldOfWorkLine: UIView = {
         let lineView = UIView()
-        lineView.backgroundColor = .black
+        lineView.backgroundColor = .OnOffMain
         return lineView
     }()
     
@@ -79,7 +85,7 @@ final class ProfileSettingViewController: UIViewController {
     /// 직업 - 밑줄
     private lazy var jobLine : UIView = {
         let lineView = UIView()
-        lineView.backgroundColor = .black
+        lineView.backgroundColor = .OnOffMain
         return lineView
     }()
     
@@ -98,17 +104,24 @@ final class ProfileSettingViewController: UIViewController {
         button.setTitle("선택해 주세요", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .clear
-        button.layer.cornerRadius = 10
-        button.layer.borderWidth = 1
+        button.layer.borderWidth = 0
         button.layer.borderColor = UIColor.lightGray.cgColor
         button.contentHorizontalAlignment = .left
         return button
     }()
     
+    private lazy var annualDownImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "chevron.down")
+        imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = .black
+        return imageView
+    }()
+    
     /// 연차 - 밑줄
     private lazy var annualLine: UIView = {
         let lineView = UIView()
-        lineView.backgroundColor = .black
+        lineView.backgroundColor = .OnOffMain
         return lineView
     }()
     
@@ -130,8 +143,6 @@ final class ProfileSettingViewController: UIViewController {
     
     private lazy var checkButtonView: UIView = {
         let view = UIView()
-        view.layer.cornerRadius = 40
-        view.layer.masksToBounds = true
         return view
     }()
     
@@ -152,11 +163,23 @@ final class ProfileSettingViewController: UIViewController {
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        
+        settingView()
         addSubviews()
         setupBindings()
     }
+    private func settingView(){
+        view.backgroundColor = UIColor.white
+        setupCheckButtonView()
+        
+    }
     
+    /// 시작  버튼 속성 설정
+    private func setupCheckButtonView(){
+        let cornerRadius = UICalculator.calculate(for: .longButtonCornerRadius, width: view.frame.width)
+        checkButtonView.layer.cornerRadius = cornerRadius
+        checkButtonView.layer.masksToBounds = true
+    }
     // 키보드내리기
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
@@ -168,6 +191,7 @@ final class ProfileSettingViewController: UIViewController {
         
         view.addSubview(fieldOfWork)
         view.addSubview(fieldOfWorkButton)
+        view.addSubview(fieldOfWorkDownImage)
         view.addSubview(fieldOfWorkLine)
         
         view.addSubview(job)
@@ -177,6 +201,7 @@ final class ProfileSettingViewController: UIViewController {
         
         view.addSubview(annual)
         view.addSubview(annualButton)
+        view.addSubview(annualDownImage)
         view.addSubview(annualLine)
         
         view.addSubview(nickNameExplainLabel)
@@ -193,12 +218,18 @@ final class ProfileSettingViewController: UIViewController {
             make.leading.equalToSuperview().offset(10)
         }
         fieldOfWorkButton.snp.makeConstraints { make in
-            make.top.equalTo(fieldOfWork.snp.bottom).offset(10)
-            make.leading.equalToSuperview().inset(10)
+            make.top.equalTo(fieldOfWork.snp.bottom).offset(18)
+            make.leading.trailing.equalToSuperview().inset(10)
             make.width.equalToSuperview().multipliedBy(0.8)
             make.height.equalTo(fieldOfWorkButton.snp.width).multipliedBy(0.1)
-
         }
+        
+        fieldOfWorkDownImage.snp.makeConstraints { make in
+            make.centerY.equalTo(fieldOfWorkButton.snp.centerY)
+            make.height.width.equalTo(fieldOfWorkButton.snp.height).multipliedBy(0.8)
+            make.trailing.equalToSuperview().inset(10)
+        }
+        
         fieldOfWorkLine.snp.makeConstraints { make in
             make.top.equalTo(fieldOfWorkButton.snp.bottom).offset(8)
             make.leading.trailing.equalToSuperview().inset(10)
@@ -211,8 +242,8 @@ final class ProfileSettingViewController: UIViewController {
             make.leading.equalToSuperview().offset(10)
         }
         jobTextField.snp.makeConstraints { make in
-            make.top.equalTo(job.snp.bottom).offset(10)
-            make.leading.equalToSuperview().inset(10)
+            make.top.equalTo(job.snp.bottom).offset(18)
+            make.leading.trailing.equalToSuperview().inset(10)
             make.width.equalToSuperview().multipliedBy(0.8)
         }
         
@@ -233,12 +264,18 @@ final class ProfileSettingViewController: UIViewController {
             make.leading.equalToSuperview().offset(10)
         }
         annualButton.snp.makeConstraints { make in
-            make.top.equalTo(annual.snp.bottom).offset(10)
+            make.top.equalTo(annual.snp.bottom).offset(18)
             make.leading.equalToSuperview().inset(10)
             make.width.equalToSuperview().multipliedBy(0.8)
             make.height.equalTo(annualButton.snp.width).multipliedBy(0.1)
-
+            
         }
+        annualDownImage.snp.makeConstraints { make in
+            make.centerY.equalTo(annualButton.snp.centerY)
+            make.height.width.equalTo(annualButton.snp.height).multipliedBy(0.8)
+            make.trailing.equalToSuperview().inset(10)
+        }
+        
         annualLine.snp.makeConstraints { make in
             make.top.equalTo(annualButton.snp.bottom).offset(8)
             make.leading.trailing.equalToSuperview().inset(10)
@@ -255,8 +292,8 @@ final class ProfileSettingViewController: UIViewController {
             make.height.equalTo(checkButtonView.snp.width).multipliedBy(0.15)
             make.leading.trailing.equalToSuperview().inset(17)
             
-        checkButton.snp.makeConstraints { make in
-            make.center.equalToSuperview()
+            checkButton.snp.makeConstraints { make in
+                make.center.equalToSuperview()
             }
         }
     }
@@ -269,18 +306,23 @@ final class ProfileSettingViewController: UIViewController {
         
         /// 글자수 출력 바인딩
         output.jobLength
-         .map { "(\($0)/30)" }
+            .map { "(\($0)/30)" }
             .bind(to: checkLenghtJobLabel.rx.text)
             .disposed(by: disposeBag)
-   
+        
         // 버튼 활성화 상태 및 색상 변경 바인딩
         output.isCheckButtonEnabled
-               .observe(on: MainScheduler.instance)
-               .bind { [weak self] isEnabled in
-                   self?.checkButton.isEnabled = isEnabled
-                   self?.checkButtonView.backgroundColor = isEnabled ? UIColor.blue : UIColor.lightGray
-               }
-               .disposed(by: disposeBag)
+            .observe(on: MainScheduler.instance)
+            .bind { [weak self] isEnabled in
+                guard let self = self else { return }
+                checkButton.isEnabled = isEnabled
+                checkButtonView.layer.borderColor = UIColor.OnOffMain.cgColor
+                checkButtonView.layer.borderWidth = 1
+                
+                checkButtonView.backgroundColor = isEnabled ? UIColor.OnOffMain : .white
+                checkButton.setTitleColor(isEnabled ? .white : UIColor.OnOffMain, for: .normal)
+            }
+            .disposed(by: disposeBag)
         
         checkButton.rx.tap
             .bind { [weak self] in
@@ -290,17 +332,17 @@ final class ProfileSettingViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
-            fieldOfWorkButton.rx.tap
-                .subscribe(onNext: { [weak self] _ in
-                    self?.presentModalForProfileSetting(dataType: .fieldOfWork)
-                })
-                .disposed(by: disposeBag)
-            
-            annualButton.rx.tap
-                .subscribe(onNext: { [weak self] _ in
-                    self?.presentModalForProfileSetting(dataType: .experienceYear)
-                })
-                .disposed(by: disposeBag)
+        fieldOfWorkButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.presentModalForProfileSetting(dataType: .fieldOfWork)
+            })
+            .disposed(by: disposeBag)
+        
+        annualButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.presentModalForProfileSetting(dataType: .experienceYear)
+            })
+            .disposed(by: disposeBag)
     }
     
     /// 이모티콘 모달 띄우기
@@ -308,7 +350,7 @@ final class ProfileSettingViewController: UIViewController {
         let viewModel = ModalSelectProfileViewModel()
         let modalSelectProfileViewController = ModalSelectProfileViewController(viewModel: viewModel, dataType: dataType)
         modalSelectProfileViewController.delegate = self
-
+        
         if #available(iOS 15.0, *) {
             if let sheet = modalSelectProfileViewController.sheetPresentationController {
                 sheet.detents = [.medium()]
@@ -317,7 +359,7 @@ final class ProfileSettingViewController: UIViewController {
         }
         present(modalSelectProfileViewController, animated: true, completion: nil)
     }
-
+    
 }
 
 extension ProfileSettingViewController: ModalSelectProfileDelegate {
@@ -329,7 +371,7 @@ extension ProfileSettingViewController: ModalSelectProfileDelegate {
         case .experienceYear:
             self.annualButton.setTitle(data, for: .normal)
             _ = KeychainWrapper.saveItem(value: data, forKey: ProfileKeyChain.experienceYear.rawValue)
-
+            
         }
     }
 }

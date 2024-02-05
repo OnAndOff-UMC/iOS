@@ -38,7 +38,7 @@ final class OnBoardingViewController : UIViewController {
     /// 다음, 건너뛰기 버튼아래 뷰
     private lazy var buttonView: UIView = {
         let view = UIView()
-        view.backgroundColor = .blue
+        view.backgroundColor = UIColor.OnOffMain
         return view
     }()
     
@@ -82,15 +82,14 @@ final class OnBoardingViewController : UIViewController {
     private func setupUI(){
         view.backgroundColor = .white
         navigationController?.navigationBar.isHidden = true
-        
     }
     
     /// 온보딩 뷰들을 설정
     private func setupOnboardingViews(in contentView: UIView) {
-         let onboardingData: [OnboardingItem] = [
-            OnboardingItem(imageName: "온보딩1", text: "퇴근길 회고하며 이제\n일에서 완전히 로그아웃하세요"),
-            OnboardingItem(imageName: "온보딩2", text: "왜 자꾸 실수할까?\n쌓인 회고들이 나를 성장시킬거예요"),
-            OnboardingItem(imageName: "온보딩3", text: "on & off로\n일과 삶의 밸런스를 관리해요!")
+        let onboardingData: [(imageName: String, text: NSAttributedString)] = [
+            (imageName: "온보딩1", text: createAttributedText(for: "퇴근길 회고하며 이제\n일에서 완전히 로그아웃하세요", highlightWords: [("회고", UIColor.OnOffMain, UIFont.boldSystemFont(ofSize: 22)), ("로그아웃", UIColor.OnOffMain, UIFont.boldSystemFont(ofSize: 22))])),
+            (imageName: "온보딩2", text: createAttributedText(for: "왜 자꾸 실수할까?\n쌓인 회고들이 나를 성장시킬거예요", highlightWords: [("성장", UIColor.OnOffMain,UIFont.boldSystemFont(ofSize: 22))])),
+            (imageName: "온보딩3", text: createAttributedText(for: "ON&OFF로\n일과 삶의 밸런스를 관리해요!", highlightWords: [("ON&OFF", UIColor.OnOffMain, UIFont.boldSystemFont(ofSize: 22)), ("밸런스", UIColor.OnOffMain, UIFont.boldSystemFont(ofSize: 22))]))
         ]
         
         /// 이전 뷰 추적함
@@ -223,7 +222,7 @@ final class OnBoardingViewController : UIViewController {
                 self.jumpButton.isHidden = true
             }
             
-            let buttonTitle = page == self.totalPages - 1 ? "시작하기" : "다음"
+            let buttonTitle = page == self.totalPages - 1 ? "온앤오프 시작하기" : "다음"
             self.nextButton.setTitle(buttonTitle, for: .normal)
             
             let xOffset = CGFloat(page) * self.view.frame.width

@@ -53,7 +53,7 @@ final class MemoirsViewController: UIViewController {
         let button = UIButton()
         button.setImage(UIImage(systemName: "plus"), for: .normal)
         button.tintColor = .white
-        button.backgroundColor = .purple
+        button.backgroundColor = .OnOffMain
         button.layer.cornerRadius = 25
         button.layer.masksToBounds = true
         return button
@@ -90,10 +90,11 @@ final class MemoirsViewController: UIViewController {
     }()
     
     /// 오늘 배운 점 View
-    private lazy var learnedView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .lightGray
-        return view
+    private lazy var learnedView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "회고록글보기이미지")
+        imageView.contentMode = .scaleAspectFit
+        return imageView
     }()
     
     /// 칭찬할 점 label
@@ -105,11 +106,12 @@ final class MemoirsViewController: UIViewController {
     }()
     
     /// 칭찬할 점 View
-    private lazy var praisedView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .lightGray
-        return view
-    }()
+        private lazy var praisedView: UIImageView = {
+            let imageView = UIImageView()
+            imageView.image = UIImage(named: "회고록글보기이미지")
+            imageView.contentMode = .scaleAspectFit
+            return imageView
+        }()
     
     /// 개선할 점 label
     private lazy var improvementLabel: UILabel = {
@@ -120,11 +122,12 @@ final class MemoirsViewController: UIViewController {
     }()
     
     /// 개선할 점 View
-    private lazy var improvementView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .lightGray
-        return view
-    }()
+        private lazy var improvementView: UIImageView = {
+            let imageView = UIImageView()
+            imageView.image = UIImage(named: "회고록글보기이미지")
+            imageView.contentMode = .scaleAspectFit
+            return imageView
+        }()
     
     private var viewModel: MemoirsViewModel
     private let disposeBag = DisposeBag()
@@ -148,11 +151,9 @@ final class MemoirsViewController: UIViewController {
         setupBindings()
     }
     
- 
-
     /// 화면 설정 관련 함수
     private func setupView(){
-        view.backgroundColor = .white
+        view.backgroundColor = .OnOffLightMain
     }
     
     /// addSubviews
