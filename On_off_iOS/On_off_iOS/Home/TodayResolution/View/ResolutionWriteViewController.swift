@@ -37,8 +37,10 @@ final class ResolutionWriteViewController: UIViewController {
         button.rx.tap
             .subscribe(onNext: { [weak self] in
                 print("메뉴 로직 구현")
+                
             })
             .disposed(by: disposeBag)
+        
         return button
     }()
     
@@ -90,12 +92,13 @@ final class ResolutionWriteViewController: UIViewController {
         
         navigationItem.leftBarButtonItem = backButton
         navigationItem.titleView = titleLabel
-
+        
         
         view.backgroundColor = .white
         addSubViews()
         constraints()
         setupNavigationBar()
+        setupBindings()
     }
     
     /// Add SubViews
@@ -109,7 +112,7 @@ final class ResolutionWriteViewController: UIViewController {
     
     /// Set Constraints
     private func constraints() {
-                
+        
         contentView.snp.makeConstraints { make in
             make.top.bottom.leading.trailing.equalToSuperview()
         }
@@ -131,7 +134,38 @@ final class ResolutionWriteViewController: UIViewController {
     private func setupNavigationBar() {
         navigationItem.rightBarButtonItems = [menuButton]
     }
+    /// 뷰모델과 setupBindings
+    private func setupBindings() {
+        let input = ResolutionWriteViewModel.Input(backButton: backButton.rx.tap.asObservable(),
+                                                   menuButton: menuButton.rx.tap.asObservable())
+        
+        let _ = viewModel.bind(input: input)
+        
+        viewModel.showMenuModal
+            .subscribe(onNext: { [weak self] in
+                self?.showMenuModal()
+            })
+            .disposed(by: disposeBag)
+    }
     
-    
+    private func showMenuModal() {
+        guard let navigationController = navigationController else {
+            print("Error: navigationController is nil")
+            return
+        }
+
+        let menuModalVC = MenuModalViewController(viewModel: MenuModalViewModel(navigationController: navigationController))
+        menuModalVC.modalPresentationStyle = .pageSheet
+        
+        // Set sheet detents and other properties
+        if let presentationController = menuModalVC.presentationController as? UISheetPresentationController {
+            presentationController.detents = [.medium()]
+            presentationController.prefersGrabberVisible = true
+            presentationController.prefersScrollingExpandsWhenScrolledToEdge = false
+        }
+
+        present(menuModalVC, animated: true, completion: nil)
+    }
+
     
 }

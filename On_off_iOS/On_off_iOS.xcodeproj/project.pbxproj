@@ -20,6 +20,8 @@
 		355283142B68CC94002BBFFD /* Ext + UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355283132B68CC94002BBFFD /* Ext + UIColor.swift */; };
 		3584F3AC2B5A5CC7007ACB57 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		3584F3AE2B5A5FEB007ACB57 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		359395F32B70A60A005C706C /* MenuModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359395F22B70A60A005C706C /* MenuModalViewController.swift */; };
+		359395F72B70AD07005C706C /* MenuModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359395F62B70AD07005C706C /* MenuModalViewModel.swift */; };
 		35AC0F502B64025300AB0A6B /* TabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35AC0F4F2B64025300AB0A6B /* TabItem.swift */; };
 		35AC0F522B64030400AB0A6B /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35AC0F512B64030400AB0A6B /* TabBarController.swift */; };
 		374FD4932B4268EC00F2E645 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 374FD4922B4268EC00F2E645 /* RxCocoa */; };
@@ -79,6 +81,8 @@
 		3543D0F32B6F6C86008BC111 /* ResolutionWriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolutionWriteViewModel.swift; sourceTree = "<group>"; };
 		355283112B68CB70002BBFFD /* Ext + UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext + UIFont.swift"; sourceTree = "<group>"; };
 		355283132B68CC94002BBFFD /* Ext + UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext + UIColor.swift"; sourceTree = "<group>"; };
+		359395F22B70A60A005C706C /* MenuModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuModalViewController.swift; sourceTree = "<group>"; };
+		359395F62B70AD07005C706C /* MenuModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuModalViewModel.swift; sourceTree = "<group>"; };
 		35AC0F4F2B64025300AB0A6B /* TabItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItem.swift; sourceTree = "<group>"; };
 		35AC0F512B64030400AB0A6B /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		35E0C7292B68C7E3006BF427 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
@@ -171,6 +175,7 @@
 			children = (
 				3543D0EC2B6D2AD4008BC111 /* TodayResolutionViewModel.swift */,
 				3543D0F32B6F6C86008BC111 /* ResolutionWriteViewModel.swift */,
+				359395F62B70AD07005C706C /* MenuModalViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -180,6 +185,7 @@
 			children = (
 				3543D0EE2B6D2AE4008BC111 /* TodayResolutionViewController.swift */,
 				3543D0F12B6F5FF0008BC111 /* ResolutionWriteViewController.swift */,
+				359395F22B70A60A005C706C /* MenuModalViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -672,6 +678,7 @@
 				3543D0E52B6D27FB008BC111 /* DayCollectionViewCell.swift in Sources */,
 				355283122B68CB70002BBFFD /* Ext + UIFont.swift in Sources */,
 				355283142B68CC94002BBFFD /* Ext + UIColor.swift in Sources */,
+				359395F72B70AD07005C706C /* MenuModalViewModel.swift in Sources */,
 				3543D0DF2B6D26E2008BC111 /* On.swift in Sources */,
 				3543D0E12B6D2727008BC111 /* OnViewModel.swift in Sources */,
 				3769A6862B58563000D79C33 /* SelectTimeViewModel.swift in Sources */,
@@ -698,6 +705,7 @@
 				3787D0112B42E0B100F054DD /* LoginViewModel.swift in Sources */,
 				3787D00A2B429F1700F054DD /* LaunchViewController.swift in Sources */,
 				3BD552682B58FCF70043920E /* CalendarCell.swift in Sources */,
+				359395F32B70A60A005C706C /* MenuModalViewController.swift in Sources */,
 				35AC0F522B64030400AB0A6B /* TabBarController.swift in Sources */,
 				3543D0EF2B6D2AE4008BC111 /* TodayResolutionViewController.swift in Sources */,
 				3BD552662B58FA8C0043920E /* RateFillView.swift in Sources */,
