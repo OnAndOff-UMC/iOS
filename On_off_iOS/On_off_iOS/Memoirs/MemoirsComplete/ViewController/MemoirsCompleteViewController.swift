@@ -26,6 +26,7 @@ final class MemoirsCompleteViewController: UIViewController {
         label.numberOfLines = 0
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        label.textColor = .white
         return label
     }()
     
@@ -48,7 +49,7 @@ final class MemoirsCompleteViewController: UIViewController {
     /// 확인 버튼 뷰
     private lazy var saveButtonView: UIView = {
         let view = UIView()
-        view.backgroundColor = .blue
+        view.backgroundColor = .OnOffLightMain
         return view
     }()
     
@@ -70,9 +71,14 @@ final class MemoirsCompleteViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        setupUI()
         addSubviews()
         setupBindings()
         settingCheckButtonView()
+    }
+    
+    private func setupUI() {
+        view.backgroundColor = .OnOffMain
     }
     
     /// 확인 버튼 속성 설정

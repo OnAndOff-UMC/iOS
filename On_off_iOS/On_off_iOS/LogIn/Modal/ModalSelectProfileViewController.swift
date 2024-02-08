@@ -12,10 +12,18 @@ import UIKit
 
 final class ModalSelectProfileViewController: UIViewController {
     
+    private lazy var label: UILabel = {
+        let label = UILabel()
+        label.textColor = .OnOffMain
+        label.font = .systemFont(ofSize: 20, weight: .bold)
+        return label
+    }()
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .white
         tableView.register(ModalSelectProfileTableViewCell.self, forCellReuseIdentifier: CellIdentifier.ModalSelectProfileTableViewCell.rawValue)
+        tableView.separatorStyle = .none
         return tableView
     }()
     
@@ -50,12 +58,18 @@ final class ModalSelectProfileViewController: UIViewController {
     /// setupViews
     private func setupViews() {
         view.backgroundColor = .white
+        view.addSubview(label)
         view.addSubview(tableView)
     }
     
     private func setupConstraints() {
+        
+        label.snp.makeConstraints { make in
+            make.top.leading.equalToSuperview().inset(30)
+        }
         tableView.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(10)
+            make.top.equalTo(label.snp.bottom).offset(20)
+            make.leading.trailing.bottom.equalToSuperview().inset(20)
         }
     }
     
@@ -68,7 +82,11 @@ final class ModalSelectProfileViewController: UIViewController {
                 cell.configure(with: element)
             }
             .disposed(by: disposeBag)
-
+        
+        output.labelText
+               .bind(to: label.rx.text)
+               .disposed(by: disposeBag)
+        
         tableView.rx.modelSelected(String.self)
             .bind { [weak self] selectedOption in
                 self?.delegate?.optionSelected(data: selectedOption, dataType: self?.dataType ?? .fieldOfWork)

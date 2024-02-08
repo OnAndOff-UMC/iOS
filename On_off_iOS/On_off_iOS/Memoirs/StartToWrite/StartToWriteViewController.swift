@@ -40,6 +40,7 @@ final class StartToWriteViewController: UIViewController {
         label.numberOfLines = 0
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        label.textColor = .white
         return label
     }()
     
@@ -48,13 +49,15 @@ final class StartToWriteViewController: UIViewController {
         let button = UIButton(type: .system)
         button.setTitle("시작하기", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+        button.titleLabel?.tintColor = .white
+
         return button
     }()
     
     /// 시작하기 버튼 뷰
     private lazy var startButtonView: UIView = {
         let view = UIView()
-        view.backgroundColor = .blue
+        view.backgroundColor = UIColor.OnOffMain
         return view
     }()
     
@@ -74,10 +77,14 @@ final class StartToWriteViewController: UIViewController {
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        settingView()
         addSubviews()
         setupBindings()
         setupStartButtonView()
+    }
+    
+    private func settingView(){
+        view.backgroundColor = .OnOffLightMain
     }
     
     /// 시작  버튼 속성 설정

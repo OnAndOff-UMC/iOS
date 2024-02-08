@@ -18,7 +18,6 @@ final class SelectTimeViewModel {
     /// Input
     struct Input {
         let startButtonTapped: Observable<Void>
-        let nickNameTextChanged: Observable<String>
     }
     
     /// Output
@@ -38,7 +37,19 @@ final class SelectTimeViewModel {
     ///   - input: Input 구조체
     /// - Returns: Output 구조체
     func bind(input: Input) -> Output {
+        input.startButtonTapped
+                .bind { [weak self] in
+                    self?.moveToMain()
+                }
+                .disposed(by: disposeBag)
         let output = Output()
         return output
+    }
+    
+    /// 메인 화면으로 이동
+    private func moveToMain() {
+        let bookmarkViewModel = BookmarkViewModel(navigationController: navigationController)
+        let vc = BookmarkViewController(viewModel: bookmarkViewModel)
+        navigationController.pushViewController(vc, animated: true)
     }
 }

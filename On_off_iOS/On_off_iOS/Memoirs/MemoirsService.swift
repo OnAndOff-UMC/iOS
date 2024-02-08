@@ -40,22 +40,24 @@ final class MemoirsService: MemoirsProtocol {
     /// 이모티콘 띄우기
     func getEmoticon() -> RxSwift.Observable<EmoticonResponse> {
         let url = Domain.RESTAPI + MemoirsPath.getEmoticon.rawValue
+        print(url)
         let headers = Header.header.getHeader()
-        
         return Observable.create { observer in
             AF.request(url,
                        method: .get,
                        headers: headers)
                 .validate(statusCode: 200..<201)
                 .responseDecodable(of: EmoticonResponse.self) { response in
+
                     switch response.result {
                     case .success(let data):
-                        print("😛\(data)")
+                        print(data)
                         observer.onNext(data)
                     case .failure(let error):
                         observer.onError(error)
                     }
                 }
+            
             return Disposables.create()
         }
     }

@@ -85,7 +85,7 @@ final class WriteImprovementViewController: UIViewController {
     /// 확인 버튼 뷰
     private lazy var checkButtonView: UIView = {
         let view = UIView()
-        view.backgroundColor = .blue
+        view.backgroundColor = .OnOffMain
         view.layer.cornerRadius = 40
         view.layer.masksToBounds = true
         return view
@@ -109,9 +109,14 @@ final class WriteImprovementViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        settingView()
         addSubviews()
         setupBindings()
         settingCheckButtonView()
+    }
+    
+    private func settingView(){
+        view.backgroundColor = .OnOffLightMain
     }
     
     /// 확인 버튼 속성 설정

@@ -13,6 +13,7 @@ enum Header {
     
     func getHeader() -> HTTPHeaders {
         let accessToken = KeychainWrapper.loadItem(forKey: LoginKeyChain.accessToken.rawValue) ?? ""
+        print(accessToken)
         return ["Authorization": "Bearer \(accessToken)"]
     }
 }
