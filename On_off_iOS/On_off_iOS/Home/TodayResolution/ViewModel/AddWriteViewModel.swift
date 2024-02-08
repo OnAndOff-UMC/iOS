@@ -19,6 +19,7 @@ final class AddWriteViewModel {
     struct Input {
         let backButton: Observable<Void>
         let saveButton: Observable<Void>
+        let plusButton: Observable<Void>
     }
     
     // MARK: - Init
@@ -35,11 +36,24 @@ final class AddWriteViewModel {
             }
             .disposed(by: disposeBag)
         
+        input.plusButton
+            .bind { [weak self] in
+                guard let self = self else {
+                    return }
+                createResolution()
+            }
+        
     }
     
     /// 뒤로 이동 - animate 제거
     private func moveToBack() {
         navigationController.popViewController(animated: true)
+    }
+    
+    /// 다짐 생성
+    private func createResolution() {
+        //오늘 열심히 살았다.
+        
     }
     
     

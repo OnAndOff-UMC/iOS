@@ -22,6 +22,36 @@ final class AddWriteViewController: UIViewController {
         
     }()
     
+    //addview - Field + AddButton
+    private lazy var addView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .clear
+        return view
+    }()
+    
+    //textfield
+    private lazy var textfield: UITextField = {
+        let tf = UITextField()
+        tf.backgroundColor = .clear
+        tf.placeholder = "오늘의 다짐을 적어봐요"
+        return tf
+    }()
+    
+    //textfieldline
+    private lazy var textfieldline: UIImageView = {
+        let iv = UIImageView()
+        iv.image = UIImage(named: "textfieldline")
+        return iv
+    }()
+    
+    //writeplusbutton
+    private lazy var plusButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .clear
+        button.setImage(UIImage(named:"plusButton"), for: .normal)
+        return button
+    }()
+    
     /// customBackButton
     private let backButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .plain, target: nil, action: nil)
@@ -52,7 +82,6 @@ final class AddWriteViewController: UIViewController {
         return button
     }()
     
-    
     private let viewModel: AddWriteViewModel
     private let disposeBag = DisposeBag()
     
@@ -74,9 +103,6 @@ final class AddWriteViewController: UIViewController {
         navigationItem.leftBarButtonItem = backButton
         navigationItem.titleView = titleLabel
         
-//        navigationItem.rightBarButtonItem = saveButton
-        
-        
         view.backgroundColor = .white
         addSubViews()
         constraints()
@@ -88,12 +114,46 @@ final class AddWriteViewController: UIViewController {
     private func addSubViews() {
         
         view.addSubview(contentView)
+        contentView.addSubview(addView)
+        addView.addSubview(textfield)
+        addView.addSubview(textfieldline)
+        addView.addSubview(plusButton)
         
     }
     
     /// Set Constraints
     private func constraints() {
         
+        contentView.snp.makeConstraints { make in
+            make.top.bottom.leading.trailing.equalToSuperview()
+        }
+        
+        addView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.top.equalToSuperview().offset(100)
+            make.height.equalTo(100)
+        }
+        
+        textfield.snp.makeConstraints { make in
+            make.leading.equalTo(addView).offset(20)
+            make.top.equalTo(addView).offset(30)
+        }
+        
+        textfieldline.snp.makeConstraints { make in
+            make.top.equalTo(textfield.snp.bottom).offset(8)
+            make.leading.equalTo(addView).inset(20)
+            make.trailing.equalTo(addView).inset(70)
+            make.height.equalTo(2)
+            make.trailing.equalTo(plusButton).inset(5)
+        }
+        
+        plusButton.snp.makeConstraints { make in
+            make.trailing.equalTo(addView).inset(20)
+            make.top.equalTo(addView).offset(30)
+            make.width.equalTo(30)
+            make.height.equalTo(30)
+            
+        }
         
     }
     
