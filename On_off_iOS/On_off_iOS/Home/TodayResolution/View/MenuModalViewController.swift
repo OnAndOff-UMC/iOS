@@ -21,6 +21,7 @@ final class MenuModalViewController: UIViewController {
         return view
         
     }()
+    
     //추가하기 버튼
     private let addButton: UIButton = {
         let button = UIButton()
@@ -65,7 +66,6 @@ final class MenuModalViewController: UIViewController {
         imageView.image = UIImage(named: "line")
         return imageView
     }()
-    
     
     private let viewModel: MenuModalViewModel
     private let disposeBag = DisposeBag()
@@ -136,17 +136,27 @@ final class MenuModalViewController: UIViewController {
             make.top.equalTo(lineView2.snp.bottom).offset(26)
             make.centerX.equalToSuperview()
         }
-    
+        
     }
     
     /// ViewModel과 bind
     private func setupBindings() {
-        
-        //        let input = TodayResolutionViewModel.Input(
-        //            buttonTapped: todayResolutionButton.rx.tap.asObservable()
-        //        )
-        //        viewModel.bind(input: input)
+        let input = MenuModalViewModel.Input(addButton: addButton.rx.tap.asObservable(),
+                                             modifyButton: modifyButton.rx.tap.asObservable(),removeButton: removeButton.rx.tap.asObservable())
+        viewModel.bind(input: input)
+    
     }
     
+//    //
+//    private func showAddModal() {
+//        guard let navigationController = navigationController else {
+//            print("Error: navigationController is nil")
+//            return
+//        }
+//        
+//        let addWriteViewModel = AddWriteViewModel(navigationController: navigationController)
+//        let addWriteView = AddWriteViewController(viewModel: addWriteViewModel)
+//        navigationController.pushViewController(addWriteView, animated: true)
+//    }
     
 }

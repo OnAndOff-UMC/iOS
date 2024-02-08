@@ -134,6 +134,7 @@ final class ResolutionWriteViewController: UIViewController {
     private func setupNavigationBar() {
         navigationItem.rightBarButtonItems = [menuButton]
     }
+    
     /// 뷰모델과 setupBindings
     private func setupBindings() {
         let input = ResolutionWriteViewModel.Input(backButton: backButton.rx.tap.asObservable(),

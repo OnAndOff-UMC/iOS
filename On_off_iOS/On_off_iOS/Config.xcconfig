@@ -1,0 +1,12 @@
+//
+//  Config.xcconfig
+//  On_off_iOS
+//
+//  Created by 박다미 on 2024/02/01.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+KAKAO_NATIVE_APP_KEY = d07613bf275fc7c24d8fca91e76cd2b6
+
