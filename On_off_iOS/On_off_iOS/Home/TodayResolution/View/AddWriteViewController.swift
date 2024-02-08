@@ -82,6 +82,13 @@ final class AddWriteViewController: UIViewController {
         return button
     }()
     
+    // TableView
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.backgroundColor = .clear
+        return tableView
+    }()
+    
     private let viewModel: AddWriteViewModel
     private let disposeBag = DisposeBag()
     
@@ -118,6 +125,7 @@ final class AddWriteViewController: UIViewController {
         addView.addSubview(textfield)
         addView.addSubview(textfieldline)
         addView.addSubview(plusButton)
+        contentView.addSubview(tableView)
         
     }
     
@@ -152,7 +160,11 @@ final class AddWriteViewController: UIViewController {
             make.top.equalTo(addView).offset(30)
             make.width.equalTo(30)
             make.height.equalTo(30)
-            
+        }
+        
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(addView.snp.bottom).offset(20)
+            make.leading.trailing.bottom.equalToSuperview()
         }
         
     }
@@ -164,15 +176,22 @@ final class AddWriteViewController: UIViewController {
     
     /// 뷰모델과 setupBindings
     private func setupBindings() {
-        let input = AddWriteViewModel.Input(backButton: backButton.rx.tap.asObservable(),saveButton: saveButton.rx.tap.asObservable())
-        
-        let _ = viewModel.bind(input: input)
-        
-
+//        // 텍스트 필드 입력과 버튼 탭을 뷰모델에 바인딩합니다.
+//        let input = AddWriteViewModel.Input(
+//            backButton: backButton.rx.tap.asObservable(),
+//            saveButton: saveButton.rx.tap.asObservable(),
+//            plusButton: plusButton.rx.tap.asObservable(),
+////            textInput: textfield.rx.text.orEmpty.asControlProperty()
+//        )
+//        
+//        // 뷰모델과 바인딩하여 테이블 뷰 데이터를 구독합니다.
+//        let output = viewModel.bind(input: input)
+//        output.tableData
+//            .map { $0.map { $0 as String } } // 배열 요소를 String으로 변환합니다.
+//            .drive(tableView.rx.items(cellIdentifier: "cell")) { (index, text, cell) in
+//                cell.textLabel?.text = text
+//            }
+//            .disposed(by: disposeBag)
     }
-    
-    
-    
-    
     
 }
