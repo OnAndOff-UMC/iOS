@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import SVGKit
 
 /// ExpressedIconViewController
 final class ExpressedIconViewController: UIViewController {
@@ -177,7 +178,9 @@ final class ExpressedIconViewController: UIViewController {
         let modalEmoticonViewController = ModalEmoticonViewController(viewModel: ModalEmoticonViewModel())
         modalEmoticonViewController.delegate = self
         modalEmoticonViewController.onImageSelected = { [weak self] imageUrl in
-            self?.emoticonImage.kf.setImage(with: URL(string: imageUrl))
+            if let svgImage = SVGKImage(contentsOf: URL(string: imageUrl)) {
+                self?.emoticonImage.image = svgImage.uiImage
+            }
         }
 
         if #available(iOS 15.0, *) {
@@ -192,6 +195,10 @@ final class ExpressedIconViewController: UIViewController {
 
 extension ExpressedIconViewController: ModalEmoticonDelegate {
     func emoticonSelected(emoticon: Emoticon) {
-        emoticonImage.kf.setImage(with: URL(string: emoticon.imageUrl))
+        if let svgURL = URL(string: emoticon.imageUrl), let svgImage = SVGKImage(contentsOf: svgURL) {
+            self.emoticonImage.image = svgImage.uiImage
+        } else {
+            print("SVG 이미지 로드 실패")
+        }
     }
 }
