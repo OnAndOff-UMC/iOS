@@ -87,32 +87,29 @@ final class ProfileSettingViewModel {
                return .empty()
            }
         
+        /// apple은 최초 이후엔 정보 optional로 nil 값
         if loginMethod == "apple" {
-               // 애플 로그인 정보
-               guard let oauthId = KeychainWrapper.loadItem(forKey: AppleLoginKeyChain.oauthId.rawValue),
-                     let giveName = KeychainWrapper.loadItem(forKey: AppleLoginKeyChain.giveName.rawValue),
-                     let familyName = KeychainWrapper.loadItem(forKey: AppleLoginKeyChain.familyName.rawValue),
-                     let email = KeychainWrapper.loadItem(forKey: AppleLoginKeyChain.email.rawValue),
-                     let identityTokenString = KeychainWrapper.loadItem(forKey: AppleLoginKeyChain.identityTokenString.rawValue),
-                     let authorizationCodeString = KeychainWrapper.loadItem(forKey: AppleLoginKeyChain.authorizationCodeString.rawValue)
-                        
-               else {
-                   return .empty()
-               }
+                let oauthId = KeychainWrapper.loadItem(forKey: AppleLoginKeyChain.oauthId.rawValue) ?? ""
+                let givenName = KeychainWrapper.loadItem(forKey: AppleLoginKeyChain.giveName.rawValue) ?? ""
+                let familyName = KeychainWrapper.loadItem(forKey: AppleLoginKeyChain.familyName.rawValue) ?? ""
+                let email = KeychainWrapper.loadItem(forKey: AppleLoginKeyChain.email.rawValue) ?? ""
+                let identityTokenString = KeychainWrapper.loadItem(forKey: AppleLoginKeyChain.identityTokenString.rawValue) ?? ""
+                let authorizationCodeString = KeychainWrapper.loadItem(forKey: AppleLoginKeyChain.authorizationCodeString.rawValue) ?? ""
 
-               let fullName = FullName(giveName: giveName, familyName: familyName)
-               let additionalInfo = AdditionalInfo(fieldOfWork: fieldOfWork, job: job, experienceYear: experienceYear)
+                let fullName = FullName(giveName: givenName, familyName: familyName)
+                let additionalInfo = AdditionalInfo(fieldOfWork: fieldOfWork, job: job, experienceYear: experienceYear)
 
-               let request = AppleTokenValidationRequest(
-                   oauthId: oauthId,
-                   fullName: fullName,
-                   email: email,
-                   identityToken: identityTokenString,
-                   authorizationCode: authorizationCodeString,
-                   additionalInfo: additionalInfo
-               )
-            return loginService.validateAppleTokenAndSendInfo(request: request)
-        }
+                let request = AppleTokenValidationRequest(
+                    oauthId: oauthId,
+                    fullName: fullName,
+                    email: email,
+                    identityToken: identityTokenString,
+                    authorizationCode: authorizationCodeString,
+                    additionalInfo: additionalInfo
+                )
+                
+                return loginService.validateAppleTokenAndSendInfo(request: request)
+            }
         else if loginMethod == "kakao" {
             guard let identityToken = KeychainWrapper.loadItem(forKey: KakaoLoginKeyChain.idToken.rawValue),
                   let accessToken = KeychainWrapper.loadItem(forKey: KakaoLoginKeyChain.accessToken.rawValue)
