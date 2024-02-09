@@ -359,7 +359,6 @@ final class ProfileSettingViewController: UIViewController {
         }
         present(modalSelectProfileViewController, animated: true, completion: nil)
     }
-    
 }
 
 extension ProfileSettingViewController: ModalSelectProfileDelegate {

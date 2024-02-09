@@ -21,11 +21,28 @@ enum LoginKeyChain: String {
     case refreshToken
 }
 
+/// login 종류 식별
+enum LoginMethod: String{
+    case loginMethod
+}
+
+/// 카카오 로그인 키체인값
 enum KakaoLoginKeyChain: String {
     case accessToken
     case idToken
 }
 
+/// 애플 로그인 키체인값
+enum AppleLoginKeyChain: String {
+    case oauthId
+    case giveName
+    case familyName
+    case email
+    case identityTokenString
+    case authorizationCodeString
+}
+
+/// 프로필 키체인 값
 enum ProfileKeyChain: String {
     case fieldOfWork
     case job

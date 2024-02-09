@@ -17,14 +17,26 @@ struct KakaoTokenValidationRequest: Codable {
     let accessToken: String
     let additionalInfo: AdditionalInfo
 }
+
+
+/// 애플 로그인 요청 구조체
+struct AppleTokenValidationRequest: Codable {
+   let oauthId: String
+   let fullName: FullName
+   let email: String
+   let identityToken: String
+   let authorizationCode: String
+   let additionalInfo: AdditionalInfo
+}
+
 struct AdditionalInfo: Codable {
     let fieldOfWork: String
     let job: String
     let experienceYear: String
 }
 
-/// 카카오 로그인 결과 구조체
-struct KakaoTokenValidationResponse: Codable {
+/// 로그인 결과 구조체
+struct TokenValidationResponse: Codable {
     let isSuccess: Bool
     let code: String
     let message: String
@@ -37,13 +49,9 @@ struct TokenResult: Codable {
 }
 
 
- /// 애플 로그인 요청 구조체
-struct AppleLoginRequest: Codable {
-    let oauthId: String
-    let fullName: String
-    let email: String
-    let identityToken: String
-    let authorizationCode: String
+struct FullName: Codable {
+    let giveName: String
+    let familyName: String
 }
 
 /// 로그인 응답 구조체

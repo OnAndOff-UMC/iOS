@@ -45,18 +45,18 @@ final class ProfileSettingViewModel {
         
         // 닉네임 텍스트 변경 관찰 및 유효성 검사
         input.jobTextChanged
-                .map { nickName in
-                    return nickName.count // 닉네임 길이만 반환
-                }
-                .do(onNext: { length in
-                    output.isCheckButtonEnabled.accept(length >= 2 && length <= 30) // 2자 이상 30자 이하 조건만 검사
-                })
-                .bind(to: output.jobLength)
-                .disposed(by: disposeBag)
+            .map { nickName in
+                return nickName.count // 닉네임 길이만 반환
+            }
+            .do(onNext: { length in
+                output.isCheckButtonEnabled.accept(length >= 2 && length <= 30) // 2자 이상 30자 이하 조건만 검사
+            })
+            .bind(to: output.jobLength)
+            .disposed(by: disposeBag)
         
         // 시작 버튼 탭 이벤트 처리
         input.startButtonTapped
-            .flatMapLatest { [weak self] _ -> Observable<KakaoTokenValidationResponse> in
+            .flatMapLatest { [weak self] _ -> Observable<TokenValidationResponse> in
                 guard let self = self else {
                     return .empty()
                 }
@@ -77,21 +77,54 @@ final class ProfileSettingViewModel {
         return output
     }
     
-    private func loginWithSelectedData() -> Observable<KakaoTokenValidationResponse> {
+    private func loginWithSelectedData() -> Observable<TokenValidationResponse> {
         
-        guard let identityToken = KeychainWrapper.loadItem(forKey: KakaoLoginKeyChain.idToken.rawValue),
-              let accessToken = KeychainWrapper.loadItem(forKey: KakaoLoginKeyChain.accessToken.rawValue),
-              let fieldOfWork = KeychainWrapper.loadItem(forKey: ProfileKeyChain.fieldOfWork.rawValue),
-              let job = KeychainWrapper.loadItem(forKey: ProfileKeyChain.job.rawValue),
-              let experienceYear = KeychainWrapper.loadItem(forKey: ProfileKeyChain.experienceYear.rawValue)
-        else {
-            return .empty()
+        guard let loginMethod = KeychainWrapper.loadItem(forKey: LoginMethod.loginMethod.rawValue),
+                 let fieldOfWork = KeychainWrapper.loadItem(forKey: ProfileKeyChain.fieldOfWork.rawValue),
+                 let job = KeychainWrapper.loadItem(forKey: ProfileKeyChain.job.rawValue),
+                 let experienceYear = KeychainWrapper.loadItem(forKey: ProfileKeyChain.experienceYear.rawValue)
+           else {
+               return .empty()
+           }
+        
+        if loginMethod == "apple" {
+               // 애플 로그인 정보
+               guard let oauthId = KeychainWrapper.loadItem(forKey: AppleLoginKeyChain.oauthId.rawValue),
+                     let giveName = KeychainWrapper.loadItem(forKey: AppleLoginKeyChain.giveName.rawValue),
+                     let familyName = KeychainWrapper.loadItem(forKey: AppleLoginKeyChain.familyName.rawValue),
+                     let email = KeychainWrapper.loadItem(forKey: AppleLoginKeyChain.email.rawValue),
+                     let identityTokenString = KeychainWrapper.loadItem(forKey: AppleLoginKeyChain.identityTokenString.rawValue),
+                     let authorizationCodeString = KeychainWrapper.loadItem(forKey: AppleLoginKeyChain.authorizationCodeString.rawValue)
+                        
+               else {
+                   return .empty()
+               }
+
+               let fullName = FullName(giveName: giveName, familyName: familyName)
+               let additionalInfo = AdditionalInfo(fieldOfWork: fieldOfWork, job: job, experienceYear: experienceYear)
+
+               let request = AppleTokenValidationRequest(
+                   oauthId: oauthId,
+                   fullName: fullName,
+                   email: email,
+                   identityToken: identityTokenString,
+                   authorizationCode: authorizationCodeString,
+                   additionalInfo: additionalInfo
+               )
+            return loginService.validateAppleTokenAndSendInfo(request: request)
         }
-        
-        let additionalInfo = AdditionalInfo(fieldOfWork: fieldOfWork, job: job, experienceYear: experienceYear)
-        let request = KakaoTokenValidationRequest(identityToken: identityToken, accessToken: accessToken, additionalInfo: additionalInfo)
-        print(request)
-        return loginService.validateKakaoTokenAndSendInfo(request: request)
+        else if loginMethod == "kakao" {
+            guard let identityToken = KeychainWrapper.loadItem(forKey: KakaoLoginKeyChain.idToken.rawValue),
+                  let accessToken = KeychainWrapper.loadItem(forKey: KakaoLoginKeyChain.accessToken.rawValue)
+            else {
+                return .empty()
+            }
+            
+            let additionalInfo = AdditionalInfo(fieldOfWork: fieldOfWork, job: job, experienceYear: experienceYear)
+            let request = KakaoTokenValidationRequest(identityToken: identityToken, accessToken: accessToken, additionalInfo: additionalInfo)
+         return loginService.validateKakaoTokenAndSendInfo(request: request)
+    }
+    return .empty()
     }
     
     

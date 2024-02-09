@@ -64,6 +64,7 @@ final class LoginViewController: UIViewController {
     private let viewModel: LoginViewModel
     private let disposeBag = DisposeBag()
     var output: LoginViewModel.Output?
+    private let appleLoginSuccessSubject = PublishSubject<Void>()
     
     
     // MARK: - Init
@@ -85,9 +86,11 @@ final class LoginViewController: UIViewController {
         setupBindings()
     }
     
+    /// settingUI
     private func settingUI(){
         view.backgroundColor = UIColor.OnOffMain
     }
+    
     /// addSubviews
     private func addSubviews(){
         view.addSubview(welcomeLabel)
@@ -129,7 +132,7 @@ final class LoginViewController: UIViewController {
     }
     
     /// 애플 로그인 과정을 시작
-        @objc
+    @objc
     private func onAppleLoginImageViewTapped() {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
@@ -142,9 +145,13 @@ final class LoginViewController: UIViewController {
         
     }
     
+    /// setupBindings : viewMode과l bind
     private func setupBindings() {
+        
         let input = LoginViewModel.Input(
-            kakaoButtonTapped: kakaoLoginImageView.rx.tapGesture().when(.recognized).asObservable()
+            kakaoButtonTapped: kakaoLoginImageView.rx.tapGesture().when(.recognized).asObservable(),
+            appleLoginSuccess: appleLoginSuccessSubject.asObservable() // 애플 로그인 성공 이벤트를 Observable로 전달
+            
         )
         
         // ViewModel bind 호출하고 output 받기
@@ -168,33 +175,30 @@ extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
         //로그인 성공
         switch authorization.credential {
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
-            
             let userIdentifier = appleIDCredential.user
-            let fullName = appleIDCredential.fullName
-            let email = appleIDCredential.email
+            let givenName = appleIDCredential.fullName?.givenName ?? ""
+            let familyName = appleIDCredential.fullName?.familyName ?? ""
+            let email = appleIDCredential.email ?? ""
             
-            if  let authorizationCode = appleIDCredential.authorizationCode,
-                let identityToken = appleIDCredential.identityToken,
-                let authCodeString = String(data: authorizationCode, encoding: .utf8),
-                let identifyTokenString = String(data: identityToken, encoding: .utf8) {
-                print("authorizationCode: \(authorizationCode)")
-                print("identityToken: \(identityToken)")
-                print("authCodeString: \(authCodeString)")
-                print("identifyTokenString: \(identifyTokenString)")
+            ///identityToken, authorizationCode를 인코딩
+            guard let identityToken = appleIDCredential.identityToken,
+                  let authorizationCode = appleIDCredential.authorizationCode,
+                  let identityTokenString = String(data: identityToken, encoding: .utf8),
+                  let authorizationCodeString = String(data: authorizationCode, encoding: .utf8) else {
+                print("Error")
+                return
             }
             
-            print("useridentifier: \(userIdentifier)")
-            print("fullName: \(fullName)")
-            print("email: \(email)")
+            // 키체인에 정보 저장
+            _ = KeychainWrapper.saveItem(value: "apple", forKey: LoginMethod.loginMethod.rawValue)
             
-        case let passwordCredential as ASPasswordCredential:
-
-            let username = passwordCredential.user
-            let password = passwordCredential.password
-            
-            print("username: \(username)")
-            print("password: \(password)")
-            
+            _ = KeychainWrapper.saveItem(value: userIdentifier, forKey: AppleLoginKeyChain.oauthId.rawValue)
+            _ = KeychainWrapper.saveItem(value: givenName, forKey: AppleLoginKeyChain.giveName.rawValue)
+            _ = KeychainWrapper.saveItem(value: familyName, forKey: AppleLoginKeyChain.familyName.rawValue)
+            _ = KeychainWrapper.saveItem(value: email, forKey: AppleLoginKeyChain.email.rawValue)
+            _ = KeychainWrapper.saveItem(value: identityTokenString, forKey: AppleLoginKeyChain.identityTokenString.rawValue)
+            _ = KeychainWrapper.saveItem(value: authorizationCodeString, forKey: AppleLoginKeyChain.authorizationCodeString.rawValue)
+            appleLoginSuccessSubject.onNext(())
         default:
             break
         }

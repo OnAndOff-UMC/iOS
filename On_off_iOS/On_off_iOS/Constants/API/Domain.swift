@@ -13,6 +13,7 @@ enum LoginPath: String {
     /// 유효성 검사
     case checkValidation = "/token/validate"
     case kakaoLogin = "/oauth2/kakao/token/validate"
+    case appleLogin = "/oauth2/apple/token/validate"
     
     /// 직업
     case job = "/enums/field-of-works"
