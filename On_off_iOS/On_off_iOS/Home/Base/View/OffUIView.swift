@@ -23,7 +23,7 @@ final class OffUIView: UIView {
         return view
     }()
     
-    /// contentView
+    /// ContentView
     private lazy var contentView: UIView = {
         let view = UIView()
         view.backgroundColor = .clear
@@ -35,8 +35,8 @@ final class OffUIView: UIView {
         let button = UIButton()
         button.setTitle("오늘의 회고", for: .normal)
         button.backgroundColor = .clear
-        button.setTitleColor(.systemBlue, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 16)
+        button.setTitleColor(.OnOffMain, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
         return button
     }()
     
@@ -52,6 +52,7 @@ final class OffUIView: UIView {
     private lazy var todayMemoirsIconImageButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "greaterthan"), for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
         button.tintColor = .black
         button.backgroundColor = .clear
         return button
@@ -71,7 +72,7 @@ final class OffUIView: UIView {
         button.setTitle("워라벨 피드", for: .normal)
         button.backgroundColor = .clear
         button.setTitleColor(.OnOffMain, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 16)
+        button.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
         return button
     }()
     
@@ -87,6 +88,7 @@ final class OffUIView: UIView {
     private lazy var feedPlusIconImageButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "plus"), for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
         button.tintColor = .black
         button.backgroundColor = .clear
         return button
@@ -100,7 +102,28 @@ final class OffUIView: UIView {
         return view
     }()
     
+    /// 날짜 라벨
+    private lazy var dateLabel: UILabel = {
+        let label = UILabel()
+        label.text = "2023 - November"
+        label.backgroundColor = .clear
+        label.textColor = .OnOffMain
+        label.font = .systemFont(ofSize: 18, weight: .bold)
+        return label
+    }()
+    
+    /// 이미지 CollectionView
+    private lazy var imageCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        view.register(ImageCollectionViewCell.self,
+                                     forCellWithReuseIdentifier: CellIdentifier.ImageCollectionView.rawValue)
+        return view
+    }()
+    
     private let disposeBag = DisposeBag()
+    private let viewModel = OffUIViewModel()
     
     // MARK: - Init
     override init(frame: CGRect) {
@@ -126,6 +149,8 @@ final class OffUIView: UIView {
         contentView.addSubview(feedlabelBackgroundUIView)
         feedlabelBackgroundUIView.addSubview(feedPlusIconImageButton)
         contentView.addSubview(feedUIView)
+        contentView.addSubview(dateLabel)
+        contentView.addSubview(imageCollectionView)
         
         constraints()
     }
@@ -196,24 +221,40 @@ final class OffUIView: UIView {
             make.leading.equalTo(feedTitleButton.snp.leading)
             make.trailing.equalToSuperview().offset(-20)
             make.height.equalTo(200)
-            make.bottom.equalToSuperview()
         }
         
+        dateLabel.snp.makeConstraints { make in
+            make.top.equalTo(feedUIView.snp.bottom).offset(10)
+            make.leading.equalToSuperview().offset(10)
+        }
+        
+        imageCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(dateLabel.snp.bottom).offset(10)
+            make.horizontalEdges.equalToSuperview().inset(10)
+            make.bottom.equalToSuperview()
+            make.height.equalTo(500)
+        }
     }
-
+    
     /// Binding
     private func bind() {
-        todayMemoirsIconImageButton.rx.tap
-            .bind {
-                print("todayMemoirsIconImageButton tapped")
+        let output = viewModel.createOutput(input:
+                                                OffUIViewModel.Input(todayMemoirsButtonEvents: todayMemoirsButton.rx.tap,
+                                                                     todayMemoirsIconImageButtonEvents: todayMemoirsIconImageButton.rx.tap,
+                                                                     feedTitleButton: feedTitleButton.rx.tap,
+                                                                     feedPlusIconImageButton: feedPlusIconImageButton.rx.tap))
+        bindCollectionView(output: output)
+    }
+    
+    /// Binding CollectionView
+    private func bindCollectionView(output: OffUIViewModel.Output) {
+        output.imageURLRelay
+            .bind(to: imageCollectionView.rx
+                .items(cellIdentifier: CellIdentifier.ImageCollectionView.rawValue,
+                       cellType: ImageCollectionViewCell.self)) { row, element, cell in
+                
             }
-            .disposed(by: disposeBag)
-        
-        todayMemoirsButton.rx.tap
-            .bind {
-                print("todayMemoirsButton tapped")
-            }
-            .disposed(by: disposeBag)
+                       .disposed(by: disposeBag)
     }
     
 }
