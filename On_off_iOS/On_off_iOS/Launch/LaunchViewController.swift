@@ -50,8 +50,9 @@ final class LaunchViewController: UIViewController {
     /// 화면 이동
     private func moveToMain() {
         if let navigationController = self.navigationController {
-                   let onBoardingViewController = OnBoardingViewController(viewModel: OnBoardingViewModel(navigationController: navigationController))
-                   navigationController.pushViewController(onBoardingViewController, animated: true)
-               }
+            let onBoardingViewController = OnBoardingViewController(viewModel:
+                                                                        OnBoardingViewModel(navigationController: navigationController))
+            navigationController.pushViewController(onBoardingViewController, animated: true)
+        }
     }
 }

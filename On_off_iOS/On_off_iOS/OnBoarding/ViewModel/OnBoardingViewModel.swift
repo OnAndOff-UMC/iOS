@@ -43,7 +43,10 @@ final class OnBoardingViewModel {
     
     /// 로그인 화면으로 이동
     private func moveToLogin() {
-        let loginViewModel = LoginViewModel(navigationController: navigationController)
+        let loginService = LoginService()
+
+        // LoginViewModel에 signInService 전달
+        let loginViewModel = LoginViewModel(navigationController: navigationController, loginService: loginService)
         let vc = LoginViewController(viewModel: loginViewModel)
         navigationController.pushViewController(vc, animated: true)
     }
