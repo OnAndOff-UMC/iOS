@@ -115,15 +115,18 @@ final class OffUIView: UIView {
     /// 이미지 CollectionView
     private lazy var imageCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
+        layout.scrollDirection = .vertical
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.register(ImageCollectionViewCell.self,
                                      forCellWithReuseIdentifier: CellIdentifier.ImageCollectionView.rawValue)
+        view.backgroundColor = .clear
+        view.isScrollEnabled = false
         return view
     }()
     
     private let disposeBag = DisposeBag()
     private let viewModel = OffUIViewModel()
+    var heightConstraint: Constraint?
     
     // MARK: - Init
     override init(frame: CGRect) {
@@ -232,33 +235,64 @@ final class OffUIView: UIView {
             make.top.equalTo(dateLabel.snp.bottom).offset(10)
             make.horizontalEdges.equalToSuperview().inset(10)
             make.bottom.equalToSuperview()
-            make.height.equalTo(500)
+            heightConstraint = make.height.equalTo(0).constraint
         }
     }
     
     /// Binding
     private func bind() {
-        let output = viewModel.createOutput(input:
-                                                OffUIViewModel.Input(todayMemoirsButtonEvents: todayMemoirsButton.rx.tap,
-                                                                     todayMemoirsIconImageButtonEvents: todayMemoirsIconImageButton.rx.tap,
-                                                                     feedTitleButton: feedTitleButton.rx.tap,
-                                                                     feedPlusIconImageButton: feedPlusIconImageButton.rx.tap))
+        let output = viewModel.createOutput(input: OffUIViewModel.Input(todayMemoirsButtonEvents: todayMemoirsButton.rx.tap,
+                                                                        todayMemoirsIconImageButtonEvents: todayMemoirsIconImageButton.rx.tap,
+                                                                        feedTitleButtonEvents: feedTitleButton.rx.tap,
+                                                                        feedPlusIconImageButtonEvents: feedPlusIconImageButton.rx.tap,
+                                                                        collectionViewCellEvents: imageCollectionView.rx.itemSelected))
         bindCollectionView(output: output)
     }
     
     /// Binding CollectionView
     private func bindCollectionView(output: OffUIViewModel.Output) {
+        var count = output.imageURLRelay.value.count - 1
+        let width: CGFloat = (self.frame.width - 20 - 10 * 2) / 3
+        count = output.imageURLRelay.value.count < 9 ? count : 8
+        heightConstraint?.update(offset: CGFloat(count / 3 + 1) * width + CGFloat((count / 3 + 1) * 10))
+        
         output.imageURLRelay
             .bind(to: imageCollectionView.rx
                 .items(cellIdentifier: CellIdentifier.ImageCollectionView.rawValue,
                        cellType: ImageCollectionViewCell.self)) { row, element, cell in
+                cell.layer.cornerRadius = 20
                 
+                if element == "plus.circle.fill" {
+                    cell.layer.borderWidth = 1
+                    cell.lastData(image: element)
+                    cell.backgroundColor = .clear
+                    return
+                }
+                cell.inputData(imageURL: element)
+                cell.backgroundColor = .green
+                cell.layer.borderWidth = 0
             }
                        .disposed(by: disposeBag)
+        
+        imageCollectionView.rx.setDelegate(self)
+            .disposed(by: disposeBag)
     }
     
 }
 
+extension OffUIView: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let interval: CGFloat = 10
+        let width: CGFloat = (collectionView.frame.width - interval * 2) / 3
+        return CGSize(width: width, height: width)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat { 10 }
+}
 
 import SwiftUI
 struct VCPreViewHomeViewController:PreviewProvider {

@@ -13,14 +13,49 @@ import UIKit
 /// Off 화면에서 Image 선택
 final class ImageCollectionViewCell: UICollectionViewCell {
     
+    /// 선택한 이미지
+    private lazy var imageView: UIImageView = {
+        let view = UIImageView()
+        view.backgroundColor = .clear
+        return view
+    }()
+    
+    // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        addSubViews()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
     
+    /// AddSubViews
+    private func addSubViews() {
+        contentView.addSubview(imageView)
+        
+        constriants()
+    }
     
+    /// Constraints
+    private func constriants() {
+        imageView.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
+    }
+    
+    /// Input Data
+    /// - Parameter imageURL: 이미지 URL주소
+    func inputData(imageURL: String) {
+        print("imageURL \(imageURL)")
+    }
+    
+    /// 마지막 이미지 추가 버튼
+    /// - Parameter image: 이미지 plus 버튼
+    func lastData(image: String) {
+        imageView.image = UIImage(systemName: image)?
+            .withTintColor(.OnOffLightPurple)
+            .resize(newWidth: 30)
+    }
 }
