@@ -125,6 +125,7 @@ final class ProfileSettingViewController: UIViewController {
         return lineView
     }()
     
+    /// 닉네임 설명 라벨
     private let nickNameExplainLabel: UILabel = {
         let label = UILabel()
         label.text = " 업무 분야, 직업, 연차는 추후에 ‘마이 페이지’에서 수정할 수 있어요. "
@@ -134,6 +135,7 @@ final class ProfileSettingViewController: UIViewController {
         return label
     }()
     
+    /// 확인 버튼
     private let checkButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("확인", for: .normal)
@@ -141,6 +143,7 @@ final class ProfileSettingViewController: UIViewController {
         return button
     }()
     
+    /// 확인버튼 뷰
     private lazy var checkButtonView: UIView = {
         let view = UIView()
         return view
@@ -168,6 +171,7 @@ final class ProfileSettingViewController: UIViewController {
         addSubviews()
         setupBindings()
     }
+    
     private func settingView(){
         view.backgroundColor = UIColor.white
         setupCheckButtonView()
@@ -217,6 +221,7 @@ final class ProfileSettingViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide).offset(100)
             make.leading.equalToSuperview().offset(10)
         }
+        
         fieldOfWorkButton.snp.makeConstraints { make in
             make.top.equalTo(fieldOfWork.snp.bottom).offset(18)
             make.leading.trailing.equalToSuperview().inset(10)
@@ -361,6 +366,7 @@ final class ProfileSettingViewController: UIViewController {
     }
 }
 
+/// extension : ModalSelectProfileDelegate : 모달창으로 부터 데이터 받기
 extension ProfileSettingViewController: ModalSelectProfileDelegate {
     func optionSelected(data: String, dataType: ProfileDataType) {
         switch dataType {

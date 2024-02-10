@@ -206,6 +206,29 @@ final class WritePraisedViewController: UIViewController {
             .map { "(\($0)/500)" }
             .bind(to: checkLenghtLabel.rx.text)
             .disposed(by: disposeBag)
+        
+        output.moveToNext
+            .subscribe(onNext: { [weak self] isSuccess in
+                if isSuccess {
+                    self?.navigateToㄷExpressdIcon()
+                } else {
+                    //실패임
+                }
+            })
+            .disposed(by: disposeBag)
+
+        
+        output.moveToBack
+                .subscribe(onNext: { [weak self] _ in
+                    self?.navigationController?.popViewController(animated: false)
+                })
+                .disposed(by: disposeBag)
+    }
+    
+    private func navigateToㄷExpressdIcon() {
+        let expressedIconViewModel = ExpressedIconViewModel()
+        let expressedIconViewController =  ExpressedIconViewController(viewModel: expressedIconViewModel)
+        self.navigationController?.pushViewController(expressedIconViewController, animated: false)
     }
     
     // 키보드내리기

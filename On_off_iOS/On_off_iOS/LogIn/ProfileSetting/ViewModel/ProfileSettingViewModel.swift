@@ -56,7 +56,7 @@ final class ProfileSettingViewModel {
         
         // 시작 버튼 탭 이벤트 처리
         input.startButtonTapped
-            .flatMapLatest { [weak self] _ -> Observable<TokenValidationResponse> in
+            .flatMapLatest { [weak self] _ -> Observable<Response<TokenResult>> in
                 guard let self = self else {
                     return .empty()
                 }
@@ -77,7 +77,7 @@ final class ProfileSettingViewModel {
         return output
     }
     
-    private func loginWithSelectedData() -> Observable<TokenValidationResponse> {
+    private func loginWithSelectedData() -> Observable<Response<TokenResult>> {
         
         guard let loginMethod = KeychainWrapper.loadItem(forKey: LoginMethod.loginMethod.rawValue),
                  let fieldOfWork = KeychainWrapper.loadItem(forKey: ProfileKeyChain.fieldOfWork.rawValue),
@@ -124,7 +124,6 @@ final class ProfileSettingViewModel {
     return .empty()
     }
     
-    
     /// 프로필설정으로 이동
     private func moveToSelectTime() {
         let selectTimeViewModel = SelectTimeViewModel(navigationController: navigationController)
@@ -132,5 +131,3 @@ final class ProfileSettingViewModel {
         navigationController.pushViewController(vc, animated: true)
     }
 }
-
-

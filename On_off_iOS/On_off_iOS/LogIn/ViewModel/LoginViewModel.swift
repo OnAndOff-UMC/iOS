@@ -66,7 +66,6 @@ final class LoginViewModel {
             })
             .disposed(by: disposeBag)
         
-        
         return output
     }
     
@@ -81,24 +80,23 @@ final class LoginViewModel {
             print("Login Error: \(error.localizedDescription)")
             return
         }
-
+        
         guard let oauthToken = oauthToken else { return }
         
         // Keychain에 토큰 정보 저장
-        if let refreshToken = oauthToken.idToken {
-            _ = KeychainWrapper.saveItem(value: "kakao", forKey: LoginMethod.loginMethod.rawValue)
-            
-            let saveAccessTokenSuccess = KeychainWrapper.saveItem(value: oauthToken.accessToken, forKey: KakaoLoginKeyChain.accessToken.rawValue)
-            let saveIdTokenSuccess = KeychainWrapper.saveItem(value: oauthToken.idToken ?? "", forKey: KakaoLoginKeyChain.idToken.rawValue)
-            
-            // 저장 성공 여부 확인
-            if saveAccessTokenSuccess && saveIdTokenSuccess {
-                print("Access Token과 ID Token 저장 성공")
-                moveToNickName()
-            } else {
-                print("토큰 저장 실패")
-            }
+        _ = KeychainWrapper.saveItem(value: "kakao", forKey: LoginMethod.loginMethod.rawValue)
+        
+        let saveAccessTokenSuccess = KeychainWrapper.saveItem(value: oauthToken.accessToken, forKey: KakaoLoginKeyChain.accessToken.rawValue)
+        let saveIdTokenSuccess = KeychainWrapper.saveItem(value: oauthToken.idToken ?? "", forKey: KakaoLoginKeyChain.idToken.rawValue)
+        
+        // 저장 성공 여부 확인
+        if saveAccessTokenSuccess && saveIdTokenSuccess {
+            print("Access Token과 ID Token 저장 성공")
+            moveToNickName()
+        } else {
+            print("토큰 저장 실패")
         }
+        
     }
     
     /// 카카오 로그인 수행

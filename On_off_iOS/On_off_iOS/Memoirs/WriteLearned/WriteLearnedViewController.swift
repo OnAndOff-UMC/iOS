@@ -201,16 +201,42 @@ final class WriteLearnedViewController: UIViewController {
     
     /// 뷰모델과 setupBindings
     private func setupBindings() {
-        let input = WriteLearnedViewModel.Input(startButtonTapped: checkButton.rx.tap.asObservable(),
-                                                textChanged: textView.rx.text.orEmpty.asObservable(), backButtonTapped: backButton.rx.tap.asObservable())
+        let input = WriteLearnedViewModel.Input(
+            startButtonTapped: checkButton.rx.tap.asObservable(),
+            textChanged: textView.rx.text.orEmpty.asObservable(),
+            backButtonTapped: backButton.rx.tap.asObservable()
+        )
         
         let output = viewModel.bind(input: input)
         
         /// 글자수 출력 바인딩
         output.textLength
-            .map { "(\($0)/500)" }
-            .bind(to: checkLenghtLabel.rx.text)
+               .map { "(\($0)/500)" }
+               .bind(to: checkLenghtLabel.rx.text)
+               .disposed(by: disposeBag)
+        
+        output.saveResult
+            .subscribe(onNext: { [weak self] isSuccess in
+                if isSuccess {
+                    self?.navigateToImprovement()
+                } else {
+                    //실패임
+                }
+            })
             .disposed(by: disposeBag)
+
+        
+        output.moveToBack
+                .subscribe(onNext: { [weak self] _ in
+                    self?.navigationController?.popViewController(animated: false)
+                })
+                .disposed(by: disposeBag)
+    }
+    
+    private func navigateToImprovement() {
+        let writeImprovementViewModel = WriteImprovementViewModel()
+        let writeImprovementViewController = WriteImprovementViewController(viewModel: writeImprovementViewModel)
+        self.navigationController?.pushViewController(writeImprovementViewController, animated: false)
     }
     
     // 키보드내리기

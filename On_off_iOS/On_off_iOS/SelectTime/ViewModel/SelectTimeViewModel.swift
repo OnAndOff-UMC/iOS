@@ -48,7 +48,7 @@ final class SelectTimeViewModel {
     
     /// 메인 화면으로 이동
     private func moveToMain() {
-        let bookmarkViewModel = BookmarkViewModel(navigationController: navigationController)
+        let bookmarkViewModel = BookmarkViewModel()
         let vc = BookmarkViewController(viewModel: bookmarkViewModel)
         navigationController.pushViewController(vc, animated: true)
     }

@@ -21,6 +21,12 @@ enum LoginKeyChain: String {
     case refreshToken
 }
 
+/// 토큰 유효성 확인 토큰 키체인 값
+struct TokenValidationRequest: Codable {
+    let accessToken: String
+    let refreshToken: String
+}
+
 /// login 종류 식별
 enum LoginMethod: String{
     case loginMethod

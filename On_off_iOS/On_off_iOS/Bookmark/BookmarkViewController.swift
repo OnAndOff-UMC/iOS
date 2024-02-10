@@ -60,13 +60,13 @@ final class BookmarkViewController: UIViewController {
     
     /// 뷰모델과 setupBindings
     private func setupBindings() {
-
+        
         let cellTapped = tableView.rx.itemSelected
             .map { [unowned self] indexPath -> Item in
                 try! self.tableView.rx.model(at: indexPath)
             }
             .share()
-
+        
         cellTapped
             .subscribe(onNext: { item in
                 print("Selected item: \(item.title)")
@@ -76,10 +76,25 @@ final class BookmarkViewController: UIViewController {
         // ViewModel의 Input 생성 및 바인딩
         let input = BookmarkViewModel.Input(cellTapped: cellTapped.map { $0.title })
         viewModel.bind(input: input)
+        
+        tableView.rx.modelSelected(Item.self)
+            .subscribe(onNext: { [weak self] item in
+                self?.navigateToDetail(for: item)
+            })
+            .disposed(by: disposeBag)
+        
+    }
+    
+    private func navigateToDetail(for item: Item) {
+        let memoirsViewModel = MemoirsViewModel()
+        let memoirsViewController = MemoirsViewController(viewModel: memoirsViewModel)
+        self.navigationController?.pushViewController(memoirsViewController, animated: true)
     }
 }
-    extension BookmarkViewController: UITableViewDelegate {
-        func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-            return UIScreen.main.bounds.height * 0.2
-        }
+
+/// UITableViewDelegate
+extension BookmarkViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UIScreen.main.bounds.height * 0.2
     }
+}

@@ -10,3 +10,4 @@ import Foundation
 struct Domain {
     static let RESTAPI = "http://dev.onnoff.site:8080"
 }
+

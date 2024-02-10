@@ -11,7 +11,7 @@ import RxCocoa
 import AuthenticationServices
 import RxGesture
 
-///로그인 화면
+/// 로그인 화면
 final class LoginViewController: UIViewController {
     
     private let welcomeLabel: UILabel = {
@@ -63,7 +63,6 @@ final class LoginViewController: UIViewController {
     
     private let viewModel: LoginViewModel
     private let disposeBag = DisposeBag()
-    var output: LoginViewModel.Output?
     private let appleLoginSuccessSubject = PublishSubject<Void>()
     
     
@@ -153,13 +152,12 @@ final class LoginViewController: UIViewController {
             appleLoginSuccess: appleLoginSuccessSubject.asObservable() // 애플 로그인 성공 이벤트를 Observable로 전달
             
         )
-        
         // ViewModel bind 호출하고 output 받기
-        self.output = viewModel.bind(input: input)
-        guard let output = output else { return }
-        self.output?.checkSignInService.subscribe(onNext: { signInStatus in
+        let output = viewModel.bind(input: input)
+        output.checkSignInService.subscribe(onNext: { signInStatus in
             print("로그인 상태: \(String(describing: signInStatus))")
-        }).disposed(by: disposeBag)
+        })
+        .disposed(by: disposeBag)
     }
     
 }
