@@ -16,8 +16,8 @@ import KakaoSDKUser
 /// LoginViewModel
 final class LoginViewModel {
     private let disposeBag = DisposeBag()
-    var navigationController: UINavigationController
     private var loginService: LoginService?
+    private var output: Output?
     
     /// Input
     struct Input {
@@ -28,11 +28,13 @@ final class LoginViewModel {
     /// Output
     struct Output {
         var checkSignInService: BehaviorRelay<String?> = BehaviorRelay(value: nil)
+        let moveToMain = PublishSubject<Void>()
+        let moveToNickName = PublishSubject<Void>()
+        let moveToBack = PublishSubject<Void>()
     }
     
     // MARK: - Init
-    init(navigationController: UINavigationController, loginService: LoginService) {
-        self.navigationController = navigationController
+    init(loginService: LoginService) {
         self.loginService = loginService
     }
     
@@ -42,7 +44,7 @@ final class LoginViewModel {
     /// - Returns: Output 구조체
     func bind(input: Input) -> Output {
         let output = createOutput(input: input)
-        
+        self.output = output
         return output
     }
     
@@ -59,10 +61,10 @@ final class LoginViewModel {
                 kakaoLogin()
             }
             .disposed(by: disposeBag)
-        
+
         input.appleLoginSuccess
             .subscribe(onNext: { [weak self] _ in
-                self?.moveToNickName()
+                output.moveToNickName.onNext(())
             })
             .disposed(by: disposeBag)
         
@@ -76,6 +78,7 @@ final class LoginViewModel {
     ///   - oauthToken: OAuth 토큰
     ///   - error: 발생한 에러
     private func handleKakaoLoginResult(oauthToken: OAuthToken?, error: Error?) {
+        
         if let error = error {
             print("Login Error: \(error.localizedDescription)")
             return
@@ -92,7 +95,7 @@ final class LoginViewModel {
         // 저장 성공 여부 확인
         if saveAccessTokenSuccess && saveIdTokenSuccess {
             print("Access Token과 ID Token 저장 성공")
-            moveToNickName()
+            self.output?.moveToNickName.onNext(())
         } else {
             print("토큰 저장 실패")
         }
@@ -110,19 +113,6 @@ final class LoginViewModel {
                 self?.handleKakaoLoginResult(oauthToken: oauthToken, error: error)
             })
         }
-    }
-    
-    /// 닉네임 설정으로 이동
-    private func moveToNickName() {
-        let vc = NickNameViewController(viewModel: NickNameViewModel(navigationController: navigationController))
-        navigationController.pushViewController(vc, animated: true)
-    }
-    
-    /// 메인 화면으로 이동
-    private func moveToMain() {
-        print("메인 이동")
-        let vc = NickNameViewController(viewModel: NickNameViewModel(navigationController: navigationController))
-        navigationController.pushViewController(vc, animated: true)
     }
 }
 

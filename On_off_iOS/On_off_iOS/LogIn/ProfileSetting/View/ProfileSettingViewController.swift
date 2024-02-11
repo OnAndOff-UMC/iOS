@@ -297,7 +297,7 @@ final class ProfileSettingViewController: UIViewController {
             make.height.equalTo(checkButtonView.snp.width).multipliedBy(0.15)
             make.leading.trailing.equalToSuperview().inset(17)
             
-            checkButton.snp.makeConstraints { make in
+        checkButton.snp.makeConstraints { make in
                 make.center.equalToSuperview()
             }
         }
@@ -328,6 +328,13 @@ final class ProfileSettingViewController: UIViewController {
                 checkButton.setTitleColor(isEnabled ? .white : UIColor.OnOffMain, for: .normal)
             }
             .disposed(by: disposeBag)
+        
+        output.success
+               .filter { $0 }
+               .subscribe(onNext: { [weak self] _ in
+                   self?.moveToSelectTime()
+               })
+               .disposed(by: disposeBag)
         
         checkButton.rx.tap
             .bind { [weak self] in
@@ -363,6 +370,13 @@ final class ProfileSettingViewController: UIViewController {
             }
         }
         present(modalSelectProfileViewController, animated: true, completion: nil)
+    }
+    
+    /// 프로필설정으로 이동
+    private func moveToSelectTime() {
+        let selectTimeViewModel = SelectTimeViewModel()
+        let vc = SelectTimeViewController(viewModel: selectTimeViewModel)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 

@@ -17,8 +17,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(windowScene: windowScene)
         let navigationController = UINavigationController()
-      
-        navigationController.viewControllers = [LaunchViewController(viewModel: LaunchViewModel(loginService: LoginService()))]
+               let launchViewModel = LaunchViewModel(loginService: LoginService())
+               let launchViewController = LaunchViewController(viewModel: launchViewModel)
+
+               navigationController.viewControllers = [launchViewController]
         
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()

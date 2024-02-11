@@ -210,7 +210,7 @@ final class WritePraisedViewController: UIViewController {
         output.moveToNext
             .subscribe(onNext: { [weak self] isSuccess in
                 if isSuccess {
-                    self?.navigateToㄷExpressdIcon()
+                    self?.navigateToExpressdIcon()
                 } else {
                     //실패임
                 }
@@ -225,7 +225,7 @@ final class WritePraisedViewController: UIViewController {
                 .disposed(by: disposeBag)
     }
     
-    private func navigateToㄷExpressdIcon() {
+    private func navigateToExpressdIcon() {
         let expressedIconViewModel = ExpressedIconViewModel()
         let expressedIconViewController =  ExpressedIconViewController(viewModel: expressedIconViewModel)
         self.navigationController?.pushViewController(expressedIconViewController, animated: false)

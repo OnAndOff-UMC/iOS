@@ -13,7 +13,6 @@ import UIKit
 /// ProfileSettingViewModel
 final class ProfileSettingViewModel {
     private let disposeBag = DisposeBag()
-    private var navigationController: UINavigationController
     private let loginService: LoginService
     
     /// Input
@@ -32,8 +31,7 @@ final class ProfileSettingViewModel {
     }
     
     // MARK: - Init
-    init(navigationController: UINavigationController, loginService: LoginService) {
-        self.navigationController = navigationController
+    init(loginService: LoginService) {
         self.loginService = loginService
     }
     
@@ -65,7 +63,6 @@ final class ProfileSettingViewModel {
             .subscribe(onNext: { response in
                 if response.isSuccess {
                     output.success.onNext(true)
-                    self.moveToSelectTime()
                 } else {
                     output.errorMessage.onNext(response.message)
                 }
@@ -122,12 +119,5 @@ final class ProfileSettingViewModel {
          return loginService.validateKakaoTokenAndSendInfo(request: request)
     }
     return .empty()
-    }
-    
-    /// 프로필설정으로 이동
-    private func moveToSelectTime() {
-        let selectTimeViewModel = SelectTimeViewModel(navigationController: navigationController)
-        let vc = SelectTimeViewController(viewModel: selectTimeViewModel)
-        navigationController.pushViewController(vc, animated: true)
     }
 }
