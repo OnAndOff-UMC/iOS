@@ -83,7 +83,6 @@ final class LoginViewController: UIViewController {
         settingUI()
         addSubviews()
         setupBindings()
-        print(self.navigationController)
     }
     
     /// settingUI
