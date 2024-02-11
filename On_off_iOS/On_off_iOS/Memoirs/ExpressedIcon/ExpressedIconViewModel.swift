@@ -19,7 +19,6 @@ final class ExpressedIconViewModel {
     struct Input {
         let startButtonTapped: Observable<Void>
         let backButtonTapped: Observable<Void>
-        let selectedEmoticonId: Observable<Int?>
     }
     
     /// Output
@@ -37,18 +36,18 @@ final class ExpressedIconViewModel {
         let output = Output()
         
         /// 완료버튼 클릭
-        // startButtonTapped과 selectedEmoticonId를 결합해서 sendMemoirsData 함수에 전달
-                Observable.combineLatest(input.startButtonTapped, input.selectedEmoticonId)
-                    .flatMapLatest { [weak self] (_, selectedEmoticonId) -> Observable<Bool> in
-                        guard let self = self, let emoticonId = selectedEmoticonId else { return .just(false) }
-                        return self.sendMemoirsData(emoticonId: emoticonId)
-                    }
-                    .subscribe(onNext: { success in
-                        if success {
-                            output.moveToNext.onNext(())
-                        }
-                    })
-                    .disposed(by: disposeBag)
+        input.startButtonTapped
+                   .flatMapLatest { [weak self] _ -> Observable<Bool> in
+                       guard let self = self else { return .just(false) }
+                       return self.sendMemoirsData()
+                   }
+        
+                   .subscribe(onNext: { success in
+                       if success {
+                           output.moveToNext.onNext(())
+                       }
+                   })
+                   .disposed(by: disposeBag)
         
         /// 뒤로가기 버튼 클릭
         input.backButtonTapped
@@ -58,7 +57,7 @@ final class ExpressedIconViewModel {
         return output
     }
     
-    private func sendMemoirsData(emoticonId: Int) -> Observable<Bool> {
+    private func sendMemoirsData() -> Observable<Bool> {
         let answer1 = KeychainWrapper.loadItem(forKey: MemoirsKeyChain.MemoirsAnswer1.rawValue) ?? ""
         let answer2 = KeychainWrapper.loadItem(forKey: MemoirsKeyChain.MemoirsAnswer2.rawValue) ?? ""
         let answer3 = KeychainWrapper.loadItem(forKey: MemoirsKeyChain.MemoirsAnswer3.rawValue) ?? ""
@@ -70,7 +69,7 @@ final class ExpressedIconViewModel {
         
         let request = MemoirRequest(
             date: dateString,
-            emoticonId: emoticonId, // 이모티콘 ID -> 수정
+            emoticonId: 1, // 이모티콘 ID -> 수정
             memoirAnswerList: [
                 MemoirRequest.MemoirAnswer(questionId: 1, answer: answer1),
                 MemoirRequest.MemoirAnswer(questionId: 2, answer: answer2),

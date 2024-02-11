@@ -165,7 +165,7 @@ final class ExpressedIconViewController: UIViewController {
     /// 뷰모델과 setupBindings
     private func setupBindings() {
         let input = ExpressedIconViewModel.Input(startButtonTapped: saveButton.rx.tap.asObservable(),
-                                                 backButtonTapped: backButton.rx.tap.asObservable(), selectedEmoticonId: <#Observable<Int?>#>)
+                                                 backButtonTapped: backButton.rx.tap.asObservable())
         
         // 이미지 뷰 탭 제스처에 대한 바인딩
         textpageImage.rx.tapGesture()
