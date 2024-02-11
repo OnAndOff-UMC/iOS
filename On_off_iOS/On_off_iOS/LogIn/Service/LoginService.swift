@@ -62,46 +62,79 @@ final class LoginService: LoginProtocol {
     }
     
     /// 로그인 API
-    /// - Parameter request: Kakao, Apple에서 발급받는 Token
+    /// - Parameter request: Kakao에서 발급받는 Token
     /// - Returns:  Tokens
-    func validateKakaoTokenAndSendInfo(request: KakaoTokenValidationRequest) -> Observable<KakaoTokenValidationResponse> {
+    func validateKakaoTokenAndSendInfo(request: KakaoTokenValidationRequest) -> Observable<Response<TokenResult>> {
         let url = Domain.RESTAPI + LoginPath.kakaoLogin.rawValue
         let headers = Header.header.getHeader()
-
+        
         return Observable.create { observer in
-            print("🍎\(request)")
             AF.request(url, method: .post,
                        parameters: request,
                        encoder: JSONParameterEncoder.default,
                        headers: headers)
-                           .validate()
-                           .responseDecodable(of: KakaoTokenValidationResponse.self) { response in
+            .validate()
+            .responseDecodable(of: Response<TokenResult>.self) { response in
 
-                               switch response.result {
-                                
-                               case .success(let data):
-                                   print("로그인 성공: \(response)")
-                                   observer.onNext(data)
-                                   _ = KeychainWrapper.saveItem(value: data.result.accessToken, forKey: LoginKeyChain.accessToken.rawValue)
+                switch response.result {
+                    
+                case .success(let data):
+                    print("로그인 성공: \(response)")
+                    observer.onNext(data)
+                    _ = KeychainWrapper.saveItem(value: data.result.accessToken, forKey: LoginKeyChain.accessToken.rawValue)
+                    _ = KeychainWrapper.saveItem(value: data.result.refreshToken, forKey: LoginKeyChain.refreshToken.rawValue)
 
-                                   observer.onCompleted()
-                                   
-                               case .failure(let error):
-                                   print("로그인 실패:")
-                                   observer.onError(error)
-                               }
-                           }
-                       return Disposables.create()
+                    observer.onCompleted()
+                    
+                case .failure(let error):
+                    print("로그인 실패:")
+                    observer.onError(error)
+                }
+            }
+            return Disposables.create()
+        }
+    }
+    
+    /// - Parameter request: Apple에서 발급받는 Token
+    /// - Returns:  Tokens
+    func validateAppleTokenAndSendInfo(request: AppleTokenValidationRequest) -> Observable<Response<TokenResult>> {
+        let url = Domain.RESTAPI + LoginPath.appleLogin.rawValue
+        let headers = Header.header.getHeader()
+        
+        return Observable.create { observer in
+            AF.request(url, method: .post,
+                       parameters: request,
+                       encoder: JSONParameterEncoder.default,
+                       headers: headers)
+            .validate()
+            .responseDecodable(of: Response<TokenResult>.self) { response in
+
+                switch response.result {
+                    
+                case .success(let data):
+                    print("👍로그인 성공: \(response)")
+                    observer.onNext(data)
+                    _ = KeychainWrapper.saveItem(value: data.result.accessToken, forKey: LoginKeyChain.accessToken.rawValue)
+                    _ = KeychainWrapper.saveItem(value: data.result.refreshToken, forKey: LoginKeyChain.refreshToken.rawValue)
+                    
+                    observer.onCompleted()
+                    
+                case .failure(let error):
+                    print("로그인 실패:")
+                    observer.onError(error)
+                }
+            }
+            return Disposables.create()
         }
     }
     
     /// 직업 정보 가져오기
-    func fetchJobOptions() -> Observable<ProfileOptionResponse> {
+    func fetchJobOptions() -> Observable<Response<[String]>> {
         let url = Domain.RESTAPI + LoginPath.job.rawValue
         return Observable.create { observer in
             AF.request(url, method: .get)
                 .validate()
-                .responseDecodable(of: ProfileOptionResponse.self) { response in
+                .responseDecodable(of: Response<[String]>.self) { response in
                     switch response.result {
                     case .success(let data):
                         observer.onNext(data)
@@ -115,12 +148,12 @@ final class LoginService: LoginProtocol {
     }
     
     /// 연차 정보 가져오기
-    func fetchExperienceYearsOptions() -> Observable<ProfileOptionResponse> {
+    func fetchExperienceYearsOptions() -> Observable<Response<[String]>> {
         let url = Domain.RESTAPI + LoginPath.experienceYear.rawValue
         return Observable.create { observer in
             AF.request(url, method: .get)
                 .validate()
-                .responseDecodable(of: ProfileOptionResponse.self) { response in
+                .responseDecodable(of: Response<[String]>.self) { response in
                     switch response.result {
                     case .success(let data):
                         observer.onNext(data)
@@ -132,4 +165,38 @@ final class LoginService: LoginProtocol {
             return Disposables.create()
         }
     }
+    
+    /// 유효성 검사하기
+    /// - Parameter request: 서버에서  발급받는 Token
+    /// - Returns:  Tokens
+    func validateTokenAndSendInfo(request: TokenValidationRequest) -> Observable<Response<TokenResult>> {
+        let url = Domain.RESTAPI + LoginPath.checkValidation.rawValue
+        let headers = Header.header.getHeader()
+        
+        return Observable.create { observer in
+            AF.request(url, method: .post,
+                       parameters: request,
+                       encoder: JSONParameterEncoder.default,
+                       headers: headers)
+            .validate()
+            .responseDecodable(of: Response<TokenResult>.self) { response in
+                
+                switch response.result {
+                    
+                case .success(let data):
+                    print("👍로그인 성공: \(response)")
+                    observer.onNext(data)
+                    _ = KeychainWrapper.saveItem(value: data.result.accessToken, forKey: LoginKeyChain.accessToken.rawValue)
+                    _ = KeychainWrapper.saveItem(value: data.result.refreshToken, forKey: LoginKeyChain.refreshToken.rawValue)
+                    observer.onCompleted()
+                    
+                case .failure(let error):
+                    print("로그인 실패:")
+                    observer.onError(error)
+                }
+            }
+            return Disposables.create()
+        }
+    }
+    
 }

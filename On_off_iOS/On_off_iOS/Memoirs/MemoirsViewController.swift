@@ -254,7 +254,19 @@ final class MemoirsViewController: UIViewController {
                                            menuButtonTapped: menuButton.rx.tap.asObservable(),
                                            writeButtonTapped: writeButton.rx.tap.asObservable())
         
-        let _ = viewModel.bind(input: input)
+        let output = viewModel.bind(input: input)
+        
+        output.shouldNavigateToStartToWrite
+            .subscribe(onNext: { [weak self] _ in
+                self?.navigateToStartToWrite()
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func navigateToStartToWrite() {
+        let startToWriteViewModel = StartToWriteViewModel()
+        let startToWriteViewController = StartToWriteViewController(viewModel: startToWriteViewModel)
+        self.navigationController?.pushViewController(startToWriteViewController, animated: false)
     }
     
     /// 네비게이션 바

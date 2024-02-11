@@ -11,7 +11,7 @@ import RxCocoa
 import AuthenticationServices
 import RxGesture
 
-///로그인 화면
+/// 로그인 화면
 final class LoginViewController: UIViewController {
     
     private let welcomeLabel: UILabel = {
@@ -63,7 +63,7 @@ final class LoginViewController: UIViewController {
     
     private let viewModel: LoginViewModel
     private let disposeBag = DisposeBag()
-    var output: LoginViewModel.Output?
+    private let appleLoginSuccessSubject = PublishSubject<Void>()
     
     
     // MARK: - Init
@@ -83,11 +83,14 @@ final class LoginViewController: UIViewController {
         settingUI()
         addSubviews()
         setupBindings()
+        print(self.navigationController)
     }
     
+    /// settingUI
     private func settingUI(){
         view.backgroundColor = UIColor.OnOffMain
     }
+    
     /// addSubviews
     private func addSubviews(){
         view.addSubview(welcomeLabel)
@@ -129,7 +132,7 @@ final class LoginViewController: UIViewController {
     }
     
     /// 애플 로그인 과정을 시작
-        @objc
+    @objc
     private func onAppleLoginImageViewTapped() {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
@@ -142,19 +145,60 @@ final class LoginViewController: UIViewController {
         
     }
     
+    /// setupBindings : viewMode과l bind
     private func setupBindings() {
-        let input = LoginViewModel.Input(
-            kakaoButtonTapped: kakaoLoginImageView.rx.tapGesture().when(.recognized).asObservable()
-        )
         
-        // ViewModel bind 호출하고 output 받기
-        self.output = viewModel.bind(input: input)
-        guard let output = output else { return }
-        self.output?.checkSignInService.subscribe(onNext: { signInStatus in
+        let input = LoginViewModel.Input(
+            kakaoButtonTapped: kakaoLoginImageView.rx.tapGesture().when(.recognized).asObservable(),
+            appleLoginSuccess: appleLoginSuccessSubject.asObservable() // 애플 로그인 성공 이벤트를 Observable로 전달
+            
+        )
+
+        let output = viewModel.bind(input: input)
+        
+        output.checkSignInService.subscribe(onNext: { signInStatus in
             print("로그인 상태: \(String(describing: signInStatus))")
-        }).disposed(by: disposeBag)
+        })
+        .disposed(by: disposeBag)
+        
+        output.moveToNickName
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] _ in
+                print("🍎")
+                self?.moveToNickName()
+            })
+            .disposed(by: disposeBag)
+
+        output.moveToMain
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] _ in
+                print("🍎")
+                self?.moveToMain()
+            })
+            .disposed(by: disposeBag)
+
+        
+        output.moveToBack
+                .subscribe(onNext: { [weak self] _ in
+                    self?.navigationController?.popViewController(animated: false)
+                })
+                .disposed(by: disposeBag)
+    }
+    /// 닉네임 설정으로 이동
+    private func moveToNickName() {
+        print("이동해야함")
+        let nickNameViewModel = NickNameViewModel()
+        let nickNameViewController =  NickNameViewController(viewModel: nickNameViewModel)
+        self.navigationController?.pushViewController(nickNameViewController, animated: true)
     }
     
+    /// 메인 화면으로 이동
+    private func moveToMain() {
+        print("이동해야함")
+        let nickNameViewModel = NickNameViewModel()
+        let nickNameViewController =  NickNameViewController(viewModel: nickNameViewModel)
+        self.navigationController?.pushViewController(nickNameViewController, animated: true)
+    }
 }
 
 // MARK: - extension :ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding
@@ -168,33 +212,46 @@ extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
         //로그인 성공
         switch authorization.credential {
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
-            
             let userIdentifier = appleIDCredential.user
-            let fullName = appleIDCredential.fullName
-            let email = appleIDCredential.email
+            let givenName = appleIDCredential.fullName?.givenName ?? ""
+            let familyName = appleIDCredential.fullName?.familyName ?? ""
+            let email = appleIDCredential.email ?? ""
             
-            if  let authorizationCode = appleIDCredential.authorizationCode,
-                let identityToken = appleIDCredential.identityToken,
-                let authCodeString = String(data: authorizationCode, encoding: .utf8),
-                let identifyTokenString = String(data: identityToken, encoding: .utf8) {
-                print("authorizationCode: \(authorizationCode)")
-                print("identityToken: \(identityToken)")
-                print("authCodeString: \(authCodeString)")
-                print("identifyTokenString: \(identifyTokenString)")
+            ///identityToken, authorizationCode를 인코딩
+            guard let identityToken = appleIDCredential.identityToken,
+                  let authorizationCode = appleIDCredential.authorizationCode,
+                  let identityTokenString = String(data: identityToken, encoding: .utf8),
+                  let authorizationCodeString = String(data: authorizationCode, encoding: .utf8) else {
+                print("Error")
+                return
             }
+            print("""
+                  {
+                  "oauthId": \(userIdentifier),
+                  "fullName": {
+                    "givenName": \(givenName),
+                    "familyName": \(familyName)
+                  },
+                  "email": \(email),
+                  "identityToken": \(identityTokenString),
+                  "authorizationCode": \(authorizationCodeString),
+                  "additionalInfo": {
+                    "fieldOfWork": "부동산_임대업",
+                    "job": "aa",
+                    "experienceYear": "신입"
+                  }
+                  }
+                  """)
+            // 키체인에 정보 저장
+            _ = KeychainWrapper.saveItem(value: "apple", forKey: LoginMethod.loginMethod.rawValue)
             
-            print("useridentifier: \(userIdentifier)")
-            print("fullName: \(fullName)")
-            print("email: \(email)")
-            
-        case let passwordCredential as ASPasswordCredential:
-
-            let username = passwordCredential.user
-            let password = passwordCredential.password
-            
-            print("username: \(username)")
-            print("password: \(password)")
-            
+            _ = KeychainWrapper.saveItem(value: userIdentifier, forKey: AppleLoginKeyChain.oauthId.rawValue)
+            _ = KeychainWrapper.saveItem(value: givenName, forKey: AppleLoginKeyChain.giveName.rawValue)
+            _ = KeychainWrapper.saveItem(value: familyName, forKey: AppleLoginKeyChain.familyName.rawValue)
+            _ = KeychainWrapper.saveItem(value: email, forKey: AppleLoginKeyChain.email.rawValue)
+            _ = KeychainWrapper.saveItem(value: identityTokenString, forKey: AppleLoginKeyChain.identityTokenString.rawValue)
+            _ = KeychainWrapper.saveItem(value: authorizationCodeString, forKey: AppleLoginKeyChain.authorizationCodeString.rawValue)
+            appleLoginSuccessSubject.onNext(())
         default:
             break
         }

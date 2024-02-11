@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// ModalSelectProfileDelegate: 프로필 모달창에서 메인화면에 데이터 넘기기
 protocol ModalSelectProfileDelegate: AnyObject {
     func optionSelected(data: String, dataType: ProfileDataType)
 }

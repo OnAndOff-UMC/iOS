@@ -14,7 +14,6 @@ import UIKit
 final class BookmarkViewModel {
     
     private let disposeBag = DisposeBag()
-    private let navigationController: UINavigationController
     
     /// Input
     struct Input {
@@ -24,12 +23,7 @@ final class BookmarkViewModel {
     /// Output
     struct Output {
     }
-    
-    // MARK: - Init
-    init(navigationController: UINavigationController) {
-        self.navigationController = navigationController
-    }
-    
+
     /// binding Input
     /// - Parameters:
     ///   - input: Input 구조체
@@ -38,14 +32,7 @@ final class BookmarkViewModel {
         input.cellTapped
             .subscribe(onNext: { [weak self] title in
                 print("선택된거 날짜 보여줄꺼임: \(title)")
-                self?.moveToMemoirs()
             })
             .disposed(by: disposeBag)
-    }
-
-    private func moveToMemoirs() {
-        let memoirsViewModel = MemoirsViewModel(navigationController: navigationController)
-        let vc = MemoirsViewController(viewModel: memoirsViewModel)
-        navigationController.pushViewController(vc, animated: false)
     }
 }

@@ -13,7 +13,6 @@ import UIKit
 /// WritePraisedViewModel
 final class WritePraisedViewModel {
     private let disposeBag = DisposeBag()
-    var navigationController: UINavigationController
     
     /// Input
     struct Input {
@@ -25,11 +24,8 @@ final class WritePraisedViewModel {
     /// Output
     struct Output {
         let textLength: PublishSubject<Int> = PublishSubject<Int>()
-    }
-    
-    // MARK: - Init
-    init(navigationController: UINavigationController) {
-        self.navigationController = navigationController
+        let moveToNext = PublishSubject<Bool>()
+        let moveToBack = PublishSubject<Void>()
     }
     
     /// binding Input
@@ -48,40 +44,17 @@ final class WritePraisedViewModel {
         /// 완료버튼 클릭
         input.startButtonTapped
             .withLatestFrom(input.textChanged)
-            .take(1)
-            .subscribe(onNext: { [weak self] text in
-                guard let self = self else { return }
-                
-                // 키체인에 저장
+            .subscribe(onNext: { text in
                 let isSuccess = KeychainWrapper.saveItem(value: text, forKey: MemoirsKeyChain.MemoirsAnswer3.rawValue)
-                
-                if isSuccess {
-                    self.moveToExpressedIcon()
-                } else {
-                    // 오류 처리할거임
-                }
+                output.moveToNext.onNext(isSuccess)
             }).disposed(by: disposeBag)
         
         /// 뒤로가기 버튼 클릭
         input.backButtonTapped
-            .bind { [weak self] in
-                guard let self = self else { return }
-                moveToBack()
-            }
+            .bind(to: output.moveToBack)
             .disposed(by: disposeBag)
         
         return output
     }
-    
-    /// Memoirs 초기 화면으로 이동
-    private func moveToExpressedIcon() {
-        let expressedIconViewModel = ExpressedIconViewModel(navigationController: navigationController)
-        let vc = ExpressedIconViewController(viewModel: expressedIconViewModel)
-        navigationController.pushViewController(vc, animated: false)
-    }
-    
-    /// 뒤로 이동 - animate 제거
-    private func moveToBack() {
-        navigationController.popViewController(animated: false)
-    }
+    /// ExpressedIconViewModel
 }

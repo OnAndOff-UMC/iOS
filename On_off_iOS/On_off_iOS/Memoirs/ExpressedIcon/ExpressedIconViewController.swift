@@ -169,8 +169,25 @@ final class ExpressedIconViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
-        let _ = viewModel.bind(input: input)
+        let output = viewModel.bind(input: input)
+
+        output.moveToNext
+            .subscribe(onNext: { [weak self] _ in
+                    self?.navigateTobookMark()
+            })
+            .disposed(by: disposeBag)
         
+        output.moveToBack
+            .subscribe(onNext: { [weak self] _ in
+                self?.navigationController?
+                .popViewController(animated: false)})
+        
+    }
+    /// 임시 초기로 이동
+    private func navigateTobookMark() {
+        let bookmarkViewModel = BookmarkViewModel()
+        let writePraisedViewController = BookmarkViewController(viewModel: bookmarkViewModel)
+        self.navigationController?.pushViewController(writePraisedViewController, animated: false)
     }
     
     /// 이모티콘 모달 띄우기

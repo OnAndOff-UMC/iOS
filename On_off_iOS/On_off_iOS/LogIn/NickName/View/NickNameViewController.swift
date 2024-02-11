@@ -195,23 +195,36 @@ final class NickNameViewController: UIViewController {
         
         /// 글자수 출력 바인딩
         output.nickNameLength
-         .map { "(\($0)/10)" }
+            .map { "(\($0)/10)" }
             .bind(to: checkLenghtLabel.rx.text)
             .disposed(by: disposeBag)
-   
+        
         // 버튼 활성화 상태 및 색상 변경 바인딩
         output.isCheckButtonEnabled
-               .observe(on: MainScheduler.instance)
-               .bind { [weak self] isEnabled in
-                   guard let self = self else { return }
-                   checkButton.isEnabled = isEnabled
-                   checkButtonView.layer.borderColor = UIColor.OnOffMain.cgColor
-                   checkButtonView.layer.borderWidth = 1
-
-                   checkButtonView.backgroundColor = isEnabled ? UIColor.OnOffMain : .white
-                   checkButton.setTitleColor(isEnabled ? .white : UIColor.OnOffMain, for: .normal)
-               }
-               .disposed(by: disposeBag)
+            .observe(on: MainScheduler.instance)
+            .bind { [weak self] isEnabled in
+                guard let self = self else { return }
+                checkButton.isEnabled = isEnabled
+                checkButtonView.layer.borderColor = UIColor.OnOffMain.cgColor
+                checkButtonView.layer.borderWidth = 1
+                
+                checkButtonView.backgroundColor = isEnabled ? UIColor.OnOffMain : .white
+                checkButton.setTitleColor(isEnabled ? .white : UIColor.OnOffMain, for: .normal)
+            }
+            .disposed(by: disposeBag)
+        
+        output.moveToNext
+            .subscribe(onNext: { [weak self] _ in
+                self?.moveToProfile()
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    /// 프로필설정으로 이동
+    private func moveToProfile() {
+        let profileViewModel = ProfileSettingViewModel(loginService: LoginService())
+        let profileSettingViewController = ProfileSettingViewController(viewModel: profileViewModel)
+        self.navigationController?.pushViewController(profileSettingViewController, animated: true)
     }
     
     // 키보드내리기

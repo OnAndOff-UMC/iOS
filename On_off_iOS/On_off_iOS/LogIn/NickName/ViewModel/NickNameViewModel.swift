@@ -12,7 +12,6 @@ import UIKit
 
 final class NickNameViewModel {
     private let disposeBag = DisposeBag()
-    var navigationController: UINavigationController
 
     /// Input
     struct Input {
@@ -25,11 +24,7 @@ final class NickNameViewModel {
         let nickNameFilteringRelay: BehaviorRelay<String> = BehaviorRelay<String>(value: "")
         let nickNameLength: PublishSubject<Int> = PublishSubject<Int>()
         let isCheckButtonEnabled: BehaviorRelay<Bool> = BehaviorRelay<Bool>(value: true)
-    }
-
-    // MARK: - Init
-    init(navigationController: UINavigationController) {
-        self.navigationController = navigationController
+        let moveToNext = PublishSubject<Void>()
     }
     
     /// binding Input
@@ -53,9 +48,7 @@ final class NickNameViewModel {
 
         /// 완료버튼 클릭
         input.startButtonTapped
-            .bind { [weak self] in
-                self?.moveToProfile()
-            }
+            .bind(to: output.moveToNext)
             .disposed(by: disposeBag)
         
         return output
@@ -65,12 +58,5 @@ final class NickNameViewModel {
     private func isValidNickName(_ nickName: String) -> Bool {
         let regex = "^[가-힣A-Za-z0-9.,!_~]+$"
         return nickName.range(of: regex, options: .regularExpression) != nil
-    }
-    
-    /// 프로필설정으로 이동
-    private func moveToProfile() {
-        let profileViewModel = ProfileSettingViewModel(navigationController: navigationController, loginService: LoginService())
-        let vc = ProfileSettingViewController(viewModel: profileViewModel)
-        navigationController.pushViewController(vc, animated: true)
     }
 }
