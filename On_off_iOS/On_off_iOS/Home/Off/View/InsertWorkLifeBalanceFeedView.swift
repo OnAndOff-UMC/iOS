@@ -13,7 +13,7 @@ import UIKit
 /// 워라벨 피드 입력
 final class InsertWorkLifeBalanceFeedView: DimmedViewController {
     
-    /// MARK: 배경 뷰
+    /// 배경 뷰
     private lazy var baseUIView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -45,6 +45,5 @@ final class InsertWorkLifeBalanceFeedView: DimmedViewController {
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
         }
-        
     }
 }

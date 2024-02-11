@@ -11,7 +11,7 @@ import RxSwift
 
 final class DeletedImagePopUpView: DimmedViewController {
     
-    /// MARK: 배경 뷰
+    /// 배경 뷰
     private lazy var baseUIView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -167,7 +167,7 @@ final class DeletedImagePopUpView: DimmedViewController {
         bindCancelButton()
     }
     
-    /// bind Cancel Button
+    /// Bind Cancel Button
     private func bindCancelButton() {
         cancelButton.rx.tap
             .bind { [weak self]  in
@@ -177,7 +177,7 @@ final class DeletedImagePopUpView: DimmedViewController {
             .disposed(by: disposeBag)
     }
     
-    /// binding 삭제 성공 했을 때
+    /// Binding 삭제 성공 했을 때
     private func bindSuccessDeleteSubject(output: DeletedImagePopUpViewModel.Output) {
         output.successDeleteSubject
             .bind { [weak self] check in

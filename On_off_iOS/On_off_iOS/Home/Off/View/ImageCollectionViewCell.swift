@@ -70,7 +70,6 @@ final class ImageCollectionViewCell: UICollectionViewCell {
     /// Input Data
     /// - Parameter imageURL: 이미지 URL주소
     func inputData(image: Image) {
-        print("imageURL \(image)")
         baseImageView.removeFromSuperview()
         addSubViews()
         if let url = URL(string: image.imageUrl ?? "") {

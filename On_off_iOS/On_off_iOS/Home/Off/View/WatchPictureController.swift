@@ -71,7 +71,7 @@ final class WatchPictureController: UIViewController {
         
     }
     
-    /// binding Navigation Button
+    /// Binding Navigation Button
     private func bindNavigationButton() {
         navigationButton.rx.tap
             .bind { [weak self] in
