@@ -307,7 +307,6 @@ final class HomeViewController: UIViewController {
         offUIView.clickedImagePlusButton
             .bind { [weak self] in
                 guard let self = self else { return }
-                // 5-2) 권한 관련 작업 후 콜백 함수 실행(사진 라이브러리)
                 authPhotoLibrary(self) { [weak self] in
                     guard let self = self else { return }
                     

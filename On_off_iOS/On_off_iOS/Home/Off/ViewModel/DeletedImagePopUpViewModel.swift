@@ -49,8 +49,7 @@ final class DeletedImagePopUpViewModel {
     ///   - id: 선택한 이미지 Id
     private func deleteImage(output: Output, id: Int) {
         service.deleteImage(imageId: id)
-            .subscribe(onNext: { [weak self] check in
-                guard let self = self else { return }
+            .subscribe(onNext: { check in
                 print(#function, check)
                 if check {
                     output.successDeleteSubject.onNext(check)

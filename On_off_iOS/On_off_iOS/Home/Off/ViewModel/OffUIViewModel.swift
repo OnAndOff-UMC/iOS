@@ -99,17 +99,7 @@ final class OffUIViewModel {
         input.selectedImage?
             .bind { [weak self] image in
                 guard let self = self else { return }
-                service.uploadImage(image: image)
-                    .subscribe(onNext: { [weak self] check in
-                        guard let self = self else { return }
-                        if check {
-                            print("called getImageList")
-                            getImageList(output: output)
-                        }
-                    }, onError: { error in
-                        // 업로드 실패
-                    })
-                    .disposed(by: disposeBag)
+                uploadImage(image: image, output: output)
             }
             .disposed(by: disposeBag)
     }
@@ -134,11 +124,27 @@ final class OffUIViewModel {
                 
             }, onError: { error in
                 print(error)
-                
-                output.imageURLRelay.accept([Image(feedImageId: 1, imageUrl: "sun"),
-                                             Image(feedImageId: nil, imageUrl: "plus.circle.fill")])
+                output.imageURLRelay.accept([Image(feedImageId: nil, imageUrl: "plus.circle.fill")])
             })
             .disposed(by: disposeBag)
         
+    }
+    
+    
+    /// Upload Image
+    /// - Parameters:
+    ///   - image: 선택한 이미지
+    private func uploadImage(image: UIImage, output: Output) {
+        service.uploadImage(image: image)
+            .subscribe(onNext: { [weak self] check in
+                guard let self = self else { return }
+                if check {
+                    print("called getImageList")
+                    getImageList(output: output)
+                }
+            }, onError: { error in
+                // 업로드 실패
+            })
+            .disposed(by: disposeBag)
     }
 }
