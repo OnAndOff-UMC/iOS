@@ -126,7 +126,9 @@ final class OffUIView: UIView {
     
     private let disposeBag = DisposeBag()
     private let viewModel = OffUIViewModel()
-    var heightConstraint: Constraint?
+    private var heightConstraint: Constraint?
+    var clickedImageButton: PublishSubject<Void> = PublishSubject()
+    var selectedImage: PublishSubject<UIImage> = PublishSubject()
     
     // MARK: - Init
     override init(frame: CGRect) {
@@ -245,8 +247,10 @@ final class OffUIView: UIView {
                                                                         todayMemoirsIconImageButtonEvents: todayMemoirsIconImageButton.rx.tap,
                                                                         feedTitleButtonEvents: feedTitleButton.rx.tap,
                                                                         feedPlusIconImageButtonEvents: feedPlusIconImageButton.rx.tap,
-                                                                        collectionViewCellEvents: imageCollectionView.rx.itemSelected))
+                                                                        collectionViewCellEvents: imageCollectionView.rx.itemSelected,
+                                                                        selectedImage: selectedImage))
         bindCollectionView(output: output)
+        bindClickPlusImageButton(output: output)
     }
     
     /// Binding CollectionView
@@ -259,23 +263,37 @@ final class OffUIView: UIView {
         output.imageURLRelay
             .bind(to: imageCollectionView.rx
                 .items(cellIdentifier: CellIdentifier.ImageCollectionView.rawValue,
-                       cellType: ImageCollectionViewCell.self)) { row, element, cell in
-                cell.layer.cornerRadius = 20
-                
-                if element == "plus.circle.fill" {
-                    cell.layer.borderWidth = 1
-                    cell.lastData(image: element)
-                    cell.backgroundColor = .clear
-                    return
-                }
-                cell.inputData(imageURL: element)
-                cell.backgroundColor = .green
-                cell.layer.borderWidth = 0
+                       cellType: ImageCollectionViewCell.self))
+        { row, element, cell in
+            cell.layer.cornerRadius = 20
+            
+            if element == "plus.circle.fill" {
+                cell.layer.borderWidth = 1
+                cell.lastData(image: element)
+                cell.backgroundColor = .clear
+                return
             }
-                       .disposed(by: disposeBag)
+            cell.inputData(imageURL: element)
+            cell.backgroundColor = .green
+            cell.layer.borderWidth = 0
+        }
+        .disposed(by: disposeBag)
         
         imageCollectionView.rx.setDelegate(self)
             .disposed(by: disposeBag)
+    }
+    
+    /// 이미지 추가 버튼 눌렀을 때
+    /// 이미지 선택하는 화면으로 이동
+    private func bindClickPlusImageButton(output: OffUIViewModel.Output) {
+        output.clickPlusImageButton
+            .bind { [weak self] in
+                guard let self = self else { return }
+                print(#function)
+                clickedImageButton.onNext(())
+            }
+            .disposed(by: disposeBag)
+        
     }
     
 }

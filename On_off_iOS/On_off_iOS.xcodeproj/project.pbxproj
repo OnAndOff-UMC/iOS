@@ -111,6 +111,8 @@
 		3B2D93002B776AA400D88787 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3B2D92FF2B776AA400D88787 /* Config.xcconfig */; };
 		3B2D93022B77C91B00D88787 /* OffUIViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2D93012B77C91B00D88787 /* OffUIViewModel.swift */; };
 		3B2D93042B77CB9800D88787 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2D93032B77CB9800D88787 /* ImageCollectionViewCell.swift */; };
+		3B35763F2B78BDEF008464AA /* OffUIViewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B35763E2B78BDEF008464AA /* OffUIViewService.swift */; };
+		3B3576422B78BF17008464AA /* Mantis in Frameworks */ = {isa = PBXBuildFile; productRef = 3B3576412B78BF17008464AA /* Mantis */; };
 		3B42300E2B41572200D0B038 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B42300D2B41572200D0B038 /* AppDelegate.swift */; };
 		3B4230102B41572200D0B038 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B42300F2B41572200D0B038 /* SceneDelegate.swift */; };
 		3B4230172B41572400D0B038 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B4230162B41572400D0B038 /* Assets.xcassets */; };
@@ -216,6 +218,7 @@
 		3B2D92FF2B776AA400D88787 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		3B2D93012B77C91B00D88787 /* OffUIViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffUIViewModel.swift; sourceTree = "<group>"; };
 		3B2D93032B77CB9800D88787 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		3B35763E2B78BDEF008464AA /* OffUIViewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffUIViewService.swift; sourceTree = "<group>"; };
 		3B42300A2B41572200D0B038 /* On_off_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = On_off_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B42300D2B41572200D0B038 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3B42300F2B41572200D0B038 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -263,6 +266,7 @@
 				37C161422B6BE77A000E0B21 /* KakaoSDKAuth in Frameworks */,
 				37C1614E2B6BE77A000E0B21 /* KakaoSDKNavi in Frameworks */,
 				37C161652B6BEDED000E0B21 /* RxKakaoSDKShare in Frameworks */,
+				3B3576422B78BF17008464AA /* Mantis in Frameworks */,
 				37C161462B6BE77A000E0B21 /* KakaoSDKCertCore in Frameworks */,
 				37C161442B6BE77A000E0B21 /* KakaoSDKCert in Frameworks */,
 			);
@@ -723,6 +727,7 @@
 		3B0129CF2B62BA8100B191AD /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				3B35763D2B78BDE5008464AA /* Service */,
 				3B0129D22B62BA9100B191AD /* Model */,
 				3B0129D12B62BA8E00B191AD /* ViewModel */,
 				3B0129D02B62BA8A00B191AD /* View */,
@@ -756,6 +761,14 @@
 				3B0129CB2B624D6000B191AD /* Home.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		3B35763D2B78BDE5008464AA /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				3B35763E2B78BDEF008464AA /* OffUIViewService.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 		3B4230012B41572200D0B038 = {
@@ -904,6 +917,7 @@
 				37C161642B6BEDED000E0B21 /* RxKakaoSDKShare */,
 				37A1E9852B6C821A0013FFD7 /* RxGesture */,
 				37AEB1EB2B6CEE0E00A6CDD6 /* Kingfisher */,
+				3B3576412B78BF17008464AA /* Mantis */,
 			);
 			productName = On_off_iOS;
 			productReference = 3B42300A2B41572200D0B038 /* On_off_iOS.app */;
@@ -943,6 +957,7 @@
 				37C1615B2B6BEDED000E0B21 /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */,
 				37A1E9842B6C821A0013FFD7 /* XCRemoteSwiftPackageReference "RxGesture" */,
 				37AEB1EA2B6CEE0E00A6CDD6 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				3B3576402B78BF17008464AA /* XCRemoteSwiftPackageReference "Mantis" */,
 			);
 			productRefGroup = 3B42300B2B41572200D0B038 /* Products */;
 			projectDirPath = "";
@@ -1060,6 +1075,7 @@
 				37FED6092B6E235D0071BB23 /* BookmarkViewModel.swift in Sources */,
 				37A1E98D2B6CCC020013FFD7 /* Memoirs.swift in Sources */,
 				3BB806D62B50228100555E58 /* DayStatistics.swift in Sources */,
+				3B35763F2B78BDEF008464AA /* OffUIViewService.swift in Sources */,
 				371B9EA92B5AD847006AC06D /* MemoirsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1350,6 +1366,14 @@
 				minimumVersion = 2.20.0;
 			};
 		};
+		3B3576402B78BF17008464AA /* XCRemoteSwiftPackageReference "Mantis" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/guoyingtao/Mantis.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.7.5;
+			};
+		};
 		3B8570C92B582B4E000BC503 /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/WenchaoD/FSCalendar.git";
@@ -1485,6 +1509,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 37C1615B2B6BEDED000E0B21 /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */;
 			productName = RxKakaoSDKShare;
+		};
+		3B3576412B78BF17008464AA /* Mantis */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3B3576402B78BF17008464AA /* XCRemoteSwiftPackageReference "Mantis" */;
+			productName = Mantis;
 		};
 		3B8570CA2B582B4E000BC503 /* FSCalendar */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -10,6 +10,8 @@ import RxCocoa
 import RxSwift
 import SnapKit
 import UIKit
+import Mantis
+import Photos
 
 final class HomeViewController: UIViewController {
     
@@ -204,6 +206,7 @@ final class HomeViewController: UIViewController {
         bindBackGroundColor(output: output)
         bindBlankViewShadowColor(output: output)
         bindToggleOnOffButton(output: output)
+        bindClickImagePlusButton()
     }
     
     /// Binding Day CollectionView Cell
@@ -297,6 +300,144 @@ final class HomeViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
+    /// 이미지 추가버튼 눌렀을 때
+    /// 이미지 선택하는 화면으로 이동
+    private func bindClickImagePlusButton() {
+        offUIView.clickedImageButton
+            .bind { [weak self] in
+                guard let self = self else { return }
+                print(#function)
+                // 5-2) 권한 관련 작업 후 콜백 함수 실행(사진 라이브러리)
+                authPhotoLibrary(self) { [weak self] in
+                    guard let self = self else { return }
+                    
+                    let imagePickerController = UIImagePickerController()
+                    imagePickerController.sourceType = .photoLibrary
+                    imagePickerController.delegate = self
+                    imagePickerController.allowsEditing = false// 이미지 편집 기능 On
+                    
+                    present(imagePickerController, animated: true)
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    /// 사진 접근 권한 설정
+    private func photoAuth(isCamera: Bool, viewController: UIViewController, completion: @escaping () -> ()) {
+        
+        // 경고 메시지 작성
+        let sourceName = isCamera ? "카메라" : "사진 라이브러리"
+        
+        let notDeterminedAlertTitle = "No Permission Status"
+        let notDeterminedMsg = "\(sourceName)의 권한 설정을 변경하시겠습니까?"
+        
+        let restrictedMsg = "시스템에 의해 거부되었습니다."
+        
+        let deniedAlertTitle = "Permission Denied"
+        let deniedMsg = "\(sourceName)의 사용 권한이 거부되었기 때문에 사용할 수 없습니다. \(sourceName)의 권한 설정을 변경하시겠습니까?"
+        
+        let unknownMsg = "unknown"
+        
+        // 카메라인 경우와 사진 라이브러리인 경우를 구분해서 권한 status의 원시값(Int)을 저장
+        let status: Int = isCamera ? AVCaptureDevice.authorizationStatus(for: AVMediaType.video).rawValue : PHPhotoLibrary.authorizationStatus().rawValue
+        
+        // PHAuthorizationStatus, AVAuthorizationStatus의 status의 원시값은 공유되므로 같은 switch문에서 사용
+        switch status {
+        case 0:
+            // .notDetermined - 사용자가 아직 권한에 대한 설정을 하지 않았을 때
+            simpleDestructiveYesAndNo(viewController, message: notDeterminedMsg, title: notDeterminedAlertTitle, yesHandler: openSettings)
+            print("CALLBACK FAILED: \(sourceName) is .notDetermined")
+        case 1:
+            // .restricted - 시스템에 의해 앨범에 접근 불가능하고, 권한 변경이 불가능한 상태
+            simpleAlert(viewController, message: restrictedMsg)
+            print("CALLBACK FAILED: \(sourceName) is .restricted")
+        case 2:
+            // .denied - 접근이 거부된 경우
+            simpleDestructiveYesAndNo(viewController, message: deniedMsg, title: deniedAlertTitle, yesHandler: openSettings)
+            print("CALLBACK FAILED: \(sourceName) is .denied")
+        case 3:
+            // .authorized - 권한 허용된 상태
+            print("CALLBACK SUCCESS: \(sourceName) is .authorized")
+            completion()
+        case 4:
+            // .limited (iOS 14 이상 사진 라이브러리 전용) - 갤러리의 접근이 선택한 사진만 허용된 경우
+            print("CALLBACK SUCCESS: \(sourceName) is .limited")
+            completion()
+        default:
+            // 그 외의 경우 - 미래에 새로운 권한 추가에 대비
+            simpleAlert(viewController, message: unknownMsg)
+            print("CALLBACK FAILED: \(sourceName) is unknwon state.")
+        }
+    }
+    
+    /// 설정 앱 열기
+    private func openSettings(action: UIAlertAction) -> Void {
+        guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else { return }
+        
+        if UIApplication.shared.canOpenURL(settingsUrl) {
+            UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                print("Settings opened: \(success)") // Prints true
+            })
+        }
+    }
+    
+    /// photoAuth 함수를 main 스레드에서 실행 (UI 관련 문제 방지)
+    private func photoAuthInMainAsync(isCamera: Bool, viewController: UIViewController, completion: @escaping () -> ()) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            photoAuth(isCamera: isCamera, viewController: viewController, completion: completion)
+        }
+    }
+    
+    /// 사진 라이브러리의 권한을 묻고, 이후 () -> () 클로저를 실행하는 함수
+    private func authPhotoLibrary(_ viewController: UIViewController, completion: @escaping () -> ()) {
+        if #available(iOS 14, *) {
+            // iOS 14의 경우 사진 라이브러리를 읽기전용 또는 쓰기가능 형태로 설정해야 함
+            PHPhotoLibrary.requestAuthorization(for: .readWrite) {  [weak self] status in
+                guard let self = self else { return }
+                photoAuthInMainAsync(isCamera: false, viewController: viewController, completion: completion)
+            }
+        } else {
+            // Fallback on earlier versions
+            PHPhotoLibrary.requestAuthorization { [weak self] status in
+                guard let self = self else { return }
+                photoAuthInMainAsync(isCamera: false, viewController: viewController, completion: completion)
+            }
+        }
+    }
+    
+    // MARK: - 권한별 Alert
+    private func simpleAlert(_ controller: UIViewController, message: String) {
+        let alertController = UIAlertController(title: "Caution", message: message, preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(alertAction)
+        controller.present(alertController, animated: true, completion: nil)
+    }
+
+    private func simpleAlert(_ controller: UIViewController, message: String, title: String, handler: ((UIAlertAction) -> Void)?) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: "OK", style: .default, handler: handler)
+        alertController.addAction(alertAction)
+        controller.present(alertController, animated: true, completion: nil)
+    }
+
+    private func simpleDestructiveYesAndNo(_ controller: UIViewController, message: String, title: String, yesHandler: ((UIAlertAction) -> Void)?) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let alertActionNo = UIAlertAction(title: "No", style: .cancel, handler: nil)
+        let alertActionYes = UIAlertAction(title: "Yes", style: .destructive, handler: yesHandler)
+        alertController.addAction(alertActionNo)
+        alertController.addAction(alertActionYes)
+        controller.present(alertController, animated: true, completion: nil)
+    }
+
+    private func simpleYesAndNo(_ controller: UIViewController, message: String, title: String, yesHandler: ((UIAlertAction) -> Void)?) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let alertActionNo = UIAlertAction(title: "No", style: .cancel, handler: nil)
+        let alertActionYes = UIAlertAction(title: "Yes", style: .default, handler: yesHandler)
+        alertController.addAction(alertActionNo)
+        alertController.addAction(alertActionYes)
+        controller.present(alertController, animated: true)
+    }
 }
 
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
@@ -312,6 +453,40 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat { 10 }
 }
+
+extension HomeViewController: UIImagePickerControllerDelegate, CropViewControllerDelegate, UINavigationControllerDelegate {
+    func cropViewControllerDidCrop(_ cropViewController: Mantis.CropViewController, cropped: UIImage, transformation: Mantis.Transformation, cropInfo: Mantis.CropInfo) {
+        print(cropped, #function)
+        offUIView.selectedImage.onNext(cropped)
+        cropViewController.dismiss(animated: true)
+    }
+    
+    func cropViewControllerDidCancel(_ cropViewController: Mantis.CropViewController, original: UIImage) {
+        cropViewController.dismiss(animated: true)
+    }
+    
+    /// 사진 편집 하는 기능 열기
+    private func openCropVC(image: UIImage) {
+        let cropViewController = Mantis.cropViewController(image: image)
+        cropViewController.delegate = self
+        cropViewController.modalPresentationStyle = .fullScreen
+        cropViewController.config.presetFixedRatioType = .alwaysUsingOnePresetFixedRatio(ratio: 1/1)
+        present(cropViewController, animated: true)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[.originalImage] as? UIImage {
+            dismiss(animated: false) { [weak self] in
+                guard let self = self else { return }
+                openCropVC(image: image)
+            }
+            
+        }
+        dismiss(animated: false)
+        
+    }
+}
+
 
 //import SwiftUI
 //struct VCPreViewHomeViewController:PreviewProvider {

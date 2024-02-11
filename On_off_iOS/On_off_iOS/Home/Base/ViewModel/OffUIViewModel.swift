@@ -9,9 +9,11 @@ import Foundation
 import RxSwift
 import RxCocoa
 import RxRelay
+import UIKit
 
 final class OffUIViewModel {
     private let disposeBag = DisposeBag()
+    private let service = OffUIViewService()
     
     struct Input {
         let todayMemoirsButtonEvents: ControlEvent<Void>?
@@ -19,10 +21,13 @@ final class OffUIViewModel {
         let feedTitleButtonEvents: ControlEvent<Void>?
         let feedPlusIconImageButtonEvents: ControlEvent<Void>?
         let collectionViewCellEvents: ControlEvent<IndexPath>?
+        let selectedImage: Observable<UIImage>?
     }
     
     struct Output {
         var imageURLRelay: BehaviorRelay<[String]> = BehaviorRelay(value: [])
+        var clickPlusImageButton: BehaviorSubject<Void> = BehaviorSubject(value: ())
+        var checkUploadImageRelay: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     }
     
     /// Create Output
@@ -34,8 +39,9 @@ final class OffUIViewModel {
         bindTodayMemoirsEvents(input: input, output: output)
         bindFeedEvents(input: input, output: output)
         bindClickedCollectoinViewCell(input: input, output: output)
+        bindSelectedCroppedImage(input: input, output: output)
         
-        dummy(output: output)
+        getImageList(output: output)
         return output
     }
     
@@ -72,15 +78,62 @@ final class OffUIViewModel {
     /// Bind Clicked CollectionView Cell
     private func bindClickedCollectoinViewCell(input: Input, output: Output) {
         input.collectionViewCellEvents?
-            .bind { indexPath in
+            .bind { [weak self] indexPath in
+                guard let self = self else { return }
                 print(indexPath, output.imageURLRelay.value[indexPath.row])
+                
+                if indexPath.row == output.imageURLRelay.value.count - 1 {
+                    clickPlusImageButton(output: output)
+                    return
+                }
+                clickImageButton(output: output)
             }
             .disposed(by: disposeBag)
     }
     
-    /// dummy Data
-    private func dummy(output: Output) {
-        let list = ["a","a1","a2","a3","a4","a5","a6","a7","a8","plus.circle.fill"]
-        output.imageURLRelay.accept(list)
+    /// 선택된 이미지 업로드
+    private func bindSelectedCroppedImage(input: Input, output: Output) {
+        input.selectedImage?
+            .bind { [weak self] image in
+                guard let self = self else { return }
+                service.uploadImage(image: image)
+                    .subscribe(onNext: { [weak self] check in
+                        guard let self = self else { return }
+                        if check {
+                            print("called getImageList")
+                            getImageList(output: output)
+                        }
+                    }, onError: { error in
+                        // 업로드 실패
+                    })
+                    .disposed(by: disposeBag)
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    /// 이미지 추가 버튼 눌렀을 때
+    private func clickPlusImageButton(output: Output) {
+        output.clickPlusImageButton.onNext(())
+    }
+    
+    /// 로딩된 이미지 눌렀을 때
+    private func clickImageButton(output: Output) {
+        
+    }
+    
+    /// get ImageList Data
+    private func getImageList(output: Output) {
+        service.getImageList()
+            .subscribe(onNext: { list in
+                var list = list
+                list.append("plus.circle.fill")
+                output.imageURLRelay.accept(list)
+            }, onError: { error in
+                print(error)
+                
+                output.imageURLRelay.accept(["plus.circle.fill"])
+            })
+            .disposed(by: disposeBag)
+        
     }
 }
