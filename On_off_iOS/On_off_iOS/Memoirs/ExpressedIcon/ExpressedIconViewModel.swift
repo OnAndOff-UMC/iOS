@@ -61,7 +61,7 @@ final class ExpressedIconViewModel {
         let answer1 = KeychainWrapper.loadItem(forKey: MemoirsKeyChain.MemoirsAnswer1.rawValue) ?? ""
         let answer2 = KeychainWrapper.loadItem(forKey: MemoirsKeyChain.MemoirsAnswer2.rawValue) ?? ""
         let answer3 = KeychainWrapper.loadItem(forKey: MemoirsKeyChain.MemoirsAnswer3.rawValue) ?? ""
-        
+        let emoticonId = KeychainWrapper.loadItem(forKey: MemoirsKeyChain.emoticonID.rawValue) ?? ""
         let today = Date()
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
@@ -69,7 +69,7 @@ final class ExpressedIconViewModel {
         
         let request = MemoirRequest(
             date: dateString,
-            emoticonId: 1, // 이모티콘 ID -> 수정
+            emoticonId: Int(emoticonId) ?? 1, // 이모티콘 ID -> 수정
             memoirAnswerList: [
                 MemoirRequest.MemoirAnswer(questionId: 1, answer: answer1),
                 MemoirRequest.MemoirAnswer(questionId: 2, answer: answer2),

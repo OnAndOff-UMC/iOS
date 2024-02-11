@@ -13,6 +13,7 @@ enum MemoirsKeyChain: String {
     case MemoirsAnswer1
     case MemoirsAnswer2
     case MemoirsAnswer3
+    case emoticonID
 }
 
 /// LoginKeyChain : 키체인
