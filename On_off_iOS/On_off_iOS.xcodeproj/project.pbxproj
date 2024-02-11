@@ -110,6 +110,7 @@
 		3B1658F72B4D8559004EFBC3 /* WeekChartCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1658F62B4D8559004EFBC3 /* WeekChartCustomView.swift */; };
 		3B26CF3F2B7908D500E05581 /* DeletedImagePopUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B26CF3E2B7908D400E05581 /* DeletedImagePopUpViewModel.swift */; };
 		3B26CF442B790A4700E05581 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B26CF432B790A4700E05581 /* Image.swift */; };
+		3B26CF462B7919C100E05581 /* InsertWorkLifeBalanceFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B26CF452B7919C100E05581 /* InsertWorkLifeBalanceFeedView.swift */; };
 		3B2D93002B776AA400D88787 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3B2D92FF2B776AA400D88787 /* Config.xcconfig */; };
 		3B2D93022B77C91B00D88787 /* OffUIViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2D93012B77C91B00D88787 /* OffUIViewModel.swift */; };
 		3B2D93042B77CB9800D88787 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2D93032B77CB9800D88787 /* ImageCollectionViewCell.swift */; };
@@ -222,6 +223,7 @@
 		3B1658F62B4D8559004EFBC3 /* WeekChartCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekChartCustomView.swift; sourceTree = "<group>"; };
 		3B26CF3E2B7908D400E05581 /* DeletedImagePopUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedImagePopUpViewModel.swift; sourceTree = "<group>"; };
 		3B26CF432B790A4700E05581 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
+		3B26CF452B7919C100E05581 /* InsertWorkLifeBalanceFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertWorkLifeBalanceFeedView.swift; sourceTree = "<group>"; };
 		3B2D92FF2B776AA400D88787 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		3B2D93012B77C91B00D88787 /* OffUIViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffUIViewModel.swift; sourceTree = "<group>"; };
 		3B2D93032B77CB9800D88787 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -802,6 +804,7 @@
 			isa = PBXGroup;
 			children = (
 				3BB7D07E2B64EB31002F1860 /* OffUIView.swift */,
+				3B26CF452B7919C100E05581 /* InsertWorkLifeBalanceFeedView.swift */,
 				3B3576432B78F5B1008464AA /* WatchPictureController.swift */,
 				3B2D93032B77CB9800D88787 /* ImageCollectionViewCell.swift */,
 				3B35764A2B78FDAB008464AA /* DeletedImagePopUpView.swift */,
@@ -1044,6 +1047,7 @@
 				370826212B669BFC00FBCAAF /* UICalculate+Ex.swift in Sources */,
 				3787D00F2B42AD6F00F054DD /* OnBoardingViewModel.swift in Sources */,
 				371B9EC32B5B076E006AC06D /* WriteLearnedViewModel.swift in Sources */,
+				3B26CF462B7919C100E05581 /* InsertWorkLifeBalanceFeedView.swift in Sources */,
 				374FD49F2B42825B00F2E645 /* CustomPageControl.swift in Sources */,
 				37C161232B6BD9F8000E0B21 /* LoginViewModel.swift in Sources */,
 				355283122B68CB70002BBFFD /* Ext + UIFont.swift in Sources */,
