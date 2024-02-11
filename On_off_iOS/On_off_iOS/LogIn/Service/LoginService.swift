@@ -169,7 +169,7 @@ final class LoginService: LoginProtocol {
     /// 유효성 검사하기
     /// - Parameter request: 서버에서  발급받는 Token
     /// - Returns:  Tokens
-    func validateTokenAndSendInfo(request: TokenValidationRequest) -> Observable<Response<TokenResult>> {
+    func validateTokenAndSendInfo(request: TokenResult) -> Observable<Response<TokenResult>> {
         let url = Domain.RESTAPI + LoginPath.checkValidation.rawValue
         let headers = Header.header.getHeader()
         

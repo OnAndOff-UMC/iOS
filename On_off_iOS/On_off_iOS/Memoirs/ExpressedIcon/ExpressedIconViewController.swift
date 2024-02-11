@@ -217,12 +217,14 @@ final class ExpressedIconViewController: UIViewController {
 
 extension ExpressedIconViewController: ModalEmoticonDelegate {
     func emoticonSelected(emoticon: Emoticon) {
-            self.emoticonImage.kf.setImage(with: URL(string: emoticon.imageUrl), completionHandler:  { [weak self] result in
+            self.emoticonImage.kf.setImage(with: URL(string: emoticon.imageUrl), 
+                                           completionHandler:  { [weak self] result in
                 switch result {
                 case .success(_):
                     DispatchQueue.main.async {
                         // 이미지 로드 성공 시 버튼 활성화
-                        print("good")
+                        _ = KeychainWrapper.saveItem(value: String(emoticon.emoticonId),
+                                                     forKey: MemoirsKeyChain.emoticonID.rawValue)
                         self?.saveButton.isEnabled = true
                         self?.saveButtonView.backgroundColor = .OnOffMain
                         self?.saveButton.setTitleColor(.white, for: .normal)
