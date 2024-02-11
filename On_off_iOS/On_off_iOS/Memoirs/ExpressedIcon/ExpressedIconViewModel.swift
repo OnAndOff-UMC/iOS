@@ -36,30 +36,19 @@ final class ExpressedIconViewModel {
     func bind(input: Input) -> Output {
         let output = Output()
         
-        // 선택된 이모티콘 ID를 저장할 변수
-        var currentSelectedEmoticonId: Int?
-
-        // 선택된 이모티콘 ID 구독
-        input.selectedEmoticonId
-            .subscribe(onNext: { id in
-                currentSelectedEmoticonId = id
-            })
-            .disposed(by: disposeBag)
-        
         /// 완료버튼 클릭
-        input.startButtonTapped
-            .withLatestFrom(input.selectedEmoticonId)
-            .flatMapLatest { [weak self] emoticonId -> Observable<Bool> in
-                guard let self = self else { return .just(false) }
-                return self.sendMemoirsData(emoticonId: emoticonId ?? 1)
-                   }
-        
-                   .subscribe(onNext: { success in
-                       if success {
-                           output.moveToNext.onNext(())
-                       }
-                   })
-                   .disposed(by: disposeBag)
+        // startButtonTapped과 selectedEmoticonId를 결합해서 sendMemoirsData 함수에 전달
+                Observable.combineLatest(input.startButtonTapped, input.selectedEmoticonId)
+                    .flatMapLatest { [weak self] (_, selectedEmoticonId) -> Observable<Bool> in
+                        guard let self = self, let emoticonId = selectedEmoticonId else { return .just(false) }
+                        return self.sendMemoirsData(emoticonId: emoticonId)
+                    }
+                    .subscribe(onNext: { success in
+                        if success {
+                            output.moveToNext.onNext(())
+                        }
+                    })
+                    .disposed(by: disposeBag)
         
         /// 뒤로가기 버튼 클릭
         input.backButtonTapped
@@ -93,4 +82,3 @@ final class ExpressedIconViewModel {
             .catchAndReturn(false)
     }
 }
-

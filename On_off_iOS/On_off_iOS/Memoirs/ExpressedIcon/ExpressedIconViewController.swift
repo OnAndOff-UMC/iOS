@@ -8,11 +8,11 @@
 import UIKit
 import RxSwift
 import RxCocoa
+//import SVGKit
 
 /// ExpressedIconViewController
 final class ExpressedIconViewController: UIViewController {
-    private var selectedEmoticonId: Int?
-
+    
     /// customBackButton
     private let backButton : UIBarButtonItem = {
         let button = UIBarButtonItem(title: MemoirsText.getText(for: .backButton), style: .plain, target: nil, action: nil)
@@ -50,29 +50,27 @@ final class ExpressedIconViewController: UIViewController {
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
-    
     /// 확인 버튼
-       private let saveButton: UIButton = {
-           let button = UIButton(type: .system)
-           button.setTitle("저장하기", for: .normal)
-           button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
-           button.titleLabel?.tintColor = .OnOffMain
+    private let saveButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("저장하기", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+        button.titleLabel?.tintColor = .OnOffMain
 
-           return button
-       }()
-       
-       
-       /// 확인 버튼 뷰
-       private lazy var saveButtonView: UIView = {
-           let view = UIView()
-           view.backgroundColor = .OnOffMain
-           // 초기 버튼 상태 비활성화
-           view.layer.borderColor = UIColor.OnOffMain.cgColor
-           view.layer.borderWidth = 1
-           view.backgroundColor = .white
-           return view
-       }()
+        return button
+    }()
     
+    
+    /// 확인 버튼 뷰
+    private lazy var saveButtonView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .OnOffMain
+        // 초기 버튼 상태 비활성화
+        view.layer.borderColor = UIColor.OnOffMain.cgColor
+        view.layer.borderWidth = 1
+        view.backgroundColor = .white
+        return view
+    }()
     
     private let viewModel: ExpressedIconViewModel
     private let disposeBag = DisposeBag()
@@ -166,11 +164,8 @@ final class ExpressedIconViewController: UIViewController {
     
     /// 뷰모델과 setupBindings
     private func setupBindings() {
-        let selectedEmoticonIdObservable = Observable.just(selectedEmoticonId)
-
         let input = ExpressedIconViewModel.Input(startButtonTapped: saveButton.rx.tap.asObservable(),
-                                                 backButtonTapped: backButton.rx.tap.asObservable(),
-                                                 selectedEmoticonId: selectedEmoticonIdObservable)
+                                                 backButtonTapped: backButton.rx.tap.asObservable(), selectedEmoticonId: <#Observable<Int?>#>)
         
         // 이미지 뷰 탭 제스처에 대한 바인딩
         textpageImage.rx.tapGesture()
@@ -181,10 +176,11 @@ final class ExpressedIconViewController: UIViewController {
             .disposed(by: disposeBag)
         
         let output = viewModel.bind(input: input)
-
+        
+        
         output.moveToNext
             .subscribe(onNext: { [weak self] in
-                    self?.navigateTobookMark()
+                self?.navigateTobookMark()
             })
             .disposed(by: disposeBag)
         
@@ -205,12 +201,10 @@ final class ExpressedIconViewController: UIViewController {
     private func presentModalEmoticonViewController() {
         let modalEmoticonViewController = ModalEmoticonViewController(viewModel: ModalEmoticonViewModel())
         modalEmoticonViewController.delegate = self
-        
         modalEmoticonViewController.onImageSelected = { [weak self] imageUrl in
             self?.emoticonImage.kf.setImage(with: URL(string: imageUrl))
-
         }
-
+        
         if #available(iOS 15.0, *) {
             if let sheet = modalEmoticonViewController.sheetPresentationController {
                 sheet.detents = [.medium()]
@@ -222,25 +216,23 @@ final class ExpressedIconViewController: UIViewController {
 }
 
 extension ExpressedIconViewController: ModalEmoticonDelegate {
-
     func emoticonSelected(emoticon: Emoticon) {
-         lazy var selectedEmoticonId = emoticon.emoticonId
-
-           // 이미지 로드
-           emoticonImage.kf.setImage(with: URL(string: emoticon.imageUrl), completionHandler:  { [weak self] result in
-               switch result {
-               case .success(_):
-                   // 이미지 로드 성공 시 버튼 활성화
-                   self?.saveButton.isEnabled = true
-                   self?.saveButtonView.backgroundColor = .OnOffMain
-                   self?.saveButton.setTitleColor(.white, for: .normal)
-
-               case .failure(_):
-                   // 이미지 로드 실패 시 버튼 비활성화
-                   self?.saveButton.isEnabled = false
-                   self?.saveButtonView.backgroundColor = .white
-                   self?.saveButton.setTitleColor(.OnOffMain, for: .normal)
-               }
-           })
-       }
+            self.emoticonImage.kf.setImage(with: URL(string: emoticon.imageUrl), completionHandler:  { [weak self] result in
+                switch result {
+                case .success(_):
+                    DispatchQueue.main.async {
+                        // 이미지 로드 성공 시 버튼 활성화
+                        print("good")
+                        self?.saveButton.isEnabled = true
+                        self?.saveButtonView.backgroundColor = .OnOffMain
+                        self?.saveButton.setTitleColor(.white, for: .normal)
+                    }
+                case .failure(_):
+                    // 이미지 로드 실패 시 버튼 비활성화
+                    self?.saveButton.isEnabled = false
+                    self?.saveButtonView.backgroundColor = .lightGray
+                    self?.saveButton.setTitleColor(.gray, for: .normal)
+                }
+            })
+        }
 }
