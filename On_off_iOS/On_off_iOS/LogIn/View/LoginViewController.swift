@@ -11,7 +11,7 @@ import RxCocoa
 import AuthenticationServices
 import RxGesture
 
-///로그인 화면
+/// 로그인 화면
 final class LoginViewController: UIViewController {
     
     private let welcomeLabel: UILabel = {
@@ -63,7 +63,6 @@ final class LoginViewController: UIViewController {
     
     private let viewModel: LoginViewModel
     private let disposeBag = DisposeBag()
-    var output: LoginViewModel.Output?
     private let appleLoginSuccessSubject = PublishSubject<Void>()
     
     
@@ -153,15 +152,52 @@ final class LoginViewController: UIViewController {
             appleLoginSuccess: appleLoginSuccessSubject.asObservable() // 애플 로그인 성공 이벤트를 Observable로 전달
             
         )
+
+        let output = viewModel.bind(input: input)
         
-        // ViewModel bind 호출하고 output 받기
-        self.output = viewModel.bind(input: input)
-        guard let output = output else { return }
-        self.output?.checkSignInService.subscribe(onNext: { signInStatus in
+        output.checkSignInService.subscribe(onNext: { signInStatus in
             print("로그인 상태: \(String(describing: signInStatus))")
-        }).disposed(by: disposeBag)
+        })
+        .disposed(by: disposeBag)
+        
+        output.moveToNickName
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] _ in
+                print("🍎")
+                self?.moveToNickName()
+            })
+            .disposed(by: disposeBag)
+
+        output.moveToMain
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] _ in
+                print("🍎")
+                self?.moveToMain()
+            })
+            .disposed(by: disposeBag)
+
+        
+        output.moveToBack
+                .subscribe(onNext: { [weak self] _ in
+                    self?.navigationController?.popViewController(animated: false)
+                })
+                .disposed(by: disposeBag)
+    }
+    /// 닉네임 설정으로 이동
+    private func moveToNickName() {
+        print("이동해야함")
+        let nickNameViewModel = NickNameViewModel()
+        let nickNameViewController =  NickNameViewController(viewModel: nickNameViewModel)
+        self.navigationController?.pushViewController(nickNameViewController, animated: true)
     }
     
+    /// 메인 화면으로 이동
+    private func moveToMain() {
+        print("이동해야함")
+        let nickNameViewModel = NickNameViewModel()
+        let nickNameViewController =  NickNameViewController(viewModel: nickNameViewModel)
+        self.navigationController?.pushViewController(nickNameViewController, animated: true)
+    }
 }
 
 // MARK: - extension :ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding
@@ -188,7 +224,23 @@ extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
                 print("Error")
                 return
             }
-            
+            print("""
+                  {
+                  "oauthId": \(userIdentifier),
+                  "fullName": {
+                    "givenName": \(givenName),
+                    "familyName": \(familyName)
+                  },
+                  "email": \(email),
+                  "identityToken": \(identityTokenString),
+                  "authorizationCode": \(authorizationCodeString),
+                  "additionalInfo": {
+                    "fieldOfWork": "부동산_임대업",
+                    "job": "aa",
+                    "experienceYear": "신입"
+                  }
+                  }
+                  """)
             // 키체인에 정보 저장
             _ = KeychainWrapper.saveItem(value: "apple", forKey: LoginMethod.loginMethod.rawValue)
             

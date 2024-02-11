@@ -13,7 +13,6 @@ import UIKit
 // MemoirsCompleteViewModel
 final class MemoirsCompleteViewModel {
     private let disposeBag = DisposeBag()
-    var navigationController: UINavigationController
 
     /// Input
     struct Input {
@@ -24,11 +23,6 @@ final class MemoirsCompleteViewModel {
     /// Output
     struct Output {
         let textLength: PublishSubject<Int> = PublishSubject<Int>()
-    }
-
-    // MARK: - Init
-    init(navigationController: UINavigationController) {
-        self.navigationController = navigationController
     }
     
     /// binding Input
@@ -58,11 +52,12 @@ final class MemoirsCompleteViewModel {
     
     /// Memoirs 초기 화면으로 이동
     private func moveToImprovement() {
+        
     }
     
     /// 뒤로 이동
     private func moveToBack() {
-        navigationController.popViewController(animated: false)
+//        navigationController.popViewController(animated: false)
     }
 }
 

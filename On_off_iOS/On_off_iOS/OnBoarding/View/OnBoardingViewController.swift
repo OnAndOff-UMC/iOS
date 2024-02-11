@@ -187,7 +187,14 @@ final class OnBoardingViewController : UIViewController {
             jumpButtonTapped: jumpButton.rx.tap.asObservable()
         )
         
-        let _ = viewModel.bind(input: input)
+        let output = viewModel.bind(input: input)
+        
+        // 로그인 화면으로 이동하는 이벤트 구독
+         output.moveToLogin
+             .subscribe(onNext: { [weak self] _ in
+                 self?.moveToLogin()
+             })
+             .disposed(by: disposeBag)
         
         // 나머지 페이지에서 버튼이 눌렸을 때의 동작
         nextButton.rx.tap
@@ -234,6 +241,14 @@ final class OnBoardingViewController : UIViewController {
         }).disposed(by: disposeBag)
     }
     
+    
+    /// 로그인 화면으로 이동
+    private func moveToLogin() {
+        let loginService = LoginService()
+        let loginViewModel = LoginViewModel(loginService: loginService)
+        let vc = LoginViewController(viewModel: loginViewModel)
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 // MARK: Extension - UIScrollViewDelegate

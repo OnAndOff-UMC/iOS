@@ -17,6 +17,6 @@ protocol LoginProtocol {
     /// 로그인 API
     /// - Parameter request: Kakao, Apple에서 발급받는 Token, AuthType
     /// - Returns: status, Tokens
-    func validateKakaoTokenAndSendInfo(request: KakaoTokenValidationRequest) -> Observable<TokenValidationResponse>
-    func validateAppleTokenAndSendInfo(request: AppleTokenValidationRequest) -> Observable<TokenValidationResponse>
+    func validateKakaoTokenAndSendInfo(request: KakaoTokenValidationRequest) -> Observable<Response<TokenResult>>
+    func validateAppleTokenAndSendInfo(request: AppleTokenValidationRequest) -> Observable<Response<TokenResult>>
 }

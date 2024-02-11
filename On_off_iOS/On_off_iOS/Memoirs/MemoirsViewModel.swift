@@ -13,7 +13,6 @@ import UIKit
 /// MemoirsViewModel
 final class MemoirsViewModel {
     private let disposeBag = DisposeBag()
-    var navigationController: UINavigationController
     
     /// Input
     struct Input {
@@ -24,11 +23,7 @@ final class MemoirsViewModel {
     
     /// Output
     struct Output {
-    }
-    
-    // MARK: - Init
-    init(navigationController: UINavigationController) {
-        self.navigationController = navigationController
+        let shouldNavigateToStartToWrite: Observable<Void>
     }
     
     /// binding Input
@@ -36,7 +31,6 @@ final class MemoirsViewModel {
     ///   - input: Input 구조체
     /// - Returns: Output 구조체
     func bind(input: Input) -> Output {
-        let output = Output()
         
         /// 북마크 버튼 클릭
         input.bookMarkButtonTapped
@@ -55,20 +49,7 @@ final class MemoirsViewModel {
             .disposed(by: disposeBag)
         
         /// 쓰기버튼 클릭
-        input.writeButtonTapped
-            .bind { [weak self] in
-                guard let self = self else { return }
-                moveTotartToWrite()
-            }
-            .disposed(by: disposeBag)
-        
-        return output
+        return Output(shouldNavigateToStartToWrite: input.writeButtonTapped)
     }
-    
-    /// 프로필설정으로 이동
-    private func moveTotartToWrite() {
-        let startToWriteViewModel = StartToWriteViewModel(navigationController: navigationController)
-        let vc = StartToWriteViewController(viewModel:startToWriteViewModel)
-        navigationController.pushViewController(vc, animated: true)
-    }
+
 }

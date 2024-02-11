@@ -7,23 +7,8 @@
 
 import Foundation
 
-/// Login 경로
-enum LoginPath: String {
-    
-    /// 유효성 검사
-    case checkValidation = "/token/validate"
-    case kakaoLogin = "/oauth2/kakao/token/validate"
-    case appleLogin = "/oauth2/apple/token/validate"
-    
-    /// 직업
-    case job = "/enums/field-of-works"
-    case experienceYear = "/enums/experience-years"
-}
-
-/// 회고록
-enum MemoirsPath: String {
-    case memoirsSave = "/Memoirs"
-    case getEmoticon = "/emoticons"
+struct Domain {
+    static let RESTAPI = "http://" + (Bundle.main.object(forInfoDictionaryKey: "IP") as? String ?? "") + ":" + (Bundle.main.object(forInfoDictionaryKey: "PORT") as? String ?? "")
 }
 
 enum FeedPath: String {

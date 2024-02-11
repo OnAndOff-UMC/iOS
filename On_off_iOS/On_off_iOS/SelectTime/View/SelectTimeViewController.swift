@@ -197,15 +197,22 @@ final class SelectTimeViewController : UIViewController {
     }
     /// DatePicker 값 바인딩
     private func setupBindings() {
+        let input = SelectTimeViewModel.Input(startButtonTapped: checkButton.rx.tap.asObservable())
+        let output = viewModel.bind(input: input)
+        
         selectedTimeButton.rx.tap
             .bind { [weak self] in
                 self?.showTimePicker()
             }
             .disposed(by: disposeBag)
                 
-        let input = SelectTimeViewModel.Input(startButtonTapped: checkButton.rx.tap.asObservable())
+
+        output.moveToNext
+            .subscribe(onNext: { [weak self] in
+                self?.moveToMain()
+            })
+            .disposed(by: disposeBag)
         
-        let output = viewModel.bind(input: input)
     }
     
     /// 확인  버튼 속성 설정
@@ -263,5 +270,12 @@ final class SelectTimeViewController : UIViewController {
         formatter.amSymbol = "오전" // 오전
         formatter.pmSymbol = "오후" // 오후
         selectedTimeButton.setTitle(formatter.string(from: date), for: .normal)
+    }
+    
+    /// 메인 화면으로 이동
+    private func moveToMain() {
+        let bookmarkViewModel = BookmarkViewModel()
+        let vc = BookmarkViewController(viewModel: bookmarkViewModel)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }

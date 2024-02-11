@@ -209,6 +209,31 @@ final class WriteImprovementViewController: UIViewController {
             .map { "(\($0)/500)" }
             .bind(to: checkLenghtLabel.rx.text)
             .disposed(by: disposeBag)
+        
+        output.moveToNext
+            .subscribe(onNext: { [weak self] isSuccess in
+                if isSuccess {
+                    self?.navigateToImprovement()
+                } else {
+                    //실패임
+                }
+            })
+            .disposed(by: disposeBag)
+
+        
+        output.moveToBack
+                .subscribe(onNext: { [weak self] _ in
+                    self?.navigationController?.popViewController(animated: false)
+                })
+                .disposed(by: disposeBag)
+        
+    }
+    
+    private func navigateToImprovement() {
+        let writePraisedViewModel = WritePraisedViewModel()
+        let writePraisedViewController = WritePraisedViewController(viewModel: writePraisedViewModel)
+        
+        self.navigationController?.pushViewController(writePraisedViewController, animated: false)
     }
     
     // 키보드내리기

@@ -13,8 +13,7 @@ import UIKit
 /// WriteImprovementViewModel
 final class WriteImprovementViewModel {
     private let disposeBag = DisposeBag()
-    var navigationController: UINavigationController
-
+    
     /// Input
     struct Input {
         let startButtonTapped: Observable<Void>
@@ -25,11 +24,8 @@ final class WriteImprovementViewModel {
     /// Output
     struct Output {
         let textLength: PublishSubject<Int> = PublishSubject<Int>()
-    }
-
-    // MARK: - Init
-    init(navigationController: UINavigationController) {
-        self.navigationController = navigationController
+        let moveToNext = PublishSubject<Bool>()
+        let moveToBack = PublishSubject<Void>()
     }
     
     /// binding Input
@@ -38,49 +34,26 @@ final class WriteImprovementViewModel {
     /// - Returns: Output 구조체
     func bind(input: Input) -> Output {
         let output = Output()
-
+        
         /// textLength
         input.textChanged
             .map { $0.count }
             .bind(to: output.textLength)
             .disposed(by: disposeBag)
-
+        
         /// 완료버튼 클릭
         input.startButtonTapped
             .withLatestFrom(input.textChanged)
-            .take(1)
-            .subscribe(onNext: { [weak self] text in
-                guard let self = self else { return }
-
-                // 키체인에 저장
+            .subscribe(onNext: { text in
                 let isSuccess = KeychainWrapper.saveItem(value: text, forKey: MemoirsKeyChain.MemoirsAnswer2.rawValue)
-                if isSuccess {
-                    self.moveToPraisedView()
-                } else {
-                    // 오류 처리할거임
-                }
+                output.moveToNext.onNext(isSuccess)
             }).disposed(by: disposeBag)
         
         /// 뒤로가기 버튼 클릭
         input.backButtonTapped
-            .bind { [weak self] in
-                guard let self = self else { return }
-                moveToBack()
-            }
+            .bind(to: output.moveToBack)
             .disposed(by: disposeBag)
         
         return output
-    }
-    
-    /// Improvement 화면으로 이동
-    private func moveToPraisedView() {
-        let writePraisedViewModel = WritePraisedViewModel(navigationController: navigationController)
-        let vc = WritePraisedViewController(viewModel: writePraisedViewModel)
-        navigationController.pushViewController(vc, animated: false)
-    }
-    
-    /// 뒤로 이동 - animate 제거
-    private func moveToBack() {
-        navigationController.popViewController(animated: false)
     }
 }

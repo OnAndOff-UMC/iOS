@@ -13,7 +13,6 @@ import UIKit
 /// SelectTimeViewModel
 final class SelectTimeViewModel {
     private let disposeBag = DisposeBag()
-    var navigationController: UINavigationController
     
     /// Input
     struct Input {
@@ -25,31 +24,21 @@ final class SelectTimeViewModel {
         let nickNameFilteringRelay: BehaviorRelay<String> = BehaviorRelay<String>(value: "")
         let nickNameLength: PublishSubject<Int> = PublishSubject<Int>()
         let isCheckButtonEnabled: BehaviorRelay<Bool> = BehaviorRelay<Bool>(value: true)
+        let moveToNext = PublishSubject<Void>()
     }
-    
-    // MARK: - Init
-    init(navigationController: UINavigationController) {
-        self.navigationController = navigationController
-    }
+
     
     /// binding Input
     /// - Parameter
     ///   - input: Input 구조체
     /// - Returns: Output 구조체
     func bind(input: Input) -> Output {
-        input.startButtonTapped
-                .bind { [weak self] in
-                    self?.moveToMain()
-                }
-                .disposed(by: disposeBag)
         let output = Output()
+
+        input.startButtonTapped
+            .bind(to:output.moveToNext)
+                .disposed(by: disposeBag)
+        
         return output
-    }
-    
-    /// 메인 화면으로 이동
-    private func moveToMain() {
-        let bookmarkViewModel = BookmarkViewModel(navigationController: navigationController)
-        let vc = BookmarkViewController(viewModel: bookmarkViewModel)
-        navigationController.pushViewController(vc, animated: true)
     }
 }

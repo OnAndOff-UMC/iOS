@@ -18,7 +18,7 @@ final class StartToWriteViewController: UIViewController {
         button.tintColor = .black
         return button
     }()
-
+    
     /// pageControl
     private lazy var pageControlImage: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: MemoirsImage.PageControl1.rawValue))
@@ -50,7 +50,7 @@ final class StartToWriteViewController: UIViewController {
         button.setTitle("시작하기", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
         button.titleLabel?.tintColor = .white
-
+        
         return button
     }()
     
@@ -110,7 +110,7 @@ final class StartToWriteViewController: UIViewController {
     private func configureConstraints() {
         
         self.navigationItem.leftBarButtonItem = backButton
-
+        
         pageControlImage.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.width.equalTo(view.snp.width).multipliedBy(0.25)
@@ -123,7 +123,7 @@ final class StartToWriteViewController: UIViewController {
             make.height.equalTo(startToWriteImage.snp.width).multipliedBy(0.6)
             make.center.equalToSuperview()
         }
-
+        
         startButtonView.snp.makeConstraints { make in
             make.bottom.equalToSuperview().inset(50)
             make.width.equalTo(view.snp.width).multipliedBy(0.8)
@@ -145,8 +145,27 @@ final class StartToWriteViewController: UIViewController {
     private func setupBindings() {
         let input = StartToWriteViewModel.Input(startButtonTapped: startButton.rx.tap.asObservable(),
                                                 backButtonTapped: backButton.rx.tap.asObservable())
+        let output = viewModel.bind(input: input)
         
-        let _ = viewModel.bind(input: input)
+        output.moveToNext
+                .subscribe(onNext: { [weak self] _ in
+                    self?.navigateToWriteLearned()
+
+                })
+                .disposed(by: disposeBag)
         
+        output.moveToBack
+                .subscribe(onNext: { [weak self] _ in
+                    self?.navigationController?.popViewController(animated: false)
+                })
+                .disposed(by: disposeBag)
     }
+    
+    private func navigateToWriteLearned() {
+        let writeLearnedViewModel = WriteLearnedViewModel()
+        let writeLearnedViewController = WriteLearnedViewController(viewModel: writeLearnedViewModel)
+        self.navigationController?.pushViewController(writeLearnedViewController, animated: false)
+    }
+    
+
 }
