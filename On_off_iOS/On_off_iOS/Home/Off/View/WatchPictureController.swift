@@ -30,7 +30,7 @@ final class WatchPictureController: UIViewController {
     }()
     
     /// 선택 이미지
-    var clickedImageButtons: String?
+    var clickedImageButtons: Image?
     private let disposeBag = DisposeBag()
     
     // MARK: - View Did Load
@@ -41,6 +41,7 @@ final class WatchPictureController: UIViewController {
         
         addSubViews()
         inputSelectedImage()
+        bindNavigationButton()
     }
     
     /// Add SubView
@@ -62,6 +63,18 @@ final class WatchPictureController: UIViewController {
     /// 선택한 이미지 넣기
     private func inputSelectedImage() {
         // TODO: 이미지 로딩 해야함
-        imageView.image = UIImage(named: clickedImageButtons ?? "")
+        imageView.image = UIImage(named: clickedImageButtons?.imageUrl ?? "")
+    }
+    
+    /// binding Navigation Button
+    private func bindNavigationButton() {
+        navigationButton.rx.tap
+            .bind { [weak self] in
+                guard let self = self, let navigationController = navigationController else { return }
+                let deletedImagePopUpView = DeletedImagePopUpView(selectedImage: clickedImageButtons,
+                                                                  navigationController: navigationController)
+                present(deletedImagePopUpView, animated: true)
+            }
+            .disposed(by: disposeBag)
     }
 }

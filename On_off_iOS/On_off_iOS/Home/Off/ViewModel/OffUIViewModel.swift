@@ -26,11 +26,11 @@ final class OffUIViewModel {
     }
     
     struct Output {
-        var imageURLRelay: BehaviorRelay<[String]> = BehaviorRelay(value: [])
+        var imageURLRelay: BehaviorRelay<[Image]> = BehaviorRelay(value: [])
         var clickPlusImageButton: BehaviorSubject<Void> = BehaviorSubject(value: ())
         var checkUploadImageRelay: BehaviorRelay<Bool> = BehaviorRelay(value: false)
         var heightConstraint: BehaviorRelay<Constraint?> = BehaviorRelay(value: nil)
-        var selectedImageRelay: BehaviorRelay<String?> = BehaviorRelay(value: nil)
+        var selectedImageRelay: BehaviorRelay<Image?> = BehaviorRelay(value: nil)
     }
     
     /// Create Output
@@ -128,14 +128,15 @@ final class OffUIViewModel {
     private func getImageList(output: Output) {
         service.getImageList()
             .subscribe(onNext: { list in
-                var list = list
-                list.append("plus.circle.fill")
+                var list: [Image] = list
+                list.append(Image(feedImageId: nil, imageUrl: "plus.circle.fill"))
                 output.imageURLRelay.accept(list)
                 
             }, onError: { error in
                 print(error)
                 
-                output.imageURLRelay.accept(["sun","plus.circle.fill"])
+                output.imageURLRelay.accept([Image(feedImageId: 1, imageUrl: "sun"),
+                                             Image(feedImageId: nil, imageUrl: "plus.circle.fill")])
             })
             .disposed(by: disposeBag)
         

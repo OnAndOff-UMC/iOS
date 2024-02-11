@@ -134,7 +134,7 @@ final class OffUIView: UIView {
     var selectedImage: PublishSubject<UIImage> = PublishSubject()
     
     /// 이미지 선택한경우
-    var clickedImageButton: PublishSubject<String?> = PublishSubject()
+    var clickedImageButton: PublishSubject<Image?> = PublishSubject()
     
     // MARK: - Init
     override init(frame: CGRect) {
@@ -278,7 +278,7 @@ final class OffUIView: UIView {
         { row, element, cell in
             cell.layer.cornerRadius = 20
             
-            if element == "plus.circle.fill" {
+            if element.imageUrl == "plus.circle.fill" {
                 cell.layer.borderWidth = 1
                 cell.layer.borderColor = UIColor.OnOffMain.cgColor
                 cell.lastData(image: element)

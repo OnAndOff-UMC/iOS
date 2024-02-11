@@ -108,12 +108,16 @@
 		3B0129CC2B624D6000B191AD /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0129CB2B624D6000B191AD /* Home.swift */; };
 		3B0129CE2B624E8D00B191AD /* DayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0129CD2B624E8C00B191AD /* DayCollectionViewCell.swift */; };
 		3B1658F72B4D8559004EFBC3 /* WeekChartCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1658F62B4D8559004EFBC3 /* WeekChartCustomView.swift */; };
+		3B26CF3F2B7908D500E05581 /* DeletedImagePopUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B26CF3E2B7908D400E05581 /* DeletedImagePopUpViewModel.swift */; };
+		3B26CF442B790A4700E05581 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B26CF432B790A4700E05581 /* Image.swift */; };
 		3B2D93002B776AA400D88787 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3B2D92FF2B776AA400D88787 /* Config.xcconfig */; };
 		3B2D93022B77C91B00D88787 /* OffUIViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2D93012B77C91B00D88787 /* OffUIViewModel.swift */; };
 		3B2D93042B77CB9800D88787 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2D93032B77CB9800D88787 /* ImageCollectionViewCell.swift */; };
 		3B35763F2B78BDEF008464AA /* OffUIViewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B35763E2B78BDEF008464AA /* OffUIViewService.swift */; };
 		3B3576422B78BF17008464AA /* Mantis in Frameworks */ = {isa = PBXBuildFile; productRef = 3B3576412B78BF17008464AA /* Mantis */; };
 		3B3576442B78F5B1008464AA /* WatchPictureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3576432B78F5B1008464AA /* WatchPictureController.swift */; };
+		3B3576492B78FD72008464AA /* DimmedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3576482B78FD72008464AA /* DimmedViewController.swift */; };
+		3B35764B2B78FDAB008464AA /* DeletedImagePopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B35764A2B78FDAB008464AA /* DeletedImagePopUpView.swift */; };
 		3B42300E2B41572200D0B038 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B42300D2B41572200D0B038 /* AppDelegate.swift */; };
 		3B4230102B41572200D0B038 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B42300F2B41572200D0B038 /* SceneDelegate.swift */; };
 		3B4230172B41572400D0B038 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B4230162B41572400D0B038 /* Assets.xcassets */; };
@@ -216,11 +220,15 @@
 		3B0129CB2B624D6000B191AD /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		3B0129CD2B624E8C00B191AD /* DayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCollectionViewCell.swift; sourceTree = "<group>"; };
 		3B1658F62B4D8559004EFBC3 /* WeekChartCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekChartCustomView.swift; sourceTree = "<group>"; };
+		3B26CF3E2B7908D400E05581 /* DeletedImagePopUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedImagePopUpViewModel.swift; sourceTree = "<group>"; };
+		3B26CF432B790A4700E05581 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		3B2D92FF2B776AA400D88787 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		3B2D93012B77C91B00D88787 /* OffUIViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffUIViewModel.swift; sourceTree = "<group>"; };
 		3B2D93032B77CB9800D88787 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		3B35763E2B78BDEF008464AA /* OffUIViewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffUIViewService.swift; sourceTree = "<group>"; };
 		3B3576432B78F5B1008464AA /* WatchPictureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchPictureController.swift; sourceTree = "<group>"; };
+		3B3576482B78FD72008464AA /* DimmedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimmedViewController.swift; sourceTree = "<group>"; };
+		3B35764A2B78FDAB008464AA /* DeletedImagePopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedImagePopUpView.swift; sourceTree = "<group>"; };
 		3B42300A2B41572200D0B038 /* On_off_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = On_off_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B42300D2B41572200D0B038 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3B42300F2B41572200D0B038 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -709,6 +717,7 @@
 		3B0129C12B623BA900B191AD /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				3B3576452B78FD11008464AA /* Off */,
 				3B0129CF2B62BA8100B191AD /* Base */,
 			);
 			path = Home;
@@ -729,7 +738,6 @@
 		3B0129CF2B62BA8100B191AD /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				3B35763D2B78BDE5008464AA /* Service */,
 				3B0129D22B62BA9100B191AD /* Model */,
 				3B0129D12B62BA8E00B191AD /* ViewModel */,
 				3B0129D02B62BA8A00B191AD /* View */,
@@ -742,9 +750,7 @@
 			children = (
 				3B0129CD2B624E8C00B191AD /* DayCollectionViewCell.swift */,
 				3B0129C22B623BB900B191AD /* HomeViewController.swift */,
-				3BB7D07E2B64EB31002F1860 /* OffUIView.swift */,
-				3B3576432B78F5B1008464AA /* WatchPictureController.swift */,
-				3B2D93032B77CB9800D88787 /* ImageCollectionViewCell.swift */,
+				3B3576482B78FD72008464AA /* DimmedViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -753,7 +759,6 @@
 			isa = PBXGroup;
 			children = (
 				3B0129C92B624CAE00B191AD /* HomeViewModel.swift */,
-				3B2D93012B77C91B00D88787 /* OffUIViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -766,12 +771,51 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		3B26CF422B790A3F00E05581 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3B26CF432B790A4700E05581 /* Image.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		3B35763D2B78BDE5008464AA /* Service */ = {
 			isa = PBXGroup;
 			children = (
 				3B35763E2B78BDEF008464AA /* OffUIViewService.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		3B3576452B78FD11008464AA /* Off */ = {
+			isa = PBXGroup;
+			children = (
+				3B26CF422B790A3F00E05581 /* Model */,
+				3B35763D2B78BDE5008464AA /* Service */,
+				3B3576472B78FD31008464AA /* ViewModel */,
+				3B3576462B78FD28008464AA /* View */,
+			);
+			path = Off;
+			sourceTree = "<group>";
+		};
+		3B3576462B78FD28008464AA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3BB7D07E2B64EB31002F1860 /* OffUIView.swift */,
+				3B3576432B78F5B1008464AA /* WatchPictureController.swift */,
+				3B2D93032B77CB9800D88787 /* ImageCollectionViewCell.swift */,
+				3B35764A2B78FDAB008464AA /* DeletedImagePopUpView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3B3576472B78FD31008464AA /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				3B2D93012B77C91B00D88787 /* OffUIViewModel.swift */,
+				3B26CF3E2B7908D400E05581 /* DeletedImagePopUpViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		3B4230012B41572200D0B038 = {
@@ -1022,6 +1066,7 @@
 				37DEF20D2B66B31D00AF47DB /* MemoirsCompleteViewController.swift in Sources */,
 				371B9EBB2B5B0737006AC06D /* WritePraisedViewController.swift in Sources */,
 				3769A68E2B585B6600D79C33 /* DayButton.swift in Sources */,
+				3B35764B2B78FDAB008464AA /* DeletedImagePopUpView.swift in Sources */,
 				37CC77792B6FA864007999E5 /* ModalEmoticonDelegate.swift in Sources */,
 				3B0129CE2B624E8D00B191AD /* DayCollectionViewCell.swift in Sources */,
 				37CFD3022B66534400E00D92 /* ExpressedIconViewModel.swift in Sources */,
@@ -1033,6 +1078,7 @@
 				374FD49D2B4281E100F2E645 /* OnboardingCustomView.swift in Sources */,
 				3BB806D82B5024BC00555E58 /* MonthStatistics.swift in Sources */,
 				37CC77752B6F9620007999E5 /* KeyChain.swift in Sources */,
+				3B26CF3F2B7908D500E05581 /* DeletedImagePopUpViewModel.swift in Sources */,
 				3584F3AE2B5A5FEB007ACB57 /* (null) in Sources */,
 				37C161312B6BDF59000E0B21 /* KeychainWrapper.swift in Sources */,
 				3BB806D32B5021BC00555E58 /* StatisticsViewModel.swift in Sources */,
@@ -1054,6 +1100,7 @@
 				37CFD3002B66533900E00D92 /* ExpressedIconViewController.swift in Sources */,
 				37AEB1EE2B6CF3F400A6CDD6 /* ModalEmoticonViewModel.swift in Sources */,
 				3B2D93022B77C91B00D88787 /* OffUIViewModel.swift in Sources */,
+				3B26CF442B790A4700E05581 /* Image.swift in Sources */,
 				378588F92B708F99004E262F /* ModalSelectProfileTableViewCell.swift in Sources */,
 				3787D00A2B429F1700F054DD /* LaunchViewController.swift in Sources */,
 				3BD552682B58FCF70043920E /* CalendarCell.swift in Sources */,
@@ -1072,6 +1119,7 @@
 				378588FB2B7092F7004E262F /* ModalSelectProfileDelegate.swift in Sources */,
 				3B3576442B78F5B1008464AA /* WatchPictureController.swift in Sources */,
 				3B0129C62B6242F800B191AD /* Ext + ViewController.swift in Sources */,
+				3B3576492B78FD72008464AA /* DimmedViewController.swift in Sources */,
 				371B9EC52B5B0B61006AC06D /* WriteLearnedViewController.swift in Sources */,
 				3BB806D02B5012F400555E58 /* DayChartCustomView.swift in Sources */,
 				3BB7D07F2B64EB31002F1860 /* OffUIView.swift in Sources */,

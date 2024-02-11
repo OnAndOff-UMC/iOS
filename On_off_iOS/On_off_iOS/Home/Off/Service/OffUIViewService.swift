@@ -15,7 +15,7 @@ final class OffUIViewService {
     
     /// 저장한 이미지 가져오기
     /// - Returns: 이미지 URL 배열
-    func getImageList() -> Observable<[String]> {
+    func getImageList() -> Observable<[Image]> {
         let url = "/feed-images"
         let header: HTTPHeaders = [
             "authorization": "Bearer "
@@ -26,7 +26,7 @@ final class OffUIViewService {
                        method: .get,
                        headers: header)
             .validate(statusCode: 200..<201)
-            .responseDecodable(of: [String].self) { response in
+            .responseDecodable(of: [Image].self) { response in
                 print(#function, response)
                 switch response.result {
                 case .success(let data):

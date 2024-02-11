@@ -47,14 +47,14 @@ final class ImageCollectionViewCell: UICollectionViewCell {
     
     /// Input Data
     /// - Parameter imageURL: 이미지 URL주소
-    func inputData(imageURL: String) {
+    func inputData(imageURL: Image) {
         print("imageURL \(imageURL)")
     }
     
     /// 마지막 이미지 추가 버튼
     /// - Parameter image: 이미지 plus 버튼
-    func lastData(image: String) {
-        imageView.image = UIImage(systemName: image)?
+    func lastData(image: Image) {
+        imageView.image = UIImage(systemName: image.imageUrl ?? "")?
             .withTintColor(.OnOffLightPurple)
             .resize(newWidth: 30)
     }
