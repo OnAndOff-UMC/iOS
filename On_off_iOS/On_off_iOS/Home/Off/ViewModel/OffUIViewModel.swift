@@ -23,6 +23,7 @@ final class OffUIViewModel {
         let feedPlusIconImageButtonEvents: ControlEvent<Void>?
         let collectionViewCellEvents: ControlEvent<IndexPath>?
         let selectedImage: Observable<UIImage>?
+        let successDeleteImage: Observable<Void>?
     }
     
     struct Output {
@@ -45,6 +46,8 @@ final class OffUIViewModel {
         bindSelectedCroppedImage(input: input, output: output)
         
         getImageList(output: output)
+        bindSuccessDeleteImageEvents(input: input, output: output)
+       
         return output
     }
     
@@ -90,6 +93,17 @@ final class OffUIViewModel {
                     return
                 }
                 clickImageButton(output: output, indexPath: indexPath)
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    /// Bind When Success Delete Image Events
+    private func bindSuccessDeleteImageEvents(input: Input, output: Output) {
+        input.successDeleteImage?
+            .bind { [weak self] in
+                guard let self = self else { return }
+                getImageList(output: output)
+                
             }
             .disposed(by: disposeBag)
     }

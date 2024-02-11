@@ -25,3 +25,7 @@ enum MemoirsPath: String {
     case memoirsSave = "/Memoirs"
     case getEmoticon = "/emoticons"
 }
+
+enum FeedPath: String {
+    case feedImage = "/feed-images"
+}

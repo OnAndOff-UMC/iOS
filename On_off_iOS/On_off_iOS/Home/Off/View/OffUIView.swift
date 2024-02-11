@@ -136,15 +136,21 @@ final class OffUIView: UIView {
     /// 이미지 선택한경우
     var clickedImageButton: PublishSubject<Image?> = PublishSubject()
     
+    private var successDeleteImage: PublishSubject<Void> = PublishSubject()
+    
     // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
-
         bind()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+    
+    override func willMove(toWindow newWindow: UIWindow?) {
+        super.willMove(toWindow: newWindow)
+        successDeleteImage.onNext(())
     }
     
     /// Add View
@@ -253,7 +259,8 @@ final class OffUIView: UIView {
                                                                         feedTitleButtonEvents: feedTitleButton.rx.tap,
                                                                         feedPlusIconImageButtonEvents: feedPlusIconImageButton.rx.tap,
                                                                         collectionViewCellEvents: imageCollectionView.rx.itemSelected,
-                                                                        selectedImage: selectedImage))
+                                                                        selectedImage: selectedImage,
+                                                                        successDeleteImage: successDeleteImage))
         addSubViews(output: output)
         bindCollectionView(output: output)
         bindClickPlusImageButton(output: output)
@@ -285,7 +292,7 @@ final class OffUIView: UIView {
                 cell.backgroundColor = .clear
                 return
             }
-            cell.inputData(imageURL: element)
+            cell.inputData(image: element)
             cell.backgroundColor = .clear
             cell.layer.borderWidth = 0
         }

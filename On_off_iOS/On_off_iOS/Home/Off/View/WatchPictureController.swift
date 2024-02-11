@@ -26,6 +26,8 @@ final class WatchPictureController: UIViewController {
     private lazy var imageView: UIImageView = {
         let view = UIImageView()
         view.backgroundColor = .clear
+        view.layer.cornerRadius = 20
+        view.clipsToBounds = true
         return view
     }()
     
@@ -62,8 +64,11 @@ final class WatchPictureController: UIViewController {
     
     /// 선택한 이미지 넣기
     private func inputSelectedImage() {
-        // TODO: 이미지 로딩 해야함
-        imageView.image = UIImage(named: clickedImageButtons?.imageUrl ?? "")
+        if let url = URL(string: clickedImageButtons?.imageUrl ?? "") {
+            imageView.kf.setImage(with: url,
+                                  options: [.scaleFactor(imageView.frame.height)])
+        }
+        
     }
     
     /// binding Navigation Button

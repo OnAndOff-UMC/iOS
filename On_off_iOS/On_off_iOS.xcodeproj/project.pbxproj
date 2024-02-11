@@ -113,7 +113,7 @@
 		3B26CF3F2B7908D500E05581 /* DeletedImagePopUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B26CF3E2B7908D400E05581 /* DeletedImagePopUpViewModel.swift */; };
 		3B26CF442B790A4700E05581 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B26CF432B790A4700E05581 /* Image.swift */; };
 		3B26CF462B7919C100E05581 /* InsertWorkLifeBalanceFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B26CF452B7919C100E05581 /* InsertWorkLifeBalanceFeedView.swift */; };
-		3B2D93002B776AA400D88787 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3B2D92FF2B776AA400D88787 /* Config.xcconfig */; };
+		3B26CF482B79246100E05581 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3B26CF472B79246100E05581 /* Config.xcconfig */; };
 		3B2D93022B77C91B00D88787 /* OffUIViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2D93012B77C91B00D88787 /* OffUIViewModel.swift */; };
 		3B2D93042B77CB9800D88787 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2D93032B77CB9800D88787 /* ImageCollectionViewCell.swift */; };
 		3B35763F2B78BDEF008464AA /* OffUIViewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B35763E2B78BDEF008464AA /* OffUIViewService.swift */; };
@@ -228,7 +228,7 @@
 		3B26CF3E2B7908D400E05581 /* DeletedImagePopUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedImagePopUpViewModel.swift; sourceTree = "<group>"; };
 		3B26CF432B790A4700E05581 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		3B26CF452B7919C100E05581 /* InsertWorkLifeBalanceFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertWorkLifeBalanceFeedView.swift; sourceTree = "<group>"; };
-		3B2D92FF2B776AA400D88787 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		3B26CF472B79246100E05581 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		3B2D93012B77C91B00D88787 /* OffUIViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffUIViewModel.swift; sourceTree = "<group>"; };
 		3B2D93032B77CB9800D88787 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		3B35763E2B78BDEF008464AA /* OffUIViewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffUIViewService.swift; sourceTree = "<group>"; };
@@ -866,7 +866,7 @@
 				35E0C7282B68C7AC006BF427 /* Fonts */,
 				3B4230182B41572400D0B038 /* LaunchScreen.storyboard */,
 				3B42301B2B41572400D0B038 /* Info.plist */,
-				3B2D92FF2B776AA400D88787 /* Config.xcconfig */,
+				3B26CF472B79246100E05581 /* Config.xcconfig */,
 				37C161252B6BDAD0000E0B21 /* GoogleService-Info.plist */,
 				370826202B669BFC00FBCAAF /* UICalculate+Ex.swift */,
 			);
@@ -1025,7 +1025,7 @@
 				3B42301A2B41572400D0B038 /* LaunchScreen.storyboard in Resources */,
 				37C161262B6BDAD1000E0B21 /* GoogleService-Info.plist in Resources */,
 				376A4B592B55054D004FBB56 /* onBoarding.json in Resources */,
-				3B2D93002B776AA400D88787 /* Config.xcconfig in Resources */,
+				3B26CF482B79246100E05581 /* Config.xcconfig in Resources */,
 				3B4230172B41572400D0B038 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1152,6 +1152,7 @@
 /* Begin XCBuildConfiguration section */
 		3B42301C2B41572400D0B038 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3B26CF472B79246100E05581 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1215,6 +1216,7 @@
 		};
 		3B42301D2B41572400D0B038 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3B26CF472B79246100E05581 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1271,6 +1273,7 @@
 		};
 		3B42301F2B41572400D0B038 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3B26CF472B79246100E05581 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1303,6 +1306,7 @@
 		};
 		3B4230202B41572400D0B038 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3B26CF472B79246100E05581 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
