@@ -126,15 +126,20 @@ final class OffUIView: UIView {
     
     private let disposeBag = DisposeBag()
     private let viewModel = OffUIViewModel()
-    private var heightConstraint: Constraint?
-    var clickedImageButton: PublishSubject<Void> = PublishSubject()
+    
+    /// 이미지 추가 버튼 누른 경우
+    var clickedImagePlusButton: PublishSubject<Void> = PublishSubject()
+    
+    /// 앨범에서 선택한 이미지 전송
     var selectedImage: PublishSubject<UIImage> = PublishSubject()
+    
+    /// 이미지 선택한경우
+    var clickedImageButton: PublishSubject<String?> = PublishSubject()
     
     // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        addSubViews()
         bind()
     }
     
@@ -143,7 +148,7 @@ final class OffUIView: UIView {
     }
     
     /// Add View
-    private func addSubViews() {
+    private func addSubViews(output: OffUIViewModel.Output) {
         addSubview(scrollView)
         scrollView.addSubview(contentView)
         contentView.addSubview(todayMemoirsButton)
@@ -157,11 +162,11 @@ final class OffUIView: UIView {
         contentView.addSubview(dateLabel)
         contentView.addSubview(imageCollectionView)
         
-        constraints()
+        constraints(output: output)
     }
     
     ///  Constraints
-    private func constraints() {
+    private func constraints(output: OffUIViewModel.Output) {
         scrollView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.horizontalEdges.equalToSuperview()
@@ -237,7 +242,7 @@ final class OffUIView: UIView {
             make.top.equalTo(dateLabel.snp.bottom).offset(10)
             make.horizontalEdges.equalToSuperview().inset(10)
             make.bottom.equalToSuperview()
-            heightConstraint = make.height.equalTo(0).constraint
+            output.heightConstraint.accept(make.height.equalTo(0).constraint)
         }
     }
     
@@ -249,16 +254,22 @@ final class OffUIView: UIView {
                                                                         feedPlusIconImageButtonEvents: feedPlusIconImageButton.rx.tap,
                                                                         collectionViewCellEvents: imageCollectionView.rx.itemSelected,
                                                                         selectedImage: selectedImage))
+        addSubViews(output: output)
         bindCollectionView(output: output)
         bindClickPlusImageButton(output: output)
+        bindClickImageButton(output: output)
     }
     
     /// Binding CollectionView
     private func bindCollectionView(output: OffUIViewModel.Output) {
-        var count = output.imageURLRelay.value.count - 1
-        let width: CGFloat = (self.frame.width - 20 - 10 * 2) / 3
-        count = output.imageURLRelay.value.count < 9 ? count : 8
-        heightConstraint?.update(offset: CGFloat(count / 3 + 1) * width + CGFloat((count / 3 + 1) * 10))
+        output.imageURLRelay
+            .bind { list in
+                var count = list.count - 1
+                count = list.count < 9 ? count : 8
+                let width: CGFloat = (self.frame.width - 20 - 10 * 2) / 3
+                output.heightConstraint.value?.update(offset: CGFloat(count / 3 + 1) * width + CGFloat((count / 3 + 1) * 10))
+            }
+            .disposed(by: disposeBag)
         
         output.imageURLRelay
             .bind(to: imageCollectionView.rx
@@ -269,12 +280,13 @@ final class OffUIView: UIView {
             
             if element == "plus.circle.fill" {
                 cell.layer.borderWidth = 1
+                cell.layer.borderColor = UIColor.OnOffMain.cgColor
                 cell.lastData(image: element)
                 cell.backgroundColor = .clear
                 return
             }
             cell.inputData(imageURL: element)
-            cell.backgroundColor = .green
+            cell.backgroundColor = .clear
             cell.layer.borderWidth = 0
         }
         .disposed(by: disposeBag)
@@ -289,13 +301,22 @@ final class OffUIView: UIView {
         output.clickPlusImageButton
             .bind { [weak self] in
                 guard let self = self else { return }
-                print(#function)
-                clickedImageButton.onNext(())
+                clickedImagePlusButton.onNext(())
             }
             .disposed(by: disposeBag)
         
     }
     
+    /// 이미지 선택했을 때
+    /// 이미지 크게 보는 화면으로 이동
+    private func bindClickImageButton(output: OffUIViewModel.Output) {
+        output.selectedImageRelay
+            .bind { [weak self] imageURL in
+                guard let self = self else { return }
+                clickedImageButton.onNext(imageURL)
+            }
+            .disposed(by: disposeBag)
+    }
 }
 
 extension OffUIView: UICollectionViewDelegateFlowLayout {

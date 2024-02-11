@@ -10,6 +10,7 @@ import RxSwift
 import RxCocoa
 import RxRelay
 import UIKit
+import SnapKit
 
 final class OffUIViewModel {
     private let disposeBag = DisposeBag()
@@ -28,6 +29,8 @@ final class OffUIViewModel {
         var imageURLRelay: BehaviorRelay<[String]> = BehaviorRelay(value: [])
         var clickPlusImageButton: BehaviorSubject<Void> = BehaviorSubject(value: ())
         var checkUploadImageRelay: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+        var heightConstraint: BehaviorRelay<Constraint?> = BehaviorRelay(value: nil)
+        var selectedImageRelay: BehaviorRelay<String?> = BehaviorRelay(value: nil)
     }
     
     /// Create Output
@@ -86,7 +89,7 @@ final class OffUIViewModel {
                     clickPlusImageButton(output: output)
                     return
                 }
-                clickImageButton(output: output)
+                clickImageButton(output: output, indexPath: indexPath)
             }
             .disposed(by: disposeBag)
     }
@@ -117,8 +120,8 @@ final class OffUIViewModel {
     }
     
     /// 로딩된 이미지 눌렀을 때
-    private func clickImageButton(output: Output) {
-        
+    private func clickImageButton(output: Output, indexPath: IndexPath) {
+        output.selectedImageRelay.accept(output.imageURLRelay.value[indexPath.row])
     }
     
     /// get ImageList Data
@@ -128,10 +131,11 @@ final class OffUIViewModel {
                 var list = list
                 list.append("plus.circle.fill")
                 output.imageURLRelay.accept(list)
+                
             }, onError: { error in
                 print(error)
                 
-                output.imageURLRelay.accept(["plus.circle.fill"])
+                output.imageURLRelay.accept(["sun","plus.circle.fill"])
             })
             .disposed(by: disposeBag)
         

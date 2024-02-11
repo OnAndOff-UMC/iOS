@@ -113,6 +113,7 @@
 		3B2D93042B77CB9800D88787 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2D93032B77CB9800D88787 /* ImageCollectionViewCell.swift */; };
 		3B35763F2B78BDEF008464AA /* OffUIViewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B35763E2B78BDEF008464AA /* OffUIViewService.swift */; };
 		3B3576422B78BF17008464AA /* Mantis in Frameworks */ = {isa = PBXBuildFile; productRef = 3B3576412B78BF17008464AA /* Mantis */; };
+		3B3576442B78F5B1008464AA /* WatchPictureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3576432B78F5B1008464AA /* WatchPictureController.swift */; };
 		3B42300E2B41572200D0B038 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B42300D2B41572200D0B038 /* AppDelegate.swift */; };
 		3B4230102B41572200D0B038 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B42300F2B41572200D0B038 /* SceneDelegate.swift */; };
 		3B4230172B41572400D0B038 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B4230162B41572400D0B038 /* Assets.xcassets */; };
@@ -219,6 +220,7 @@
 		3B2D93012B77C91B00D88787 /* OffUIViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffUIViewModel.swift; sourceTree = "<group>"; };
 		3B2D93032B77CB9800D88787 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		3B35763E2B78BDEF008464AA /* OffUIViewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffUIViewService.swift; sourceTree = "<group>"; };
+		3B3576432B78F5B1008464AA /* WatchPictureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchPictureController.swift; sourceTree = "<group>"; };
 		3B42300A2B41572200D0B038 /* On_off_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = On_off_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B42300D2B41572200D0B038 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3B42300F2B41572200D0B038 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -741,6 +743,7 @@
 				3B0129CD2B624E8C00B191AD /* DayCollectionViewCell.swift */,
 				3B0129C22B623BB900B191AD /* HomeViewController.swift */,
 				3BB7D07E2B64EB31002F1860 /* OffUIView.swift */,
+				3B3576432B78F5B1008464AA /* WatchPictureController.swift */,
 				3B2D93032B77CB9800D88787 /* ImageCollectionViewCell.swift */,
 			);
 			path = View;
@@ -1067,6 +1070,7 @@
 				37C1613A2B6BE43A000E0B21 /* SignUpProtocol.swift in Sources */,
 				37A1E9942B6CDAD70013FFD7 /* ModalEmoticonViewController.swift in Sources */,
 				378588FB2B7092F7004E262F /* ModalSelectProfileDelegate.swift in Sources */,
+				3B3576442B78F5B1008464AA /* WatchPictureController.swift in Sources */,
 				3B0129C62B6242F800B191AD /* Ext + ViewController.swift in Sources */,
 				371B9EC52B5B0B61006AC06D /* WriteLearnedViewController.swift in Sources */,
 				3BB806D02B5012F400555E58 /* DayChartCustomView.swift in Sources */,

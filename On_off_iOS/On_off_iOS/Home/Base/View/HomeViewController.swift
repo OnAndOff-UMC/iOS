@@ -207,6 +207,7 @@ final class HomeViewController: UIViewController {
         bindBlankViewShadowColor(output: output)
         bindToggleOnOffButton(output: output)
         bindClickImagePlusButton()
+        bindClickImageButton()
     }
     
     /// Binding Day CollectionView Cell
@@ -303,10 +304,9 @@ final class HomeViewController: UIViewController {
     /// 이미지 추가버튼 눌렀을 때
     /// 이미지 선택하는 화면으로 이동
     private func bindClickImagePlusButton() {
-        offUIView.clickedImageButton
+        offUIView.clickedImagePlusButton
             .bind { [weak self] in
                 guard let self = self else { return }
-                print(#function)
                 // 5-2) 권한 관련 작업 후 콜백 함수 실행(사진 라이브러리)
                 authPhotoLibrary(self) { [weak self] in
                     guard let self = self else { return }
@@ -318,6 +318,19 @@ final class HomeViewController: UIViewController {
                     
                     present(imagePickerController, animated: true)
                 }
+            }
+            .disposed(by: disposeBag)
+    }
+
+    /// 이미지 선택했을 때
+    /// 이미지 크게 보는 화면으로 이동
+    private func bindClickImageButton() {
+        offUIView.clickedImageButton
+            .bind { [weak self] imageURL in
+                guard let self = self else { return }
+                let watchPictureController = WatchPictureController()
+                watchPictureController.clickedImageButtons = imageURL
+                navigationController?.pushViewController(watchPictureController, animated: true)
             }
             .disposed(by: disposeBag)
     }
