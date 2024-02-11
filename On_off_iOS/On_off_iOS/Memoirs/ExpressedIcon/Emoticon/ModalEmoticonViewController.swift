@@ -28,7 +28,7 @@ final class ModalEmoticonViewController: UIViewController {
     private let disposeBag = DisposeBag()
    
     var onImageSelected: ((String) -> Void)?
-    
+
     weak var delegate: ModalEmoticonDelegate?
 
     // MARK: - Init
@@ -74,10 +74,12 @@ final class ModalEmoticonViewController: UIViewController {
         
         collectionView.rx.modelSelected(Emoticon.self)
             .subscribe(onNext: { [weak self] emoticon in
+
                 self?.delegate?.emoticonSelected(emoticon: emoticon)
                 self?.dismiss(animated: true, completion: nil)
             })
             .disposed(by: disposeBag)
+
         
         output.emoticons
             .bind(to: collectionView.rx.items(cellIdentifier: CellIdentifier.EmoticonCollectionViewCell.rawValue, cellType: EmoticonCollectionViewCell.self)) { index, emoticon, cell in

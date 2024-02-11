@@ -39,7 +39,7 @@ final class EmoticonCollectionViewCell: UICollectionViewCell {
     func configure(with imageUrl: String) {
         if let url = URL(string: imageUrl) {
             imageView.kf.setImage(with: url)
+            
         }
     }
 }
-

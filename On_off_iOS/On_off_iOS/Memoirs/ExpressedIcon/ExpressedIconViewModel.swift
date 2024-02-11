@@ -81,4 +81,3 @@ final class ExpressedIconViewModel {
             .catchAndReturn(false)
     }
 }
-

@@ -33,6 +33,8 @@
 		374FD49D2B4281E100F2E645 /* OnboardingCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374FD49C2B4281E100F2E645 /* OnboardingCustomView.swift */; };
 		374FD49F2B42825B00F2E645 /* CustomPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374FD49E2B42825B00F2E645 /* CustomPageControl.swift */; };
 		374FD4A42B4297BE00F2E645 /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374FD4A32B4297BE00F2E645 /* OnBoardingViewController.swift */; };
+		375C9AA92B75C7FC008CB52E /* SVGKit in Frameworks */ = {isa = PBXBuildFile; productRef = 375C9AA82B75C7FC008CB52E /* SVGKit */; };
+		375C9AAB2B75C7FC008CB52E /* SVGKitSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 375C9AAA2B75C7FC008CB52E /* SVGKitSwift */; };
 		3769A6862B58563000D79C33 /* SelectTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3769A6852B58563000D79C33 /* SelectTimeViewModel.swift */; };
 		3769A6882B58563C00D79C33 /* SelectTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3769A6872B58563C00D79C33 /* SelectTimeViewController.swift */; };
 		3769A68E2B585B6600D79C33 /* DayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3769A68D2B585B6600D79C33 /* DayButton.swift */; };
@@ -240,6 +242,7 @@
 				37C161632B6BEDED000E0B21 /* RxKakaoSDKFriend in Frameworks */,
 				376A4B5C2B5506D7004FBB56 /* Lottie in Frameworks */,
 				37C161402B6BE77A000E0B21 /* KakaoSDK in Frameworks */,
+				375C9AAB2B75C7FC008CB52E /* SVGKitSwift in Frameworks */,
 				37C161562B6BE77A000E0B21 /* KakaoSDKUser in Frameworks */,
 				37C161292B6BDECF000E0B21 /* Alamofire in Frameworks */,
 				37C1614A2B6BE77A000E0B21 /* KakaoSDKFriend in Frameworks */,
@@ -251,6 +254,7 @@
 				37C1615D2B6BEDED000E0B21 /* RxKakaoSDK in Frameworks */,
 				37A1E9862B6C821A0013FFD7 /* RxGesture in Frameworks */,
 				374FD49A2B42690D00F2E645 /* SnapKit in Frameworks */,
+				375C9AA92B75C7FC008CB52E /* SVGKit in Frameworks */,
 				37C161522B6BE77A000E0B21 /* KakaoSDKTalk in Frameworks */,
 				374FD4952B4268EC00F2E645 /* RxRelay in Frameworks */,
 				37C161502B6BE77A000E0B21 /* KakaoSDKShare in Frameworks */,
@@ -560,6 +564,7 @@
 		37B890712B6A1EAD008A8BBC /* Constants */ = {
 			isa = PBXGroup;
 			children = (
+				3B51B5262B63DF9500E5FEF9 /* CellIdentifier.swift */,
 				37B890722B6A1EBC008A8BBC /* API */,
 				37C1612B2B6BDEF8000E0B21 /* Header.swift */,
 			);
@@ -788,7 +793,6 @@
 				374FD49B2B4281CA00F2E645 /* OnBoarding */,
 				3B4230212B41584300D0B038 /* Apps */,
 				376A4B552B5504AB004FBB56 /* Assets */,
-				3B51B5252B63DF8000E5FEF9 /* Constant */,
 				3B0129C42B6242D400B191AD /* Extension */,
 				35E0C7282B68C7AC006BF427 /* Fonts */,
 				3B4230182B41572400D0B038 /* LaunchScreen.storyboard */,
@@ -807,14 +811,6 @@
 				3B42300F2B41572200D0B038 /* SceneDelegate.swift */,
 			);
 			path = Apps;
-			sourceTree = "<group>";
-		};
-		3B51B5252B63DF8000E5FEF9 /* Constant */ = {
-			isa = PBXGroup;
-			children = (
-				3B51B5262B63DF9500E5FEF9 /* CellIdentifier.swift */,
-			);
-			path = Constant;
 			sourceTree = "<group>";
 		};
 		3B9C89CF2B4AED640083CF44 /* Statistics */ = {
@@ -900,6 +896,8 @@
 				37C161642B6BEDED000E0B21 /* RxKakaoSDKShare */,
 				37A1E9852B6C821A0013FFD7 /* RxGesture */,
 				37AEB1EB2B6CEE0E00A6CDD6 /* Kingfisher */,
+				375C9AA82B75C7FC008CB52E /* SVGKit */,
+				375C9AAA2B75C7FC008CB52E /* SVGKitSwift */,
 			);
 			productName = On_off_iOS;
 			productReference = 3B42300A2B41572200D0B038 /* On_off_iOS.app */;
@@ -939,6 +937,7 @@
 				37C1615B2B6BEDED000E0B21 /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */,
 				37A1E9842B6C821A0013FFD7 /* XCRemoteSwiftPackageReference "RxGesture" */,
 				37AEB1EA2B6CEE0E00A6CDD6 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				375C9AA72B75C7FC008CB52E /* XCRemoteSwiftPackageReference "SVGKit" */,
 			);
 			productRefGroup = 3B42300B2B41572200D0B038 /* Products */;
 			projectDirPath = "";
@@ -1300,6 +1299,14 @@
 				minimumVersion = 5.7.0;
 			};
 		};
+		375C9AA72B75C7FC008CB52E /* XCRemoteSwiftPackageReference "SVGKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SVGKit/SVGKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 		376A4B5A2B5506D7004FBB56 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
@@ -1378,6 +1385,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 374FD4982B42690D00F2E645 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		375C9AA82B75C7FC008CB52E /* SVGKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 375C9AA72B75C7FC008CB52E /* XCRemoteSwiftPackageReference "SVGKit" */;
+			productName = SVGKit;
+		};
+		375C9AAA2B75C7FC008CB52E /* SVGKitSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 375C9AA72B75C7FC008CB52E /* XCRemoteSwiftPackageReference "SVGKit" */;
+			productName = SVGKitSwift;
 		};
 		376A4B5B2B5506D7004FBB56 /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;

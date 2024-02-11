@@ -38,7 +38,7 @@ final class LaunchViewController: UIViewController {
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
          super.viewDidLoad()
-        KeychainWrapper.delete(key: LoginKeyChain.refreshToken.rawValue)
+       // KeychainWrapper.delete(key: LoginKeyChain.refreshToken.rawValue)
         
         setupAnim()
         finishAnimation()
