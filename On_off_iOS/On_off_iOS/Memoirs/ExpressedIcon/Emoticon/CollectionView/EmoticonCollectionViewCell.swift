@@ -7,8 +7,7 @@
 
 import SnapKit
 import UIKit
-import SVGKit
-//import Kingfisher
+import Kingfisher
 
 final class EmoticonCollectionViewCell: UICollectionViewCell {
     
@@ -38,13 +37,9 @@ final class EmoticonCollectionViewCell: UICollectionViewCell {
     
     ///이미지
     func configure(with imageUrl: String) {
-        guard let url = URL(string: imageUrl) else { return }
-        DispatchQueue.global().async {
-            let svgImage: SVGKImage? = SVGKImage(contentsOf: url)
-            DispatchQueue.main.async {
-                self.imageView.image = svgImage?.uiImage
-            }
+        if let url = URL(string: imageUrl) {
+            imageView.kf.setImage(with: url)
+            
         }
     }
 }
-

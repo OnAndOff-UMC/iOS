@@ -19,6 +19,7 @@ final class ExpressedIconViewModel {
     struct Input {
         let startButtonTapped: Observable<Void>
         let backButtonTapped: Observable<Void>
+        let selectedEmoticonId: Observable<Int?>
     }
     
     /// Output
@@ -35,11 +36,22 @@ final class ExpressedIconViewModel {
     func bind(input: Input) -> Output {
         let output = Output()
         
+        // 선택된 이모티콘 ID를 저장할 변수
+        var currentSelectedEmoticonId: Int?
+
+        // 선택된 이모티콘 ID 구독
+        input.selectedEmoticonId
+            .subscribe(onNext: { id in
+                currentSelectedEmoticonId = id
+            })
+            .disposed(by: disposeBag)
+        
         /// 완료버튼 클릭
         input.startButtonTapped
-                   .flatMapLatest { [weak self] _ -> Observable<Bool> in
-                       guard let self = self else { return .just(false) }
-                       return self.sendMemoirsData()
+            .withLatestFrom(input.selectedEmoticonId)
+            .flatMapLatest { [weak self] emoticonId -> Observable<Bool> in
+                guard let self = self else { return .just(false) }
+                return self.sendMemoirsData(emoticonId: emoticonId ?? 1)
                    }
         
                    .subscribe(onNext: { success in
@@ -57,7 +69,7 @@ final class ExpressedIconViewModel {
         return output
     }
     
-    private func sendMemoirsData() -> Observable<Bool> {
+    private func sendMemoirsData(emoticonId: Int) -> Observable<Bool> {
         let answer1 = KeychainWrapper.loadItem(forKey: MemoirsKeyChain.MemoirsAnswer1.rawValue) ?? ""
         let answer2 = KeychainWrapper.loadItem(forKey: MemoirsKeyChain.MemoirsAnswer2.rawValue) ?? ""
         let answer3 = KeychainWrapper.loadItem(forKey: MemoirsKeyChain.MemoirsAnswer3.rawValue) ?? ""
@@ -69,7 +81,7 @@ final class ExpressedIconViewModel {
         
         let request = MemoirRequest(
             date: dateString,
-            emoticonId: 1, // 이모티콘 ID -> 수정
+            emoticonId: emoticonId, // 이모티콘 ID -> 수정
             memoirAnswerList: [
                 MemoirRequest.MemoirAnswer(questionId: 1, answer: answer1),
                 MemoirRequest.MemoirAnswer(questionId: 2, answer: answer2),
