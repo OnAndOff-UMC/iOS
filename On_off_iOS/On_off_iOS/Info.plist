@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>PORT</key>
-	<string>{PORT}</string>
+	<string>${PORT}</string>
 	<key>IP</key>
-	<string>{IP}</string>
+	<string>${IP}</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
