@@ -18,13 +18,15 @@ final class MemoirsService: MemoirsProtocol {
         let url = Domain.RESTAPI + MemoirsPath.memoirsSave.rawValue
         let headers = Header.header.getHeader()
 
-        print(request)
         return Observable.create { observer in
             AF.request(url,
                        method: .post,
-                       parameters: request, encoder: JSONParameterEncoder.default, headers: headers)
+                       parameters: request, 
+                       encoder: JSONParameterEncoder.default,
+                       headers: headers)
             .validate(statusCode: 200..<201)
             .responseDecodable(of: MemoirResponse.self) { response in
+                print(request)
 
                 switch response.result {
                 case .success(let data):
@@ -32,6 +34,7 @@ final class MemoirsService: MemoirsProtocol {
                 case .failure(let error):
                     observer.onError(error)
                 }
+                print(response)
             }
             return Disposables.create()
         }

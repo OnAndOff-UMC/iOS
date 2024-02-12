@@ -177,7 +177,7 @@ final class ExpressedIconViewController: UIViewController {
         
         let output = viewModel.bind(input: input)
         
-        
+        // 다음 화면으로 이동
         output.moveToNext
             .subscribe(onNext: { [weak self] in
                 self?.navigateTobookMark()
@@ -192,9 +192,10 @@ final class ExpressedIconViewController: UIViewController {
     }
     /// 임시 초기로 이동
     private func navigateTobookMark() {
-        let bookmarkViewModel = BookmarkViewModel()
-        let writePraisedViewController = BookmarkViewController(viewModel: bookmarkViewModel)
-        self.navigationController?.pushViewController(writePraisedViewController, animated: false)
+        print("aaaa")
+        let memoirsCompleteViewModel = MemoirsCompleteViewModel()
+        let memoirsCompleteViewController = MemoirsCompleteViewController(viewModel: memoirsCompleteViewModel)
+        self.navigationController?.pushViewController(memoirsCompleteViewController, animated: false)
     }
     
     /// 이모티콘 모달 띄우기

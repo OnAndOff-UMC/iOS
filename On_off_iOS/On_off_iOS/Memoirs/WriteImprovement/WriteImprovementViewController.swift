@@ -174,14 +174,14 @@ final class WriteImprovementViewController: UIViewController {
         }
         
         textView.snp.makeConstraints { make in
-            make.top.equalTo(textpageImage).offset(50)
-            make.bottom.equalTo(textpageImage).offset(-50)
+            make.leading.top.equalTo(textpageImage).offset(50)
+            make.height.equalTo(30).priority(.low)
             make.horizontalEdges.equalTo(textpageImage).inset(30)
         }
         
         checkLenghtLabel.snp.makeConstraints { make in
             make.top.equalTo(textpageImage.snp.bottom).offset(10)
-            make.trailing.equalTo(textView)
+            make.trailing.equalTo(textpageImage.snp.trailing).offset(-10)
         }
         
         checkButtonView.snp.makeConstraints { make in
@@ -240,5 +240,21 @@ final class WriteImprovementViewController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         textView.endEditing(true)
+    }
+}
+
+extension WriteImprovementViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        let size = CGSize(width: textView.frame.width, height: .infinity)
+        let estimatedSize = textView.sizeThatFits(size)
+        
+        let maxHeight = textpageImage.frame.height - 50
+        let newHeight = min(estimatedSize.height, maxHeight)
+        
+        textView.snp.updateConstraints { make in
+            make.height.equalTo(newHeight).priority(.low)
+        }
+        
+        self.view.layoutIfNeeded()
     }
 }

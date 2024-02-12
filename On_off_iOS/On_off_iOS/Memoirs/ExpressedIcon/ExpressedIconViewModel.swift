@@ -40,8 +40,10 @@ final class ExpressedIconViewModel {
                    .flatMapLatest { [weak self] _ -> Observable<Bool> in
                        guard let self = self else { return .just(false) }
                        return self.sendMemoirsData()
+                           .do(onNext: { success in
+                                                   print("Memoir 데이터 저장 성공 여부: \(success)")
+                                               })
                    }
-        
                    .subscribe(onNext: { success in
                        if success {
                            output.moveToNext.onNext(())
@@ -61,7 +63,7 @@ final class ExpressedIconViewModel {
         let answer1 = KeychainWrapper.loadItem(forKey: MemoirsKeyChain.MemoirsAnswer1.rawValue) ?? ""
         let answer2 = KeychainWrapper.loadItem(forKey: MemoirsKeyChain.MemoirsAnswer2.rawValue) ?? ""
         let answer3 = KeychainWrapper.loadItem(forKey: MemoirsKeyChain.MemoirsAnswer3.rawValue) ?? ""
-        let emoticonId = KeychainWrapper.loadItem(forKey: MemoirsKeyChain.emoticonID.rawValue) ?? ""
+        let emoticonId = KeychainWrapper.loadItem(forKey: MemoirsKeyChain.emoticonID.rawValue) ?? "1"
         let today = Date()
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
@@ -69,7 +71,7 @@ final class ExpressedIconViewModel {
         
         let request = MemoirRequest(
             date: dateString,
-            emoticonId: Int(emoticonId) ?? 1, // 이모티콘 ID -> 수정
+            emoticonId: Int(emoticonId) ?? 1,
             memoirAnswerList: [
                 MemoirRequest.MemoirAnswer(questionId: 1, answer: answer1),
                 MemoirRequest.MemoirAnswer(questionId: 2, answer: answer2),
