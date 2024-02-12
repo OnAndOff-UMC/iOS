@@ -141,7 +141,6 @@ final class OffUIView: UIView {
     var clickedAddfeedButton: PublishSubject<Void> = PublishSubject()
     
     /// 선택한 날짜
-    
     var selectedDate: PublishSubject<String> = PublishSubject()
     private var successDeleteImage: PublishSubject<Void> = PublishSubject()
     var successAddFeed: PublishSubject<Void> = PublishSubject()
@@ -253,7 +252,7 @@ final class OffUIView: UIView {
         }
         
         dateLabel.snp.makeConstraints { make in
-            make.top.equalTo(feedUITableView.snp.bottom).offset(10)
+            make.top.equalTo(feedUITableView.snp.bottom).offset(20)
             make.leading.equalToSuperview().offset(10)
         }
         
@@ -283,6 +282,7 @@ final class OffUIView: UIView {
         bindClickTableViewCell(output: output)
         bindClickPlusImageButton(output: output)
         bindClickImageButton(output: output)
+        bindSelectedMonth(output: output)
         bindFeedEvents()
     }
     
@@ -404,6 +404,16 @@ final class OffUIView: UIView {
             .bind { [weak self] imageURL in
                 guard let self = self else { return }
                 clickedImageButton.onNext(imageURL)
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    /// Bind Selected Month
+    private func bindSelectedMonth(output: OffUIViewModel.Output) {
+        output.selectedDate
+            .bind { [weak self] date in
+                guard let self = self else { return }
+                dateLabel.text = date
             }
             .disposed(by: disposeBag)
     }
