@@ -117,6 +117,7 @@
 		3B26CF4A2B79EF2600E05581 /* InsertWorkLifeBalanceFeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B26CF492B79EF2600E05581 /* InsertWorkLifeBalanceFeedViewModel.swift */; };
 		3B26CF4C2B79F3F800E05581 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B26CF4B2B79F3F800E05581 /* Feed.swift */; };
 		3B26CF4E2B79F44A00E05581 /* InsertWorkLifeBalanceFeedService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B26CF4D2B79F44A00E05581 /* InsertWorkLifeBalanceFeedService.swift */; };
+		3B26CF502B79FDC600E05581 /* WorkLifeBalanceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B26CF4F2B79FDC600E05581 /* WorkLifeBalanceTableViewCell.swift */; };
 		3B2D93022B77C91B00D88787 /* OffUIViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2D93012B77C91B00D88787 /* OffUIViewModel.swift */; };
 		3B2D93042B77CB9800D88787 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2D93032B77CB9800D88787 /* ImageCollectionViewCell.swift */; };
 		3B35763F2B78BDEF008464AA /* OffUIViewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B35763E2B78BDEF008464AA /* OffUIViewService.swift */; };
@@ -235,6 +236,7 @@
 		3B26CF492B79EF2600E05581 /* InsertWorkLifeBalanceFeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertWorkLifeBalanceFeedViewModel.swift; sourceTree = "<group>"; };
 		3B26CF4B2B79F3F800E05581 /* Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
 		3B26CF4D2B79F44A00E05581 /* InsertWorkLifeBalanceFeedService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertWorkLifeBalanceFeedService.swift; sourceTree = "<group>"; };
+		3B26CF4F2B79FDC600E05581 /* WorkLifeBalanceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkLifeBalanceTableViewCell.swift; sourceTree = "<group>"; };
 		3B2D93012B77C91B00D88787 /* OffUIViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffUIViewModel.swift; sourceTree = "<group>"; };
 		3B2D93032B77CB9800D88787 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		3B35763E2B78BDEF008464AA /* OffUIViewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffUIViewService.swift; sourceTree = "<group>"; };
@@ -819,6 +821,7 @@
 			isa = PBXGroup;
 			children = (
 				3BB7D07E2B64EB31002F1860 /* OffUIView.swift */,
+				3B26CF4F2B79FDC600E05581 /* WorkLifeBalanceTableViewCell.swift */,
 				3B26CF452B7919C100E05581 /* InsertWorkLifeBalanceFeedView.swift */,
 				3B3576432B78F5B1008464AA /* WatchPictureController.swift */,
 				3B2D93032B77CB9800D88787 /* ImageCollectionViewCell.swift */,
@@ -1059,6 +1062,7 @@
 				37C161232B6BD9F8000E0B21 /* LoginViewModel.swift in Sources */,
 				355283122B68CB70002BBFFD /* Ext + UIFont.swift in Sources */,
 				37FED60D2B6E29070071BB23 /* BookmarkTableViewCell.swift in Sources */,
+				3B26CF502B79FDC600E05581 /* WorkLifeBalanceTableViewCell.swift in Sources */,
 				355283142B68CC94002BBFFD /* Ext + UIColor.swift in Sources */,
 				3769A6862B58563000D79C33 /* SelectTimeViewModel.swift in Sources */,
 				374FD4A42B4297BE00F2E645 /* OnBoardingViewController.swift in Sources */,

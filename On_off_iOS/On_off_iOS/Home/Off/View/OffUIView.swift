@@ -95,10 +95,12 @@ final class OffUIView: UIView {
     }()
     
     /// 워라벨 피드 확인하는 UIView
-    private lazy var feedUIView: UIView = {
-        let view = UIView()
+    private lazy var feedUITableView: UITableView = {
+        let view = UITableView()
         view.backgroundColor = .OnOffLightMain
         view.layer.cornerRadius = 20
+        view.register(WorkLifeBalanceTableViewCell.self,
+                      forCellReuseIdentifier: CellIdentifier.WorkLifeBalanceTableViewCell.rawValue)
         return view
     }()
     
@@ -137,7 +139,14 @@ final class OffUIView: UIView {
     var clickedImageButton: PublishSubject<Image?> = PublishSubject()
     
     var clickedAddfeedButton: PublishSubject<Void> = PublishSubject()
+    
+    /// 선택한 날짜
+    
+    var selectedDate: PublishSubject<String> = PublishSubject()
     private var successDeleteImage: PublishSubject<Void> = PublishSubject()
+    var successAddFeed: PublishSubject<Void> = PublishSubject()
+    private var loadWLBFeed: PublishSubject<Void> = PublishSubject()
+    private var clickCheckMarkOfWLBFeed: PublishSubject<Feed> = PublishSubject()
     
     // MARK: - Init
     override init(frame: CGRect) {
@@ -151,7 +160,9 @@ final class OffUIView: UIView {
     
     override func willMove(toWindow newWindow: UIWindow?) {
         super.willMove(toWindow: newWindow)
+        print(#function)
         successDeleteImage.onNext(())
+        loadWLBFeed.onNext(())
     }
     
     /// Add View
@@ -165,7 +176,7 @@ final class OffUIView: UIView {
         contentView.addSubview(feedTitleButton)
         contentView.addSubview(feedlabelBackgroundUIView)
         feedlabelBackgroundUIView.addSubview(feedPlusIconImageButton)
-        contentView.addSubview(feedUIView)
+        contentView.addSubview(feedUITableView)
         contentView.addSubview(dateLabel)
         contentView.addSubview(imageCollectionView)
         
@@ -233,7 +244,7 @@ final class OffUIView: UIView {
             make.height.equalTo(200)
         }
         
-        feedUIView.snp.makeConstraints { make in
+        feedUITableView.snp.makeConstraints { make in
             make.top.equalTo(feedTitleButton.snp.bottom).offset(10)
             make.leading.equalTo(feedTitleButton.snp.leading)
             make.trailing.equalToSuperview().offset(-20)
@@ -241,7 +252,7 @@ final class OffUIView: UIView {
         }
         
         dateLabel.snp.makeConstraints { make in
-            make.top.equalTo(feedUIView.snp.bottom).offset(10)
+            make.top.equalTo(feedUITableView.snp.bottom).offset(10)
             make.leading.equalToSuperview().offset(10)
         }
         
@@ -259,9 +270,14 @@ final class OffUIView: UIView {
                                                                         todayMemoirsIconImageButtonEvents: todayMemoirsIconImageButton.rx.tap,
                                                                         collectionViewCellEvents: imageCollectionView.rx.itemSelected,
                                                                         selectedImage: selectedImage,
-                                                                        successDeleteImage: successDeleteImage))
+                                                                        successDeleteImage: successDeleteImage, 
+                                                                        loadWLBFeed: loadWLBFeed,
+                                                                        clickCheckMarkOfWLBFeed: clickCheckMarkOfWLBFeed,
+                                                                        selectedDate: selectedDate,
+                                                                        successAddFeed: successAddFeed))
         addSubViews(output: output)
         bindCollectionView(output: output)
+        bindTableView(output: output)
         bindClickPlusImageButton(output: output)
         bindClickImageButton(output: output)
         bindFeedEvents()
@@ -281,6 +297,30 @@ final class OffUIView: UIView {
                 guard let self = self else { return }
                 clickedAddfeedButton.onNext(())
             }
+            .disposed(by: disposeBag)
+    }
+    
+    /// Binding Work Life Balance Table View
+    private func bindTableView(output: OffUIViewModel.Output) {
+        output.workLifeBalanceRelay
+            .bind(to: feedUITableView.rx.items(cellIdentifier: CellIdentifier.WorkLifeBalanceTableViewCell.rawValue,
+                                               cellType: WorkLifeBalanceTableViewCell.self))
+        { [weak self] row, element, cell in
+            guard let self = self else { return }
+            cell.inputData(feed: element)
+            cell.backgroundColor = .clear
+            cell.selectionStyle = .none
+            cell.checkMarkButtonEvents
+                .bind { [weak self] in
+                    guard let self = self else { return }
+                    print("clciekd \(element)")
+                    clickCheckMarkOfWLBFeed.onNext(element)
+                }
+                .disposed(by: disposeBag)
+        }
+        .disposed(by: disposeBag)
+        
+        feedUITableView.rx.setDelegate(self)
             .disposed(by: disposeBag)
     }
     
@@ -340,6 +380,12 @@ final class OffUIView: UIView {
                 clickedImageButton.onNext(imageURL)
             }
             .disposed(by: disposeBag)
+    }
+}
+
+extension OffUIView: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
     }
 }
 

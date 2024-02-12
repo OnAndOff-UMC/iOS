@@ -94,4 +94,58 @@ final class OffUIViewService {
             return Disposables.create()
         }
     }
+    
+    /// 워라벨 피드 목록 불러오기
+    /// - Parameter date: 선택한 날짜
+    /// - Returns: Feed List
+    func getWLBFeedList(date: String) -> Observable<[Feed]> {
+        let url = Domain.RESTAPI + FeedPath.workLifeBalacne.rawValue
+            .replacingOccurrences(of: "DATE", with: "\(date)")
+        let header = Header.header.getHeader()
+        print(url)
+        
+        return Observable.create { observer in
+            AF.request(url,
+                       method: .get,
+                       headers: header)
+            .validate(statusCode: 200..<201)
+            .responseDecodable(of: Response<[Feed]>.self) { response in
+                print(#function, response)
+                switch response.result {
+                case .success(let data):
+                    observer.onNext(data.result)
+                case .failure(let error):
+                    observer.onError(error)
+                }
+            }
+            return Disposables.create()
+        }
+    }
+    
+    /// Check WLB Feed
+    /// - Parameter feedId: Feed Id
+    /// - Returns: 성공 여부
+    func checkWLBFeed(feedId: Int) -> Observable<Bool> {
+        let url = Domain.RESTAPI + FeedPath.checkWLB.rawValue
+            .replacingOccurrences(of: "FEEDID", with: "\(feedId)")
+        let header = Header.header.getHeader()
+        print(url)
+        
+        return Observable.create { observer in
+            AF.request(url,
+                       method: .patch,
+                       headers: header)
+            .validate(statusCode: 200..<201)
+            .responseDecodable(of: Response<Feed>.self) { response in
+                print(#function, response)
+                switch response.result {
+                case .success(let data):
+                    observer.onNext(data.isSuccess)
+                case .failure(let error):
+                    observer.onError(error)
+                }
+            }
+            return Disposables.create()
+        }
+    }
 }

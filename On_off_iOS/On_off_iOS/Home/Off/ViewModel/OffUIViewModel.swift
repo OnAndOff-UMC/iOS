@@ -22,6 +22,10 @@ final class OffUIViewModel {
         let collectionViewCellEvents: ControlEvent<IndexPath>?
         let selectedImage: Observable<UIImage>?
         let successDeleteImage: Observable<Void>?
+        let loadWLBFeed: Observable<Void>?
+        let clickCheckMarkOfWLBFeed: Observable<Feed>?
+        let selectedDate: Observable<String>?
+        let successAddFeed: Observable<Void>?
     }
     
     struct Output {
@@ -30,6 +34,9 @@ final class OffUIViewModel {
         var checkUploadImageRelay: BehaviorRelay<Bool> = BehaviorRelay(value: false)
         var heightConstraint: BehaviorRelay<Constraint?> = BehaviorRelay(value: nil)
         var selectedImageRelay: BehaviorRelay<Image?> = BehaviorRelay(value: nil)
+        var workLifeBalanceRelay: BehaviorRelay<[Feed]> = BehaviorRelay(value: [])
+        var successCheckWLBRelay: PublishRelay<Bool> = PublishRelay()
+        var selectedDate: BehaviorRelay<String> = BehaviorRelay(value: "")
     }
     
     /// Create Output
@@ -41,10 +48,14 @@ final class OffUIViewModel {
         bindTodayMemoirsEvents(input: input, output: output)
         bindClickedCollectoinViewCell(input: input, output: output)
         bindSelectedCroppedImage(input: input, output: output)
+        bindSuccessDeleteImageEvents(input: input, output: output)
+        bindSelectedWLBFeed(input: input, output: output)
+        bindLoadWLBFeed(input: input, output: output)
+        bindSelectedDate(input: input, output: output)
+        bindSuccessAddFeed(input: input, output: output)
         
         getImageList(output: output)
-        bindSuccessDeleteImageEvents(input: input, output: output)
-       
+        
         return output
     }
     
@@ -85,7 +96,43 @@ final class OffUIViewModel {
             .bind { [weak self] in
                 guard let self = self else { return }
                 getImageList(output: output)
-                
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    /// Binding Load W.L.B Feed
+    private func bindLoadWLBFeed(input: Input, output: Output) {
+        input.loadWLBFeed?
+            .bind {  [weak self] in
+                guard let self = self else { return }
+                getWorkLifeBalanceList(output: output)
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    /// Binding Selected Date
+    private func bindSelectedDate(input: Input, output: Output) {
+        input.selectedDate?
+            .bind(to: output.selectedDate)
+            .disposed(by: disposeBag)
+    }
+    
+    /// Binding Success Add Feed
+    private func bindSuccessAddFeed(input: Input, output: Output) {
+        input.successAddFeed?
+            .bind {  [weak self] in
+                guard let self = self else { return }
+                getWorkLifeBalanceList(output: output)
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    /// Binding Selected W.L.B Feed
+    private func bindSelectedWLBFeed(input: Input, output: Output) {
+        input.clickCheckMarkOfWLBFeed?
+            .bind { [weak self] feed in
+                guard let self = self, let id = feed.feedId else { return }
+                checkWLBFeed(feedId: id, input: input, output: output)
             }
             .disposed(by: disposeBag)
     }
@@ -110,6 +157,15 @@ final class OffUIViewModel {
         output.selectedImageRelay.accept(output.imageURLRelay.value[indexPath.row])
     }
     
+    /// Format Date To String
+    /// - Parameter date: Date
+    /// - Returns: String Type Date
+    private func formatDate(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.string(from: date)
+    }
+    
     /// get ImageList Data
     private func getImageList(output: Output) {
         service.getImageList()
@@ -126,6 +182,20 @@ final class OffUIViewModel {
         
     }
     
+    /// Get WorkLifeBalance List
+    /// - Parameters:
+    ///   - selectedDate: Selected Date
+    private func getWorkLifeBalanceList(output: Output) {
+        service.getWLBFeedList(date: output.selectedDate.value)
+            .subscribe(onNext: { list in
+                output.workLifeBalanceRelay.accept(list)
+            }, onError: { error in
+                // 업로드 실패
+                print(#function, error)
+            })
+            .disposed(by: disposeBag)
+     
+    }
     
     /// Upload Image
     /// - Parameters:
@@ -140,6 +210,25 @@ final class OffUIViewModel {
                 }
             }, onError: { error in
                 // 업로드 실패
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    
+    /// 워라벨 피드 체크 유무
+    /// - Parameters:
+    ///   - feedId: Feed Id
+    ///   - output: Output
+    private func checkWLBFeed(feedId: Int, input: Input, output: Output) {
+        service.checkWLBFeed(feedId: feedId)
+            .subscribe(onNext: { [weak self] check in
+                guard let self = self else { return }
+                if check {
+                    output.successCheckWLBRelay.accept(check)
+                    getWorkLifeBalanceList(output: output)
+                }
+            }, onError:  { error in
+                print(#function, error)
             })
             .disposed(by: disposeBag)
     }

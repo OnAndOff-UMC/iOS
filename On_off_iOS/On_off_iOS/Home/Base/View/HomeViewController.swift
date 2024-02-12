@@ -82,6 +82,7 @@ final class HomeViewController: UIViewController {
     /// Off UIView
     private lazy var offUIView: OffUIView = {
         let view = OffUIView(frame: CGRect(x: .zero, y: .zero, width: view.safeAreaLayoutGuide.layoutFrame.width, height: .zero))
+        view.selectedDate.onNext("2024-02-12")
         view.backgroundColor = .white
         view.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
         view.layer.cornerRadius = 25
@@ -314,7 +315,7 @@ final class HomeViewController: UIViewController {
                     let imagePickerController = UIImagePickerController()
                     imagePickerController.sourceType = .photoLibrary
                     imagePickerController.delegate = self
-                    imagePickerController.allowsEditing = false// 이미지 편집 기능 On
+                    imagePickerController.allowsEditing = false // 이미지 편집 기능 On
                     
                     present(imagePickerController, animated: true)
                 }
@@ -341,6 +342,12 @@ final class HomeViewController: UIViewController {
             .bind { [weak self] in
                 guard let self = self else { return }
                 let insertWorkLifeBalanceFeedView = InsertWorkLifeBalanceFeedView()
+                insertWorkLifeBalanceFeedView.successAddFeedSubject
+                    .bind { [weak self] in
+                        guard let self = self else { return }
+                        offUIView.successAddFeed.onNext(())
+                    }
+                    .disposed(by: disposeBag)
                 present(insertWorkLifeBalanceFeedView, animated: true)
             }
             .disposed(by: disposeBag)

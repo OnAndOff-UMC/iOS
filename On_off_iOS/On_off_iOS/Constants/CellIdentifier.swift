@@ -18,6 +18,7 @@ enum CellIdentifier: String {
     case BookmarkTableViewCell
     case ModalSelectProfileTableViewCell // 프로필 설정
     
-    // MARK: - Off UIView CollecitonViewCell
+    // MARK: - Off UIView
     case ImageCollectionView
+    case WorkLifeBalanceTableViewCell
 }

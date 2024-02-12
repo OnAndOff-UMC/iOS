@@ -28,5 +28,6 @@ enum MemoirsPath: String {
 
 enum FeedPath: String {
     case feedImage = "/feed-images"
-    case workLifeBalacne = "/feeds"
+    case workLifeBalacne = "/feeds?date=DATE"
+    case checkWLB = "/feeds/FEEDID/check"
 }

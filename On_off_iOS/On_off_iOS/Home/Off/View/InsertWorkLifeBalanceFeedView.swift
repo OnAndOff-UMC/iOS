@@ -60,6 +60,7 @@ final class InsertWorkLifeBalanceFeedView: DimmedViewController {
     
     private let disposeBag = DisposeBag()
     private let viewModel = InsertWorkLifeBalanceFeedViewModel()
+    var successAddFeedSubject: PublishSubject<Void> = PublishSubject<Void>()
     
     // MARK: - Init
     init() {
@@ -71,6 +72,11 @@ final class InsertWorkLifeBalanceFeedView: DimmedViewController {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        dismiss(animated: true)
     }
     
     /// Add Subviews
@@ -128,7 +134,7 @@ final class InsertWorkLifeBalanceFeedView: DimmedViewController {
         
         bindTextRelay(output: output)
         bindtextCountRelay(output: output)
-        bindSuccessAddFeedRealy(output: output)
+        bindSuccessAddFeedRelay(output: output)
     }
     
     /// Binding TextField Relay
@@ -149,11 +155,14 @@ final class InsertWorkLifeBalanceFeedView: DimmedViewController {
     }
     
     /// Binding When Success Add Feed
-    private func bindSuccessAddFeedRealy(output: InsertWorkLifeBalanceFeedViewModel.Output) {
+    private func bindSuccessAddFeedRelay(output: InsertWorkLifeBalanceFeedViewModel.Output) {
         output.successAddFeedRealy
             .bind { [weak self] check in
                 guard let self = self else { return }
-                dismiss(animated: true)
+                dismiss(animated: true) { [weak self] in
+                    guard let self = self else { return }
+                    successAddFeedSubject.onNext(())
+                }
             }
             .disposed(by: disposeBag)
     }
