@@ -92,9 +92,9 @@ final class MemoirsService: MemoirsProtocol {
     }
     
     /// 북마크 설정하기 //     case bookMark = "/memoirs/MEMOIRID/bookmark" // 북마크 체크
-    func bookMarkMemoirs(memoirId: String) -> RxSwift.Observable<MemoirResponse> {
+    func bookMarkMemoirs(memoirId: Int) -> RxSwift.Observable<MemoirResponse> {
         let url = Domain.RESTAPI + MemoirsPath.bookMark.rawValue
-            .replacingOccurrences(of: "MEMOIRID", with: memoirId)
+            .replacingOccurrences(of: "MEMOIRID", with: String(memoirId))
         let headers = Header.header.getHeader()
         
         return Observable.create { observer in

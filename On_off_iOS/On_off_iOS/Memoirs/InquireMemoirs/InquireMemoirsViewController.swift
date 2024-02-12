@@ -288,42 +288,48 @@ final class InquireMemoirsViewController: UIViewController {
     
     /// 뷰모델과 setupBindings
     private func setupBindings() {
-           let input = InquireMemoirsViewModel.Input(
-               bookMarkButtonTapped: bookmarkButton.rx.tap.asObservable(),
-               menuButtonTapped: menuButton.rx.tap.asObservable(),
-               memoirId: Observable.just("someMemoirId"), // 실제 메모아이디
-               memoirInquiry: Observable.just(())
-           )
-           
-           let output = viewModel.bind(input: input)
-           
-           output.memoirInquiryResult
-               .observe(on: MainScheduler.instance)
-               .subscribe(onNext: { [weak self] response in
-                   print(response)
-                   self?.updateUIWithMemoirResponse(response)
-               })
-               .disposed(by: disposeBag)
-           
-           output.updateBookmarkStatus
-               .subscribe(onNext: { [weak self] isBookmarked in
-                   let imageName = isBookmarked ? "bookmark.fill" : "bookmark"
-                   self?.bookmarkButton.image = UIImage(systemName: imageName)
-               })
-               .disposed(by: disposeBag)
-       }
-
+        let input = InquireMemoirsViewModel.Input(
+            bookMarkButtonTapped: bookmarkButton.rx.tap.asObservable(),
+            menuButtonTapped: menuButton.rx.tap.asObservable(),
+            memoirId: 8,
+            memoirInquiry: Observable.just(())
+        )
+        
+        let output = viewModel.bind(input: input)
+        
+        output.memoirInquiryResult
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] response in
+                print(response)
+                self?.updateUIWithMemoirResponse(response)
+            })
+            .disposed(by: disposeBag)
+        
+        output.updateBookmarkStatus
+            .subscribe(onNext: { [weak self] isBookmarked in
+                let imageName = isBookmarked ? "bookmark.fill" : "bookmark"
+                self?.bookmarkButton.image = UIImage(systemName: imageName)
+            })
+            .disposed(by: disposeBag)
+        
+        menuButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.presentModalFromBottom()
+            })
+            .disposed(by: disposeBag)
+    }
+    
     private func updateUIWithMemoirResponse(_ response: MemoirResponse) {
-
+        
         if let url = URL(string: response.result.emoticonUrl) {
             imageView.kf.setImage(with: url)
         }
         
         // 날짜 정보 설정
         dateLabel.text = response.result.date
-
-
-        // 회고록 답변 리스트에서 특정 요약 정보에 맞는 답변을 찾아 UI 컴포넌트에 설정
+        
+        
+        // 회고록 답변 리스트에서 특정 요약 정보에 맞는 답변을 찾아서 UI 설정함
         if let learnedAnswer = response.result.memoirAnswerList.first(where: { $0.summary == "오늘 배운 점" }) {
             learnedTextField.text = learnedAnswer.answer
         } else {
@@ -359,13 +365,5 @@ final class InquireMemoirsViewController: UIViewController {
     /// 네비게이션 바
     private func setupNavigationBar() {
         navigationItem.rightBarButtonItems = [menuButton, bookmarkButton]
-    }
-}
-
-extension InquireMemoirsViewController: UIViewControllerTransitioningDelegate {
-    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        let presentationController = UIPresentationController(presentedViewController: presented, presenting: presenting)
-        presented.preferredContentSize = CGSize(width: UIScreen.main.bounds.width, height: 200)
-        return presentationController
     }
 }
