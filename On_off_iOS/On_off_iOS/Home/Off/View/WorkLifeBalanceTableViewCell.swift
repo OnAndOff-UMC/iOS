@@ -29,17 +29,23 @@ final class WorkLifeBalanceTableViewCell: UITableViewCell {
         return button
     }()
     
-    private let disposeBag = DisposeBag()
-    var checkMarkButtonEvents: PublishSubject<Void> = PublishSubject<Void>()
+    lazy var disposeBag = DisposeBag()
+    var checkMarkButtonEvents: Observable<Void> {
+        return checkMarkButton.rx.tap.asObservable()
+    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addSubViews()
-        bindCheckMarkButton()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
     }
     
     /// Add SubViews
@@ -64,17 +70,7 @@ final class WorkLifeBalanceTableViewCell: UITableViewCell {
             make.trailing.equalToSuperview().offset(-10)
         }
     }
-    
-    /// Binding Check Mark
-    private func bindCheckMarkButton() {
-        checkMarkButton.rx.tap
-            .bind { [weak self] in
-                guard let self = self else { return }
-                checkMarkButtonEvents.onNext(())
-            }
-            .disposed(by: disposeBag)
-    }
-    
+
     /// Input Data
     /// - Parameter feed: Feed
     func inputData(feed: Feed) {
@@ -82,4 +78,6 @@ final class WorkLifeBalanceTableViewCell: UITableViewCell {
         let image: String = feed.isChecked ?? false ? "checkMark" : "nonCheckMark"
         checkMarkButton.setImage(UIImage(named: image), for: .normal)
     }
+    
+
 }

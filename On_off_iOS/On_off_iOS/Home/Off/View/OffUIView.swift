@@ -248,7 +248,7 @@ final class OffUIView: UIView {
             make.top.equalTo(feedTitleButton.snp.bottom).offset(10)
             make.leading.equalTo(feedTitleButton.snp.leading)
             make.trailing.equalToSuperview().offset(-20)
-            make.height.equalTo(200)
+            output.tableViewHeightConstraint.accept(make.height.equalTo(200).constraint)
         }
         
         dateLabel.snp.makeConstraints { make in
@@ -260,7 +260,7 @@ final class OffUIView: UIView {
             make.top.equalTo(dateLabel.snp.bottom).offset(10)
             make.horizontalEdges.equalToSuperview().inset(10)
             make.bottom.equalToSuperview()
-            output.heightConstraint.accept(make.height.equalTo(0).constraint)
+            output.collectionViewHeightConstraint.accept(make.height.equalTo(0).constraint)
         }
     }
     
@@ -303,6 +303,16 @@ final class OffUIView: UIView {
     /// Binding Work Life Balance Table View
     private func bindTableView(output: OffUIViewModel.Output) {
         output.workLifeBalanceRelay
+            .bind { list in
+                if list.count > 4 {
+                    output.tableViewHeightConstraint.value?.update(offset: 200 + (50 * (list.count - 4)))
+                    return
+                }
+                output.tableViewHeightConstraint.value?.update(offset: 200)
+            }
+            .disposed(by: disposeBag)
+        
+        output.workLifeBalanceRelay
             .bind(to: feedUITableView.rx.items(cellIdentifier: CellIdentifier.WorkLifeBalanceTableViewCell.rawValue,
                                                cellType: WorkLifeBalanceTableViewCell.self))
         { [weak self] row, element, cell in
@@ -313,10 +323,9 @@ final class OffUIView: UIView {
             cell.checkMarkButtonEvents
                 .bind { [weak self] in
                     guard let self = self else { return }
-                    print("clciekd \(element)")
                     clickCheckMarkOfWLBFeed.onNext(element)
                 }
-                .disposed(by: disposeBag)
+                .disposed(by: cell.disposeBag)
         }
         .disposed(by: disposeBag)
         
@@ -331,7 +340,7 @@ final class OffUIView: UIView {
                 var count = list.count - 1
                 count = list.count < 9 ? count : 8
                 let width: CGFloat = (self.frame.width - 20 - 10 * 2) / 3
-                output.heightConstraint.value?.update(offset: CGFloat(count / 3 + 1) * width + CGFloat((count / 3 + 1) * 10))
+                output.collectionViewHeightConstraint.value?.update(offset: CGFloat(count / 3 + 1) * width + CGFloat((count / 3 + 1) * 10))
             }
             .disposed(by: disposeBag)
         
