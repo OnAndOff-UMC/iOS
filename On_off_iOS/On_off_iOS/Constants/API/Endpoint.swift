@@ -23,5 +23,7 @@ enum LoginPath: String {
 /// 회고록
 enum MemoirsPath: String {
     case memoirsSave = "/memoirs"
+    case inquireMemoir = "memoirs/DATE" //데이터 조회
+    case bookMark = "/memoirs/MEMOIRID/bookmark" // 북마크 체크
     case getEmoticon = "/emoticons"
 }

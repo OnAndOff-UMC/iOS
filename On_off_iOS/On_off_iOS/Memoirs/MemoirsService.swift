@@ -64,5 +64,59 @@ final class MemoirsService: MemoirsProtocol {
             return Disposables.create()
         }
     }
+    
+    /// 회고록 조회하기
+    func inquireMemoirs(request: String) -> RxSwift.Observable<MemoirResponse> {
+        let url = Domain.RESTAPI + MemoirsPath.inquireMemoir.rawValue
+            .replacingOccurrences(of: "DATE", with: request)
+        let headers = Header.header.getHeader()
+
+        return Observable.create { observer in
+            AF.request(url,
+                       method: .get,
+                       parameters: request,
+                       encoder: JSONParameterEncoder.default,
+                       headers: headers)
+            .validate(statusCode: 200..<201)
+            .responseDecodable(of: MemoirResponse.self) { response in
+                print(request)
+
+                switch response.result {
+                case .success(let data):
+                    observer.onNext(data)
+                case .failure(let error):
+                    observer.onError(error)
+                }
+                print(response)
+            }
+            return Disposables.create()
+        }
+    }
+    
+    /// 북마크 설정하기 //     case bookMark = "/memoirs/MEMOIRID/bookmark" // 북마크 체크
+
+    func bookMarkMemoirs(memoirId: String) -> RxSwift.Observable<MemoirResponse> {
+        let url = Domain.RESTAPI + MemoirsPath.inquireMemoir.rawValue
+            .replacingOccurrences(of: "MEMOIRID", with: memoirId)
+        let headers = Header.header.getHeader()
+
+        return Observable.create { observer in
+            AF.request(url,
+                       method: .patch,
+                       headers: headers)
+            .validate(statusCode: 200..<201)
+            .responseDecodable(of: MemoirResponse.self) { response in
+
+                switch response.result {
+                case .success(let data):
+                    observer.onNext(data)
+                case .failure(let error):
+                    observer.onError(error)
+                }
+                print(response)
+            }
+            return Disposables.create()
+        }
+    }
 }
 

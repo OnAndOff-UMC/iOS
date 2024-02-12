@@ -96,6 +96,8 @@
 		37CFD3002B66533900E00D92 /* ExpressedIconViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CFD2FF2B66533900E00D92 /* ExpressedIconViewController.swift */; };
 		37CFD3022B66534400E00D92 /* ExpressedIconViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CFD3012B66534400E00D92 /* ExpressedIconViewModel.swift */; };
 		37D606FD2B7783E20092F113 /* LaunchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D606FC2B7783E20092F113 /* LaunchModel.swift */; };
+		37DC38A52B79E543003CBBFB /* InquireMemoirsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DC38A42B79E543003CBBFB /* InquireMemoirsViewController.swift */; };
+		37DC38A72B79E548003CBBFB /* InquireMemoirsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DC38A62B79E548003CBBFB /* InquireMemoirsViewModel.swift */; };
 		37DEF20D2B66B31D00AF47DB /* MemoirsCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DEF20C2B66B31D00AF47DB /* MemoirsCompleteViewController.swift */; };
 		37DEF20F2B66B32A00AF47DB /* MemoirsCompleteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DEF20E2B66B32A00AF47DB /* MemoirsCompleteViewModel.swift */; };
 		37FED6032B6E15000071BB23 /* MemoirsImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FED6022B6E15000071BB23 /* MemoirsImage.swift */; };
@@ -200,6 +202,8 @@
 		37CFD2FF2B66533900E00D92 /* ExpressedIconViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressedIconViewController.swift; sourceTree = "<group>"; };
 		37CFD3012B66534400E00D92 /* ExpressedIconViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressedIconViewModel.swift; sourceTree = "<group>"; };
 		37D606FC2B7783E20092F113 /* LaunchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchModel.swift; sourceTree = "<group>"; };
+		37DC38A42B79E543003CBBFB /* InquireMemoirsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InquireMemoirsViewController.swift; sourceTree = "<group>"; };
+		37DC38A62B79E548003CBBFB /* InquireMemoirsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InquireMemoirsViewModel.swift; sourceTree = "<group>"; };
 		37DEF20C2B66B31D00AF47DB /* MemoirsCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoirsCompleteViewController.swift; sourceTree = "<group>"; };
 		37DEF20E2B66B32A00AF47DB /* MemoirsCompleteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoirsCompleteViewModel.swift; sourceTree = "<group>"; };
 		37FED6022B6E15000071BB23 /* MemoirsImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoirsImage.swift; sourceTree = "<group>"; };
@@ -312,6 +316,7 @@
 		371B9EA52B5AD7D8006AC06D /* Memoirs */ = {
 			isa = PBXGroup;
 			children = (
+				37DC38A32B79E529003CBBFB /* InquireMemoirs */,
 				37DEF20A2B66B2F300AF47DB /* MemoirsComplete */,
 				37CFD2FE2B6652DA00E00D92 /* ExpressedIcon */,
 				371B9EB52B5B06E5006AC06D /* WritePraised */,
@@ -663,6 +668,15 @@
 			path = ExpressedIcon;
 			sourceTree = "<group>";
 		};
+		37DC38A32B79E529003CBBFB /* InquireMemoirs */ = {
+			isa = PBXGroup;
+			children = (
+				37DC38A42B79E543003CBBFB /* InquireMemoirsViewController.swift */,
+				37DC38A62B79E548003CBBFB /* InquireMemoirsViewModel.swift */,
+			);
+			path = InquireMemoirs;
+			sourceTree = "<group>";
+		};
 		37DEF20A2B66B2F300AF47DB /* MemoirsComplete */ = {
 			isa = PBXGroup;
 			children = (
@@ -1012,6 +1026,7 @@
 				371B9EAC2B5AFD37006AC06D /* StartToWriteViewController.swift in Sources */,
 				37A1E9882B6CB1DD0013FFD7 /* LoginService.swift in Sources */,
 				378140632B42F07A00F2AA5A /* ProfileSettingViewController.swift in Sources */,
+				37DC38A52B79E543003CBBFB /* InquireMemoirsViewController.swift in Sources */,
 				37B890762B6A1EDC008A8BBC /* Endpoint.swift in Sources */,
 				3B0129C32B623BB900B191AD /* HomeViewController.swift in Sources */,
 				371B9EBD2B5B0753006AC06D /* WriteImprovementViewModel.swift in Sources */,
@@ -1045,6 +1060,7 @@
 				3B0129CA2B624CAE00B191AD /* HomeViewModel.swift in Sources */,
 				37FED6092B6E235D0071BB23 /* BookmarkViewModel.swift in Sources */,
 				37A1E98D2B6CCC020013FFD7 /* Memoirs.swift in Sources */,
+				37DC38A72B79E548003CBBFB /* InquireMemoirsViewModel.swift in Sources */,
 				3BB806D62B50228100555E58 /* DayStatistics.swift in Sources */,
 				371B9EA92B5AD847006AC06D /* MemoirsViewModel.swift in Sources */,
 			);
