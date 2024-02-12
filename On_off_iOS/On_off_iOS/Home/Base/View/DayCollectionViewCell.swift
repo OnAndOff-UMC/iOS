@@ -87,5 +87,9 @@ final class DayCollectionViewCell: UICollectionViewCell {
         dateLabel.text = info.date ?? ""
         cornerUIView.backgroundColor = color
     }
+    
+    func changeColor(color: UIColor) {
+        cornerUIView.backgroundColor = color
+    }
 }
 

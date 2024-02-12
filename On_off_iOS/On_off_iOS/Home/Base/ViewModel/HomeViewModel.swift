@@ -16,6 +16,8 @@ final class HomeViewModel {
     
     struct Input {
         let onOffButtonEvents: ControlEvent<Void>
+        
+        let dayCollectionViewEvents: ControlEvent<IndexPath>
     }
     
     struct Output {
@@ -49,6 +51,8 @@ final class HomeViewModel {
         /// True: On
         /// False: Off
         var toggleOnOffButtonRelay: BehaviorRelay<Bool> = BehaviorRelay(value: true)
+        
+        var selectedDayIndex: BehaviorRelay<IndexPath> = BehaviorRelay(value: IndexPath(item: 0, section: 0))
     }
     
     /// Create Output
@@ -65,7 +69,15 @@ final class HomeViewModel {
         
         bindToggleOnOffButtonRelay(output: output)
         dummyDayListRelay(output: output)
+        bindDayCollectionViewEvents(input: input, output: output)
         return output
+    }
+    
+    /// Bind Day Collection View Events
+    private func bindDayCollectionViewEvents(input: Input, output: Output) {
+//        input.dayCollectionViewEvents
+//            .bind(to: output.selectedDayIndex)
+//            .disposed(by: disposeBag)
     }
     
     /// Bind Toggle When OnOffButton Touches

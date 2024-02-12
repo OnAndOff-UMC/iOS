@@ -61,6 +61,7 @@ final class HomeViewController: UIViewController {
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.backgroundColor = .clear
         view.isScrollEnabled = false
+        view.allowsMultipleSelection = false
         view.register(DayCollectionViewCell.self, forCellWithReuseIdentifier: CellIdentifier.DayCollectionViewCell.rawValue)
         return view
     }()
@@ -196,10 +197,12 @@ final class HomeViewController: UIViewController {
     
     /// Binding
     private func bind() {
-        let input = HomeViewModel.Input(onOffButtonEvents: onOffButton.rx.tap)
+        let input = HomeViewModel.Input(onOffButtonEvents: onOffButton.rx.tap,
+                                        dayCollectionViewEvents: dayCollectionView.rx.itemSelected)
         let output = viewModel.createOutput(input: input)
         
         bindDayCollectionView(output: output)
+        bindDayCollectionViewSelectedCell(output: output)
         bindMonthLabel(output: output)
         bindTitleLabel(output: output)
         bindDayImageView(output: output)
@@ -222,10 +225,28 @@ final class HomeViewController: UIViewController {
         { row, element, cell in
             cell.backgroundColor = .clear
             cell.inputData(info: element, color: output.dayCollectionViewBackgroundColorRelay.value)
+            if row == output.selectedDayIndex.value.row {
+                cell.changeColor(color: .brown)
+            }
         }
         .disposed(by: disposeBag)
-        
+
         dayCollectionView.rx.setDelegate(self)
+            .disposed(by: disposeBag)
+        
+    }
+    
+    /// Bind Day CollectionView Selected Cell
+    private func bindDayCollectionViewSelectedCell(output: HomeViewModel.Output) {
+        dayCollectionView.rx.itemSelected
+            .bind { [weak self] indexPath in
+                guard let self = self,
+                      let cell = dayCollectionView.cellForItem(at: output.selectedDayIndex.value) as? DayCollectionViewCell,
+                      let selectedCell = dayCollectionView.cellForItem(at: indexPath) as? DayCollectionViewCell else { return }
+                selectedCell.changeColor(color: .brown)
+                cell.changeColor(color: output.dayCollectionViewBackgroundColorRelay.value)
+                output.selectedDayIndex.accept(indexPath)
+            }
             .disposed(by: disposeBag)
     }
     
@@ -505,7 +526,7 @@ final class HomeViewController: UIViewController {
     }
 }
 
-extension HomeViewController: UICollectionViewDelegateFlowLayout {
+extension HomeViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
