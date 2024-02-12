@@ -137,6 +137,10 @@
 		3BB806D32B5021BC00555E58 /* StatisticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB806D22B5021BC00555E58 /* StatisticsViewModel.swift */; };
 		3BB806D62B50228100555E58 /* DayStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB806D52B50228100555E58 /* DayStatistics.swift */; };
 		3BB806D82B5024BC00555E58 /* MonthStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB806D72B5024BC00555E58 /* MonthStatistics.swift */; };
+		3BD415C42B7A3ED800BAB0DC /* ClickWorkLifeBalanceFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD415C32B7A3ED800BAB0DC /* ClickWorkLifeBalanceFeedView.swift */; };
+		3BD415C62B7A483D00BAB0DC /* FeedOptionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD415C52B7A483D00BAB0DC /* FeedOptionButton.swift */; };
+		3BD415C82B7A54CF00BAB0DC /* ClickWorkLifeBalanceFeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD415C72B7A54CF00BAB0DC /* ClickWorkLifeBalanceFeedViewModel.swift */; };
+		3BD415CA2B7A563600BAB0DC /* ClickWorkLifeBalanceFeedService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD415C92B7A563600BAB0DC /* ClickWorkLifeBalanceFeedService.swift */; };
 		3BD552662B58FA8C0043920E /* RateFillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD552652B58FA8C0043920E /* RateFillView.swift */; };
 		3BD552682B58FCF70043920E /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD552672B58FCF70043920E /* CalendarCell.swift */; };
 		3BD5526A2B5914B10043920E /* CalendarStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD552692B5914B10043920E /* CalendarStatistics.swift */; };
@@ -256,6 +260,10 @@
 		3BB806D22B5021BC00555E58 /* StatisticsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewModel.swift; sourceTree = "<group>"; };
 		3BB806D52B50228100555E58 /* DayStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayStatistics.swift; sourceTree = "<group>"; };
 		3BB806D72B5024BC00555E58 /* MonthStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthStatistics.swift; sourceTree = "<group>"; };
+		3BD415C32B7A3ED800BAB0DC /* ClickWorkLifeBalanceFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickWorkLifeBalanceFeedView.swift; sourceTree = "<group>"; };
+		3BD415C52B7A483D00BAB0DC /* FeedOptionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedOptionButton.swift; sourceTree = "<group>"; };
+		3BD415C72B7A54CF00BAB0DC /* ClickWorkLifeBalanceFeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickWorkLifeBalanceFeedViewModel.swift; sourceTree = "<group>"; };
+		3BD415C92B7A563600BAB0DC /* ClickWorkLifeBalanceFeedService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickWorkLifeBalanceFeedService.swift; sourceTree = "<group>"; };
 		3BD552652B58FA8C0043920E /* RateFillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateFillView.swift; sourceTree = "<group>"; };
 		3BD552672B58FCF70043920E /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		3BD552692B5914B10043920E /* CalendarStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarStatistics.swift; sourceTree = "<group>"; };
@@ -802,6 +810,7 @@
 			children = (
 				3B35763E2B78BDEF008464AA /* OffUIViewService.swift */,
 				3B26CF4D2B79F44A00E05581 /* InsertWorkLifeBalanceFeedService.swift */,
+				3BD415C92B7A563600BAB0DC /* ClickWorkLifeBalanceFeedService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -826,6 +835,8 @@
 				3B3576432B78F5B1008464AA /* WatchPictureController.swift */,
 				3B2D93032B77CB9800D88787 /* ImageCollectionViewCell.swift */,
 				3B35764A2B78FDAB008464AA /* DeletedImagePopUpView.swift */,
+				3BD415C32B7A3ED800BAB0DC /* ClickWorkLifeBalanceFeedView.swift */,
+				3BD415C52B7A483D00BAB0DC /* FeedOptionButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -836,6 +847,7 @@
 				3B2D93012B77C91B00D88787 /* OffUIViewModel.swift */,
 				3B26CF3E2B7908D400E05581 /* DeletedImagePopUpViewModel.swift */,
 				3B26CF492B79EF2600E05581 /* InsertWorkLifeBalanceFeedViewModel.swift */,
+				3BD415C72B7A54CF00BAB0DC /* ClickWorkLifeBalanceFeedViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1082,6 +1094,7 @@
 				37DEF20D2B66B31D00AF47DB /* MemoirsCompleteViewController.swift in Sources */,
 				371B9EBB2B5B0737006AC06D /* WritePraisedViewController.swift in Sources */,
 				3769A68E2B585B6600D79C33 /* DayButton.swift in Sources */,
+				3BD415C82B7A54CF00BAB0DC /* ClickWorkLifeBalanceFeedViewModel.swift in Sources */,
 				3B35764B2B78FDAB008464AA /* DeletedImagePopUpView.swift in Sources */,
 				37CC77792B6FA864007999E5 /* ModalEmoticonDelegate.swift in Sources */,
 				3B0129CE2B624E8D00B191AD /* DayCollectionViewCell.swift in Sources */,
@@ -1129,13 +1142,16 @@
 				37FED6072B6E23560071BB23 /* BookmarkViewController.swift in Sources */,
 				3BD552662B58FA8C0043920E /* RateFillView.swift in Sources */,
 				35AC0F502B64025300AB0A6B /* TabItem.swift in Sources */,
+				3BD415C62B7A483D00BAB0DC /* FeedOptionButton.swift in Sources */,
 				3BD5526A2B5914B10043920E /* CalendarStatistics.swift in Sources */,
 				37DEF20F2B66B32A00AF47DB /* MemoirsCompleteViewModel.swift in Sources */,
+				3BD415CA2B7A563600BAB0DC /* ClickWorkLifeBalanceFeedService.swift in Sources */,
 				3B9C89D12B4AED7C0083CF44 /* StatisticsViewController.swift in Sources */,
 				37AEB1F52B6CFE6C00A6CDD6 /* MemoirsProtocol.swift in Sources */,
 				37C1613A2B6BE43A000E0B21 /* SignUpProtocol.swift in Sources */,
 				37A1E9942B6CDAD70013FFD7 /* ModalEmoticonViewController.swift in Sources */,
 				378588FB2B7092F7004E262F /* ModalSelectProfileDelegate.swift in Sources */,
+				3BD415C42B7A3ED800BAB0DC /* ClickWorkLifeBalanceFeedView.swift in Sources */,
 				3B3576442B78F5B1008464AA /* WatchPictureController.swift in Sources */,
 				3B0129C62B6242F800B191AD /* Ext + ViewController.swift in Sources */,
 				3B26CF4C2B79F3F800E05581 /* Feed.swift in Sources */,

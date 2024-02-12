@@ -61,6 +61,7 @@ final class InsertWorkLifeBalanceFeedView: DimmedViewController {
     private let disposeBag = DisposeBag()
     private let viewModel = InsertWorkLifeBalanceFeedViewModel()
     var successAddFeedSubject: PublishSubject<Void> = PublishSubject<Void>()
+    var insertFeed: PublishSubject<String> = PublishSubject<String>()
     
     // MARK: - Init
     init() {
@@ -128,7 +129,8 @@ final class InsertWorkLifeBalanceFeedView: DimmedViewController {
     /// Binding
     private func bind() {
         let input = InsertWorkLifeBalanceFeedViewModel.Input(textFieldEvents: textField.rx.text.orEmpty,
-                                                             doneButtonEvents: doneButton.rx.tap)
+                                                             doneButtonEvents: doneButton.rx.tap,
+                                                             insertFeed: insertFeed)
         
         let output = viewModel.createOutput(input: input)
         
@@ -199,18 +201,4 @@ final class InsertWorkLifeBalanceFeedView: DimmedViewController {
         }
     }
     
-}
-
-import SwiftUI
-struct VCPreViewInsertWorkLifeBalanceFeedView:PreviewProvider {
-    static var previews: some View {
-        InsertWorkLifeBalanceFeedView().toPreview().previewDevice("iPhone 14 Pro")
-        // 실행할 ViewController이름 구분해서 잘 지정하기
-    }
-}
-struct VCPreViewInsertWorkLifeBalanceFeedView2:PreviewProvider {
-    static var previews: some View {
-        InsertWorkLifeBalanceFeedView().toPreview().previewDevice("iPhone 11")
-        // 실행할 ViewController이름 구분해서 잘 지정하기
-    }
 }

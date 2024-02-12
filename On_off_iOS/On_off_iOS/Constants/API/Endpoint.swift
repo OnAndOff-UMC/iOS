@@ -30,4 +30,6 @@ enum FeedPath: String {
     case feedImage = "/feed-images"
     case workLifeBalacne = "/feeds?date=DATE"
     case checkWLB = "/feeds/FEEDID/check"
+    case delayTomorrow = "/feeds/FEEDID/delay"
+    case delete = "/feeds/FEEDID"
 }

@@ -18,7 +18,7 @@ final class InsertWorkLifeBalanceFeedViewModel {
     struct Input {
         let textFieldEvents: ControlProperty<String>?
         let doneButtonEvents: ControlEvent<Void>?
-        
+        let insertFeed: Observable<String>
     }
     
     struct Output {
@@ -35,6 +35,16 @@ final class InsertWorkLifeBalanceFeedViewModel {
         bindDoneButtonEvents(input: input, output: output)
         
         return output
+    }
+    
+    /// Bind Insert Feed
+    private func bindInsertFeed(input: Input, output: Output) {
+        input.insertFeed
+            .bind { [weak self] feed in
+                guard let self = self else { return }
+                checkTextLimitCount(text: feed, output: output)
+            }
+            .disposed(by: disposeBag)
     }
     
     /// Binding Textfield Events

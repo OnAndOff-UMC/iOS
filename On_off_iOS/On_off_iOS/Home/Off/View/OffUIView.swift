@@ -145,6 +145,7 @@ final class OffUIView: UIView {
     var selectedDate: PublishSubject<String> = PublishSubject()
     private var successDeleteImage: PublishSubject<Void> = PublishSubject()
     var successAddFeed: PublishSubject<Void> = PublishSubject()
+    var selectedFeedTableViewCell: PublishSubject<Feed> = PublishSubject()
     private var loadWLBFeed: PublishSubject<Void> = PublishSubject()
     private var clickCheckMarkOfWLBFeed: PublishSubject<Feed> = PublishSubject()
     
@@ -183,7 +184,7 @@ final class OffUIView: UIView {
         constraints(output: output)
     }
     
-    ///  Constraints
+    /// Constraints
     private func constraints(output: OffUIViewModel.Output) {
         scrollView.snp.makeConstraints { make in
             make.top.equalToSuperview()
@@ -278,6 +279,8 @@ final class OffUIView: UIView {
         addSubViews(output: output)
         bindCollectionView(output: output)
         bindTableView(output: output)
+        bindTableViewHeight(output: output)
+        bindClickTableViewCell(output: output)
         bindClickPlusImageButton(output: output)
         bindClickImageButton(output: output)
         bindFeedEvents()
@@ -301,7 +304,7 @@ final class OffUIView: UIView {
     }
     
     /// Binding Work Life Balance Table View
-    private func bindTableView(output: OffUIViewModel.Output) {
+    private func bindTableViewHeight(output: OffUIViewModel.Output) {
         output.workLifeBalanceRelay
             .bind { list in
                 if list.count > 4 {
@@ -311,7 +314,10 @@ final class OffUIView: UIView {
                 output.tableViewHeightConstraint.value?.update(offset: 200)
             }
             .disposed(by: disposeBag)
-        
+    }
+    
+    /// Binding Work Life Balance Table View
+    private func bindTableView(output: OffUIViewModel.Output) {
         output.workLifeBalanceRelay
             .bind(to: feedUITableView.rx.items(cellIdentifier: CellIdentifier.WorkLifeBalanceTableViewCell.rawValue,
                                                cellType: WorkLifeBalanceTableViewCell.self))
@@ -330,6 +336,17 @@ final class OffUIView: UIView {
         .disposed(by: disposeBag)
         
         feedUITableView.rx.setDelegate(self)
+            .disposed(by: disposeBag)
+    }
+    
+    /// Binding Click Table View Cell
+    private func bindClickTableViewCell(output: OffUIViewModel.Output) {
+        feedUITableView.rx.itemSelected
+            .bind { [weak self] indexPath in
+                guard let self = self else { return }
+                let feed = output.workLifeBalanceRelay.value[indexPath.row]
+                selectedFeedTableViewCell.onNext(feed)
+            }
             .disposed(by: disposeBag)
     }
     

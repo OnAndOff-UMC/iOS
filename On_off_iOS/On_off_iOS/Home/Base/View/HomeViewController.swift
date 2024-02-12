@@ -210,6 +210,7 @@ final class HomeViewController: UIViewController {
         bindClickImagePlusButton()
         bindClickImageButton()
         bindAddWorkLifeBalanceFeedButton()
+        bindSelectedFeedTableViewCell()
     }
     
     /// Binding Day CollectionView Cell
@@ -341,16 +342,46 @@ final class HomeViewController: UIViewController {
         offUIView.clickedAddfeedButton
             .bind { [weak self] in
                 guard let self = self else { return }
-                let insertWorkLifeBalanceFeedView = InsertWorkLifeBalanceFeedView()
-                insertWorkLifeBalanceFeedView.successAddFeedSubject
+                presentInsertWLBFeedView(insertFeed: nil)
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    /// 워라벨 피드 클릭한 경우
+    private func bindSelectedFeedTableViewCell() {
+        offUIView.selectedFeedTableViewCell
+            .bind { [weak self] feed in
+                guard let self = self else { return }
+                let clickWorkLifeBalanceFeedView = ClickWorkLifeBalanceFeedView()
+                clickWorkLifeBalanceFeedView.feedSubject.onNext(feed)
+                clickWorkLifeBalanceFeedView.successConnect
                     .bind { [weak self] in
                         guard let self = self else { return }
                         offUIView.successAddFeed.onNext(())
                     }
                     .disposed(by: disposeBag)
-                present(insertWorkLifeBalanceFeedView, animated: true)
+                
+                clickWorkLifeBalanceFeedView.insertFeedSubject
+                    .bind { [weak self] feed in
+                        guard let self = self, let content = feed.content else { return }
+                        presentInsertWLBFeedView(insertFeed: content)
+                    }
+                    .disposed(by: disposeBag)
+                present(clickWorkLifeBalanceFeedView, animated: true)
             }
             .disposed(by: disposeBag)
+    }
+    
+    /// Present Insert W.L.B Feed View
+    private func presentInsertWLBFeedView(insertFeed: String?) {
+        let insertWorkLifeBalanceFeedView = InsertWorkLifeBalanceFeedView()
+        insertWorkLifeBalanceFeedView.successAddFeedSubject
+            .bind { [weak self] in
+                guard let self = self else { return }
+                offUIView.successAddFeed.onNext(())
+            }
+            .disposed(by: disposeBag)
+        present(insertWorkLifeBalanceFeedView, animated: true)
     }
     
     /// 사진 접근 권한 설정
