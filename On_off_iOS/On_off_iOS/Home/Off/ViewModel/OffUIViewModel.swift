@@ -19,8 +19,6 @@ final class OffUIViewModel {
     struct Input {
         let todayMemoirsButtonEvents: ControlEvent<Void>?
         let todayMemoirsIconImageButtonEvents: ControlEvent<Void>?
-        let feedTitleButtonEvents: ControlEvent<Void>?
-        let feedPlusIconImageButtonEvents: ControlEvent<Void>?
         let collectionViewCellEvents: ControlEvent<IndexPath>?
         let selectedImage: Observable<UIImage>?
         let successDeleteImage: Observable<Void>?
@@ -41,7 +39,6 @@ final class OffUIViewModel {
         let output = Output()
         
         bindTodayMemoirsEvents(input: input, output: output)
-        bindFeedEvents(input: input, output: output)
         bindClickedCollectoinViewCell(input: input, output: output)
         bindSelectedCroppedImage(input: input, output: output)
         
@@ -62,21 +59,6 @@ final class OffUIViewModel {
         input.todayMemoirsIconImageButtonEvents?
             .bind {
                 print("tap todayMemoirsIconImageButtonEvents")
-            }
-            .disposed(by: disposeBag)
-    }
-    
-    /// 워라벨 피드 제목 버튼 및 이미지 버튼
-    private func bindFeedEvents(input: Input, output: Output) {
-        input.feedTitleButtonEvents?
-            .bind {
-                print("tap feedTitleButton")
-            }
-            .disposed(by: disposeBag)
-        
-        input.feedPlusIconImageButtonEvents?
-            .bind {
-                print("tap feedPlusIconImageButton")
             }
             .disposed(by: disposeBag)
     }

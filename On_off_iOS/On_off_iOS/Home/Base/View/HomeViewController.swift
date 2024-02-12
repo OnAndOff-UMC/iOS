@@ -208,6 +208,7 @@ final class HomeViewController: UIViewController {
         bindToggleOnOffButton(output: output)
         bindClickImagePlusButton()
         bindClickImageButton()
+        bindAddWorkLifeBalanceFeedButton()
     }
     
     /// Binding Day CollectionView Cell
@@ -330,6 +331,17 @@ final class HomeViewController: UIViewController {
                 let watchPictureController = WatchPictureController()
                 watchPictureController.clickedImageButtons = imageURL
                 navigationController?.pushViewController(watchPictureController, animated: true)
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    /// 워라벨 피드 추가 버튼
+    private func bindAddWorkLifeBalanceFeedButton() {
+        offUIView.clickedAddfeedButton
+            .bind { [weak self] in
+                guard let self = self else { return }
+                let insertWorkLifeBalanceFeedView = InsertWorkLifeBalanceFeedView()
+                present(insertWorkLifeBalanceFeedView, animated: true)
             }
             .disposed(by: disposeBag)
     }

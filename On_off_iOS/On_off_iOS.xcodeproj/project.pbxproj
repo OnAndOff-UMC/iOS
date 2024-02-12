@@ -114,6 +114,9 @@
 		3B26CF442B790A4700E05581 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B26CF432B790A4700E05581 /* Image.swift */; };
 		3B26CF462B7919C100E05581 /* InsertWorkLifeBalanceFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B26CF452B7919C100E05581 /* InsertWorkLifeBalanceFeedView.swift */; };
 		3B26CF482B79246100E05581 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3B26CF472B79246100E05581 /* Config.xcconfig */; };
+		3B26CF4A2B79EF2600E05581 /* InsertWorkLifeBalanceFeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B26CF492B79EF2600E05581 /* InsertWorkLifeBalanceFeedViewModel.swift */; };
+		3B26CF4C2B79F3F800E05581 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B26CF4B2B79F3F800E05581 /* Feed.swift */; };
+		3B26CF4E2B79F44A00E05581 /* InsertWorkLifeBalanceFeedService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B26CF4D2B79F44A00E05581 /* InsertWorkLifeBalanceFeedService.swift */; };
 		3B2D93022B77C91B00D88787 /* OffUIViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2D93012B77C91B00D88787 /* OffUIViewModel.swift */; };
 		3B2D93042B77CB9800D88787 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2D93032B77CB9800D88787 /* ImageCollectionViewCell.swift */; };
 		3B35763F2B78BDEF008464AA /* OffUIViewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B35763E2B78BDEF008464AA /* OffUIViewService.swift */; };
@@ -229,6 +232,9 @@
 		3B26CF432B790A4700E05581 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		3B26CF452B7919C100E05581 /* InsertWorkLifeBalanceFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertWorkLifeBalanceFeedView.swift; sourceTree = "<group>"; };
 		3B26CF472B79246100E05581 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		3B26CF492B79EF2600E05581 /* InsertWorkLifeBalanceFeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertWorkLifeBalanceFeedViewModel.swift; sourceTree = "<group>"; };
+		3B26CF4B2B79F3F800E05581 /* Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
+		3B26CF4D2B79F44A00E05581 /* InsertWorkLifeBalanceFeedService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertWorkLifeBalanceFeedService.swift; sourceTree = "<group>"; };
 		3B2D93012B77C91B00D88787 /* OffUIViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffUIViewModel.swift; sourceTree = "<group>"; };
 		3B2D93032B77CB9800D88787 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		3B35763E2B78BDEF008464AA /* OffUIViewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffUIViewService.swift; sourceTree = "<group>"; };
@@ -784,6 +790,7 @@
 			isa = PBXGroup;
 			children = (
 				3B26CF432B790A4700E05581 /* Image.swift */,
+				3B26CF4B2B79F3F800E05581 /* Feed.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -792,6 +799,7 @@
 			isa = PBXGroup;
 			children = (
 				3B35763E2B78BDEF008464AA /* OffUIViewService.swift */,
+				3B26CF4D2B79F44A00E05581 /* InsertWorkLifeBalanceFeedService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -824,6 +832,7 @@
 			children = (
 				3B2D93012B77C91B00D88787 /* OffUIViewModel.swift */,
 				3B26CF3E2B7908D400E05581 /* DeletedImagePopUpViewModel.swift */,
+				3B26CF492B79EF2600E05581 /* InsertWorkLifeBalanceFeedViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1078,6 +1087,7 @@
 				3B0129CC2B624D6000B191AD /* Home.swift in Sources */,
 				3B2D93042B77CB9800D88787 /* ImageCollectionViewCell.swift in Sources */,
 				371B9EBF2B5B075A006AC06D /* WriteImprovementViewController.swift in Sources */,
+				3B26CF4A2B79EF2600E05581 /* InsertWorkLifeBalanceFeedViewModel.swift in Sources */,
 				374FD49D2B4281E100F2E645 /* OnboardingCustomView.swift in Sources */,
 				3BB806D82B5024BC00555E58 /* MonthStatistics.swift in Sources */,
 				37CC77752B6F9620007999E5 /* KeyChain.swift in Sources */,
@@ -1087,6 +1097,7 @@
 				3BB806D32B5021BC00555E58 /* StatisticsViewModel.swift in Sources */,
 				3B0129C82B6246E900B191AD /* Ext + UIImage.swift in Sources */,
 				378588F22B707F0A004E262F /* ModalSelectProfileViewModel.swift in Sources */,
+				3B26CF4E2B79F44A00E05581 /* InsertWorkLifeBalanceFeedService.swift in Sources */,
 				3B4230102B41572200D0B038 /* SceneDelegate.swift in Sources */,
 				3584F3AC2B5A5CC7007ACB57 /* (null) in Sources */,
 				371B9EAC2B5AFD37006AC06D /* StartToWriteViewController.swift in Sources */,
@@ -1123,6 +1134,7 @@
 				378588FB2B7092F7004E262F /* ModalSelectProfileDelegate.swift in Sources */,
 				3B3576442B78F5B1008464AA /* WatchPictureController.swift in Sources */,
 				3B0129C62B6242F800B191AD /* Ext + ViewController.swift in Sources */,
+				3B26CF4C2B79F3F800E05581 /* Feed.swift in Sources */,
 				3B3576492B78FD72008464AA /* DimmedViewController.swift in Sources */,
 				371B9EC52B5B0B61006AC06D /* WriteLearnedViewController.swift in Sources */,
 				3BB806D02B5012F400555E58 /* DayChartCustomView.swift in Sources */,

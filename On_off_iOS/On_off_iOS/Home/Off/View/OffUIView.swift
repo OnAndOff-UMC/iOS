@@ -136,6 +136,7 @@ final class OffUIView: UIView {
     /// 이미지 선택한경우
     var clickedImageButton: PublishSubject<Image?> = PublishSubject()
     
+    var clickedAddfeedButton: PublishSubject<Void> = PublishSubject()
     private var successDeleteImage: PublishSubject<Void> = PublishSubject()
     
     // MARK: - Init
@@ -256,8 +257,6 @@ final class OffUIView: UIView {
     private func bind() {
         let output = viewModel.createOutput(input: OffUIViewModel.Input(todayMemoirsButtonEvents: todayMemoirsButton.rx.tap,
                                                                         todayMemoirsIconImageButtonEvents: todayMemoirsIconImageButton.rx.tap,
-                                                                        feedTitleButtonEvents: feedTitleButton.rx.tap,
-                                                                        feedPlusIconImageButtonEvents: feedPlusIconImageButton.rx.tap,
                                                                         collectionViewCellEvents: imageCollectionView.rx.itemSelected,
                                                                         selectedImage: selectedImage,
                                                                         successDeleteImage: successDeleteImage))
@@ -265,6 +264,24 @@ final class OffUIView: UIView {
         bindCollectionView(output: output)
         bindClickPlusImageButton(output: output)
         bindClickImageButton(output: output)
+        bindFeedEvents()
+    }
+    
+    /// 워라벨 피드 제목 버튼 및 이미지 버튼
+    private func bindFeedEvents() {
+        feedTitleButton.rx.tap
+            .bind { [weak self] in
+                guard let self = self else { return }
+                clickedAddfeedButton.onNext(())
+            }
+            .disposed(by: disposeBag)
+        
+        feedPlusIconImageButton.rx.tap
+            .bind { [weak self] in
+                guard let self = self else { return }
+                clickedAddfeedButton.onNext(())
+            }
+            .disposed(by: disposeBag)
     }
     
     /// Binding CollectionView
