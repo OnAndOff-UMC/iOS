@@ -8,7 +8,6 @@
 import UIKit
 import RxSwift
 import RxCocoa
-//import SVGKit
 
 /// ExpressedIconViewController
 final class ExpressedIconViewController: UIViewController {
@@ -50,6 +49,7 @@ final class ExpressedIconViewController: UIViewController {
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
+    
     /// 확인 버튼
     private let saveButton: UIButton = {
         let button = UIButton(type: .system)
@@ -59,7 +59,6 @@ final class ExpressedIconViewController: UIViewController {
 
         return button
     }()
-    
     
     /// 확인 버튼 뷰
     private lazy var saveButtonView: UIView = {
@@ -190,6 +189,7 @@ final class ExpressedIconViewController: UIViewController {
                 .popViewController(animated: false)})
         
     }
+    
     /// 임시 초기로 이동
     private func navigateTobookMark() {
         print("aaaa")

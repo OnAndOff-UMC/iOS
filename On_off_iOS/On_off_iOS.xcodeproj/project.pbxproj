@@ -98,6 +98,8 @@
 		37D606FD2B7783E20092F113 /* LaunchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D606FC2B7783E20092F113 /* LaunchModel.swift */; };
 		37DC38A52B79E543003CBBFB /* InquireMemoirsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DC38A42B79E543003CBBFB /* InquireMemoirsViewController.swift */; };
 		37DC38A72B79E548003CBBFB /* InquireMemoirsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DC38A62B79E548003CBBFB /* InquireMemoirsViewModel.swift */; };
+		37DC38AB2B79F950003CBBFB /* ModalMenuOptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DC38AA2B79F950003CBBFB /* ModalMenuOptionViewController.swift */; };
+		37DC38AD2B79FC39003CBBFB /* ModalMenuOptionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DC38AC2B79FC39003CBBFB /* ModalMenuOptionDelegate.swift */; };
 		37DEF20D2B66B31D00AF47DB /* MemoirsCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DEF20C2B66B31D00AF47DB /* MemoirsCompleteViewController.swift */; };
 		37DEF20F2B66B32A00AF47DB /* MemoirsCompleteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DEF20E2B66B32A00AF47DB /* MemoirsCompleteViewModel.swift */; };
 		37FED6032B6E15000071BB23 /* MemoirsImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FED6022B6E15000071BB23 /* MemoirsImage.swift */; };
@@ -204,6 +206,8 @@
 		37D606FC2B7783E20092F113 /* LaunchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchModel.swift; sourceTree = "<group>"; };
 		37DC38A42B79E543003CBBFB /* InquireMemoirsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InquireMemoirsViewController.swift; sourceTree = "<group>"; };
 		37DC38A62B79E548003CBBFB /* InquireMemoirsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InquireMemoirsViewModel.swift; sourceTree = "<group>"; };
+		37DC38AA2B79F950003CBBFB /* ModalMenuOptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalMenuOptionViewController.swift; sourceTree = "<group>"; };
+		37DC38AC2B79FC39003CBBFB /* ModalMenuOptionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalMenuOptionDelegate.swift; sourceTree = "<group>"; };
 		37DEF20C2B66B31D00AF47DB /* MemoirsCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoirsCompleteViewController.swift; sourceTree = "<group>"; };
 		37DEF20E2B66B32A00AF47DB /* MemoirsCompleteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoirsCompleteViewModel.swift; sourceTree = "<group>"; };
 		37FED6022B6E15000071BB23 /* MemoirsImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoirsImage.swift; sourceTree = "<group>"; };
@@ -367,6 +371,15 @@
 				371B9EBA2B5B0737006AC06D /* WritePraisedViewController.swift */,
 			);
 			path = WritePraised;
+			sourceTree = "<group>";
+		};
+		372F690A2B7A1EED00273952 /* Modal */ = {
+			isa = PBXGroup;
+			children = (
+				37DC38AA2B79F950003CBBFB /* ModalMenuOptionViewController.swift */,
+				37DC38AC2B79FC39003CBBFB /* ModalMenuOptionDelegate.swift */,
+			);
+			path = Modal;
 			sourceTree = "<group>";
 		};
 		374FD49B2B4281CA00F2E645 /* OnBoarding */ = {
@@ -671,6 +684,7 @@
 		37DC38A32B79E529003CBBFB /* InquireMemoirs */ = {
 			isa = PBXGroup;
 			children = (
+				372F690A2B7A1EED00273952 /* Modal */,
 				37DC38A42B79E543003CBBFB /* InquireMemoirsViewController.swift */,
 				37DC38A62B79E548003CBBFB /* InquireMemoirsViewModel.swift */,
 			);
@@ -1052,6 +1066,7 @@
 				3B9C89D12B4AED7C0083CF44 /* StatisticsViewController.swift in Sources */,
 				37AEB1F52B6CFE6C00A6CDD6 /* MemoirsProtocol.swift in Sources */,
 				37C1613A2B6BE43A000E0B21 /* SignUpProtocol.swift in Sources */,
+				37DC38AB2B79F950003CBBFB /* ModalMenuOptionViewController.swift in Sources */,
 				37A1E9942B6CDAD70013FFD7 /* ModalEmoticonViewController.swift in Sources */,
 				378588FB2B7092F7004E262F /* ModalSelectProfileDelegate.swift in Sources */,
 				3B0129C62B6242F800B191AD /* Ext + ViewController.swift in Sources */,
@@ -1062,6 +1077,7 @@
 				37A1E98D2B6CCC020013FFD7 /* Memoirs.swift in Sources */,
 				37DC38A72B79E548003CBBFB /* InquireMemoirsViewModel.swift in Sources */,
 				3BB806D62B50228100555E58 /* DayStatistics.swift in Sources */,
+				37DC38AD2B79FC39003CBBFB /* ModalMenuOptionDelegate.swift in Sources */,
 				371B9EA92B5AD847006AC06D /* MemoirsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

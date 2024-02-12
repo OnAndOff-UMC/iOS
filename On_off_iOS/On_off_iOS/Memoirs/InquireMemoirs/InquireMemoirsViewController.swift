@@ -85,6 +85,7 @@ final class InquireMemoirsViewController: UIViewController {
         field.backgroundColor = UIColor.clear
         field.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         field.layer.borderColor = UIColor.clear.cgColor
+        field.isEnabled = false
         field.textColor = .black
         
         return field
@@ -113,6 +114,7 @@ final class InquireMemoirsViewController: UIViewController {
         field.backgroundColor = UIColor.clear
         field.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         field.layer.borderColor = UIColor.clear.cgColor
+        field.isEnabled = false
         field.textColor = .black
         
         return field
@@ -141,10 +143,12 @@ final class InquireMemoirsViewController: UIViewController {
         field.backgroundColor = UIColor.clear
         field.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         field.layer.borderColor = UIColor.clear.cgColor
+        field.isEnabled = false
         field.textColor = .black
         
         return field
     }()
+    
     /// 개선할 점 View
     private lazy var improvementView: UIImageView = {
         let imageView = UIImageView()
@@ -172,7 +176,7 @@ final class InquireMemoirsViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         addSubviews()
-        //  setupBindings()
+        setupBindings()
     }
     
     /// 화면 설정 관련 함수
@@ -284,24 +288,70 @@ final class InquireMemoirsViewController: UIViewController {
     
     /// 뷰모델과 setupBindings
     private func setupBindings() {
-        let memoirId = Observable.just("someMemoirId")
+           let input = InquireMemoirsViewModel.Input(
+               bookMarkButtonTapped: bookmarkButton.rx.tap.asObservable(),
+               menuButtonTapped: menuButton.rx.tap.asObservable(),
+               memoirId: Observable.just("someMemoirId"), // 실제 메모아이디 제공
+               memoirInquiry: Observable.just(())
+           )
+           
+           let output = viewModel.bind(input: input)
+           
+           output.memoirInquiryResult
+               .observe(on: MainScheduler.instance)
+               .subscribe(onNext: { [weak self] response in
+                   self?.updateUIWithMemoirResponse(response)
+               })
+               .disposed(by: disposeBag)
+           
+           output.updateBookmarkStatus
+               .subscribe(onNext: { [weak self] isBookmarked in
+                   let imageName = isBookmarked ? "bookmark.fill" : "bookmark"
+                   self?.bookmarkButton.image = UIImage(systemName: imageName)
+               })
+               .disposed(by: disposeBag)
+       }
+
+    private func updateUIWithMemoirResponse(_ response: MemoirResponse) {
+
+        if let url = URL(string: response.result.emoticonUrl) {
+            imageView.kf.setImage(with: url)
+        }
         
-        let input = InquireMemoirsViewModel.Input(
-            bookMarkButtonTapped: bookmarkButton.rx.tap.asObservable(),
-            menuButtonTapped: menuButton.rx.tap.asObservable(),
-            memoirId: memoirId
-        )
+        // 날짜 정보 설정
+        dateLabel.text = response.result.date
         
-        let output = viewModel.bind(input: input)
+        // 회고록 답변 리스트에서 특정 요약 정보에 맞는 답변을 찾아 UI 컴포넌트에 설정
+        if let learnedAnswer = response.result.memoirAnswerList.first(where: { $0.summary == "오늘 배운 점" }) {
+            learnedTextField.text = learnedAnswer.answer
+        } else {
+            learnedTextField.text = "오늘의 회고를 작성해 보세요!"
+        }
         
-        // 북마크 상태에 따라 아이콘 업데이트
-        output.updateBookmarkStatus
-            .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] isBookmarked in
-                let bookmarkImageName = isBookmarked ? "bookmark.fill" : "bookmark"
-                self?.bookmarkButton.image = UIImage(systemName: bookmarkImageName)
-            })
-            .disposed(by: disposeBag)
+        if let praisedAnswer = response.result.memoirAnswerList.first(where: { $0.summary == "오늘 칭찬할 점" }) {
+            praisedTextField.text = praisedAnswer.answer
+        } else {
+            praisedTextField.text = "오늘의 회고를 완료해 보세요"
+        }
+        
+        if let improvementAnswer = response.result.memoirAnswerList.first(where: { $0.summary == "앞으로 개선할 점" }) {
+            improvementTextField.text = improvementAnswer.answer
+        } else {
+            improvementTextField.text = "오늘의 회고를 작성해 보세요!"
+        }
+    }
+    
+    ///  모달 뷰
+    private func presentModalFromBottom() {
+        let modalMenuOptionViewController = ModalMenuOptionViewController()
+        
+        if #available(iOS 15.0, *) {
+            if let sheet = modalMenuOptionViewController.sheetPresentationController {
+                sheet.detents = [.medium()]
+                sheet.prefersGrabberVisible = true
+            }
+        }
+        present(modalMenuOptionViewController, animated: true, completion: nil)
     }
     
     /// 네비게이션 바
@@ -310,3 +360,10 @@ final class InquireMemoirsViewController: UIViewController {
     }
 }
 
+extension InquireMemoirsViewController: UIViewControllerTransitioningDelegate {
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        let presentationController = UIPresentationController(presentedViewController: presented, presenting: presenting)
+        presented.preferredContentSize = CGSize(width: UIScreen.main.bounds.width, height: 200)
+        return presentationController
+    }
+}

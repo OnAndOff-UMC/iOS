@@ -16,47 +16,32 @@ final class InquireMemoirsViewModel {
     private let disposeBag = DisposeBag()
     private let memoirsService = MemoirsService()
     
-    /// Input
-    struct Input {
-        let bookMarkButtonTapped: Observable<Void>
-        let menuButtonTapped: Observable<Void>
-        let memoirId: Observable<String> // 북마크를 업데이트할 회고록 ID
-    }
-    
-    /// Output
-    struct Output {
-        let memoirResponse : BehaviorRelay<MemoirResponse?> // 회고록 조회 결과
-        let updateBookmarkStatus : Observable<Bool> // 북마크 상태 업데이트
-    }
-    
-    /// binding Input
-    /// - Parameter
-    ///   - input: Input 구조체
-    /// - Returns: Output 구조체
+    // Input 구조체 정의
+        struct Input {
+            let bookMarkButtonTapped: Observable<Void>
+            let menuButtonTapped: Observable<Void>
+            let memoirId: Observable<String>
+            let memoirInquiry: Observable<Void>
+        }
+        
+        // Output 구조체 정의
+        struct Output {
+            let updateBookmarkStatus: Observable<Bool>
+            let memoirInquiryResult: Observable<MemoirResponse>
+        }
+        
+        // Input을 받아 Output을 반환하는 bind 함수
     func bind(input: Input) -> Output {
- 
-        
-        /// 북마크 버튼 클릭
-        input.bookMarkButtonTapped
-            .bind { [weak self] in
-                guard let self = self else { return }
-                print("북마크")
+        let memoirInquiryResult = input.memoirInquiry
+            .flatMapLatest { [weak self] _ -> Observable<MemoirResponse> in
+                guard let self = self else { return .empty() }
+                // "2024-02-12" 날짜를 사용하여 회고록 조회
+                return self.memoirsService.inquireMemoirs(date: "2024-02-12")
+                    .catchAndReturn(MemoirResponse(isSuccess: false, code: "", message: "", result: MemoirResponse.MemoirResult(memoirId: 0, date: "", emoticonUrl: "", isBookmarked: false, memoirAnswerList: [])))
             }
-            .disposed(by: disposeBag)
         
-        /// 메뉴 버튼 클릭
-        input.menuButtonTapped
-            .bind { [weak self] in
-                guard let self = self else { return }
-                print("메뉴 버튼 ")
-            }
-            .disposed(by: disposeBag)
-        
-    let memoirResponse = BehaviorRelay<MemoirResponse?>(value: nil)
-        
-        // 북마크 버튼 클릭 시 북마크 상태 업데이트
         let updateBookmarkStatus = input.bookMarkButtonTapped
-            .withLatestFrom(input.memoirId) // 북마크 업데이트를 위해 필요한 회고록 ID 가져오기
+            .withLatestFrom(Observable.just("someMemoirId")) // 임시로 ID 사용, 필요에 따라 수정
             .flatMapLatest { [weak self] memoirId -> Observable<Bool> in
                 guard let self = self else { return .just(false) }
                 return self.memoirsService.bookMarkMemoirs(memoirId: memoirId)
@@ -66,9 +51,6 @@ final class InquireMemoirsViewModel {
                     .catchAndReturn(false)
             }
         
-        return Output(
-            memoirResponse: memoirResponse,
-            updateBookmarkStatus: updateBookmarkStatus
-        )
+        return Output(updateBookmarkStatus: updateBookmarkStatus, memoirInquiryResult: memoirInquiryResult)
     }
 }
