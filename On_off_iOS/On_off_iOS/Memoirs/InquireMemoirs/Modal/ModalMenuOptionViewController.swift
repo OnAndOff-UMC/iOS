@@ -5,10 +5,14 @@
 //  Created by 박다미 on 2024/02/12.
 //
 
-import Foundation
 import UIKit
+import RxSwift
+import RxCocoa
+import RxGesture
 
 final class ModalMenuOptionViewController: UIViewController {
+    
+    private let disposeBag = DisposeBag()
     
     private lazy var reviceLabel: UILabel = {
         let label = UILabel()
@@ -39,10 +43,31 @@ final class ModalMenuOptionViewController: UIViewController {
         super.viewDidLoad()
         settingView()
         setupViews()
-        self.preferredContentSize = CGSize(width: UIScreen.main.bounds.width, height: 200)
-
+        setupGestures()
     }
- 
+    
+    private func setupGestures() {
+        reviceLabel.isUserInteractionEnabled = true
+        deleteLabel.isUserInteractionEnabled = true
+
+        reviceLabel.rx.tapGesture()
+            .when(.recognized)
+            .subscribe(onNext: { [weak self] _ in
+                self?.dismiss(animated: true) {
+
+                    editModeSubject.onNext(true)
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        deleteLabel.rx.tapGesture()
+            .when(.recognized)
+            .subscribe(onNext: { [weak self] _ in
+                self?.dismiss(animated: true, completion: nil)
+            })
+            .disposed(by: disposeBag)
+    }
+    
     private func settingView(){
         view.backgroundColor = .white
     }
@@ -54,6 +79,7 @@ final class ModalMenuOptionViewController: UIViewController {
         
         configureConstraints()
     }
+    
     private func configureConstraints() {
         
         reviceLabel.snp.makeConstraints { make in

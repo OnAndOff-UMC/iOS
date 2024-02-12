@@ -159,7 +159,8 @@ final class InquireMemoirsViewController: UIViewController {
     
     private var viewModel: InquireMemoirsViewModel
     private let disposeBag = DisposeBag()
-    
+    private let editModeSubject = PublishSubject<Bool>()
+
     // MARK: - Init
     init(viewModel: InquireMemoirsViewModel) {
         self.viewModel = viewModel
@@ -315,6 +316,14 @@ final class InquireMemoirsViewController: UIViewController {
         menuButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.presentModalFromBottom()
+            })
+            .disposed(by: disposeBag)
+        
+        editModeSubject
+            .subscribe(onNext: { [weak self] isEditable in
+                self?.learnedTextField.isEnabled = isEditable
+                self?.praisedTextField.isEnabled = isEditable
+                self?.improvementTextField.isEnabled = isEditable
             })
             .disposed(by: disposeBag)
     }
