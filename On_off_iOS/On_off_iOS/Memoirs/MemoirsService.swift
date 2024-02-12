@@ -66,19 +66,19 @@ final class MemoirsService: MemoirsProtocol {
     }
     
     /// 회고록 조회하기
-    func inquireMemoirs(date: String) -> RxSwift.Observable<MemoirResponse> {
+    func inquireMemoirs(date: String) -> Observable<MemoirResponse> {
         let url = Domain.RESTAPI + MemoirsPath.memoirsSave.rawValue
         let headers = Header.header.getHeader()
-        print(date)
+        let parameters: Parameters = ["date": date]
         return Observable.create { observer in
             AF.request(url,
                        method: .get,
-                       parameters: date,
-                       encoder: JSONParameterEncoder.default,
+                       parameters: parameters,
+                       encoding: URLEncoding.default, 
                        headers: headers)
             .validate(statusCode: 200..<201)
             .responseDecodable(of: MemoirResponse.self) { response in
-                
+            
                 switch response.result {
                 case .success(let data):
                     observer.onNext(data)

@@ -291,7 +291,7 @@ final class InquireMemoirsViewController: UIViewController {
            let input = InquireMemoirsViewModel.Input(
                bookMarkButtonTapped: bookmarkButton.rx.tap.asObservable(),
                menuButtonTapped: menuButton.rx.tap.asObservable(),
-               memoirId: Observable.just("someMemoirId"), // 실제 메모아이디 제공
+               memoirId: Observable.just("someMemoirId"), // 실제 메모아이디
                memoirInquiry: Observable.just(())
            )
            
@@ -300,6 +300,7 @@ final class InquireMemoirsViewController: UIViewController {
            output.memoirInquiryResult
                .observe(on: MainScheduler.instance)
                .subscribe(onNext: { [weak self] response in
+                   print(response)
                    self?.updateUIWithMemoirResponse(response)
                })
                .disposed(by: disposeBag)
@@ -320,7 +321,8 @@ final class InquireMemoirsViewController: UIViewController {
         
         // 날짜 정보 설정
         dateLabel.text = response.result.date
-        
+
+
         // 회고록 답변 리스트에서 특정 요약 정보에 맞는 답변을 찾아 UI 컴포넌트에 설정
         if let learnedAnswer = response.result.memoirAnswerList.first(where: { $0.summary == "오늘 배운 점" }) {
             learnedTextField.text = learnedAnswer.answer
