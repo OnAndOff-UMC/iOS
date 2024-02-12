@@ -33,7 +33,9 @@ final class InsertWorkLifeBalanceFeedView: DimmedViewController {
     /// 입력받는 TextField
     private lazy var textField: UITextField = {
         let view = UITextField()
-        view.placeholder = "워라벨 피드를 적어주세요"
+        view.attributedPlaceholder = NSAttributedString(string: "워라벨 피드를 적어주세요",
+                                                        attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
+        view.textColor = .black
         view.font = .pretendard(size: 14, weight: .medium)
         return view
     }()
