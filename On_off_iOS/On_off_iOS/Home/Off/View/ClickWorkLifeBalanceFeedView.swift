@@ -32,8 +32,6 @@ final class ClickWorkLifeBalanceFeedView: DimmedViewController {
     /// 부제목 라벨
     private lazy var subTitleLabel: UILabel = {
         let label = UILabel()
-        //        label.text = feed?.content
-        label.text = "asfasfsfsfs"
         label.textColor = .black
         label.font = .pretendard(size: 18, weight: .bold)
         label.backgroundColor = .clear
@@ -248,17 +246,24 @@ final class ClickWorkLifeBalanceFeedView: DimmedViewController {
         
         let output = viewModel.createOutput(input: input)
         
-        
-        
         bindCancelButton()
         bindDoneButton()
         bindInsertButton(output: output)
         bindDeleteButton(output: output)
         bindDelayButton(output: output)
         bindSuccessDelay(output: output)
+        bindSelectedFeed(output: output)
     }
     
- 
+    /// Bind Selected Feed
+    private func bindSelectedFeed(output: ClickWorkLifeBalanceFeedViewModel.Output) {
+        output.selectedFeedRelay
+            .bind { [weak self] feed in
+                guard let self = self, let content = feed?.content else { return }
+                subTitleLabel.text = content
+            }
+            .disposed(by: disposeBag)
+    }
     
     /// 내일로 미루기 버튼
     private func bindDelayButton(output: ClickWorkLifeBalanceFeedViewModel.Output) {

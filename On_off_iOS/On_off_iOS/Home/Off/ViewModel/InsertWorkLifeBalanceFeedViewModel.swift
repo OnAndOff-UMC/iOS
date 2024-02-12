@@ -18,13 +18,14 @@ final class InsertWorkLifeBalanceFeedViewModel {
     struct Input {
         let textFieldEvents: ControlProperty<String>?
         let doneButtonEvents: ControlEvent<Void>?
-        let insertFeed: Observable<String>
+        let insertFeed: Observable<Feed>
     }
     
     struct Output {
         var textRelay: BehaviorRelay<String> = BehaviorRelay(value: "")
         var textCountRelay: BehaviorRelay<Int> = BehaviorRelay(value: 0)
-        var successAddFeedRealy: PublishRelay<Bool> = PublishRelay()
+        var successAddFeedRelay: PublishRelay<Bool> = PublishRelay()
+        var insertRelay: BehaviorRelay<Feed?> = BehaviorRelay(value: nil)
     }
     
     /// Create Output
@@ -33,6 +34,7 @@ final class InsertWorkLifeBalanceFeedViewModel {
         
         bindTextFieldEvents(input: input, output: output)
         bindDoneButtonEvents(input: input, output: output)
+        bindInsertFeed(input: input, output: output)
         
         return output
     }
@@ -42,7 +44,8 @@ final class InsertWorkLifeBalanceFeedViewModel {
         input.insertFeed
             .bind { [weak self] feed in
                 guard let self = self else { return }
-                checkTextLimitCount(text: feed, output: output)
+                checkTextLimitCount(text: feed.content ?? "", output: output)
+                output.insertRelay.accept(feed)
             }
             .disposed(by: disposeBag)
     }
@@ -62,6 +65,10 @@ final class InsertWorkLifeBalanceFeedViewModel {
         input.doneButtonEvents?
             .bind { [weak self] in
                 guard let self = self else { return }
+                if let feed = output.insertRelay.value, let id = feed.feedId {
+                    insertFeed(feedId: id, output: output)
+                    return
+                }
                 addFeed(output: output)
             }
             .disposed(by: disposeBag)
@@ -77,7 +84,6 @@ final class InsertWorkLifeBalanceFeedViewModel {
         output.textRelay.accept(String(text.dropLast(text.count-maxLength)))
         output.textCountRelay.accept(maxLength)
     }
-    
     
     /// Format Date To String
     /// - Parameter date: Date
@@ -96,7 +102,20 @@ final class InsertWorkLifeBalanceFeedViewModel {
         service.addFeed(feed: feed)
             .subscribe(onNext: { check in
                 if check {
-                    output.successAddFeedRealy.accept(check)
+                    output.successAddFeedRelay.accept(check)
+                }
+            }, onError: { error in
+                print(#function, error)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    /// Insert Feed
+    private func insertFeed(feedId: Int, output: Output) {
+        service.insertFeed(feedId: feedId,content: output.textRelay.value)
+            .subscribe(onNext: { check in
+                if check {
+                    output.successAddFeedRelay.accept(check)
                 }
             }, onError: { error in
                 print(#function, error)

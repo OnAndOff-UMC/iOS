@@ -61,7 +61,7 @@ final class InsertWorkLifeBalanceFeedView: DimmedViewController {
     private let disposeBag = DisposeBag()
     private let viewModel = InsertWorkLifeBalanceFeedViewModel()
     var successAddFeedSubject: PublishSubject<Void> = PublishSubject<Void>()
-    var insertFeed: PublishSubject<String> = PublishSubject<String>()
+    var insertFeed: PublishSubject<Feed> = PublishSubject<Feed>()
     
     // MARK: - Init
     init() {
@@ -158,7 +158,7 @@ final class InsertWorkLifeBalanceFeedView: DimmedViewController {
     
     /// Binding When Success Add Feed
     private func bindSuccessAddFeedRelay(output: InsertWorkLifeBalanceFeedViewModel.Output) {
-        output.successAddFeedRealy
+        output.successAddFeedRelay
             .bind { [weak self] check in
                 guard let self = self else { return }
                 dismiss(animated: true) { [weak self] in

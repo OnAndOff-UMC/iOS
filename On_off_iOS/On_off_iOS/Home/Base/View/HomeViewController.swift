@@ -82,7 +82,7 @@ final class HomeViewController: UIViewController {
     /// Off UIView
     private lazy var offUIView: OffUIView = {
         let view = OffUIView(frame: CGRect(x: .zero, y: .zero, width: view.safeAreaLayoutGuide.layoutFrame.width, height: .zero))
-        view.selectedDate.onNext("2024-02-12")
+        view.selectedDate.onNext("2024-02-13")
         view.backgroundColor = .white
         view.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
         view.layer.cornerRadius = 25
@@ -363,8 +363,8 @@ final class HomeViewController: UIViewController {
                 
                 clickWorkLifeBalanceFeedView.insertFeedSubject
                     .bind { [weak self] feed in
-                        guard let self = self, let content = feed.content else { return }
-                        presentInsertWLBFeedView(insertFeed: content)
+                        guard let self = self else { return }
+                        presentInsertWLBFeedView(insertFeed: feed)
                     }
                     .disposed(by: disposeBag)
                 present(clickWorkLifeBalanceFeedView, animated: true)
@@ -373,8 +373,11 @@ final class HomeViewController: UIViewController {
     }
     
     /// Present Insert W.L.B Feed View
-    private func presentInsertWLBFeedView(insertFeed: String?) {
+    private func presentInsertWLBFeedView(insertFeed: Feed?) {
         let insertWorkLifeBalanceFeedView = InsertWorkLifeBalanceFeedView()
+        if let insertFeed = insertFeed {
+            insertWorkLifeBalanceFeedView.insertFeed.onNext(insertFeed)
+        }
         insertWorkLifeBalanceFeedView.successAddFeedSubject
             .bind { [weak self] in
                 guard let self = self else { return }
