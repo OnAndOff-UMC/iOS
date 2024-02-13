@@ -13,6 +13,7 @@ import UIKit
 
 final class HomeViewModel {
     private let disposeBag = DisposeBag()
+    private let service = HomeViewService()
     
     struct Input {
         let onOffButtonEvents: ControlEvent<Void>
@@ -44,6 +45,16 @@ final class HomeViewModel {
         /// Day Collection 배경 색
         var dayCollectionViewBackgroundColorRelay: BehaviorRelay<UIColor> = BehaviorRelay(value: UIColor.cyan)
         
+        /// Day Collection 배경 색
+        var dayCollectionTextColorRelay: BehaviorRelay<UIColor> = BehaviorRelay(value: UIColor.white)
+        
+        /// Day Collection 배경 색
+        var selectedDayCollectionViewBackgroundColorRelay: BehaviorRelay<UIColor> = BehaviorRelay(value: UIColor.OnOffMain)
+        
+        /// Day Collection 배경 색
+        var selectedDayCollectionTextColorRelay: BehaviorRelay<UIColor> = BehaviorRelay(value: UIColor.OnOffLightMain)
+        
+        
         /// On - Off 변하는 UIView 그림자 색
         var blankUIViewShadowColorRelay: BehaviorRelay<UIColor> = BehaviorRelay(value: UIColor.purple)
         
@@ -68,7 +79,7 @@ final class HomeViewModel {
             .disposed(by: disposeBag)
         
         bindToggleOnOffButtonRelay(output: output)
-        dummyDayListRelay(output: output)
+        dayListRelay(output: output)
         bindDayCollectionViewEvents(input: input, output: output)
         return output
     }
@@ -85,7 +96,7 @@ final class HomeViewModel {
         output.toggleOnOffButtonRelay
             .bind { [weak self] check in
                 guard let self = self else { return }
-                
+                dayListRelay(output: output)
                 if check { // On 인경우
                     setUpWhenOn(output: output)
                     return
@@ -108,8 +119,11 @@ final class HomeViewModel {
         output.monthRelay.accept(setMonthOptions(month: "2023년 11월",
                                                  monthColor: .purple,
                                                  output: output))
+        output.blankUIViewShadowColorRelay.accept(.OnOffMain)
         output.dayCollectionViewBackgroundColorRelay.accept(.cyan)
-        output.blankUIViewShadowColorRelay.accept(.purple)
+        output.dayCollectionTextColorRelay.accept(.white)
+        output.selectedDayCollectionViewBackgroundColorRelay.accept(.OnOffMain)
+        output.selectedDayCollectionTextColorRelay.accept(.white)
     }
     
     /// Setting When Off
@@ -123,7 +137,10 @@ final class HomeViewModel {
         output.monthRelay.accept(setMonthOptions(month: "2023년 11월",
                                                  monthColor: .white,
                                                  output: output))
-        output.dayCollectionViewBackgroundColorRelay.accept(.purple)
+        output.dayCollectionViewBackgroundColorRelay.accept(UIColor(hex: "#4417B8"))
+        output.dayCollectionTextColorRelay.accept(UIColor(hex: "#AB8AFF"))
+        output.selectedDayCollectionViewBackgroundColorRelay.accept(.white)
+        output.selectedDayCollectionTextColorRelay.accept(.OnOffMain)
         output.blankUIViewShadowColorRelay.accept(.white)
     }
     
@@ -174,15 +191,50 @@ final class HomeViewModel {
         return nickNameAttributedString
     }
     
-    /// Dummy About DayListRelay
-    private func dummyDayListRelay(output: Output) {
-        let list = [DayInfo(date: "20", day: "Mon"),
-                    DayInfo(date: "21", day: "Tue"),
-                    DayInfo(date: "22", day: "Wed"),
-                    DayInfo(date: "23", day: "Thr"),
-                    DayInfo(date: "24", day: "Fri"),
-                    DayInfo(date: "25", day: "Sat"),
-                    DayInfo(date: "26", day: "Sun")]
-        output.dayListRelay.accept(list)
+    /// Format Date To String
+    /// - Parameter date: Date
+    /// - Returns: String Type Date
+    private func formatDateToString(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy MM dd EEE"
+        return dateFormatter.string(from: date)
+    }
+    
+    /// Format Date To String
+    /// - Parameter date: Date
+    /// - Returns: String Type Date
+    private func formatStringToDate(date: String) -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.date(from: date) ?? Date()
+    }
+    
+    /// Format To Day Info
+    private func formatToDayInfo(date: String) -> DayInfo {
+        let formatDate = formatDateToString(date: formatStringToDate(date: date)).split(separator: " ")
+        return DayInfo(totalDate: date, date: "\(formatDate[2])", day: "\(formatDate[3])")
+    }
+    
+    /// Day List Relay
+    private func dayListRelay(output: Output) {
+        var list: [DayInfo] = []
+        
+        service.weekDayInit()
+            .subscribe(onNext: { [weak self] weekDay in
+                guard let self = self else { return }
+                list.append(formatToDayInfo(date: weekDay.monday ?? ""))
+                list.append(formatToDayInfo(date: weekDay.tuesday ?? ""))
+                list.append(formatToDayInfo(date: weekDay.wednesday ?? ""))
+                list.append(formatToDayInfo(date: weekDay.thursday ?? ""))
+                list.append(formatToDayInfo(date: weekDay.friday ?? ""))
+                list.append(formatToDayInfo(date: weekDay.saturday ?? ""))
+                list.append(formatToDayInfo(date: weekDay.sunday ?? ""))
+                
+                output.dayListRelay.accept(list)
+            }, onError: { error in
+                print(#function, error)
+            })
+            .disposed(by: disposeBag)
     }
 }

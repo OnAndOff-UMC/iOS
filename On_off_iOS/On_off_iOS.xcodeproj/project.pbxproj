@@ -144,6 +144,8 @@
 		3BD552662B58FA8C0043920E /* RateFillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD552652B58FA8C0043920E /* RateFillView.swift */; };
 		3BD552682B58FCF70043920E /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD552672B58FCF70043920E /* CalendarCell.swift */; };
 		3BD5526A2B5914B10043920E /* CalendarStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD552692B5914B10043920E /* CalendarStatistics.swift */; };
+		3BEFD30D2B7AF53F00EE6EFF /* HomeViewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEFD30C2B7AF53F00EE6EFF /* HomeViewService.swift */; };
+		3BEFD30F2B7AF56300EE6EFF /* WeekDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEFD30E2B7AF56300EE6EFF /* WeekDay.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -267,6 +269,8 @@
 		3BD552652B58FA8C0043920E /* RateFillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateFillView.swift; sourceTree = "<group>"; };
 		3BD552672B58FCF70043920E /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		3BD552692B5914B10043920E /* CalendarStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarStatistics.swift; sourceTree = "<group>"; };
+		3BEFD30C2B7AF53F00EE6EFF /* HomeViewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewService.swift; sourceTree = "<group>"; };
+		3BEFD30E2B7AF56300EE6EFF /* WeekDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekDay.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -763,6 +767,7 @@
 		3B0129CF2B62BA8100B191AD /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				3BEFD30B2B7AF53500EE6EFF /* Service */,
 				3B0129D22B62BA9100B191AD /* Model */,
 				3B0129D12B62BA8E00B191AD /* ViewModel */,
 				3B0129D02B62BA8A00B191AD /* View */,
@@ -792,6 +797,7 @@
 			isa = PBXGroup;
 			children = (
 				3B0129CB2B624D6000B191AD /* Home.swift */,
+				3BEFD30E2B7AF56300EE6EFF /* WeekDay.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -944,6 +950,14 @@
 				3BD552692B5914B10043920E /* CalendarStatistics.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		3BEFD30B2B7AF53500EE6EFF /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				3BEFD30C2B7AF53F00EE6EFF /* HomeViewService.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1107,6 +1121,7 @@
 				3B26CF4A2B79EF2600E05581 /* InsertWorkLifeBalanceFeedViewModel.swift in Sources */,
 				374FD49D2B4281E100F2E645 /* OnboardingCustomView.swift in Sources */,
 				3BB806D82B5024BC00555E58 /* MonthStatistics.swift in Sources */,
+				3BEFD30D2B7AF53F00EE6EFF /* HomeViewService.swift in Sources */,
 				37CC77752B6F9620007999E5 /* KeyChain.swift in Sources */,
 				3B26CF3F2B7908D500E05581 /* DeletedImagePopUpViewModel.swift in Sources */,
 				3584F3AE2B5A5FEB007ACB57 /* (null) in Sources */,
@@ -1128,6 +1143,7 @@
 				371B9EA72B5AD838006AC06D /* MemoirsViewController.swift in Sources */,
 				371B9EAE2B5AFD42006AC06D /* StartToWriteViewModel.swift in Sources */,
 				378588F72B708701004E262F /* ProfileDataType.swift in Sources */,
+				3BEFD30F2B7AF56300EE6EFF /* WeekDay.swift in Sources */,
 				37BD17702B764B2800A4EA46 /* LaunchViewModel.swift in Sources */,
 				37CFD3002B66533900E00D92 /* ExpressedIconViewController.swift in Sources */,
 				37AEB1EE2B6CF3F400A6CDD6 /* ModalEmoticonViewModel.swift in Sources */,

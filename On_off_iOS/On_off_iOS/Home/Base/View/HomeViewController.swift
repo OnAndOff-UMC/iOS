@@ -224,9 +224,13 @@ final class HomeViewController: UIViewController {
                        cellType: DayCollectionViewCell.self))
         { row, element, cell in
             cell.backgroundColor = .clear
-            cell.inputData(info: element, color: output.dayCollectionViewBackgroundColorRelay.value)
+            cell.inputData(info: element,
+                           color: output.dayCollectionViewBackgroundColorRelay.value,
+                           textColor: output.dayCollectionTextColorRelay.value)
+            
             if row == output.selectedDayIndex.value.row {
-                cell.changeColor(color: .brown)
+                cell.selectedEffect(color: output.selectedDayCollectionViewBackgroundColorRelay.value,
+                                    textColor: output.selectedDayCollectionTextColorRelay.value)
             }
         }
         .disposed(by: disposeBag)
@@ -243,8 +247,10 @@ final class HomeViewController: UIViewController {
                 guard let self = self,
                       let cell = dayCollectionView.cellForItem(at: output.selectedDayIndex.value) as? DayCollectionViewCell,
                       let selectedCell = dayCollectionView.cellForItem(at: indexPath) as? DayCollectionViewCell else { return }
-                selectedCell.changeColor(color: .brown)
-                cell.changeColor(color: output.dayCollectionViewBackgroundColorRelay.value)
+                cell.selectedEffect(color: output.dayCollectionViewBackgroundColorRelay.value,
+                                    textColor: output.dayCollectionTextColorRelay.value)
+                selectedCell.selectedEffect(color: output.selectedDayCollectionViewBackgroundColorRelay.value,
+                                    textColor: output.selectedDayCollectionTextColorRelay.value)
                 output.selectedDayIndex.accept(indexPath)
             }
             .disposed(by: disposeBag)

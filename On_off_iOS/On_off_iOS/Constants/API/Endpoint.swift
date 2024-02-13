@@ -33,3 +33,7 @@ enum FeedPath: String {
     case delayTomorrow = "/feeds/FEEDID/delay"
     case delete = "/feeds/FEEDID"
 }
+
+enum WeekDayPath: String {
+    case weekdayInit = "/weekdays/init"
+}
