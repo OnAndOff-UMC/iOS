@@ -54,8 +54,6 @@ final class ModalMenuOptionViewController: UIViewController {
             .when(.recognized)
             .subscribe(onNext: { [weak self] _ in
                 self?.dismiss(animated: true) {
-
-                    editModeSubject.onNext(true)
                 }
             })
             .disposed(by: disposeBag)

@@ -34,6 +34,17 @@ final class InquireMemoirsViewController: UIViewController {
         return button
     }()
     
+    /// 완료 버튼 - 네비게이션 바
+    private lazy var reviceButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "완료", style: .plain, target: nil, action: nil)
+        button.rx.tap
+            .subscribe(onNext: { [weak self] in
+                print("완료하기")
+            })
+            .disposed(by: disposeBag)
+        return button
+    }()
+    
     /// 전체 스크롤 뷰
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -159,7 +170,6 @@ final class InquireMemoirsViewController: UIViewController {
     
     private var viewModel: InquireMemoirsViewModel
     private let disposeBag = DisposeBag()
-    private let editModeSubject = PublishSubject<Bool>()
 
     // MARK: - Init
     init(viewModel: InquireMemoirsViewModel) {
@@ -289,11 +299,14 @@ final class InquireMemoirsViewController: UIViewController {
     
     /// 뷰모델과 setupBindings
     private func setupBindings() {
+        let toggleEditing = PublishSubject<Void>()
+        
         let input = InquireMemoirsViewModel.Input(
             bookMarkButtonTapped: bookmarkButton.rx.tap.asObservable(),
             menuButtonTapped: menuButton.rx.tap.asObservable(),
             memoirId: 8,
-            memoirInquiry: Observable.just(())
+            memoirInquiry: Observable.just(()),
+            toggleEditing: toggleEditing.asObservable()
         )
         
         let output = viewModel.bind(input: input)
@@ -313,20 +326,25 @@ final class InquireMemoirsViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
+        output.isEditing
+            .subscribe(onNext: { [weak self] isEditing in
+                self?.learnedTextField.isEnabled = isEditing
+                self?.praisedTextField.isEnabled = isEditing
+                self?.improvementTextField.isEnabled = isEditing
+                // "완료" 버튼 토글 로직 추가 필요
+            })
+            .disposed(by: disposeBag)
+                
+        
         menuButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
-                self?.presentModalFromBottom()
+                self?.presentActionSheet()
             })
             .disposed(by: disposeBag)
         
-        editModeSubject
-            .subscribe(onNext: { [weak self] isEditable in
-                self?.learnedTextField.isEnabled = isEditable
-                self?.praisedTextField.isEnabled = isEditable
-                self?.improvementTextField.isEnabled = isEditable
-            })
-            .disposed(by: disposeBag)
     }
+    
+    
     
     private func updateUIWithMemoirResponse(_ response: MemoirResponse) {
         
@@ -358,21 +376,57 @@ final class InquireMemoirsViewController: UIViewController {
         }
     }
     
-    ///  모달 뷰
-    private func presentModalFromBottom() {
-        let modalMenuOptionViewController = ModalMenuOptionViewController()
+    private func presentActionSheet() {
         
-        if #available(iOS 15.0, *) {
-            if let sheet = modalMenuOptionViewController.sheetPresentationController {
-                sheet.detents = [.medium()]
-                sheet.prefersGrabberVisible = true
-            }
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+
+        let editAction = UIAlertAction(title: "수정하기", style: .default) { [weak self] _ in
+            self?.toggleEditingMode(isEditing: true)
         }
-        present(modalMenuOptionViewController, animated: true, completion: nil)
+        
+        let deleteAction = UIAlertAction(title: "삭제하기", style: .destructive) { [weak self] _ in
+        }
+
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+
+        actionSheet.addAction(editAction)
+        actionSheet.addAction(deleteAction)
+        actionSheet.addAction(cancelAction)
+
+        if let popoverController = actionSheet.popoverPresentationController {
+            popoverController.barButtonItem = menuButton
+        }
+        
+        present(actionSheet, animated: true, completion: nil)
     }
     
     /// 네비게이션 바
     private func setupNavigationBar() {
         navigationItem.rightBarButtonItems = [menuButton, bookmarkButton]
+    }
+    private func toggleEditingMode(isEditing: Bool) {
+            // 텍스트 필드 편집 가능 상태 변경
+            learnedTextField.isEnabled = isEditing
+            praisedTextField.isEnabled = isEditing
+            improvementTextField.isEnabled = isEditing
+            
+            // 네비게이션 바 업데이트
+            updateNavigationBar(isEditing: isEditing)
+        }
+
+        private func updateNavigationBar(isEditing: Bool) {
+            if isEditing {
+                navigationItem.rightBarButtonItems = [reviceButton]
+            } else {
+                navigationItem.rightBarButtonItems = [menuButton, bookmarkButton]
+            }
+        }
+    
+    // 키보드내리기
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        learnedTextField.endEditing(true)
+        praisedTextField.endEditing(true)
+        improvementTextField.endEditing(true)
     }
 }

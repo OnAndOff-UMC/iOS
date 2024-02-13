@@ -22,16 +22,21 @@ final class InquireMemoirsViewModel {
         let menuButtonTapped: Observable<Void>
         let memoirId: Int
         let memoirInquiry: Observable<Void>
-    }
+        let toggleEditing: Observable<Void>     }
     
     // Output 구조체 정의
     struct Output {
         let updateBookmarkStatus: Observable<Bool>
         let memoirInquiryResult: Observable<MemoirResponse>
+        let isEditing: Observable<Bool> // 편집 모드 상태
+
     }
     
     // Input을 받아 Output을 반환하는 bind 함수
     func bind(input: Input) -> Output {
+        
+        let isEditingRelay = BehaviorRelay<Bool>(value: false) // 편집 상태 관리를 위한 Relay
+
         let memoirInquiryResult = input.memoirInquiry
             .flatMapLatest { [weak self] _ -> Observable<MemoirResponse> in
                 guard let self = self else { return .empty() }
@@ -51,7 +56,17 @@ final class InquireMemoirsViewModel {
                     }
                     .catchAndReturn(false)
             }
+
+        // 편집 모드 토글 액션 처리
+              input.toggleEditing
+                  .subscribe(onNext: { _ in
+                      let currentEditingState = isEditingRelay.value
+                      isEditingRelay.accept(!currentEditingState)
+                  })
+                  .disposed(by: disposeBag)
         
-        return Output(updateBookmarkStatus: updateBookmarkStatus, memoirInquiryResult: memoirInquiryResult)
+        return Output(updateBookmarkStatus: updateBookmarkStatus,
+                      memoirInquiryResult: memoirInquiryResult,
+                      isEditing: isEditingRelay.asObservable())
     }
 }
