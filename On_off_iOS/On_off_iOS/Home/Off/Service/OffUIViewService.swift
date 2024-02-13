@@ -102,7 +102,7 @@ final class OffUIViewService {
         let url = Domain.RESTAPI + FeedPath.workLifeBalacne.rawValue
             .replacingOccurrences(of: "DATE", with: "\(date)")
         let header = Header.header.getHeader()
-        print(url)
+        print(#function, url)
         
         return Observable.create { observer in
             AF.request(url,

@@ -116,6 +116,14 @@ final class OffUIViewModel {
         input.selectedDate?
             .bind(to: output.selectedDate)
             .disposed(by: disposeBag)
+        
+        output.selectedDate
+            .bind { [weak self] date in
+                guard let self = self else { return }
+                getWorkLifeBalanceList(output: output)
+                getImageList(output: output)
+            }
+            .disposed(by: disposeBag)
     }
     
     /// Binding Success Add Feed

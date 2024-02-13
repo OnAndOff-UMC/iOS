@@ -83,7 +83,6 @@ final class HomeViewController: UIViewController {
     /// Off UIView
     private lazy var offUIView: OffUIView = {
         let view = OffUIView(frame: CGRect(x: .zero, y: .zero, width: view.safeAreaLayoutGuide.layoutFrame.width, height: .zero))
-        view.selectedDate.onNext("2024-02-13")
         view.backgroundColor = .white
         view.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
         view.layer.cornerRadius = 25
@@ -252,6 +251,7 @@ final class HomeViewController: UIViewController {
                 selectedCell.selectedEffect(color: output.selectedDayCollectionViewBackgroundColorRelay.value,
                                     textColor: output.selectedDayCollectionTextColorRelay.value)
                 output.selectedDayIndex.accept(indexPath)
+                offUIView.selectedDate.onNext(output.dayListRelay.value[output.selectedDayIndex.value.row].totalDate ?? "")
             }
             .disposed(by: disposeBag)
     }
@@ -327,6 +327,8 @@ final class HomeViewController: UIViewController {
                 }
                 onUIView.removeFromSuperview()
                 addOffSubViews()
+                print(output.dayListRelay.value[output.selectedDayIndex.value.row].totalDate ?? "", "🐰")
+                offUIView.selectedDate.onNext(output.dayListRelay.value[output.selectedDayIndex.value.row].totalDate ?? "")
             }
             .disposed(by: disposeBag)
     }
