@@ -146,6 +146,7 @@
 		3BD5526A2B5914B10043920E /* CalendarStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD552692B5914B10043920E /* CalendarStatistics.swift */; };
 		3BEFD30D2B7AF53F00EE6EFF /* HomeViewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEFD30C2B7AF53F00EE6EFF /* HomeViewService.swift */; };
 		3BEFD30F2B7AF56300EE6EFF /* WeekDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEFD30E2B7AF56300EE6EFF /* WeekDay.swift */; };
+		3BEFD3112B7B13CE00EE6EFF /* MyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEFD3102B7B13CE00EE6EFF /* MyInfo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -271,6 +272,7 @@
 		3BD552692B5914B10043920E /* CalendarStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarStatistics.swift; sourceTree = "<group>"; };
 		3BEFD30C2B7AF53F00EE6EFF /* HomeViewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewService.swift; sourceTree = "<group>"; };
 		3BEFD30E2B7AF56300EE6EFF /* WeekDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekDay.swift; sourceTree = "<group>"; };
+		3BEFD3102B7B13CE00EE6EFF /* MyInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -807,6 +809,7 @@
 			children = (
 				3B26CF432B790A4700E05581 /* Image.swift */,
 				3B26CF4B2B79F3F800E05581 /* Feed.swift */,
+				3BEFD3102B7B13CE00EE6EFF /* MyInfo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1130,6 +1133,7 @@
 				3B0129C82B6246E900B191AD /* Ext + UIImage.swift in Sources */,
 				378588F22B707F0A004E262F /* ModalSelectProfileViewModel.swift in Sources */,
 				3B26CF4E2B79F44A00E05581 /* InsertWorkLifeBalanceFeedService.swift in Sources */,
+				3BEFD3112B7B13CE00EE6EFF /* MyInfo.swift in Sources */,
 				3B4230102B41572200D0B038 /* SceneDelegate.swift in Sources */,
 				3584F3AC2B5A5CC7007ACB57 /* (null) in Sources */,
 				371B9EAC2B5AFD37006AC06D /* StartToWriteViewController.swift in Sources */,

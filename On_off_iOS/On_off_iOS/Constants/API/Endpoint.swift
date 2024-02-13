@@ -37,3 +37,7 @@ enum FeedPath: String {
 enum WeekDayPath: String {
     case weekdayInit = "/weekdays/init"
 }
+
+enum MyPage: String {
+    case myInfo = "/users/information"
+}

@@ -69,7 +69,7 @@ final class HomeViewModel {
     /// Create Output
     /// - Parameter input: Input
     /// - Returns: Output
-    func createOutput(input: Input) -> Output{
+    func createOutput(input: Input) -> Output {
         let output = Output()
         
         input.onOffButtonEvents
@@ -97,6 +97,8 @@ final class HomeViewModel {
             .bind { [weak self] check in
                 guard let self = self else { return }
                 dayListRelay(output: output)
+                getMyInformation(output: output)
+                
                 if check { // On 인경우
                     setUpWhenOn(output: output)
                     return
@@ -116,7 +118,6 @@ final class HomeViewModel {
         output.titleRelay.accept(setTitleOptions(nickName: "조디조디조디조디조디", nickNameColor: .purple,
                                                  subTitle: "님,\n오늘 하루도 파이팅!", subTitleColor: .black,
                                                  output: output))
-//        output.monthRelay.accept(formatSelectedMonth(monthColor: .OnOffMain, output: output))
         output.blankUIViewShadowColorRelay.accept(.OnOffMain)
         output.dayCollectionViewBackgroundColorRelay.accept(.cyan)
         output.dayCollectionTextColorRelay.accept(.white)
@@ -132,7 +133,6 @@ final class HomeViewModel {
         output.titleRelay.accept(setTitleOptions(nickName: "조디조디조디조디조디", nickNameColor: .cyan,
                                                  subTitle:  "님,\n오늘 하루도 고생하셨어요", subTitleColor: .white,
                                                  output: output))
-//        output.monthRelay.accept(formatSelectedMonth(monthColor: .white, output: output))
         output.dayCollectionViewBackgroundColorRelay.accept(UIColor(hex: "#4417B8"))
         output.dayCollectionTextColorRelay.accept(UIColor(hex: "#AB8AFF"))
         output.selectedDayCollectionViewBackgroundColorRelay.accept(.white)
@@ -241,6 +241,26 @@ final class HomeViewModel {
                     return
                 }
                 output.monthRelay.accept(formatSelectedMonth(monthColor: .white, output: output))
+            }, onError: { error in
+                print(#function, error)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    /// Get My Information
+    private func getMyInformation(output: Output) {
+        service.getMyNickName()
+            .subscribe(onNext: { [weak self] nickName in
+                guard let self = self else { return }
+                if output.toggleOnOffButtonRelay.value {
+                    output.titleRelay.accept(setTitleOptions(nickName: nickName, nickNameColor: .purple,
+                                                             subTitle: "님,\n오늘 하루도 파이팅!", subTitleColor: .black,
+                                                             output: output))
+                    return
+                }
+                output.titleRelay.accept(setTitleOptions(nickName: nickName, nickNameColor: .purple,
+                                                         subTitle: "님,\n오늘 하루도 고생하셨어요", subTitleColor: .black,
+                                                         output: output))
             }, onError: { error in
                 print(#function, error)
             })
