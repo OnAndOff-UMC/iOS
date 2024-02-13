@@ -48,9 +48,13 @@ final class NickNameViewModel {
 
         /// 완료버튼 클릭
         input.startButtonTapped
-            .bind(to: output.moveToNext)
-            .disposed(by: disposeBag)
-        
+            .withLatestFrom(input.nickNameTextChanged)
+                    .subscribe(onNext: { nickname in
+                        _ = KeychainWrapper.saveItem(value: nickname, forKey: ProfileKeyChain.nickname.rawValue)
+                        output.moveToNext.onNext(())
+                    })
+                    .disposed(by: disposeBag)
+
         return output
     }
     

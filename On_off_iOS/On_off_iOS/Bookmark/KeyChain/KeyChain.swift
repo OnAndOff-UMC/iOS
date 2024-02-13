@@ -45,6 +45,7 @@ enum AppleLoginKeyChain: String {
 
 /// 프로필 키체인 값
 enum ProfileKeyChain: String {
+    case nickname
     case fieldOfWork
     case job
     case experienceYear

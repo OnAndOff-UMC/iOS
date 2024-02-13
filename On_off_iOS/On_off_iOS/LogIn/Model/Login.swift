@@ -26,6 +26,7 @@ struct AppleTokenValidationRequest: Codable {
 
 /// 추가 정보 구조체: 프로필: 분야, 직업, 경력
 struct AdditionalInfo: Codable {
+    let nickname: String
     let fieldOfWork: String
     let job: String
     let experienceYear: String
