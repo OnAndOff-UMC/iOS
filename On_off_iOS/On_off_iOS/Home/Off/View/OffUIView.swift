@@ -66,6 +66,51 @@ final class OffUIView: UIView {
         return view
     }()
     
+    /// 오늘의 회고 제목
+    private lazy var memoirTitleLabel: UILabel = {
+        let label = UILabel()
+        label.backgroundColor = .clear
+        label.textColor = .black
+        label.font = .systemFont(ofSize: 14, weight: .bold)
+        label.textAlignment = .center
+        return label
+    }()
+    
+    /// 오늘의 회고 완료 제목
+    private lazy var memoirDoneLabel: UILabel = {
+        let label = UILabel()
+        label.backgroundColor = .clear
+        label.textColor = .OnOffMain
+        label.text = "작성완료"
+        label.isHidden = true
+        label.font = .systemFont(ofSize: 14, weight: .bold)
+        label.textAlignment = .center
+        return label
+    }()
+    
+    /// 오늘의 회고 완료한 경우 이모지
+    private lazy var memoirImageView: UIImageView = {
+        let view = UIImageView()
+        view.backgroundColor = .clear
+        return view
+    }()
+    
+    /// 오늘의 회고 완료한 경우 겉 테두리
+    private lazy var memoirDoneBackGroundImageView: UIImageView = {
+        let view = UIImageView(image: UIImage(named: "memoirDoneCorner"))
+        view.backgroundColor = .clear
+        return view
+    }()
+    
+    /// 오늘의 회고 담는 Stack View
+    private lazy var memoirLabelStackView: UIStackView = {
+        let view = UIStackView(arrangedSubviews: [memoirDoneLabel, memoirTitleLabel])
+        view.backgroundColor = .clear
+        view.axis = .vertical
+        view.distribution = .fillEqually
+        return view
+    }()
+    
     /// 워라벨 피드 제목
     private lazy var feedTitleButton: UIButton = {
         let button = UIButton()
@@ -107,7 +152,6 @@ final class OffUIView: UIView {
     /// 날짜 라벨
     private lazy var dateLabel: UILabel = {
         let label = UILabel()
-        label.text = "2023 - November"
         label.backgroundColor = .clear
         label.textColor = .OnOffMain
         label.font = .systemFont(ofSize: 18, weight: .bold)
@@ -173,6 +217,9 @@ final class OffUIView: UIView {
         contentView.addSubview(todayMemoirsLabelBackgroundUIView)
         todayMemoirsLabelBackgroundUIView.addSubview(todayMemoirsIconImageButton)
         contentView.addSubview(todayMemoirsUIView)
+        todayMemoirsUIView.addSubview(memoirDoneBackGroundImageView)
+        todayMemoirsUIView.addSubview(memoirLabelStackView)
+        todayMemoirsUIView.addSubview(memoirImageView)
         contentView.addSubview(feedTitleButton)
         contentView.addSubview(feedlabelBackgroundUIView)
         feedlabelBackgroundUIView.addSubview(feedPlusIconImageButton)
@@ -244,6 +291,20 @@ final class OffUIView: UIView {
             make.height.equalTo(200)
         }
         
+        memoirLabelStackView.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
+        
+        memoirDoneBackGroundImageView.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(10)
+        }
+        
+        memoirImageView.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.height.equalToSuperview().multipliedBy(0.7)
+            make.width.equalTo(memoirImageView.snp.height)
+        }
+        
         feedUITableView.snp.makeConstraints { make in
             make.top.equalTo(feedTitleButton.snp.bottom).offset(10)
             make.leading.equalTo(feedTitleButton.snp.leading)
@@ -283,6 +344,7 @@ final class OffUIView: UIView {
         bindClickPlusImageButton(output: output)
         bindClickImageButton(output: output)
         bindSelectedMonth(output: output)
+        bindCheckMemoirsPreview(output: output)
         bindFeedEvents()
     }
     
@@ -414,6 +476,30 @@ final class OffUIView: UIView {
             .bind { [weak self] date in
                 guard let self = self else { return }
                 dateLabel.text = date
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    /// Bind Check Memoirs Preview
+    private func bindCheckMemoirsPreview(output: OffUIViewModel.Output) {
+        output.checkMemoirPreview
+            .bind { [weak self] preview in
+                guard let self = self else { return }
+                if preview?.written ?? false {
+                    memoirDoneLabel.isHidden = false
+                    memoirImageView.isHidden = false
+                    memoirDoneBackGroundImageView.isHidden = false
+                    memoirTitleLabel.text = "오늘 하루도 한걸음 성장했어요"
+                    if let url = URL(string: preview?.emoticonUrl ?? "") {
+                        memoirImageView.kf.setImage(with: url,
+                                              options: [.scaleFactor(memoirImageView.frame.height)])
+                    }
+                    return
+                }
+                memoirDoneLabel.isHidden = true
+                memoirImageView.isHidden = true
+                memoirDoneBackGroundImageView.isHidden = true
+                memoirTitleLabel.text = "오늘의 회고를 작성해보세요"
             }
             .disposed(by: disposeBag)
     }

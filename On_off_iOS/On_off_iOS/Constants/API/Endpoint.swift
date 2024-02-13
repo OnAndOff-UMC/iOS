@@ -24,6 +24,7 @@ enum LoginPath: String {
 enum MemoirsPath: String {
     case memoirsSave = "/Memoirs"
     case getEmoticon = "/emoticons"
+    case preview = "/memoirs/previews?date=DATE"
 }
 
 enum FeedPath: String {

@@ -149,6 +149,7 @@
 		3BEFD3112B7B13CE00EE6EFF /* MyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEFD3102B7B13CE00EE6EFF /* MyInfo.swift */; };
 		3BEFD3132B7BA2D700EE6EFF /* FutureUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEFD3122B7BA2D700EE6EFF /* FutureUIView.swift */; };
 		3BEFD3152B7BA75D00EE6EFF /* Ext + Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEFD3142B7BA75D00EE6EFF /* Ext + Date.swift */; };
+		3BEFD3172B7BAE8500EE6EFF /* MemoirPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEFD3162B7BAE8500EE6EFF /* MemoirPreview.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -277,6 +278,7 @@
 		3BEFD3102B7B13CE00EE6EFF /* MyInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfo.swift; sourceTree = "<group>"; };
 		3BEFD3122B7BA2D700EE6EFF /* FutureUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureUIView.swift; sourceTree = "<group>"; };
 		3BEFD3142B7BA75D00EE6EFF /* Ext + Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext + Date.swift"; sourceTree = "<group>"; };
+		3BEFD3162B7BAE8500EE6EFF /* MemoirPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoirPreview.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -816,6 +818,7 @@
 				3B26CF432B790A4700E05581 /* Image.swift */,
 				3B26CF4B2B79F3F800E05581 /* Feed.swift */,
 				3BEFD3102B7B13CE00EE6EFF /* MyInfo.swift */,
+				3BEFD3162B7BAE8500EE6EFF /* MemoirPreview.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1117,6 +1120,7 @@
 				37DEF20D2B66B31D00AF47DB /* MemoirsCompleteViewController.swift in Sources */,
 				371B9EBB2B5B0737006AC06D /* WritePraisedViewController.swift in Sources */,
 				3769A68E2B585B6600D79C33 /* DayButton.swift in Sources */,
+				3BEFD3172B7BAE8500EE6EFF /* MemoirPreview.swift in Sources */,
 				3BD415C82B7A54CF00BAB0DC /* ClickWorkLifeBalanceFeedViewModel.swift in Sources */,
 				3B35764B2B78FDAB008464AA /* DeletedImagePopUpView.swift in Sources */,
 				37CC77792B6FA864007999E5 /* ModalEmoticonDelegate.swift in Sources */,

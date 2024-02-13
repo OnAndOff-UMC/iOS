@@ -38,6 +38,7 @@ final class OffUIViewModel {
         var workLifeBalanceRelay: BehaviorRelay<[Feed]> = BehaviorRelay(value: [])
         var successCheckWLBRelay: PublishRelay<Bool> = PublishRelay()
         var selectedDate: BehaviorRelay<String> = BehaviorRelay(value: "")
+        var checkMemoirPreview: BehaviorRelay<MemoirPreview?> = BehaviorRelay(value: nil)
     }
     
     /// Create Output
@@ -55,8 +56,7 @@ final class OffUIViewModel {
         bindSelectedDate(input: input, output: output)
         bindSuccessAddFeed(input: input, output: output)
         
-        getImageList(output: output)
-        
+//        getImageList(output: output)
         return output
     }
     
@@ -80,8 +80,6 @@ final class OffUIViewModel {
         input.collectionViewCellEvents?
             .bind { [weak self] indexPath in
                 guard let self = self else { return }
-                print(indexPath, output.imageURLRelay.value[indexPath.row])
-                
                 if indexPath.row == output.imageURLRelay.value.count - 1 {
                     clickPlusImageButton(output: output)
                     return
@@ -122,6 +120,7 @@ final class OffUIViewModel {
                 guard let self = self else { return }
                 getWorkLifeBalanceList(output: output)
                 getImageList(output: output)
+                getMemoirPreview(output: output)
             }
             .disposed(by: disposeBag)
     }
@@ -192,12 +191,23 @@ final class OffUIViewModel {
     }
     
     /// Get WorkLifeBalance List
-    /// - Parameters:
-    ///   - selectedDate: Selected Date
     private func getWorkLifeBalanceList(output: Output) {
         service.getWLBFeedList(date: output.selectedDate.value)
             .subscribe(onNext: { list in
                 output.workLifeBalanceRelay.accept(list)
+            }, onError: { error in
+                // 업로드 실패
+                print(#function, error)
+            })
+            .disposed(by: disposeBag)
+     
+    }
+    
+    /// Get Memoir Preview
+    private func getMemoirPreview(output: Output) {
+        service.checkMemoirsPreview(date: output.selectedDate.value)
+            .subscribe(onNext: { preview in
+                output.checkMemoirPreview.accept(preview)
             }, onError: { error in
                 // 업로드 실패
                 print(#function, error)
@@ -214,7 +224,6 @@ final class OffUIViewModel {
             .subscribe(onNext: { [weak self] check in
                 guard let self = self else { return }
                 if check {
-                    print("called getImageList")
                     getImageList(output: output)
                 }
             }, onError: { error in

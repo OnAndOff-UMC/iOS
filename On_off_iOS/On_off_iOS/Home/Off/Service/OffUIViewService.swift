@@ -148,4 +148,31 @@ final class OffUIViewService {
             return Disposables.create()
         }
     }
+    
+    /// Check Memoirs Preview
+    /// - Parameter feedId: Feed Id
+    /// - Returns: 성공 여부
+    func checkMemoirsPreview(date: String) -> Observable<MemoirPreview> {
+        let url = Domain.RESTAPI + MemoirsPath.preview.rawValue
+            .replacingOccurrences(of: "DATE", with: date)
+        let header = Header.header.getHeader()
+        print(url)
+        
+        return Observable.create { observer in
+            AF.request(url,
+                       method: .get,
+                       headers: header)
+            .validate(statusCode: 200..<201)
+            .responseDecodable(of: Response<MemoirPreview>.self) { response in
+                print(#function, response)
+                switch response.result {
+                case .success(let data):
+                    observer.onNext(data.result)
+                case .failure(let error):
+                    observer.onError(error)
+                }
+            }
+            return Disposables.create()
+        }
+    }
 }
