@@ -116,9 +116,7 @@ final class HomeViewModel {
         output.titleRelay.accept(setTitleOptions(nickName: "조디조디조디조디조디", nickNameColor: .purple,
                                                  subTitle: "님,\n오늘 하루도 파이팅!", subTitleColor: .black,
                                                  output: output))
-        output.monthRelay.accept(setMonthOptions(month: "2023년 11월",
-                                                 monthColor: .purple,
-                                                 output: output))
+//        output.monthRelay.accept(formatSelectedMonth(monthColor: .OnOffMain, output: output))
         output.blankUIViewShadowColorRelay.accept(.OnOffMain)
         output.dayCollectionViewBackgroundColorRelay.accept(.cyan)
         output.dayCollectionTextColorRelay.accept(.white)
@@ -134,9 +132,7 @@ final class HomeViewModel {
         output.titleRelay.accept(setTitleOptions(nickName: "조디조디조디조디조디", nickNameColor: .cyan,
                                                  subTitle:  "님,\n오늘 하루도 고생하셨어요", subTitleColor: .white,
                                                  output: output))
-        output.monthRelay.accept(setMonthOptions(month: "2023년 11월",
-                                                 monthColor: .white,
-                                                 output: output))
+//        output.monthRelay.accept(formatSelectedMonth(monthColor: .white, output: output))
         output.dayCollectionViewBackgroundColorRelay.accept(UIColor(hex: "#4417B8"))
         output.dayCollectionTextColorRelay.accept(UIColor(hex: "#AB8AFF"))
         output.selectedDayCollectionViewBackgroundColorRelay.accept(.white)
@@ -216,6 +212,14 @@ final class HomeViewModel {
         return DayInfo(totalDate: date, date: "\(formatDate[2])", day: "\(formatDate[3])")
     }
     
+    /// 선택한 '월' 로 변경
+    private func formatSelectedMonth(monthColor: UIColor, output: Output) -> NSMutableAttributedString {
+        let totalDate = output.dayListRelay.value[output.selectedDayIndex.value.row].totalDate?.split(separator: "-")
+        return setMonthOptions(month: "\(totalDate?[0] ?? "")년 \(totalDate?[1] ?? "")월",
+                            monthColor: monthColor,
+                            output: output)
+    }
+    
     /// Day List Relay
     private func dayListRelay(output: Output) {
         var list: [DayInfo] = []
@@ -232,6 +236,11 @@ final class HomeViewModel {
                 list.append(formatToDayInfo(date: weekDay.sunday ?? ""))
                 
                 output.dayListRelay.accept(list)
+                if output.toggleOnOffButtonRelay.value {
+                    output.monthRelay.accept(formatSelectedMonth(monthColor: .OnOffMain, output: output))
+                    return
+                }
+                output.monthRelay.accept(formatSelectedMonth(monthColor: .white, output: output))
             }, onError: { error in
                 print(#function, error)
             })
