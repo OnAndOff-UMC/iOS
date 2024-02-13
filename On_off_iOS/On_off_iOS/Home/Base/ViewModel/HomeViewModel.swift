@@ -115,9 +115,6 @@ final class HomeViewModel {
         output.dayImageRelay.accept(UIImage(named: "sun"))
         output.buttonOnOffRelay.accept(UIImage(named: "on"))
         output.backgroundColorRelay.accept(.white)
-        output.titleRelay.accept(setTitleOptions(nickName: "조디조디조디조디조디", nickNameColor: .purple,
-                                                 subTitle: "님,\n오늘 하루도 파이팅!", subTitleColor: .black,
-                                                 output: output))
         output.blankUIViewShadowColorRelay.accept(.OnOffMain)
         output.dayCollectionViewBackgroundColorRelay.accept(.cyan)
         output.dayCollectionTextColorRelay.accept(.white)
@@ -130,9 +127,6 @@ final class HomeViewModel {
         output.dayImageRelay.accept(UIImage(named: "moon"))
         output.buttonOnOffRelay.accept(UIImage(named: "off"))
         output.backgroundColorRelay.accept(.blue)
-        output.titleRelay.accept(setTitleOptions(nickName: "조디조디조디조디조디", nickNameColor: .cyan,
-                                                 subTitle:  "님,\n오늘 하루도 고생하셨어요", subTitleColor: .white,
-                                                 output: output))
         output.dayCollectionViewBackgroundColorRelay.accept(UIColor(hex: "#4417B8"))
         output.dayCollectionTextColorRelay.accept(UIColor(hex: "#AB8AFF"))
         output.selectedDayCollectionViewBackgroundColorRelay.accept(.white)
@@ -258,8 +252,8 @@ final class HomeViewModel {
                                                              output: output))
                     return
                 }
-                output.titleRelay.accept(setTitleOptions(nickName: nickName, nickNameColor: .purple,
-                                                         subTitle: "님,\n오늘 하루도 고생하셨어요", subTitleColor: .black,
+                output.titleRelay.accept(setTitleOptions(nickName: nickName, nickNameColor: .cyan,
+                                                         subTitle: "님,\n오늘 하루도 고생하셨어요", subTitleColor: .white,
                                                          output: output))
             }, onError: { error in
                 print(#function, error)
