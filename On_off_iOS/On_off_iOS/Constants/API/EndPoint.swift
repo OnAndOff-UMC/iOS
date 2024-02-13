@@ -1,8 +1,8 @@
 //
-//  EndPoint.swift
+//  Endpoint.swift
 //  On_off_iOS
 //
-//  Created by 신예진 on 2/13/24.
+//  Created by 박다미 on 2024/01/31.
 //
 
 import Foundation
@@ -24,20 +24,4 @@ enum LoginPath: String {
 enum MemoirsPath: String {
     case memoirsSave = "/Memoirs"
     case getEmoticon = "/emoticons"
-}
-
-enum FeedPath: String {
-    case feedImage = "/feed-images"
-    case workLifeBalacne = "/feeds?date=DATE"
-    case checkWLB = "/feeds/FEEDID/check"
-    case delayTomorrow = "/feeds/FEEDID/delay"
-    case delete = "/feeds/FEEDID"
-}
-
-///ON-업무일지
-enum WorklogPath: String {
-    case worklog = "/on/worklog/worklogid"
-//    case checkWLP = "/on/worklog/worklogid"
-//    case delaylogTommorow = "/on/worklog/worklogId"
-//    case deletelog = "/on/worklog/worklogId"
 }

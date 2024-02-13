@@ -54,9 +54,9 @@ final class OnboardingCustomView: UIView {
     }
 
     /// configure
-    func configure(imageName: String, text: String) {
+    func configure(imageName: String, text: NSAttributedString) {
         onboardingImageView.image = UIImage(named: imageName)
-        titleLabel.text = text
+        titleLabel.attributedText = text
     }
 }
 

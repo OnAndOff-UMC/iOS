@@ -2,7 +2,7 @@
 //  CellIdentifier.swift
 //  On_off_iOS
 //
-//  Created by 신예진 on 2/13/24.
+//  Created by 정호진 on 1/26/24.
 //
 
 import Foundation
@@ -18,7 +18,7 @@ enum CellIdentifier: String {
     case BookmarkTableViewCell
     case ModalSelectProfileTableViewCell // 프로필 설정
     
-    // MARK: - On UIView
+
     case ImageCollectionView
     case WorkLifeBalanceTableViewCell
 }

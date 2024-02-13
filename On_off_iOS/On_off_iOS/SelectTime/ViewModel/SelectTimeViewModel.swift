@@ -13,12 +13,10 @@ import UIKit
 /// SelectTimeViewModel
 final class SelectTimeViewModel {
     private let disposeBag = DisposeBag()
-    var navigationController: UINavigationController
     
     /// Input
     struct Input {
         let startButtonTapped: Observable<Void>
-        let nickNameTextChanged: Observable<String>
     }
     
     /// Output
@@ -26,12 +24,9 @@ final class SelectTimeViewModel {
         let nickNameFilteringRelay: BehaviorRelay<String> = BehaviorRelay<String>(value: "")
         let nickNameLength: PublishSubject<Int> = PublishSubject<Int>()
         let isCheckButtonEnabled: BehaviorRelay<Bool> = BehaviorRelay<Bool>(value: true)
+        let moveToNext = PublishSubject<Void>()
     }
-    
-    // MARK: - Init
-    init(navigationController: UINavigationController) {
-        self.navigationController = navigationController
-    }
+
     
     /// binding Input
     /// - Parameter
@@ -39,6 +34,11 @@ final class SelectTimeViewModel {
     /// - Returns: Output 구조체
     func bind(input: Input) -> Output {
         let output = Output()
+
+        input.startButtonTapped
+            .bind(to:output.moveToNext)
+                .disposed(by: disposeBag)
+        
         return output
     }
 }
