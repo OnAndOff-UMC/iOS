@@ -64,6 +64,8 @@ final class HomeViewModel {
         var toggleOnOffButtonRelay: BehaviorRelay<Bool> = BehaviorRelay(value: true)
         
         var selectedDayIndex: BehaviorRelay<IndexPath> = BehaviorRelay(value: IndexPath(item: 0, section: 0))
+        
+        var futureRelay: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     }
     
     /// Create Output
@@ -80,15 +82,23 @@ final class HomeViewModel {
         
         bindToggleOnOffButtonRelay(output: output)
         dayListRelay(output: output)
-        bindDayCollectionViewEvents(input: input, output: output)
+        bindSelectedDayIndexEvents(input: input, output: output)
         return output
     }
     
-    /// Bind Day Collection View Events
-    private func bindDayCollectionViewEvents(input: Input, output: Output) {
-//        input.dayCollectionViewEvents
-//            .bind(to: output.selectedDayIndex)
-//            .disposed(by: disposeBag)
+    /// Bind Selected Day Index Events
+    private func bindSelectedDayIndexEvents(input: Input, output: Output) {
+        input.dayCollectionViewEvents
+            .bind { [weak self] indexPath in
+                guard let self = self else { return }
+                let result = Date().dateCompare(fromDate: formatStringToDate(date: output.dayListRelay.value[indexPath.row].totalDate ?? ""))
+                if result == "Future" {
+                    output.futureRelay.accept(true)
+                    return
+                }
+                output.futureRelay.accept(false)
+            }
+            .disposed(by: disposeBag)
     }
     
     /// Bind Toggle When OnOffButton Touches

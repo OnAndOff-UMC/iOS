@@ -94,6 +94,19 @@ final class HomeViewController: UIViewController {
         return view
     }()
     
+    /// 미래로 간 뷰
+    private lazy var futureUIView: FutureUIView = {
+        let view = FutureUIView()
+        view.backgroundColor = .white
+        view.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
+        view.layer.cornerRadius = 25
+        
+        view.layer.shadowRadius = 10
+        view.layer.shadowOffset = CGSize(width: 0, height: -10)
+        view.layer.shadowOpacity = 0.5
+        return view
+    }()
+    
     private let disposeBag = DisposeBag()
     private let viewModel = HomeViewModel()
     
@@ -178,6 +191,22 @@ final class HomeViewController: UIViewController {
         }
     }
     
+    /// Future  UI Add View
+    private func addFutureSubViews() {
+        view.addSubview(futureUIView)
+        
+        futureConstraints()
+    }
+    
+    /// Future UI Constraints
+    private func futureConstraints() {
+        futureUIView.snp.makeConstraints { make in
+            make.top.equalTo(dayCollectionView.snp.bottom).offset(20)
+            make.horizontalEdges.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+    }
+    
     /// On  UI Add View
     private func addOnSubViews() {
         view.addSubview(onUIView)
@@ -209,6 +238,7 @@ final class HomeViewController: UIViewController {
         bindBackGroundColor(output: output)
         bindBlankViewShadowColor(output: output)
         bindToggleOnOffButton(output: output)
+        bindFutureRelay(output: output)
         bindClickImagePlusButton()
         bindClickImageButton()
         bindAddWorkLifeBalanceFeedButton()
@@ -320,15 +350,35 @@ final class HomeViewController: UIViewController {
         output.toggleOnOffButtonRelay
             .bind { [weak self] check in
                 guard let self = self else { return }
-                if check {
+                if check && !output.futureRelay.value {
                     offUIView.removeFromSuperview()
                     addOnSubViews()
+                } else if !output.futureRelay.value {
+                    onUIView.removeFromSuperview()
+                    addOffSubViews()
+                    offUIView.selectedDate.onNext(output.dayListRelay.value[output.selectedDayIndex.value.row].totalDate ?? "")
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    /// Bind Future Relay
+    private func bindFutureRelay(output: HomeViewModel.Output) {
+        output.futureRelay
+            .bind { [weak self] check in
+                guard let self = self else { return }
+                if check {  // 미래날짜로 갔을 때
+                    onUIView.removeFromSuperview()
+                    offUIView.removeFromSuperview()
+                    addFutureSubViews()
+                    onOffButton.isEnabled = false
+                    output.toggleOnOffButtonRelay.accept(true)
                     return
                 }
-                onUIView.removeFromSuperview()
-                addOffSubViews()
-                print(output.dayListRelay.value[output.selectedDayIndex.value.row].totalDate ?? "", "🐰")
-                offUIView.selectedDate.onNext(output.dayListRelay.value[output.selectedDayIndex.value.row].totalDate ?? "")
+                futureUIView.removeFromSuperview()
+                addOnSubViews()
+                onOffButton.isEnabled = true
+                output.toggleOnOffButtonRelay.accept(true)
             }
             .disposed(by: disposeBag)
     }

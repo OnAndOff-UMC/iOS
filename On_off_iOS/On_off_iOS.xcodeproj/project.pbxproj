@@ -147,6 +147,8 @@
 		3BEFD30D2B7AF53F00EE6EFF /* HomeViewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEFD30C2B7AF53F00EE6EFF /* HomeViewService.swift */; };
 		3BEFD30F2B7AF56300EE6EFF /* WeekDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEFD30E2B7AF56300EE6EFF /* WeekDay.swift */; };
 		3BEFD3112B7B13CE00EE6EFF /* MyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEFD3102B7B13CE00EE6EFF /* MyInfo.swift */; };
+		3BEFD3132B7BA2D700EE6EFF /* FutureUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEFD3122B7BA2D700EE6EFF /* FutureUIView.swift */; };
+		3BEFD3152B7BA75D00EE6EFF /* Ext + Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEFD3142B7BA75D00EE6EFF /* Ext + Date.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -273,6 +275,8 @@
 		3BEFD30C2B7AF53F00EE6EFF /* HomeViewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewService.swift; sourceTree = "<group>"; };
 		3BEFD30E2B7AF56300EE6EFF /* WeekDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekDay.swift; sourceTree = "<group>"; };
 		3BEFD3102B7B13CE00EE6EFF /* MyInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfo.swift; sourceTree = "<group>"; };
+		3BEFD3122B7BA2D700EE6EFF /* FutureUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureUIView.swift; sourceTree = "<group>"; };
+		3BEFD3142B7BA75D00EE6EFF /* Ext + Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext + Date.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -762,6 +766,7 @@
 				355283112B68CB70002BBFFD /* Ext + UIFont.swift */,
 				355283132B68CC94002BBFFD /* Ext + UIColor.swift */,
 				37C70B412B714C8B004CB0F6 /* Ext + NSAttributedString.swift */,
+				3BEFD3142B7BA75D00EE6EFF /* Ext + Date.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -782,6 +787,7 @@
 			children = (
 				3B0129CD2B624E8C00B191AD /* DayCollectionViewCell.swift */,
 				3B0129C22B623BB900B191AD /* HomeViewController.swift */,
+				3BEFD3122B7BA2D700EE6EFF /* FutureUIView.swift */,
 				3B3576482B78FD72008464AA /* DimmedViewController.swift */,
 			);
 			path = View;
@@ -1127,8 +1133,10 @@
 				3BEFD30D2B7AF53F00EE6EFF /* HomeViewService.swift in Sources */,
 				37CC77752B6F9620007999E5 /* KeyChain.swift in Sources */,
 				3B26CF3F2B7908D500E05581 /* DeletedImagePopUpViewModel.swift in Sources */,
+				3BEFD3132B7BA2D700EE6EFF /* FutureUIView.swift in Sources */,
 				3584F3AE2B5A5FEB007ACB57 /* (null) in Sources */,
 				37C161312B6BDF59000E0B21 /* KeychainWrapper.swift in Sources */,
+				3BEFD3152B7BA75D00EE6EFF /* Ext + Date.swift in Sources */,
 				3BB806D32B5021BC00555E58 /* StatisticsViewModel.swift in Sources */,
 				3B0129C82B6246E900B191AD /* Ext + UIImage.swift in Sources */,
 				378588F22B707F0A004E262F /* ModalSelectProfileViewModel.swift in Sources */,
