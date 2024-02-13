@@ -524,18 +524,3 @@ extension OffUIView: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat { 10 }
 }
-
-import SwiftUI
-struct VCPreViewHomeViewController:PreviewProvider {
-    static var previews: some View {
-        HomeViewController().toPreview().previewDevice("iPhone 15 Pro")
-        // 실행할 ViewController이름 구분해서 잘 지정하기
-    }
-}
-
-struct VCPreViewHomeViewController2:PreviewProvider {
-    static var previews: some View {
-        HomeViewController().toPreview().previewDevice("iPhone SE (3rd generation)")
-        // 실행할 ViewController이름 구분해서 잘 지정하기
-    }
-}
