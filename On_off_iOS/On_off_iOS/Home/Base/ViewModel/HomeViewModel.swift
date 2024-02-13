@@ -13,9 +13,12 @@ import UIKit
 
 final class HomeViewModel {
     private let disposeBag = DisposeBag()
+    private let service = HomeViewService()
     
     struct Input {
         let onOffButtonEvents: ControlEvent<Void>
+        
+        let dayCollectionViewEvents: ControlEvent<IndexPath>
     }
     
     struct Output {
@@ -42,6 +45,16 @@ final class HomeViewModel {
         /// Day Collection 배경 색
         var dayCollectionViewBackgroundColorRelay: BehaviorRelay<UIColor> = BehaviorRelay(value: UIColor.cyan)
         
+        /// Day Collection 배경 색
+        var dayCollectionTextColorRelay: BehaviorRelay<UIColor> = BehaviorRelay(value: UIColor.white)
+        
+        /// Day Collection 배경 색
+        var selectedDayCollectionViewBackgroundColorRelay: BehaviorRelay<UIColor> = BehaviorRelay(value: UIColor.OnOffMain)
+        
+        /// Day Collection 배경 색
+        var selectedDayCollectionTextColorRelay: BehaviorRelay<UIColor> = BehaviorRelay(value: UIColor.OnOffLightMain)
+        
+        
         /// On - Off 변하는 UIView 그림자 색
         var blankUIViewShadowColorRelay: BehaviorRelay<UIColor> = BehaviorRelay(value: UIColor.purple)
         
@@ -49,12 +62,16 @@ final class HomeViewModel {
         /// True: On
         /// False: Off
         var toggleOnOffButtonRelay: BehaviorRelay<Bool> = BehaviorRelay(value: true)
+        
+        var selectedDayIndex: BehaviorRelay<IndexPath> = BehaviorRelay(value: IndexPath(item: 0, section: 0))
+        
+        var futureRelay: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     }
     
     /// Create Output
     /// - Parameter input: Input
     /// - Returns: Output
-    func createOutput(input: Input) -> Output{
+    func createOutput(input: Input) -> Output {
         let output = Output()
         
         input.onOffButtonEvents
@@ -64,8 +81,24 @@ final class HomeViewModel {
             .disposed(by: disposeBag)
         
         bindToggleOnOffButtonRelay(output: output)
-        dummyDayListRelay(output: output)
+        dayListRelay(output: output)
+        bindSelectedDayIndexEvents(input: input, output: output)
         return output
+    }
+    
+    /// Bind Selected Day Index Events
+    private func bindSelectedDayIndexEvents(input: Input, output: Output) {
+        input.dayCollectionViewEvents
+            .bind { [weak self] indexPath in
+                guard let self = self else { return }
+                let result = Date().dateCompare(fromDate: formatStringToDate(date: output.dayListRelay.value[indexPath.row].totalDate ?? ""))
+                if result == "Future" {
+                    output.futureRelay.accept(true)
+                    return
+                }
+                output.futureRelay.accept(false)
+            }
+            .disposed(by: disposeBag)
     }
     
     /// Bind Toggle When OnOffButton Touches
@@ -73,6 +106,8 @@ final class HomeViewModel {
         output.toggleOnOffButtonRelay
             .bind { [weak self] check in
                 guard let self = self else { return }
+                dayListRelay(output: output)
+                getMyInformation(output: output)
                 
                 if check { // On 인경우
                     setUpWhenOn(output: output)
@@ -90,14 +125,11 @@ final class HomeViewModel {
         output.dayImageRelay.accept(UIImage(named: "sun"))
         output.buttonOnOffRelay.accept(UIImage(named: "on"))
         output.backgroundColorRelay.accept(.white)
-        output.titleRelay.accept(setTitleOptions(nickName: "조디조디조디조디조디", nickNameColor: .purple,
-                                                 subTitle: "님,\n오늘 하루도 파이팅!", subTitleColor: .black,
-                                                 output: output))
-        output.monthRelay.accept(setMonthOptions(month: "2023년 11월",
-                                                 monthColor: .purple,
-                                                 output: output))
+        output.blankUIViewShadowColorRelay.accept(.OnOffMain)
         output.dayCollectionViewBackgroundColorRelay.accept(.cyan)
-        output.blankUIViewShadowColorRelay.accept(.purple)
+        output.dayCollectionTextColorRelay.accept(.white)
+        output.selectedDayCollectionViewBackgroundColorRelay.accept(.OnOffMain)
+        output.selectedDayCollectionTextColorRelay.accept(.white)
     }
     
     /// Setting When Off
@@ -105,13 +137,10 @@ final class HomeViewModel {
         output.dayImageRelay.accept(UIImage(named: "moon"))
         output.buttonOnOffRelay.accept(UIImage(named: "off"))
         output.backgroundColorRelay.accept(.blue)
-        output.titleRelay.accept(setTitleOptions(nickName: "조디조디조디조디조디", nickNameColor: .cyan,
-                                                 subTitle:  "님,\n오늘 하루도 고생하셨어요", subTitleColor: .white,
-                                                 output: output))
-        output.monthRelay.accept(setMonthOptions(month: "2023년 11월",
-                                                 monthColor: .white,
-                                                 output: output))
-        output.dayCollectionViewBackgroundColorRelay.accept(.purple)
+        output.dayCollectionViewBackgroundColorRelay.accept(UIColor(hex: "#4417B8"))
+        output.dayCollectionTextColorRelay.accept(UIColor(hex: "#AB8AFF"))
+        output.selectedDayCollectionViewBackgroundColorRelay.accept(.white)
+        output.selectedDayCollectionTextColorRelay.accept(.OnOffMain)
         output.blankUIViewShadowColorRelay.accept(.white)
     }
     
@@ -162,15 +191,83 @@ final class HomeViewModel {
         return nickNameAttributedString
     }
     
-    /// Dummy About DayListRelay
-    private func dummyDayListRelay(output: Output) {
-        let list = [DayInfo(date: "20", day: "Mon"),
-                    DayInfo(date: "21", day: "Tue"),
-                    DayInfo(date: "22", day: "Wed"),
-                    DayInfo(date: "23", day: "Thr"),
-                    DayInfo(date: "24", day: "Fri"),
-                    DayInfo(date: "25", day: "Sat"),
-                    DayInfo(date: "26", day: "Sun")]
-        output.dayListRelay.accept(list)
+    /// Format Date To String
+    /// - Parameter date: Date
+    /// - Returns: String Type Date
+    private func formatDateToString(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy MM dd EEE"
+        return dateFormatter.string(from: date)
+    }
+    
+    /// Format Date To String
+    /// - Parameter date: Date
+    /// - Returns: String Type Date
+    private func formatStringToDate(date: String) -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.date(from: date) ?? Date()
+    }
+    
+    /// Format To Day Info
+    private func formatToDayInfo(date: String) -> DayInfo {
+        let formatDate = formatDateToString(date: formatStringToDate(date: date)).split(separator: " ")
+        return DayInfo(totalDate: date, date: "\(formatDate[2])", day: "\(formatDate[3])")
+    }
+    
+    /// 선택한 '월' 로 변경
+    private func formatSelectedMonth(monthColor: UIColor, output: Output) -> NSMutableAttributedString {
+        let totalDate = output.dayListRelay.value[output.selectedDayIndex.value.row].totalDate?.split(separator: "-")
+        return setMonthOptions(month: "\(totalDate?[0] ?? "")년 \(totalDate?[1] ?? "")월",
+                            monthColor: monthColor,
+                            output: output)
+    }
+    
+    /// Day List Relay
+    private func dayListRelay(output: Output) {
+        var list: [DayInfo] = []
+        
+        service.weekDayInit()
+            .subscribe(onNext: { [weak self] weekDay in
+                guard let self = self else { return }
+                list.append(formatToDayInfo(date: weekDay.monday ?? ""))
+                list.append(formatToDayInfo(date: weekDay.tuesday ?? ""))
+                list.append(formatToDayInfo(date: weekDay.wednesday ?? ""))
+                list.append(formatToDayInfo(date: weekDay.thursday ?? ""))
+                list.append(formatToDayInfo(date: weekDay.friday ?? ""))
+                list.append(formatToDayInfo(date: weekDay.saturday ?? ""))
+                list.append(formatToDayInfo(date: weekDay.sunday ?? ""))
+                
+                output.dayListRelay.accept(list)
+                if output.toggleOnOffButtonRelay.value {
+                    output.monthRelay.accept(formatSelectedMonth(monthColor: .OnOffMain, output: output))
+                    return
+                }
+                output.monthRelay.accept(formatSelectedMonth(monthColor: .white, output: output))
+            }, onError: { error in
+                print(#function, error)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    /// Get My Information
+    private func getMyInformation(output: Output) {
+        service.getMyNickName()
+            .subscribe(onNext: { [weak self] nickName in
+                guard let self = self else { return }
+                if output.toggleOnOffButtonRelay.value {
+                    output.titleRelay.accept(setTitleOptions(nickName: nickName, nickNameColor: .purple,
+                                                             subTitle: "님,\n오늘 하루도 파이팅!", subTitleColor: .black,
+                                                             output: output))
+                    return
+                }
+                output.titleRelay.accept(setTitleOptions(nickName: nickName, nickNameColor: .cyan,
+                                                         subTitle: "님,\n오늘 하루도 고생하셨어요", subTitleColor: .white,
+                                                         output: output))
+            }, onError: { error in
+                print(#function, error)
+            })
+            .disposed(by: disposeBag)
     }
 }

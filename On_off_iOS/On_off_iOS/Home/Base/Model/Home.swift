@@ -8,6 +8,9 @@
 import Foundation
 
 struct DayInfo {
+    /// 전체 날짜
+    let totalDate: String?
+    
     /// 일, 숫자
     let date: String?
     

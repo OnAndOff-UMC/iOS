@@ -115,6 +115,21 @@
 		3B0129CC2B624D6000B191AD /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0129CB2B624D6000B191AD /* Home.swift */; };
 		3B0129CE2B624E8D00B191AD /* DayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0129CD2B624E8C00B191AD /* DayCollectionViewCell.swift */; };
 		3B1658F72B4D8559004EFBC3 /* WeekChartCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1658F62B4D8559004EFBC3 /* WeekChartCustomView.swift */; };
+		3B26CF3F2B7908D500E05581 /* DeletedImagePopUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B26CF3E2B7908D400E05581 /* DeletedImagePopUpViewModel.swift */; };
+		3B26CF442B790A4700E05581 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B26CF432B790A4700E05581 /* Image.swift */; };
+		3B26CF462B7919C100E05581 /* InsertWorkLifeBalanceFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B26CF452B7919C100E05581 /* InsertWorkLifeBalanceFeedView.swift */; };
+		3B26CF482B79246100E05581 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3B26CF472B79246100E05581 /* Config.xcconfig */; };
+		3B26CF4A2B79EF2600E05581 /* InsertWorkLifeBalanceFeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B26CF492B79EF2600E05581 /* InsertWorkLifeBalanceFeedViewModel.swift */; };
+		3B26CF4C2B79F3F800E05581 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B26CF4B2B79F3F800E05581 /* Feed.swift */; };
+		3B26CF4E2B79F44A00E05581 /* InsertWorkLifeBalanceFeedService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B26CF4D2B79F44A00E05581 /* InsertWorkLifeBalanceFeedService.swift */; };
+		3B26CF502B79FDC600E05581 /* WorkLifeBalanceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B26CF4F2B79FDC600E05581 /* WorkLifeBalanceTableViewCell.swift */; };
+		3B2D93022B77C91B00D88787 /* OffUIViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2D93012B77C91B00D88787 /* OffUIViewModel.swift */; };
+		3B2D93042B77CB9800D88787 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2D93032B77CB9800D88787 /* ImageCollectionViewCell.swift */; };
+		3B35763F2B78BDEF008464AA /* OffUIViewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B35763E2B78BDEF008464AA /* OffUIViewService.swift */; };
+		3B3576422B78BF17008464AA /* Mantis in Frameworks */ = {isa = PBXBuildFile; productRef = 3B3576412B78BF17008464AA /* Mantis */; };
+		3B3576442B78F5B1008464AA /* WatchPictureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3576432B78F5B1008464AA /* WatchPictureController.swift */; };
+		3B3576492B78FD72008464AA /* DimmedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3576482B78FD72008464AA /* DimmedViewController.swift */; };
+		3B35764B2B78FDAB008464AA /* DeletedImagePopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B35764A2B78FDAB008464AA /* DeletedImagePopUpView.swift */; };
 		3B42300E2B41572200D0B038 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B42300D2B41572200D0B038 /* AppDelegate.swift */; };
 		3B4230102B41572200D0B038 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B42300F2B41572200D0B038 /* SceneDelegate.swift */; };
 		3B4230172B41572400D0B038 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B4230162B41572400D0B038 /* Assets.xcassets */; };
@@ -122,13 +137,24 @@
 		3B51B5272B63DF9500E5FEF9 /* CellIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B51B5262B63DF9500E5FEF9 /* CellIdentifier.swift */; };
 		3B8570CB2B582B4E000BC503 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 3B8570CA2B582B4E000BC503 /* FSCalendar */; };
 		3B9C89D12B4AED7C0083CF44 /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9C89D02B4AED7C0083CF44 /* StatisticsViewController.swift */; };
+		3BB7D07F2B64EB31002F1860 /* OffUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB7D07E2B64EB31002F1860 /* OffUIView.swift */; };
 		3BB806D02B5012F400555E58 /* DayChartCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB806CF2B5012F400555E58 /* DayChartCustomView.swift */; };
 		3BB806D32B5021BC00555E58 /* StatisticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB806D22B5021BC00555E58 /* StatisticsViewModel.swift */; };
 		3BB806D62B50228100555E58 /* DayStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB806D52B50228100555E58 /* DayStatistics.swift */; };
 		3BB806D82B5024BC00555E58 /* MonthStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB806D72B5024BC00555E58 /* MonthStatistics.swift */; };
+		3BD415C42B7A3ED800BAB0DC /* ClickWorkLifeBalanceFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD415C32B7A3ED800BAB0DC /* ClickWorkLifeBalanceFeedView.swift */; };
+		3BD415C62B7A483D00BAB0DC /* FeedOptionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD415C52B7A483D00BAB0DC /* FeedOptionButton.swift */; };
+		3BD415C82B7A54CF00BAB0DC /* ClickWorkLifeBalanceFeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD415C72B7A54CF00BAB0DC /* ClickWorkLifeBalanceFeedViewModel.swift */; };
+		3BD415CA2B7A563600BAB0DC /* ClickWorkLifeBalanceFeedService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD415C92B7A563600BAB0DC /* ClickWorkLifeBalanceFeedService.swift */; };
 		3BD552662B58FA8C0043920E /* RateFillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD552652B58FA8C0043920E /* RateFillView.swift */; };
 		3BD552682B58FCF70043920E /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD552672B58FCF70043920E /* CalendarCell.swift */; };
 		3BD5526A2B5914B10043920E /* CalendarStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD552692B5914B10043920E /* CalendarStatistics.swift */; };
+		3BEFD30D2B7AF53F00EE6EFF /* HomeViewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEFD30C2B7AF53F00EE6EFF /* HomeViewService.swift */; };
+		3BEFD30F2B7AF56300EE6EFF /* WeekDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEFD30E2B7AF56300EE6EFF /* WeekDay.swift */; };
+		3BEFD3112B7B13CE00EE6EFF /* MyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEFD3102B7B13CE00EE6EFF /* MyInfo.swift */; };
+		3BEFD3132B7BA2D700EE6EFF /* FutureUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEFD3122B7BA2D700EE6EFF /* FutureUIView.swift */; };
+		3BEFD3152B7BA75D00EE6EFF /* Ext + Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEFD3142B7BA75D00EE6EFF /* Ext + Date.swift */; };
+		3BEFD3172B7BAE8500EE6EFF /* MemoirPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEFD3162B7BAE8500EE6EFF /* MemoirPreview.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -223,6 +249,20 @@
 		3B0129CB2B624D6000B191AD /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		3B0129CD2B624E8C00B191AD /* DayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCollectionViewCell.swift; sourceTree = "<group>"; };
 		3B1658F62B4D8559004EFBC3 /* WeekChartCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekChartCustomView.swift; sourceTree = "<group>"; };
+		3B26CF3E2B7908D400E05581 /* DeletedImagePopUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedImagePopUpViewModel.swift; sourceTree = "<group>"; };
+		3B26CF432B790A4700E05581 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
+		3B26CF452B7919C100E05581 /* InsertWorkLifeBalanceFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertWorkLifeBalanceFeedView.swift; sourceTree = "<group>"; };
+		3B26CF472B79246100E05581 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		3B26CF492B79EF2600E05581 /* InsertWorkLifeBalanceFeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertWorkLifeBalanceFeedViewModel.swift; sourceTree = "<group>"; };
+		3B26CF4B2B79F3F800E05581 /* Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
+		3B26CF4D2B79F44A00E05581 /* InsertWorkLifeBalanceFeedService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertWorkLifeBalanceFeedService.swift; sourceTree = "<group>"; };
+		3B26CF4F2B79FDC600E05581 /* WorkLifeBalanceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkLifeBalanceTableViewCell.swift; sourceTree = "<group>"; };
+		3B2D93012B77C91B00D88787 /* OffUIViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffUIViewModel.swift; sourceTree = "<group>"; };
+		3B2D93032B77CB9800D88787 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		3B35763E2B78BDEF008464AA /* OffUIViewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffUIViewService.swift; sourceTree = "<group>"; };
+		3B3576432B78F5B1008464AA /* WatchPictureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchPictureController.swift; sourceTree = "<group>"; };
+		3B3576482B78FD72008464AA /* DimmedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimmedViewController.swift; sourceTree = "<group>"; };
+		3B35764A2B78FDAB008464AA /* DeletedImagePopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedImagePopUpView.swift; sourceTree = "<group>"; };
 		3B42300A2B41572200D0B038 /* On_off_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = On_off_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B42300D2B41572200D0B038 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3B42300F2B41572200D0B038 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -231,13 +271,24 @@
 		3B42301B2B41572400D0B038 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3B51B5262B63DF9500E5FEF9 /* CellIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellIdentifier.swift; sourceTree = "<group>"; };
 		3B9C89D02B4AED7C0083CF44 /* StatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewController.swift; sourceTree = "<group>"; };
+		3BB7D07E2B64EB31002F1860 /* OffUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffUIView.swift; sourceTree = "<group>"; };
 		3BB806CF2B5012F400555E58 /* DayChartCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayChartCustomView.swift; sourceTree = "<group>"; };
 		3BB806D22B5021BC00555E58 /* StatisticsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewModel.swift; sourceTree = "<group>"; };
 		3BB806D52B50228100555E58 /* DayStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayStatistics.swift; sourceTree = "<group>"; };
 		3BB806D72B5024BC00555E58 /* MonthStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthStatistics.swift; sourceTree = "<group>"; };
+		3BD415C32B7A3ED800BAB0DC /* ClickWorkLifeBalanceFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickWorkLifeBalanceFeedView.swift; sourceTree = "<group>"; };
+		3BD415C52B7A483D00BAB0DC /* FeedOptionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedOptionButton.swift; sourceTree = "<group>"; };
+		3BD415C72B7A54CF00BAB0DC /* ClickWorkLifeBalanceFeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickWorkLifeBalanceFeedViewModel.swift; sourceTree = "<group>"; };
+		3BD415C92B7A563600BAB0DC /* ClickWorkLifeBalanceFeedService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickWorkLifeBalanceFeedService.swift; sourceTree = "<group>"; };
 		3BD552652B58FA8C0043920E /* RateFillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateFillView.swift; sourceTree = "<group>"; };
 		3BD552672B58FCF70043920E /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		3BD552692B5914B10043920E /* CalendarStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarStatistics.swift; sourceTree = "<group>"; };
+		3BEFD30C2B7AF53F00EE6EFF /* HomeViewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewService.swift; sourceTree = "<group>"; };
+		3BEFD30E2B7AF56300EE6EFF /* WeekDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekDay.swift; sourceTree = "<group>"; };
+		3BEFD3102B7B13CE00EE6EFF /* MyInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfo.swift; sourceTree = "<group>"; };
+		3BEFD3122B7BA2D700EE6EFF /* FutureUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureUIView.swift; sourceTree = "<group>"; };
+		3BEFD3142B7BA75D00EE6EFF /* Ext + Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext + Date.swift"; sourceTree = "<group>"; };
+		3BEFD3162B7BAE8500EE6EFF /* MemoirPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoirPreview.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -269,6 +320,7 @@
 				37C161422B6BE77A000E0B21 /* KakaoSDKAuth in Frameworks */,
 				37C1614E2B6BE77A000E0B21 /* KakaoSDKNavi in Frameworks */,
 				37C161652B6BEDED000E0B21 /* RxKakaoSDKShare in Frameworks */,
+				3B3576422B78BF17008464AA /* Mantis in Frameworks */,
 				37C161462B6BE77A000E0B21 /* KakaoSDKCertCore in Frameworks */,
 				37C161442B6BE77A000E0B21 /* KakaoSDKCert in Frameworks */,
 			);
@@ -732,6 +784,7 @@
 		3B0129C12B623BA900B191AD /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				3B3576452B78FD11008464AA /* Off */,
 				3B0129CF2B62BA8100B191AD /* Base */,
 			);
 			path = Home;
@@ -745,6 +798,7 @@
 				355283112B68CB70002BBFFD /* Ext + UIFont.swift */,
 				355283132B68CC94002BBFFD /* Ext + UIColor.swift */,
 				37C70B412B714C8B004CB0F6 /* Ext + NSAttributedString.swift */,
+				3BEFD3142B7BA75D00EE6EFF /* Ext + Date.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -752,6 +806,7 @@
 		3B0129CF2B62BA8100B191AD /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				3BEFD30B2B7AF53500EE6EFF /* Service */,
 				3B0129D22B62BA9100B191AD /* Model */,
 				3B0129D12B62BA8E00B191AD /* ViewModel */,
 				3B0129D02B62BA8A00B191AD /* View */,
@@ -764,6 +819,8 @@
 			children = (
 				3B0129CD2B624E8C00B191AD /* DayCollectionViewCell.swift */,
 				3B0129C22B623BB900B191AD /* HomeViewController.swift */,
+				3BEFD3122B7BA2D700EE6EFF /* FutureUIView.swift */,
+				3B3576482B78FD72008464AA /* DimmedViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -780,8 +837,67 @@
 			isa = PBXGroup;
 			children = (
 				3B0129CB2B624D6000B191AD /* Home.swift */,
+				3BEFD30E2B7AF56300EE6EFF /* WeekDay.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		3B26CF422B790A3F00E05581 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3B26CF432B790A4700E05581 /* Image.swift */,
+				3B26CF4B2B79F3F800E05581 /* Feed.swift */,
+				3BEFD3102B7B13CE00EE6EFF /* MyInfo.swift */,
+				3BEFD3162B7BAE8500EE6EFF /* MemoirPreview.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		3B35763D2B78BDE5008464AA /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				3B35763E2B78BDEF008464AA /* OffUIViewService.swift */,
+				3B26CF4D2B79F44A00E05581 /* InsertWorkLifeBalanceFeedService.swift */,
+				3BD415C92B7A563600BAB0DC /* ClickWorkLifeBalanceFeedService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		3B3576452B78FD11008464AA /* Off */ = {
+			isa = PBXGroup;
+			children = (
+				3B26CF422B790A3F00E05581 /* Model */,
+				3B35763D2B78BDE5008464AA /* Service */,
+				3B3576472B78FD31008464AA /* ViewModel */,
+				3B3576462B78FD28008464AA /* View */,
+			);
+			path = Off;
+			sourceTree = "<group>";
+		};
+		3B3576462B78FD28008464AA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3BB7D07E2B64EB31002F1860 /* OffUIView.swift */,
+				3B26CF4F2B79FDC600E05581 /* WorkLifeBalanceTableViewCell.swift */,
+				3B26CF452B7919C100E05581 /* InsertWorkLifeBalanceFeedView.swift */,
+				3B3576432B78F5B1008464AA /* WatchPictureController.swift */,
+				3B2D93032B77CB9800D88787 /* ImageCollectionViewCell.swift */,
+				3B35764A2B78FDAB008464AA /* DeletedImagePopUpView.swift */,
+				3BD415C32B7A3ED800BAB0DC /* ClickWorkLifeBalanceFeedView.swift */,
+				3BD415C52B7A483D00BAB0DC /* FeedOptionButton.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3B3576472B78FD31008464AA /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				3B2D93012B77C91B00D88787 /* OffUIViewModel.swift */,
+				3B26CF3E2B7908D400E05581 /* DeletedImagePopUpViewModel.swift */,
+				3B26CF492B79EF2600E05581 /* InsertWorkLifeBalanceFeedViewModel.swift */,
+				3BD415C72B7A54CF00BAB0DC /* ClickWorkLifeBalanceFeedViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		3B4230012B41572200D0B038 = {
@@ -878,6 +994,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		3BEFD30B2B7AF53500EE6EFF /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				3BEFD30C2B7AF53F00EE6EFF /* HomeViewService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -921,6 +1045,7 @@
 				37C161642B6BEDED000E0B21 /* RxKakaoSDKShare */,
 				37A1E9852B6C821A0013FFD7 /* RxGesture */,
 				37AEB1EB2B6CEE0E00A6CDD6 /* Kingfisher */,
+				3B3576412B78BF17008464AA /* Mantis */,
 			);
 			productName = On_off_iOS;
 			productReference = 3B42300A2B41572200D0B038 /* On_off_iOS.app */;
@@ -960,6 +1085,7 @@
 				37C1615B2B6BEDED000E0B21 /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */,
 				37A1E9842B6C821A0013FFD7 /* XCRemoteSwiftPackageReference "RxGesture" */,
 				37AEB1EA2B6CEE0E00A6CDD6 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				3B3576402B78BF17008464AA /* XCRemoteSwiftPackageReference "Mantis" */,
 			);
 			productRefGroup = 3B42300B2B41572200D0B038 /* Products */;
 			projectDirPath = "";
@@ -999,10 +1125,12 @@
 				370826212B669BFC00FBCAAF /* UICalculate+Ex.swift in Sources */,
 				3787D00F2B42AD6F00F054DD /* OnBoardingViewModel.swift in Sources */,
 				371B9EC32B5B076E006AC06D /* WriteLearnedViewModel.swift in Sources */,
+				3B26CF462B7919C100E05581 /* InsertWorkLifeBalanceFeedView.swift in Sources */,
 				374FD49F2B42825B00F2E645 /* CustomPageControl.swift in Sources */,
 				37C161232B6BD9F8000E0B21 /* LoginViewModel.swift in Sources */,
 				355283122B68CB70002BBFFD /* Ext + UIFont.swift in Sources */,
 				37FED60D2B6E29070071BB23 /* BookmarkTableViewCell.swift in Sources */,
+				3B26CF502B79FDC600E05581 /* WorkLifeBalanceTableViewCell.swift in Sources */,
 				355283142B68CC94002BBFFD /* Ext + UIColor.swift in Sources */,
 				3769A6862B58563000D79C33 /* SelectTimeViewModel.swift in Sources */,
 				374FD4A42B4297BE00F2E645 /* OnBoardingViewController.swift in Sources */,
@@ -1022,21 +1150,32 @@
 				37DEF20D2B66B31D00AF47DB /* MemoirsCompleteViewController.swift in Sources */,
 				371B9EBB2B5B0737006AC06D /* WritePraisedViewController.swift in Sources */,
 				3769A68E2B585B6600D79C33 /* DayButton.swift in Sources */,
+				3BEFD3172B7BAE8500EE6EFF /* MemoirPreview.swift in Sources */,
+				3BD415C82B7A54CF00BAB0DC /* ClickWorkLifeBalanceFeedViewModel.swift in Sources */,
+				3B35764B2B78FDAB008464AA /* DeletedImagePopUpView.swift in Sources */,
 				37CC77792B6FA864007999E5 /* ModalEmoticonDelegate.swift in Sources */,
 				3B0129CE2B624E8D00B191AD /* DayCollectionViewCell.swift in Sources */,
 				37CFD3022B66534400E00D92 /* ExpressedIconViewModel.swift in Sources */,
 				3769A6912B585BDE00D79C33 /* DayModel.swift in Sources */,
 				37B890742B6A1ECD008A8BBC /* Domain.swift in Sources */,
 				3B0129CC2B624D6000B191AD /* Home.swift in Sources */,
+				3B2D93042B77CB9800D88787 /* ImageCollectionViewCell.swift in Sources */,
 				371B9EBF2B5B075A006AC06D /* WriteImprovementViewController.swift in Sources */,
+				3B26CF4A2B79EF2600E05581 /* InsertWorkLifeBalanceFeedViewModel.swift in Sources */,
 				374FD49D2B4281E100F2E645 /* OnboardingCustomView.swift in Sources */,
 				3BB806D82B5024BC00555E58 /* MonthStatistics.swift in Sources */,
+				3BEFD30D2B7AF53F00EE6EFF /* HomeViewService.swift in Sources */,
 				37CC77752B6F9620007999E5 /* KeyChain.swift in Sources */,
+				3B26CF3F2B7908D500E05581 /* DeletedImagePopUpViewModel.swift in Sources */,
+				3BEFD3132B7BA2D700EE6EFF /* FutureUIView.swift in Sources */,
 				3584F3AE2B5A5FEB007ACB57 /* (null) in Sources */,
 				37C161312B6BDF59000E0B21 /* KeychainWrapper.swift in Sources */,
+				3BEFD3152B7BA75D00EE6EFF /* Ext + Date.swift in Sources */,
 				3BB806D32B5021BC00555E58 /* StatisticsViewModel.swift in Sources */,
 				3B0129C82B6246E900B191AD /* Ext + UIImage.swift in Sources */,
 				378588F22B707F0A004E262F /* ModalSelectProfileViewModel.swift in Sources */,
+				3B26CF4E2B79F44A00E05581 /* InsertWorkLifeBalanceFeedService.swift in Sources */,
+				3BEFD3112B7B13CE00EE6EFF /* MyInfo.swift in Sources */,
 				3B4230102B41572200D0B038 /* SceneDelegate.swift in Sources */,
 				3584F3AC2B5A5CC7007ACB57 /* (null) in Sources */,
 				371B9EAC2B5AFD37006AC06D /* StartToWriteViewController.swift in Sources */,
@@ -1051,9 +1190,12 @@
 				371B9EA72B5AD838006AC06D /* MemoirsViewController.swift in Sources */,
 				371B9EAE2B5AFD42006AC06D /* StartToWriteViewModel.swift in Sources */,
 				378588F72B708701004E262F /* ProfileDataType.swift in Sources */,
+				3BEFD30F2B7AF56300EE6EFF /* WeekDay.swift in Sources */,
 				37BD17702B764B2800A4EA46 /* LaunchViewModel.swift in Sources */,
 				37CFD3002B66533900E00D92 /* ExpressedIconViewController.swift in Sources */,
 				37AEB1EE2B6CF3F400A6CDD6 /* ModalEmoticonViewModel.swift in Sources */,
+				3B2D93022B77C91B00D88787 /* OffUIViewModel.swift in Sources */,
+				3B26CF442B790A4700E05581 /* Image.swift in Sources */,
 				378588F92B708F99004E262F /* ModalSelectProfileTableViewCell.swift in Sources */,
 				3787D00A2B429F1700F054DD /* LaunchViewController.swift in Sources */,
 				3BD552682B58FCF70043920E /* CalendarCell.swift in Sources */,
@@ -1063,23 +1205,31 @@
 				37FED6072B6E23560071BB23 /* BookmarkViewController.swift in Sources */,
 				3BD552662B58FA8C0043920E /* RateFillView.swift in Sources */,
 				35AC0F502B64025300AB0A6B /* TabItem.swift in Sources */,
+				3BD415C62B7A483D00BAB0DC /* FeedOptionButton.swift in Sources */,
 				3BD5526A2B5914B10043920E /* CalendarStatistics.swift in Sources */,
 				37DEF20F2B66B32A00AF47DB /* MemoirsCompleteViewModel.swift in Sources */,
+				3BD415CA2B7A563600BAB0DC /* ClickWorkLifeBalanceFeedService.swift in Sources */,
 				3B9C89D12B4AED7C0083CF44 /* StatisticsViewController.swift in Sources */,
 				37AEB1F52B6CFE6C00A6CDD6 /* MemoirsProtocol.swift in Sources */,
 				37C1613A2B6BE43A000E0B21 /* SignUpProtocol.swift in Sources */,
 				37DC38AB2B79F950003CBBFB /* ModalMenuOptionViewController.swift in Sources */,
 				37A1E9942B6CDAD70013FFD7 /* ModalEmoticonViewController.swift in Sources */,
 				378588FB2B7092F7004E262F /* ModalSelectProfileDelegate.swift in Sources */,
+				3BD415C42B7A3ED800BAB0DC /* ClickWorkLifeBalanceFeedView.swift in Sources */,
+				3B3576442B78F5B1008464AA /* WatchPictureController.swift in Sources */,
 				3B0129C62B6242F800B191AD /* Ext + ViewController.swift in Sources */,
+				3B26CF4C2B79F3F800E05581 /* Feed.swift in Sources */,
+				3B3576492B78FD72008464AA /* DimmedViewController.swift in Sources */,
 				371B9EC52B5B0B61006AC06D /* WriteLearnedViewController.swift in Sources */,
 				3BB806D02B5012F400555E58 /* DayChartCustomView.swift in Sources */,
+				3BB7D07F2B64EB31002F1860 /* OffUIView.swift in Sources */,
 				3B0129CA2B624CAE00B191AD /* HomeViewModel.swift in Sources */,
 				37FED6092B6E235D0071BB23 /* BookmarkViewModel.swift in Sources */,
 				37A1E98D2B6CCC020013FFD7 /* Memoirs.swift in Sources */,
 				37DC38A72B79E548003CBBFB /* InquireMemoirsViewModel.swift in Sources */,
 				3BB806D62B50228100555E58 /* DayStatistics.swift in Sources */,
 				37DC38AD2B79FC39003CBBFB /* ModalMenuOptionDelegate.swift in Sources */,
+				3B35763F2B78BDEF008464AA /* OffUIViewService.swift in Sources */,
 				371B9EA92B5AD847006AC06D /* MemoirsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1374,6 +1524,14 @@
 				minimumVersion = 2.20.0;
 			};
 		};
+		3B3576402B78BF17008464AA /* XCRemoteSwiftPackageReference "Mantis" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/guoyingtao/Mantis.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.7.5;
+			};
+		};
 		3B8570C92B582B4E000BC503 /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/WenchaoD/FSCalendar.git";
@@ -1509,6 +1667,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 37C1615B2B6BEDED000E0B21 /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */;
 			productName = RxKakaoSDKShare;
+		};
+		3B3576412B78BF17008464AA /* Mantis */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3B3576402B78BF17008464AA /* XCRemoteSwiftPackageReference "Mantis" */;
+			productName = Mantis;
 		};
 		3B8570CA2B582B4E000BC503 /* FSCalendar */ = {
 			isa = XCSwiftPackageProductDependency;

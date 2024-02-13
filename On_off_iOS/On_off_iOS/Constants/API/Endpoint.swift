@@ -26,4 +26,21 @@ enum MemoirsPath: String {
     case memoirsRevise = "/memoirs/MEMOIRID" // 회고록 수정
     case bookMark = "/memoirs/MEMOIRID/bookmark" // 북마크 체크
     case getEmoticon = "/emoticons"
+    case preview = "/memoirs/previews?date=DATE"
+}
+
+enum FeedPath: String {
+    case feedImage = "/feed-images"
+    case workLifeBalacne = "/feeds?date=DATE"
+    case checkWLB = "/feeds/FEEDID/check"
+    case delayTomorrow = "/feeds/FEEDID/delay"
+    case delete = "/feeds/FEEDID"
+}
+
+enum WeekDayPath: String {
+    case weekdayInit = "/weekdays/init"
+}
+
+enum MyPage: String {
+    case myInfo = "/users/information"
 }
