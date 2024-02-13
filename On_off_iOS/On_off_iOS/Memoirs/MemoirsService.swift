@@ -40,6 +40,34 @@ final class MemoirsService: MemoirsProtocol {
         }
     }
     
+    /// 회고록 수정하기
+    func reviceMemoirs(request: MemoirRequest, memoirId: Int) -> RxSwift.Observable<MemoirResponse> {
+        let url = Domain.RESTAPI + MemoirsPath.memoirsRevice.rawValue
+            .replacingOccurrences(of: "MEMOIRID", with: String(memoirId))
+        let headers = Header.header.getHeader()
+        
+        return Observable.create { observer in
+            AF.request(url,
+                       method: .patch,
+                       parameters: request,
+                       encoder: JSONParameterEncoder.default,
+                       headers: headers)
+            .validate(statusCode: 200..<201)
+            .responseDecodable(of: MemoirResponse.self) { response in
+                print(request)
+                
+                switch response.result {
+                case .success(let data):
+                    observer.onNext(data)
+                case .failure(let error):
+                    observer.onError(error)
+                }
+                print(response)
+            }
+            return Disposables.create()
+        }
+    }
+    
     /// 이모티콘 띄우기
     func getEmoticon() -> RxSwift.Observable<EmoticonResponse> {
         let url = Domain.RESTAPI + MemoirsPath.getEmoticon.rawValue

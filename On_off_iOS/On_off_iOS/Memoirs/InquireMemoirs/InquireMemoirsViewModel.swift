@@ -20,16 +20,17 @@ final class InquireMemoirsViewModel {
     struct Input {
         let bookMarkButtonTapped: Observable<Void>
         let menuButtonTapped: Observable<Void>
+        let reviceButtonTapped: Observable<Void>
         let memoirId: Int
         let memoirInquiry: Observable<Void>
-        let toggleEditing: Observable<Void>     }
+        let toggleEditing: Observable<Void>
+    }
     
     // Output 구조체 정의
     struct Output {
         let updateBookmarkStatus: Observable<Bool>
         let memoirInquiryResult: Observable<MemoirResponse>
         let isEditing: Observable<Bool> // 편집 모드 상태
-
     }
     
     // Input을 받아 Output을 반환하는 bind 함수

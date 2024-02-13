@@ -170,7 +170,7 @@ final class InquireMemoirsViewController: UIViewController {
     
     private var viewModel: InquireMemoirsViewModel
     private let disposeBag = DisposeBag()
-
+    
     // MARK: - Init
     init(viewModel: InquireMemoirsViewModel) {
         self.viewModel = viewModel
@@ -304,6 +304,7 @@ final class InquireMemoirsViewController: UIViewController {
         let input = InquireMemoirsViewModel.Input(
             bookMarkButtonTapped: bookmarkButton.rx.tap.asObservable(),
             menuButtonTapped: menuButton.rx.tap.asObservable(),
+            reviceButtonTapped: menuButton.rx.tap.asObservable(),
             memoirId: 8,
             memoirInquiry: Observable.just(()),
             toggleEditing: toggleEditing.asObservable()
@@ -331,10 +332,10 @@ final class InquireMemoirsViewController: UIViewController {
                 self?.learnedTextField.isEnabled = isEditing
                 self?.praisedTextField.isEnabled = isEditing
                 self?.improvementTextField.isEnabled = isEditing
-                // "완료" 버튼 토글 로직 추가 필요
+                
             })
             .disposed(by: disposeBag)
-                
+        
         
         menuButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
@@ -343,8 +344,6 @@ final class InquireMemoirsViewController: UIViewController {
             .disposed(by: disposeBag)
         
     }
-    
-    
     
     private func updateUIWithMemoirResponse(_ response: MemoirResponse) {
         
@@ -379,20 +378,20 @@ final class InquireMemoirsViewController: UIViewController {
     private func presentActionSheet() {
         
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-
+        
         let editAction = UIAlertAction(title: "수정하기", style: .default) { [weak self] _ in
             self?.toggleEditingMode(isEditing: true)
         }
         
         let deleteAction = UIAlertAction(title: "삭제하기", style: .destructive) { [weak self] _ in
         }
-
+        
         let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
-
+        
         actionSheet.addAction(editAction)
         actionSheet.addAction(deleteAction)
         actionSheet.addAction(cancelAction)
-
+        
         if let popoverController = actionSheet.popoverPresentationController {
             popoverController.barButtonItem = menuButton
         }
@@ -405,22 +404,22 @@ final class InquireMemoirsViewController: UIViewController {
         navigationItem.rightBarButtonItems = [menuButton, bookmarkButton]
     }
     private func toggleEditingMode(isEditing: Bool) {
-            // 텍스트 필드 편집 가능 상태 변경
-            learnedTextField.isEnabled = isEditing
-            praisedTextField.isEnabled = isEditing
-            improvementTextField.isEnabled = isEditing
-            
-            // 네비게이션 바 업데이트
-            updateNavigationBar(isEditing: isEditing)
+        // 텍스트 필드 편집 가능 상태 변경
+        learnedTextField.isEnabled = isEditing
+        praisedTextField.isEnabled = isEditing
+        improvementTextField.isEnabled = isEditing
+        
+        // 네비게이션 바 업데이트
+        updateNavigationBar(isEditing: isEditing)
+    }
+    
+    private func updateNavigationBar(isEditing: Bool) {
+        if isEditing {
+            navigationItem.rightBarButtonItems = [reviceButton]
+        } else {
+            navigationItem.rightBarButtonItems = [menuButton, bookmarkButton]
         }
-
-        private func updateNavigationBar(isEditing: Bool) {
-            if isEditing {
-                navigationItem.rightBarButtonItems = [reviceButton]
-            } else {
-                navigationItem.rightBarButtonItems = [menuButton, bookmarkButton]
-            }
-        }
+    }
     
     // 키보드내리기
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

@@ -46,7 +46,6 @@ struct Response<T: Codable>: Codable {
     let result: T
 }
 
-
 struct TokenResult: Codable {
     let accessToken: String
     let refreshToken: String

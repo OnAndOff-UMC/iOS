@@ -96,6 +96,5 @@ final class ModalMenuOptionViewController: UIViewController {
             make.centerX.equalToSuperview().offset(10)
             make.bottom.equalToSuperview().inset(100)
         }
-        
     }
 }
