@@ -70,4 +70,29 @@ final class InquireMemoirsViewModel {
                       memoirInquiryResult: memoirInquiryResult,
                       isEditing: isEditingRelay.asObservable())
     }
+    
+    
+    private func sendReviceMemoirsData() -> Observable<Bool> {
+        let answer1 = KeychainWrapper.loadItem(forKey: MemoirsKeyChain.MemoirsAnswer1.rawValue) ?? ""
+        let answer2 = KeychainWrapper.loadItem(forKey: MemoirsKeyChain.MemoirsAnswer2.rawValue) ?? ""
+        let answer3 = KeychainWrapper.loadItem(forKey: MemoirsKeyChain.MemoirsAnswer3.rawValue) ?? ""
+        let emoticonId = KeychainWrapper.loadItem(forKey: MemoirsKeyChain.emoticonID.rawValue) ?? "1"
+        let today = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        let dateString = formatter.string(from: today)
+        
+        let request = MemoirRequest(
+            date: dateString,
+            emoticonId: Int(emoticonId) ?? 1,
+            memoirAnswerList: [
+                MemoirRequest.MemoirAnswer(questionId: 1, answer: answer1),
+                MemoirRequest.MemoirAnswer(questionId: 2, answer: answer2),
+                MemoirRequest.MemoirAnswer(questionId: 3, answer: answer3)
+            ]
+        )
+        return memoirsService.saveMemoirs(request: request)
+            .map { _ -> Bool in true }
+            .catchAndReturn(false)
+    }
 }

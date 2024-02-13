@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 
 /// 회고록 설정
-final class InquireMemoirsViewController: UIViewController {
+final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate {
     
     /// 북마크 버튼 - 네비게이션 바
     private lazy var bookmarkButton: UIBarButtonItem = {
@@ -65,8 +65,16 @@ final class InquireMemoirsViewController: UIViewController {
         return label
     }()
     
+    /// emoticon Button
+    private lazy var emoticonButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .clear
+        button.isEnabled = false
+        return button
+    }()
+    
     /// emoticon 이미지
-    private lazy var imageView: UIImageView = {
+    private lazy var emoticonImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "AppIcon")
         imageView.contentMode = .scaleAspectFit
@@ -188,11 +196,28 @@ final class InquireMemoirsViewController: UIViewController {
         setupView()
         addSubviews()
         setupBindings()
+        
+        /// 탭 제스처 리코그나이저를 뷰에 추가 (  키보드 숨기기 이슈 )
+        let tapGesture = UITapGestureRecognizer()
+        view.addGestureRecognizer(tapGesture)
+        
+        tapGesture.rx.event.bind(onNext: { [weak self] _ in
+            self?.view.endEditing(true)
+        }).disposed(by: disposeBag)
     }
     
     /// 화면 설정 관련 함수
     private func setupView(){
         view.backgroundColor = .OnOffLightMain
+        // 텍스트 필드 delegate 설정
+        learnedTextField.delegate = self
+        praisedTextField.delegate = self
+        improvementTextField.delegate = self
+        
+        emoticonView.isUserInteractionEnabled = true
+        emoticonImage.isUserInteractionEnabled = true
+        emoticonButton.isUserInteractionEnabled = true
+
     }
     
     /// addSubviews
@@ -201,8 +226,9 @@ final class InquireMemoirsViewController: UIViewController {
         view.addSubview(scrollView)
         
         contentView.addSubview(emoticonView)
-        emoticonView.addSubview(imageView)
-        
+        emoticonView.addSubview(emoticonImage)
+        emoticonView.addSubview(emoticonButton)
+
         contentView.addSubview(dateLabel)
         
         contentView.addSubview(learnedLabel)
@@ -240,9 +266,14 @@ final class InquireMemoirsViewController: UIViewController {
             make.height.equalTo(emoticonView.snp.width).multipliedBy(0.4)
         }
         
-        imageView.snp.makeConstraints { make in
+        emoticonImage.snp.makeConstraints { make in
             make.center.equalToSuperview()
             make.width.height.equalTo(emoticonView.snp.height).multipliedBy(0.8)
+        }
+        
+        emoticonButton.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.width.height.equalTo(100)
         }
         
         dateLabel.snp.makeConstraints { make in
@@ -262,7 +293,9 @@ final class InquireMemoirsViewController: UIViewController {
         }
         
         learnedTextField.snp.makeConstraints { make in
-            make.edges.equalTo(learnedView.snp.edges).offset(10)
+            make.leading.top.equalTo(learnedView).offset(50)
+            make.height.equalTo(30).priority(.low)
+            make.horizontalEdges.equalTo(learnedView).inset(30)
         }
         
         praisedLabel.snp.makeConstraints { make in
@@ -277,7 +310,9 @@ final class InquireMemoirsViewController: UIViewController {
         }
         
         praisedTextField.snp.makeConstraints { make in
-            make.edges.equalTo(praisedView.snp.edges).offset(10)
+            make.leading.top.equalTo(praisedView).offset(50)
+            make.height.equalTo(30).priority(.low)
+            make.horizontalEdges.equalTo(praisedView).inset(30)
         }
         
         improvementLabel.snp.makeConstraints { make in
@@ -293,7 +328,9 @@ final class InquireMemoirsViewController: UIViewController {
         }
         
         improvementTextField.snp.makeConstraints { make in
-            make.edges.equalTo(improvementView.snp.edges).offset(10)
+            make.leading.top.equalTo(improvementView).offset(50)
+            make.height.equalTo(30).priority(.low)
+            make.horizontalEdges.equalTo(improvementView).inset(30)
         }
     }
     
@@ -309,6 +346,13 @@ final class InquireMemoirsViewController: UIViewController {
             memoirInquiry: Observable.just(()),
             toggleEditing: toggleEditing.asObservable()
         )
+        
+        emoticonButton.rx.tap
+               .bind { [weak self] in
+                   print("aaaaaa")
+                   self?.presentModalEmoticonViewController()
+               }
+               .disposed(by: disposeBag)
         
         let output = viewModel.bind(input: input)
         
@@ -336,19 +380,34 @@ final class InquireMemoirsViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
-        
         menuButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.presentActionSheet()
             })
             .disposed(by: disposeBag)
-        
     }
     
+    /// 이모티콘 모달 띄우기
+    private func presentModalEmoticonViewController() {
+        print("aaa")
+        let modalEmoticonViewController = ModalEmoticonViewController(viewModel: ModalEmoticonViewModel())
+        modalEmoticonViewController.delegate = self
+        modalEmoticonViewController.onImageSelected = { [weak self] imageUrl in
+            self?.emoticonImage.kf.setImage(with: URL(string: imageUrl))
+        }
+        
+        if #available(iOS 15.0, *) {
+            if let sheet = modalEmoticonViewController.sheetPresentationController {
+                sheet.detents = [.medium()]
+                sheet.prefersGrabberVisible = true
+            }
+        }
+        present(modalEmoticonViewController, animated: true, completion: nil)
+    }
     private func updateUIWithMemoirResponse(_ response: MemoirResponse) {
         
         if let url = URL(string: response.result.emoticonUrl) {
-            imageView.kf.setImage(with: url)
+            emoticonImage.kf.setImage(with: url)
         }
         
         // 날짜 정보 설정
@@ -403,11 +462,13 @@ final class InquireMemoirsViewController: UIViewController {
     private func setupNavigationBar() {
         navigationItem.rightBarButtonItems = [menuButton, bookmarkButton]
     }
+    
     private func toggleEditingMode(isEditing: Bool) {
         // 텍스트 필드 편집 가능 상태 변경
         learnedTextField.isEnabled = isEditing
         praisedTextField.isEnabled = isEditing
         improvementTextField.isEnabled = isEditing
+        emoticonButton.isEnabled = isEditing
         
         // 네비게이션 바 업데이트
         updateNavigationBar(isEditing: isEditing)
@@ -421,11 +482,31 @@ final class InquireMemoirsViewController: UIViewController {
         }
     }
     
-    // 키보드내리기
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        learnedTextField.endEditing(true)
-        praisedTextField.endEditing(true)
-        improvementTextField.endEditing(true)
+        view.endEditing(true) // 화면의 어디를 탭하더라도 키보드를 숨깁니다.
+    }
+    /// 리턴 키를 탭했을 때 키보드를 숨기는 메서드
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+}
+
+extension InquireMemoirsViewController: ModalEmoticonDelegate {
+    func emoticonSelected(emoticon: Emoticon) {
+        self.emoticonImage.kf.setImage(with: URL(string: emoticon.imageUrl),
+                                       completionHandler:  { [weak self] result in
+            switch result {
+            case .success(_):
+                DispatchQueue.main.async {
+                    // 이미지 로드 성공 시 버튼 활성화
+                    _ = KeychainWrapper.saveItem(value: String(emoticon.emoticonId),
+                                                 forKey: MemoirsKeyChain.emoticonID.rawValue)
+                    
+                }
+            case .failure(_): break
+            }
+        })
     }
 }
