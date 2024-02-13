@@ -37,7 +37,7 @@ final class MenuModalViewController: UIViewController {
         let button = UIButton()
         button.setTitle("수정하기", for: .normal)
         button.backgroundColor = .clear
-        button.setTitleColor(.OnOffBackButton, for: .normal)
+       // button.setTitleColor(.OnOffBackButton, for: .normal)
         button.titleLabel?.font = UIFont.pretendard(size: 20, weight: .medium)
         return button
     }()
