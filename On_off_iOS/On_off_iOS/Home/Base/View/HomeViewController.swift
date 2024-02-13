@@ -63,8 +63,8 @@ final class HomeViewController: UIViewController {
         return view
     }()
     
-    /// On - Off 될때 바뀌는 UIView
-    private lazy var blankOnOffUIView: UIView = {
+    /// On UIView
+    private lazy var onUIView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
         view.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
@@ -83,16 +83,16 @@ final class HomeViewController: UIViewController {
     // MARK: - View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         addBaseSubViews()
         bind()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        blankOnOffUIView.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0,
-                                                                      width: blankOnOffUIView.frame.width,
-                                                                      height: blankOnOffUIView.frame.height - 50)).cgPath
+        onUIView.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0,
+                                                              width: onUIView.frame.width,
+                                                              height: onUIView.frame.height - 50)).cgPath
         
     }
     
@@ -104,7 +104,6 @@ final class HomeViewController: UIViewController {
         view.addSubview(dayImageView)
         view.addSubview(monthLabel)
         view.addSubview(dayCollectionView)
-        view.addSubview(blankOnOffUIView)
         
         baseConstraints()
     }
@@ -144,8 +143,18 @@ final class HomeViewController: UIViewController {
             make.trailing.equalToSuperview().offset(-6)
             make.height.equalTo(70)
         }
+    }
+    
+    /// On  UI Add View
+    private func addOnSubViews() {
+        view.addSubview(onUIView)
         
-        blankOnOffUIView.snp.makeConstraints { make in
+        onConstraints()
+    }
+    
+    /// On UI Constraints
+    private func onConstraints() {
+        onUIView.snp.makeConstraints { make in
             make.top.equalTo(dayCollectionView.snp.bottom).offset(20)
             make.horizontalEdges.equalToSuperview()
             make.bottom.equalToSuperview()
@@ -164,6 +173,11 @@ final class HomeViewController: UIViewController {
         bindOnOffButton(output: output)
         bindBackGroundColor(output: output)
         bindBlankViewShadowColor(output: output)
+        bindToggleOnOffButton(output: output)
+        bindAddWorkLifeBalanceFeedButton()
+        bindSelectedFeedTableViewCell()
+        
+        
     }
     
     /// Binding Day CollectionView Cell
@@ -236,10 +250,77 @@ final class HomeViewController: UIViewController {
         output.blankUIViewShadowColorRelay
             .bind { [weak self] color in
                 guard let self = self else { return }
-                blankOnOffUIView.layer.shadowColor = color.cgColor
+                onUIView.layer.shadowColor = color.cgColor
             }
             .disposed(by: disposeBag)
     }
+    
+    /// Binding toggle On - Off Button
+    private func bindToggleOnOffButton(output: HomeViewModel.Output) {
+        output.toggleOnOffButtonRelay
+            .bind { [weak self] check in
+                guard let self = self else { return }
+                if check {
+                    onUIView.removeFromSuperview()
+                    addOnSubViews()
+                    return
+                }
+                onUIView.removeFromSuperview()
+                addOnSubViews()
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    /// 워라벨 피드 추가 버튼
+    private func bindAddWorkLifeBalanceFeedButton() {
+        onUIView.clickedAddfeedButton
+            .bind { [weak self] in
+                guard let self = self else { return }
+                presentInsertWLBFeedView(insertFeed: nil)
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    /// 워라벨 피드 클릭한 경우
+    private func bindSelectedFeedTableViewCell() {
+        offUIView.selectedFeedTableViewCell
+            .bind { [weak self] feed in
+                guard let self = self else { return }
+                let clickWorkLifeBalanceFeedView = ClickWorkLifeBalanceFeedView()
+                clickWorkLifeBalanceFeedView.feedSubject.onNext(feed)
+                clickWorkLifeBalanceFeedView.successConnect
+                    .bind { [weak self] in
+                        guard let self = self else { return }
+                        onUIView.successAddFeed.onNext(())
+                    }
+                    .disposed(by: disposeBag)
+                
+                clickWorkLifeBalanceFeedView.insertFeedSubject
+                    .bind { [weak self] feed in
+                        guard let self = self else { return }
+                        presentInsertWLBFeedView(insertFeed: feed)
+                    }
+                    .disposed(by: disposeBag)
+                present(clickWorkLifeBalanceFeedView, animated: true)
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    /// Present Insert W.L.B Feed View
+    private func presentInsertWLBFeedView(insertFeed: Feed?) {
+        let insertWorkLifeBalanceFeedView = InsertWorkLifeBalanceFeedView()
+        if let insertFeed = insertFeed {
+            insertWorkLifeBalanceFeedView.insertFeed.onNext(insertFeed)
+        }
+        insertWorkLifeBalanceFeedView.successAddFeedSubject
+            .bind { [weak self] in
+                guard let self = self else { return }
+                onUIView.successAddFeed.onNext(())
+            }
+            .disposed(by: disposeBag)
+        present(insertWorkLifeBalanceFeedView, animated: true)
+    }
+    
     
 }
 
