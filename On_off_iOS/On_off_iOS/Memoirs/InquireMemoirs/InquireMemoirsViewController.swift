@@ -217,7 +217,7 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
         emoticonView.isUserInteractionEnabled = true
         emoticonImage.isUserInteractionEnabled = true
         emoticonButton.isUserInteractionEnabled = true
-
+        
     }
     
     /// addSubviews
@@ -228,7 +228,7 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
         contentView.addSubview(emoticonView)
         emoticonView.addSubview(emoticonImage)
         emoticonView.addSubview(emoticonButton)
-
+        
         contentView.addSubview(dateLabel)
         
         contentView.addSubview(learnedLabel)
@@ -339,28 +339,30 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
         let toggleEditing = PublishSubject<Void>()
         
         let revisedMemoirData = Observable.combineLatest(
-                learnedTextField.rx.text.orEmpty,
-                praisedTextField.rx.text.orEmpty,
-                improvementTextField.rx.text.orEmpty
-            ) { (learnedText: $0, praisedText: $1, improvementText: $2) }
+            learnedTextField.rx.text.orEmpty,
+            praisedTextField.rx.text.orEmpty,
+            improvementTextField.rx.text.orEmpty
+        ) { (learnedText: $0, praisedText: $1, improvementText: $2) }
         
-       
+        
         
         let input = InquireMemoirsViewModel.Input(
             bookMarkButtonTapped: bookmarkButton.rx.tap.asObservable(),
             menuButtonTapped: menuButton.rx.tap.asObservable(),
-            reviceButtonTapped: menuButton.rx.tap.asObservable(),
+            reviseButtonTapped: reviceButton.rx.tap.asObservable(),
             memoirId: 8,
             memoirInquiry: Observable.just(()),
-            toggleEditing: toggleEditing.asObservable(),
-            revisedMemoirData: revisedMemoirData
+            toggleEditing: PublishSubject<Void>().asObservable(),
+            learnedText: learnedTextField.rx.text.asObservable(),
+            praisedText: praisedTextField.rx.text.asObservable(),
+            improvementText: improvementTextField.rx.text.asObservable()
         )
         
         emoticonButton.rx.tap
-               .bind { [weak self] in
-                   self?.presentModalEmoticonViewController()
-               }
-               .disposed(by: disposeBag)
+            .bind { [weak self] in
+                self?.presentModalEmoticonViewController()
+            }
+            .disposed(by: disposeBag)
         
         let output = viewModel.bind(input: input)
         
@@ -392,7 +394,19 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
                 
             })
             .disposed(by: disposeBag)
-                
+        
+        output.reviseResult
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { isSuccess in
+                if isSuccess {
+                    print("회고록 수정 성공")
+                } else {
+                    print("회고록 수정 실패")
+                }
+            })
+        
+            .disposed(by: disposeBag)
+        
         menuButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.presentActionSheet()
@@ -455,6 +469,7 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
         }
         
         let deleteAction = UIAlertAction(title: "삭제하기", style: .destructive) { [weak self] _ in
+            
         }
         
         let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
@@ -496,7 +511,7 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        view.endEditing(true) // 화면의 어디를 탭하더라도 키보드를 숨깁니다.
+        view.endEditing(true)
     }
     /// 리턴 키를 탭했을 때 키보드를 숨기는 메서드
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

@@ -18,12 +18,12 @@ struct MemoirRequest: Codable {
     }
 }
 
-struct MemoirRevicedRequest: Codable {
-    let emoticonId: Int?
-    var memoirAnswerList: [MemoirAnswer]?
+struct MemoirRevisedRequest: Codable {
+    let emoticonId: Int
+    var memoirAnswerList: [MemoirAnswer]
 
     struct MemoirAnswer: Codable {
-        let questionId: Int?
+        let answerId: Int
         let answer: String?
     }
 }

@@ -41,8 +41,8 @@ final class MemoirsService: MemoirsProtocol {
     }
     
     /// 회고록 수정하기
-    func reviceMemoirs(request: MemoirRevicedRequest, memoirId: Int) -> RxSwift.Observable<MemoirResponse> {
-        let url = Domain.RESTAPI + MemoirsPath.memoirsRevice.rawValue
+    func reviseMemoirs(request: MemoirRevisedRequest, memoirId: Int) -> RxSwift.Observable<MemoirResponse> {
+        let url = Domain.RESTAPI + MemoirsPath.memoirsRevise.rawValue
             .replacingOccurrences(of: "MEMOIRID", with: String(memoirId))
         let headers = Header.header.getHeader()
         
@@ -55,6 +55,31 @@ final class MemoirsService: MemoirsProtocol {
             .validate(statusCode: 200..<201)
             .responseDecodable(of: MemoirResponse.self) { response in
                 print(request)
+                
+                switch response.result {
+                case .success(let data):
+                    observer.onNext(data)
+                case .failure(let error):
+                    observer.onError(error)
+                }
+                print(response)
+            }
+            return Disposables.create()
+        }
+    }
+    
+    /// 회고록 삭제하기
+    func deleteMemoirs(memoirId: Int) -> RxSwift.Observable<MemoirResponse> {
+        let url = Domain.RESTAPI + MemoirsPath.memoirsRevise.rawValue
+            .replacingOccurrences(of: "MEMOIRID", with: String(memoirId))
+        let headers = Header.header.getHeader()
+        
+        return Observable.create { observer in
+            AF.request(url,
+                       method: .delete,
+                       headers: headers)
+            .validate(statusCode: 200..<201)
+            .responseDecodable(of: MemoirResponse.self) { response in
                 
                 switch response.result {
                 case .success(let data):
