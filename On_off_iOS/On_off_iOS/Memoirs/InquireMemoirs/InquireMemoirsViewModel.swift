@@ -24,6 +24,8 @@ final class InquireMemoirsViewModel {
         let memoirId: Int
         let memoirInquiry: Observable<Void>
         let toggleEditing: Observable<Void>
+        let revisedMemoirData: Observable<(learnedText: String, praisedText: String, improvementText: String)>
+        
     }
     
     // Output 구조체 정의
@@ -37,12 +39,13 @@ final class InquireMemoirsViewModel {
     func bind(input: Input) -> Output {
         
         let isEditingRelay = BehaviorRelay<Bool>(value: false) // 편집 상태 관리를 위한 Relay
-
+        
+        
         let memoirInquiryResult = input.memoirInquiry
             .flatMapLatest { [weak self] _ -> Observable<MemoirResponse> in
                 guard let self = self else { return .empty() }
                 // "2024-02-12" 날짜를 사용하여 회고록 조회
-                return self.memoirsService.inquireMemoirs(date: "2024-02-12")
+                return self.memoirsService.inquireMemoirs(date: "2024-02-13")
                     .catchAndReturn(MemoirResponse(isSuccess: false, code: "", message: "", result: MemoirResponse.MemoirResult(memoirId: 0, date: "", emoticonUrl: "", isBookmarked: false, memoirAnswerList: [])))
             }
         
@@ -50,21 +53,34 @@ final class InquireMemoirsViewModel {
         let updateBookmarkStatus = input.bookMarkButtonTapped
             .flatMapLatest { [weak self] _ -> Observable<Bool> in
                 guard let self = self else { return .just(false) }
-                // memoId를 직접 사용
+                
                 return self.memoirsService.bookMarkMemoirs(memoirId: input.memoirId)
                     .map { response -> Bool in
                         return response.result.isBookmarked
                     }
                     .catchAndReturn(false)
             }
-
+        
         // 편집 모드 토글 액션 처리
-              input.toggleEditing
-                  .subscribe(onNext: { _ in
-                      let currentEditingState = isEditingRelay.value
-                      isEditingRelay.accept(!currentEditingState)
-                  })
-                  .disposed(by: disposeBag)
+        input.toggleEditing
+            .subscribe(onNext: { _ in
+                let currentEditingState = isEditingRelay.value
+                isEditingRelay.accept(!currentEditingState)
+            })
+            .disposed(by: disposeBag)
+        
+        
+        input.reviceButtonTapped
+            .withLatestFrom(input.revisedMemoirData) { _, revisedData in
+                return revisedData
+            }
+            .flatMapLatest { revisedData -> Observable<Bool> in
+                return self.sendReviceMemoirsData(learnedText: revisedData.learnedText, praisedText: revisedData.praisedText, improvementText: revisedData.improvementText, memoirId: input.memoirId)
+            }
+            .subscribe(onNext: { isSuccess in
+                print("회고록 수정 성공: \(isSuccess)")
+            })
+            .disposed(by: disposeBag)
         
         return Output(updateBookmarkStatus: updateBookmarkStatus,
                       memoirInquiryResult: memoirInquiryResult,
@@ -72,26 +88,21 @@ final class InquireMemoirsViewModel {
     }
     
     
-    private func sendReviceMemoirsData() -> Observable<Bool> {
-        let answer1 = KeychainWrapper.loadItem(forKey: MemoirsKeyChain.MemoirsAnswer1.rawValue) ?? ""
-        let answer2 = KeychainWrapper.loadItem(forKey: MemoirsKeyChain.MemoirsAnswer2.rawValue) ?? ""
-        let answer3 = KeychainWrapper.loadItem(forKey: MemoirsKeyChain.MemoirsAnswer3.rawValue) ?? ""
+    private func sendReviceMemoirsData(learnedText: String, praisedText: String, improvementText: String, memoirId: Int) -> Observable<Bool> {
+        let answer1 = learnedText
+        let answer2 = praisedText
+        let answer3 = improvementText
         let emoticonId = KeychainWrapper.loadItem(forKey: MemoirsKeyChain.emoticonID.rawValue) ?? "1"
-        let today = Date()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        let dateString = formatter.string(from: today)
         
-        let request = MemoirRequest(
-            date: dateString,
+        let request = MemoirRevicedRequest(
             emoticonId: Int(emoticonId) ?? 1,
             memoirAnswerList: [
-                MemoirRequest.MemoirAnswer(questionId: 1, answer: answer1),
-                MemoirRequest.MemoirAnswer(questionId: 2, answer: answer2),
-                MemoirRequest.MemoirAnswer(questionId: 3, answer: answer3)
+                MemoirRevicedRequest.MemoirAnswer(questionId: 1, answer: answer1),
+                MemoirRevicedRequest.MemoirAnswer(questionId: 2, answer: answer2),
+                MemoirRevicedRequest.MemoirAnswer(questionId: 3, answer: answer3)
             ]
         )
-        return memoirsService.saveMemoirs(request: request)
+        return memoirsService.reviceMemoirs(request: request, memoirId: memoirId)
             .map { _ -> Bool in true }
             .catchAndReturn(false)
     }

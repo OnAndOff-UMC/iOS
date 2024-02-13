@@ -41,7 +41,7 @@ final class MemoirsService: MemoirsProtocol {
     }
     
     /// 회고록 수정하기
-    func reviceMemoirs(request: MemoirRequest, memoirId: Int) -> RxSwift.Observable<MemoirResponse> {
+    func reviceMemoirs(request: MemoirRevicedRequest, memoirId: Int) -> RxSwift.Observable<MemoirResponse> {
         let url = Domain.RESTAPI + MemoirsPath.memoirsRevice.rawValue
             .replacingOccurrences(of: "MEMOIRID", with: String(memoirId))
         let headers = Header.header.getHeader()

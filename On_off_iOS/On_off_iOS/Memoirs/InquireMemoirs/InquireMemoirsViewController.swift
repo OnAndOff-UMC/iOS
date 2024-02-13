@@ -338,23 +338,36 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
     private func setupBindings() {
         let toggleEditing = PublishSubject<Void>()
         
+        let revisedMemoirData = Observable.combineLatest(
+                learnedTextField.rx.text.orEmpty,
+                praisedTextField.rx.text.orEmpty,
+                improvementTextField.rx.text.orEmpty
+            ) { (learnedText: $0, praisedText: $1, improvementText: $2) }
+        
+       
+        
         let input = InquireMemoirsViewModel.Input(
             bookMarkButtonTapped: bookmarkButton.rx.tap.asObservable(),
             menuButtonTapped: menuButton.rx.tap.asObservable(),
             reviceButtonTapped: menuButton.rx.tap.asObservable(),
             memoirId: 8,
             memoirInquiry: Observable.just(()),
-            toggleEditing: toggleEditing.asObservable()
+            toggleEditing: toggleEditing.asObservable(),
+            revisedMemoirData: revisedMemoirData
         )
         
         emoticonButton.rx.tap
                .bind { [weak self] in
-                   print("aaaaaa")
                    self?.presentModalEmoticonViewController()
                }
                .disposed(by: disposeBag)
         
         let output = viewModel.bind(input: input)
+        
+        reviceButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.toggleEditingMode(isEditing: false)
+            }).disposed(by: disposeBag)
         
         output.memoirInquiryResult
             .observe(on: MainScheduler.instance)
@@ -379,7 +392,7 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
                 
             })
             .disposed(by: disposeBag)
-        
+                
         menuButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.presentActionSheet()
@@ -389,7 +402,6 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
     
     /// 이모티콘 모달 띄우기
     private func presentModalEmoticonViewController() {
-        print("aaa")
         let modalEmoticonViewController = ModalEmoticonViewController(viewModel: ModalEmoticonViewModel())
         modalEmoticonViewController.delegate = self
         modalEmoticonViewController.onImageSelected = { [weak self] imageUrl in
@@ -404,6 +416,7 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
         }
         present(modalEmoticonViewController, animated: true, completion: nil)
     }
+    
     private func updateUIWithMemoirResponse(_ response: MemoirResponse) {
         
         if let url = URL(string: response.result.emoticonUrl) {
@@ -412,7 +425,6 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
         
         // 날짜 정보 설정
         dateLabel.text = response.result.date
-        
         
         // 회고록 답변 리스트에서 특정 요약 정보에 맞는 답변을 찾아서 UI 설정함
         if let learnedAnswer = response.result.memoirAnswerList.first(where: { $0.summary == "오늘 배운 점" }) {
@@ -500,10 +512,8 @@ extension InquireMemoirsViewController: ModalEmoticonDelegate {
             switch result {
             case .success(_):
                 DispatchQueue.main.async {
-                    // 이미지 로드 성공 시 버튼 활성화
                     _ = KeychainWrapper.saveItem(value: String(emoticon.emoticonId),
                                                  forKey: MemoirsKeyChain.emoticonID.rawValue)
-                    
                 }
             case .failure(_): break
             }

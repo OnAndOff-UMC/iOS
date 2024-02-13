@@ -18,6 +18,16 @@ struct MemoirRequest: Codable {
     }
 }
 
+struct MemoirRevicedRequest: Codable {
+    let emoticonId: Int?
+    var memoirAnswerList: [MemoirAnswer]?
+
+    struct MemoirAnswer: Codable {
+        let questionId: Int?
+        let answer: String?
+    }
+}
+
 struct MemoirResponse: Codable {
     let isSuccess: Bool
     let code: String
