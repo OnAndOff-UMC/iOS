@@ -161,6 +161,18 @@ final class DeletedMemoirsPopUpView: DimmedViewController {
         
         let output = viewModel.createOutput(input: input)
         
+        output.successDeleteSubject
+              .subscribe(onNext: { [weak self] isSuccess in
+                  if isSuccess {
+                      // 삭제 성공 시, 처리 로직
+                      print("회고록 삭제 성공")
+                      self?.dismiss(animated: true, completion: nil)
+                  } else {
+                      // 삭제 실패 시, 처리 로직
+                      print("회고록 삭제 실패")
+                  }
+              })
+              .disposed(by: disposeBag)
         bindSuccessDeleteSubject(output: output)
         bindCancelButton()
     }

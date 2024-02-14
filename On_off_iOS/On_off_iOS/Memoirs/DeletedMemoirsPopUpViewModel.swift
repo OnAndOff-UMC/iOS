@@ -11,7 +11,8 @@ import RxSwift
 
 final class DeletedMemoirsPopUpViewModel {
     private let disposeBag = DisposeBag()
-    private let service = OffUIViewService()
+    private let service = MemoirsService()
+    
     
     struct Input {
         var clickDeleteButtonEvents: ControlEvent<Void>?
@@ -34,12 +35,19 @@ final class DeletedMemoirsPopUpViewModel {
     
     /// Bindingn Click Delete Button Events
     /// - Parameters:
-    ///   - selectedImage: 선택한 이미지
     private func bindClickDeleteButtonEvents(input: Input, output: Output) {
+        let output = Output()
         input.clickDeleteButtonEvents?
-            .bind { [weak self] in
+            .flatMapLatest { [weak self] _ -> Observable<Bool> in
+                guard let self = self else { return .just(false) }
+                
+                return self.service.deleteMemoirs(memoirId: 22)
+                    .map { response -> Bool in
+                        return response.isSuccess
+                    }
+                    .catchAndReturn(false)
             }
+            .bind(to: output.successDeleteSubject)
             .disposed(by: disposeBag)
     }
 }
-

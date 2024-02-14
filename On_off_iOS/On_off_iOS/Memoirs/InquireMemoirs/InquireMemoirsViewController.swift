@@ -336,14 +336,8 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
     
     /// 뷰모델과 setupBindings
     private func setupBindings() {
+        
         let toggleEditing = PublishSubject<Void>()
-        
-//        let revisedMemoirData = Observable.combineLatest(
-//            learnedTextField.rx.text.orEmpty,
-//            praisedTextField.rx.text.orEmpty,
-//            improvementTextField.rx.text.orEmpty
-//        ) { (learnedText: $0, praisedText: $1, improvementText: $2) }
-        
         
         let learnedTextObservable: Observable<String?> = learnedTextField.rx.text.asObservable()
         let praisedTextObservable: Observable<String?> = praisedTextField.rx.text.asObservable()
@@ -352,7 +346,8 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
         let input = InquireMemoirsViewModel.Input(
             bookMarkButtonTapped: bookmarkButton.rx.tap.asObservable(),
             menuButtonTapped: menuButton.rx.tap.asObservable(),
-            reviseButtonTapped: reviceButton.rx.tap.asObservable(),
+            reviseButtonTapped: reviceButton.rx.tap.asObservable(), 
+            memoirId: 24,
             memoirInquiry: Observable.just(()),
             toggleEditing: PublishSubject<Void>().asObservable(),
             learnedText: learnedTextObservable,
@@ -401,6 +396,7 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { isSuccess in
                 if isSuccess {
+                    self.moveToHome()
                     print("회고록 수정 성공")
                 } else {
                     print("회고록 수정 실패")
@@ -432,6 +428,7 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
         }
         present(modalEmoticonViewController, animated: true, completion: nil)
     }
+    
     private func updateUIWithMemoirResponse(_ response: MemoirResponse) {
             
         if let url = URL(string: response.result.emoticonUrl ?? "1") {
@@ -460,7 +457,10 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
                 improvementTextField.text = "오늘의 회고를 작성해 보세요!"
             }
         }
-
+    private func moveToHome() {
+        let vc = HomeViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
     
     private func presentActionSheet() {
         
