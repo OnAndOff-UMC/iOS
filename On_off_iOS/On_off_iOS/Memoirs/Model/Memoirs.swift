@@ -23,7 +23,7 @@ struct MemoirRevisedRequest: Codable {
     var memoirAnswerList: [MemoirAnswer]
 
     struct MemoirAnswer: Codable {
-        let answerId: Int
+        let questionId: Int
         let answer: String?
     }
 }

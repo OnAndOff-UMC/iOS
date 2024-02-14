@@ -37,11 +37,6 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
     /// 완료 버튼 - 네비게이션 바
     private lazy var reviceButton: UIBarButtonItem = {
         let button = UIBarButtonItem(title: "완료", style: .plain, target: nil, action: nil)
-        button.rx.tap
-            .subscribe(onNext: { [weak self] in
-                print("완료하기")
-            })
-            .disposed(by: disposeBag)
         return button
     }()
     
@@ -336,9 +331,7 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
     
     /// 뷰모델과 setupBindings
     private func setupBindings() {
-        
-        let toggleEditing = PublishSubject<Void>()
-        
+            
         let learnedTextObservable: Observable<String?> = learnedTextField.rx.text.asObservable()
         let praisedTextObservable: Observable<String?> = praisedTextField.rx.text.asObservable()
         let improvementTextObservable: Observable<String?> = improvementTextField.rx.text.asObservable()
@@ -396,7 +389,7 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { isSuccess in
                 if isSuccess {
-                    self.moveToHome()
+                    //self.moveToHome()
                     print("회고록 수정 성공")
                 } else {
                     print("회고록 수정 실패")

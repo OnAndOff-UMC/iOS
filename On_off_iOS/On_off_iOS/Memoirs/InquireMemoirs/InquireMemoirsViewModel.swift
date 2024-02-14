@@ -118,9 +118,9 @@ final class InquireMemoirsViewModel {
         let request = MemoirRevisedRequest(
             emoticonId: Int(emoticonId) ?? 1,
             memoirAnswerList: [
-                MemoirRevisedRequest.MemoirAnswer(answerId: 1, answer: answer1),
-                MemoirRevisedRequest.MemoirAnswer(answerId: 2, answer: answer2),
-                MemoirRevisedRequest.MemoirAnswer(answerId: 3, answer: answer3)
+                MemoirRevisedRequest.MemoirAnswer(questionId: 1, answer: answer1),
+                MemoirRevisedRequest.MemoirAnswer(questionId: 2, answer: answer2),
+                MemoirRevisedRequest.MemoirAnswer(questionId: 3, answer: answer3)
             ]
         )
         print(request)
