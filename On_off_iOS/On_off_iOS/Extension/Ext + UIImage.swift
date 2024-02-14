@@ -62,6 +62,7 @@ extension UIImage {
     convenience init?(bounds: CGRect, colors: [UIColor]) {
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = bounds
+        gradientLayer.cornerRadius = 15
         gradientLayer.colors = colors.map({ $0.cgColor })
         
         gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.5);

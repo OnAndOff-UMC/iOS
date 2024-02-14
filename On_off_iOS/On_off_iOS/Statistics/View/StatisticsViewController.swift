@@ -156,6 +156,7 @@ final class StatisticsViewController: UIViewController {
     
     private let viewModel: StatisticsViewModel = StatisticsViewModel()
     private var output: StatisticsViewModel.Output?
+    private var loadDataSubject: PublishSubject<Void> = PublishSubject<Void>()
     private let disposeBag = DisposeBag()
     
     // MARK: - View Did Load
@@ -165,6 +166,12 @@ final class StatisticsViewController: UIViewController {
         view.backgroundColor = .white
         addSubViews()
         bind()
+    }
+    
+    // MARK: - View Will Appear
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        loadDataSubject.onNext(())
     }
     
     /// Add SubViews
@@ -267,7 +274,8 @@ final class StatisticsViewController: UIViewController {
     /// Binding
     private func bind() {
         let output = viewModel.createoutput(input: StatisticsViewModel.Input(prevButtonEvents: prevMonthButton.rx.tap,
-                                                                             nextButtonEvents: nextMonthButton.rx.tap))
+                                                                             nextButtonEvents: nextMonthButton.rx.tap,
+                                                                             reloadDataEvents: loadDataSubject))
         self.output = output
         bindWeekView(output: output)
         bindMonthView(output: output)

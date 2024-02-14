@@ -18,6 +18,7 @@ final class StatisticsViewModel {
     struct Input {
         let prevButtonEvents: ControlEvent<Void>?
         let nextButtonEvents: ControlEvent<Void>?
+        let reloadDataEvents: Observable<Void>
     }
     
     struct Output {
@@ -52,9 +53,21 @@ final class StatisticsViewModel {
         
         bindPrevButtonEvents(input: input, output: output)
         bindNextButtonEvents(input: input, output: output)
+        bindReloadDataEvents(input: input, output: output)
         getWeekArchieve(output: output)
         getMonthArchieve(output: output)
         return output
+    }
+    
+    /// Bind Reload Data Events
+    private func bindReloadDataEvents(input: Input, output: Output) {
+        input.reloadDataEvents
+            .bind { [weak self] in
+                guard let self = self else { return }
+                getWeekArchieve(output: output)
+                getMonthArchieve(output: output)
+            }
+            .disposed(by: disposeBag)
     }
     
     /// Bind Prev Button Events
