@@ -25,13 +25,13 @@ final class RateFillView: UIView {
                     startAngle: startAngle,
                     endAngle: startAngle + endAngle,
                     clockwise: true)
-        UIColor.green.set()
+        UIColor.OnOffPurple.set()
         path.fill()
         path.close()
         
-        UIColor.lightGray.set()
+        UIColor.clear.set()
         if percent == 1.0 {
-            UIColor.green.set()
+            UIColor.OnOffPurple.set()
             path.lineWidth = 1
         }
 

@@ -40,8 +40,11 @@ final class StatisticsViewController: UIViewController {
     /// 햇빛, 달 차트
     private lazy var monthChartView: DayChartCustomView = {
         let view = DayChartCustomView()
-        view.backgroundColor = .cyan
+        view.backgroundColor = .backGround
         view.layer.cornerRadius = 20
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOpacity = 0.5
+        view.layer.shadowOffset = CGSize(width: 3, height: 3)
         return view
     }()
     
@@ -66,8 +69,18 @@ final class StatisticsViewController: UIViewController {
     /// 회고 작성 비율
     private lazy var writeRateUIView: UIView = {
         let view = UIView()
-        view.backgroundColor = .cyan
+        view.backgroundColor = .backGround
         view.layer.cornerRadius = 20
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOpacity = 0.5
+        view.layer.shadowOffset = CGSize(width: 3, height: 3)
+        return view
+    }()
+    
+    /// 회고 작성 비율 점선 테두리
+    private lazy var writeRateBackgrounImageView: UIImageView = {
+        let view = UIImageView(image: UIImage(named: "memoirDoneCorner"))
+        view.backgroundColor = .clear
         return view
     }()
     
@@ -84,8 +97,11 @@ final class StatisticsViewController: UIViewController {
     /// 캘린더 백그라운드 뷰
     private lazy var calendarBackgroundUIView: UIView = {
         let view = UIView()
-        view.backgroundColor = .lightGray
+        view.backgroundColor = .backGround
         view.layer.cornerRadius = 20
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOpacity = 0.5
+        view.layer.shadowOffset = CGSize(width: 3, height: 3)
         return view
     }()
     
@@ -116,6 +132,7 @@ final class StatisticsViewController: UIViewController {
         view.dataSource = self
         view.locale = Locale(identifier: "ko_KR")
         view.allowsSelection = false
+        view.placeholderType = .none
         
         // 오늘 날짜 색상 변경
         view.appearance.todayColor = .clear
@@ -123,12 +140,16 @@ final class StatisticsViewController: UIViewController {
         
         // 캘린더 week 뷰 설정
         view.appearance.weekdayTextColor = .black
+        view.appearance.weekdayFont = .pretendard(size: 18, weight: .bold)
         
         // 캘린더 헤더 뷰 설정
         view.appearance.headerMinimumDissolvedAlpha = 0.0
         view.appearance.headerTitleColor = .black
+        view.appearance.headerTitleFont = .pretendard(size: 18, weight: .bold)
         view.appearance.headerDateFormat = "YYYY년 MM월"
         
+        view.appearance.titleFont = .pretendard(size: 18, weight: .medium)
+
         view.register(CalendarCell.self, forCellReuseIdentifier: CellIdentifier.CalendarCell.rawValue)
         return view
     }()
@@ -155,6 +176,7 @@ final class StatisticsViewController: UIViewController {
         contentView.addSubview(weekChartTitleLabel)
         contentView.addSubview(monthChartView)
         contentView.addSubview(writeRateUIView)
+        writeRateUIView.addSubview(writeRateBackgrounImageView)
         writeRateUIView.addSubview(writeRateUILabel)
         contentView.addSubview(calendarBackgroundUIView)
         calendarBackgroundUIView.addSubview(calendarView)
@@ -207,7 +229,11 @@ final class StatisticsViewController: UIViewController {
         writeRateUIView.snp.makeConstraints { make in
             make.top.equalTo(weekChartUIView.snp.bottom).offset(50)
             make.horizontalEdges.equalToSuperview().inset(20)
-            make.height.equalTo(130)
+            make.height.equalTo(150)
+        }
+        
+        writeRateBackgrounImageView.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(10)
         }
         
         writeRateUILabel.snp.makeConstraints { make in

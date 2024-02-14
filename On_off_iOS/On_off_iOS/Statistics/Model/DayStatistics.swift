@@ -19,7 +19,7 @@ struct DayStatistics: Codable {
     enum CodingKeys: String, CodingKey {
         case monday = "mon"
         case tuesday = "tue"
-        case wendseday = "wen"
+        case wendseday = "wed"
         case thursday = "thu"
         case friday = "fri"
         case saturday = "sat"

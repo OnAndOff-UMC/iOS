@@ -110,6 +110,8 @@ final class StatisticsViewModel {
         let subTitle = "\n조금만 더 힘내볼까요?✨"
         
         let attributedString = NSMutableAttributedString(string: title)
+        attributedString.addAttribute(.foregroundColor, value: UIColor.OnOffPurple,
+                                      range: (title as NSString).range(of: title))
         attributedString.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 20),
                                       range: (title as NSString).range(of: title))
         

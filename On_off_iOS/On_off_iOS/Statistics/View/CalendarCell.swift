@@ -16,7 +16,7 @@ final class CalendarCell: FSCalendarCell {
     /// 동그라미 뒷 배경
     private lazy var backGroundUIView: UIView = {
         let view = UIView()
-        view.backgroundColor = .lightGray
+        view.backgroundColor = .clear
         return view
     }()
 
