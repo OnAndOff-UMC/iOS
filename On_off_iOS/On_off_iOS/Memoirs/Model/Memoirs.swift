@@ -42,7 +42,7 @@ struct MemoirResponse: Codable {
         var memoirAnswerList: [MemoirAnswerDetail]
 
         struct MemoirAnswerDetail: Codable {
-            let answerId: Int
+            let answerId: Int?
             let question: String
             let summary: String
             let answer: String

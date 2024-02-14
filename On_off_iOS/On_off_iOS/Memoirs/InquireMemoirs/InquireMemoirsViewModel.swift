@@ -20,6 +20,7 @@ final class InquireMemoirsViewModel {
     private let initialLearnedText = BehaviorRelay<String?>(value: nil)
     private let initialPraisedText = BehaviorRelay<String?>(value: nil)
     private let initialImprovementText = BehaviorRelay<String?>(value: nil)
+    
     // Input 구조체 정의
     struct Input {
         let bookMarkButtonTapped: Observable<Void>
@@ -86,7 +87,7 @@ final class InquireMemoirsViewModel {
                 guard let self = self else { return .empty() }
                 
                 // "2024-02-12" 날짜를 사용하여 회고록 조회
-                return self.memoirsService.inquireMemoirs(date: "2024-02-13")
+                return self.memoirsService.inquireMemoirs(date: "2024-02-14")
                     .catchAndReturn(MemoirResponse(isSuccess: false, code: "", message: "", result: MemoirResponse.MemoirResult(memoirId: 0, date: "", emoticonUrl: "", isBookmarked: false, memoirAnswerList: [])))
             }
         
