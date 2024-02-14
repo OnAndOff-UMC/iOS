@@ -54,6 +54,22 @@ final class HomeViewController: UIViewController {
         return label
     }()
     
+    /// 이전 주로 가는 버튼
+    private lazy var prevButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "lessthan")?.withTintColor(.white), for: .normal)
+        button.backgroundColor = .clear
+        return button
+    }()
+    
+    /// 다음주로 가는 버튼
+    private lazy var nextButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "greaterthan")?.withTintColor(.white), for: .normal)
+        button.backgroundColor = .clear
+        return button
+    }()
+    
     /// "일" 스크롤 뷰
     private lazy var dayCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -133,6 +149,8 @@ final class HomeViewController: UIViewController {
         view.addSubview(titleLabel)
         view.addSubview(dayImageView)
         view.addSubview(monthLabel)
+        view.addSubview(prevButton)
+        view.addSubview(nextButton)
         view.addSubview(dayCollectionView)
         
         baseConstraints()
@@ -165,6 +183,16 @@ final class HomeViewController: UIViewController {
         monthLabel.snp.makeConstraints { make in
             make.leading.equalTo(titleLabel.snp.leading)
             make.top.equalTo(titleLabel.snp.bottom).offset(10)
+        }
+        
+        prevButton.snp.makeConstraints { make in
+            make.bottom.equalTo(dayCollectionView.snp.top).offset(-10)
+            make.trailing.equalTo(nextButton.snp.leading).offset(-20)
+        }
+        
+        nextButton.snp.makeConstraints { make in
+            make.bottom.equalTo(dayCollectionView.snp.top).offset(-10)
+            make.trailing.equalTo(dayCollectionView.snp.trailing).offset(-10)
         }
         
         dayCollectionView.snp.makeConstraints { make in
@@ -226,7 +254,9 @@ final class HomeViewController: UIViewController {
     /// Binding
     private func bind() {
         let input = HomeViewModel.Input(onOffButtonEvents: onOffButton.rx.tap,
-                                        dayCollectionViewEvents: dayCollectionView.rx.itemSelected)
+                                        dayCollectionViewEvents: dayCollectionView.rx.itemSelected,
+                                        prevButtonEvents: prevButton.rx.tap,
+                                        nextButtonEvents: nextButton.rx.tap)
         let output = viewModel.createOutput(input: input)
         
         bindDayCollectionView(output: output)

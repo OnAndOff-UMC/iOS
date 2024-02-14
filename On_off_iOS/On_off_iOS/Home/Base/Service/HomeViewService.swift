@@ -60,4 +60,59 @@ final class HomeViewService {
             return Disposables.create()
         }
     }
+    
+    /// 이전 일주일 날짜 가져오기
+    /// - Returns: Week Day
+    /// - Parameter date: 선택한 날짜
+    func movePrevWeek(date: String) -> Observable<WeekDay> {
+        let url = Domain.RESTAPI + WeekDayPath.prevWeek.rawValue
+            .replacingOccurrences(of: "DATE", with: date)
+        let header = Header.header.getHeader()
+        print(url, #function)
+        return Observable.create { observer in
+            AF.request(url,
+                       method: .get,
+                       headers: header)
+            .validate(statusCode: 200..<201)
+            .responseDecodable(of: Response<WeekDay>.self) { response in
+                print(#function, response)
+                switch response.result {
+                case .success(let data):
+                    observer.onNext(data.result)
+                case .failure(let error):
+                    observer.onError(error)
+                }
+            }
+            
+            return Disposables.create()
+        }
+    }
+    
+    /// 다음 일주일 날짜 가져오기
+    /// - Returns: Week Day
+    /// - Parameter date: 선택한 날짜
+    func moveNextWeek(date: String) -> Observable<WeekDay> {
+        let url = Domain.RESTAPI + WeekDayPath.nextWeek.rawValue
+            .replacingOccurrences(of: "DATE", with: date)
+        let header = Header.header.getHeader()
+        print(url, #function)
+        return Observable.create { observer in
+            AF.request(url,
+                       method: .get,
+                       headers: header)
+            .validate(statusCode: 200..<201)
+            .responseDecodable(of: Response<WeekDay>.self) { response in
+                print(#function, response)
+                switch response.result {
+                case .success(let data):
+                    observer.onNext(data.result)
+                case .failure(let error):
+                    observer.onError(error)
+                }
+            }
+            
+            return Disposables.create()
+        }
+    }
+    
 }

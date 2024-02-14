@@ -56,7 +56,6 @@ final class OffUIViewModel {
         bindSelectedDate(input: input, output: output)
         bindSuccessAddFeed(input: input, output: output)
         
-//        getImageList(output: output)
         return output
     }
     
