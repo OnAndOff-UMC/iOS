@@ -469,8 +469,12 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
         }
         
         let deleteAction = UIAlertAction(title: "삭제하기", style: .destructive) { [weak self] _ in
-            
+            guard let self = self, let navigationController = navigationController else { return }
+
+            let deletedMemoirsPopUpView = DeletedMemoirsPopUpView(navigationController: UINavigationController())
+            present(deletedMemoirsPopUpView, animated: true, completion: nil)
         }
+        
         
         let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         

@@ -57,6 +57,7 @@ final class OffUIViewModel {
         bindSuccessAddFeed(input: input, output: output)
         
 //        getImageList(output: output)
+        
         return output
     }
     
@@ -64,7 +65,8 @@ final class OffUIViewModel {
     private func bindTodayMemoirsEvents(input: Input, output: Output) {
         input.todayMemoirsButtonEvents?
             .bind {
-                print("tap todayMemoirsButtonEvents")
+                print("tap todayMemoirsButtonEvents")       
+
             }
             .disposed(by: disposeBag)
         
