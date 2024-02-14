@@ -15,7 +15,9 @@ final class InquireMemoirsViewModel {
     
     private let disposeBag = DisposeBag()
     private let memoirsService = MemoirsService()
-  
+    
+    private let latestMemoirInquiryResult = BehaviorSubject<MemoirResponse?>(value: nil)
+
     // Input 구조체 정의
     struct Input {
         let bookMarkButtonTapped: Observable<Void>
@@ -42,25 +44,25 @@ final class InquireMemoirsViewModel {
     func bind(input: Input) -> Output {
         
         let isEditingRelay = BehaviorRelay<Bool>(value: false)
-        
-        // 각 입력 필드에 대한 처리
-        input.learnedText
-                .subscribe(onNext: { text in
-                    print("Learned Text: \(text ?? "")")
-                })
-                .disposed(by: disposeBag)
-
-            input.praisedText
-                .subscribe(onNext: { text in
-                    print("Praised Text: \(text ?? "")")
-                })
-                .disposed(by: disposeBag)
-
-            input.improvementText
-                .subscribe(onNext: { text in
-                    print("Improvement Text: \(text ?? "")")
-                })
-                .disposed(by: disposeBag)
+//        
+//        // 각 입력 필드에 대한 처리
+//        input.learnedText
+//                .subscribe(onNext: { text in
+//                    print("Learned Text: \(text ?? "")")
+//                })
+//                .disposed(by: disposeBag)
+//
+//            input.praisedText
+//                .subscribe(onNext: { text in
+//                    print("Praised Text: \(text ?? "")")
+//                })
+//                .disposed(by: disposeBag)
+//
+//            input.improvementText
+//                .subscribe(onNext: { text in
+//                    print("Improvement Text: \(text ?? "")")
+//                })
+//                .disposed(by: disposeBag)
         
         // 편집 모드 토글 액션 처리
         input.toggleEditing
@@ -70,32 +72,34 @@ final class InquireMemoirsViewModel {
             })
             .disposed(by: disposeBag)
         
-        // 완료 버튼 탭
         let reviseResult = input.reviseButtonTapped
-              .withLatestFrom(Observable.combineLatest(input.learnedText, input.praisedText, input.improvementText))
-              .flatMapLatest { [weak self] learnedText, praisedText, improvementText -> Observable<Bool> in
-
-                  let finalLearnedText = learnedText ?? ""
-                  let finalPraisedText = praisedText ?? ""
-                  let finalImprovementText = improvementText ?? ""
-                  
-                  return self?.sendReviceMemoirsData(
-                      learnedText: finalLearnedText,
-                      praisedText: finalPraisedText,
-                      improvementText: finalImprovementText,
-                      memoirId: input.memoirId
-                  ) ?? .just(false)
-              }
+            .withLatestFrom(Observable.combineLatest(input.learnedText, input.praisedText, input.improvementText, latestMemoirInquiryResult))
+            .flatMapLatest { [weak self] learnedText, praisedText, improvementText, latestResult -> Observable<Bool> in
+                guard let self = self else { return .just(false) }
+                
+                // 사용자 입력이 없을 경우 기존 값 사용
+                let finalLearnedText = (learnedText?.isEmpty ?? true) ? latestResult?.result.memoirAnswerList.first(where: { $0.summary == "오늘 배운 점" })?.answer ?? "" : learnedText ?? ""
+                let finalPraisedText = (praisedText?.isEmpty ?? true) ? latestResult?.result.memoirAnswerList.first(where: { $0.summary == "오늘 칭찬할 점" })?.answer ?? "" : praisedText ?? ""
+                let finalImprovementText = (improvementText?.isEmpty ?? true) ? latestResult?.result.memoirAnswerList.first(where: { $0.summary == "앞으로 개선할 점" })?.answer ?? "" : improvementText ?? ""
+                
+                return self.sendReviceMemoirsData(
+                    learnedText: finalLearnedText,
+                    praisedText: finalPraisedText,
+                    improvementText: finalImprovementText,
+                    memoirId: input.memoirId
+                )
+            }
         
         /// 회고록 불러오기
         let memoirInquiryResult = input.memoirInquiry
             .flatMapLatest { [weak self] _ -> Observable<MemoirResponse> in
                 guard let self = self else { return .empty() }
-                
-                // "2024-02-12" 날짜를 사용하여 회고록 조회
                 return self.memoirsService.inquireMemoirs(date: "2024-02-15")
                     .catchAndReturn(MemoirResponse(isSuccess: false, code: "", message: "", result: MemoirResponse.MemoirResult(memoirId: 0, date: "", emoticonUrl: "", isBookmarked: false, memoirAnswerList: [])))
             }
+            .do(onNext: { [weak self] response in
+                self?.latestMemoirInquiryResult.onNext(response)
+            })
         
         /// 북마크 버튼 탭 처리
         let updateBookmarkStatus = input.bookMarkButtonTapped

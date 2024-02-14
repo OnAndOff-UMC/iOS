@@ -453,6 +453,7 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
             improvementTextField.text = "오늘의 회고를 작성해 보세요!"
         }
     }
+    
     private func moveToHome() {
         let vc = HomeViewController()
         navigationController?.pushViewController(vc, animated: true)
