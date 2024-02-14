@@ -135,6 +135,7 @@
 		3B4230102B41572200D0B038 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B42300F2B41572200D0B038 /* SceneDelegate.swift */; };
 		3B4230172B41572400D0B038 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B4230162B41572400D0B038 /* Assets.xcassets */; };
 		3B42301A2B41572400D0B038 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B4230182B41572400D0B038 /* LaunchScreen.storyboard */; };
+		3B44BDE92B7CCD2C00AE9170 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3B44BDE82B7CCD2C00AE9170 /* Config.xcconfig */; };
 		3B51B5272B63DF9500E5FEF9 /* CellIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B51B5262B63DF9500E5FEF9 /* CellIdentifier.swift */; };
 		3B8570CB2B582B4E000BC503 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 3B8570CA2B582B4E000BC503 /* FSCalendar */; };
 		3B9C89D12B4AED7C0083CF44 /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9C89D02B4AED7C0083CF44 /* StatisticsViewController.swift */; };
@@ -271,6 +272,7 @@
 		3B4230162B41572400D0B038 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3B4230192B41572400D0B038 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3B42301B2B41572400D0B038 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3B44BDE82B7CCD2C00AE9170 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		3B51B5262B63DF9500E5FEF9 /* CellIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellIdentifier.swift; sourceTree = "<group>"; };
 		3B9C89D02B4AED7C0083CF44 /* StatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewController.swift; sourceTree = "<group>"; };
 		3BB7D07E2B64EB31002F1860 /* OffUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffUIView.swift; sourceTree = "<group>"; };
@@ -941,6 +943,7 @@
 				3B0129C42B6242D400B191AD /* Extension */,
 				35E0C7282B68C7AC006BF427 /* Fonts */,
 				3B4230182B41572400D0B038 /* LaunchScreen.storyboard */,
+				3B44BDE82B7CCD2C00AE9170 /* Config.xcconfig */,
 				3B42301B2B41572400D0B038 /* Info.plist */,
 				376879E92B7B953800833623 /* Config.xcconfig */,
 				37C161252B6BDAD0000E0B21 /* GoogleService-Info.plist */,

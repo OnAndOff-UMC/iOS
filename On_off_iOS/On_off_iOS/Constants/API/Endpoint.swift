@@ -39,6 +39,8 @@ enum FeedPath: String {
 
 enum WeekDayPath: String {
     case weekdayInit = "/weekdays/init"
+    case prevWeek = "/weekdays/prev?date=DATE"
+    case nextWeek = "/weekdays/next?date=DATE"
 }
 
 enum MyPage: String {

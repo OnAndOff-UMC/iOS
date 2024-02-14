@@ -19,6 +19,10 @@ final class HomeViewModel {
         let onOffButtonEvents: ControlEvent<Void>
         
         let dayCollectionViewEvents: ControlEvent<IndexPath>
+        
+        let prevButtonEvents: ControlEvent<Void>
+        
+        let nextButtonEvents: ControlEvent<Void>
     }
     
     struct Output {
@@ -81,6 +85,8 @@ final class HomeViewModel {
             .disposed(by: disposeBag)
         
         bindToggleOnOffButtonRelay(output: output)
+        bindPrevButton(input: input, output: output)
+        bindNextButton(input: input, output: output)
         dayListRelay(output: output)
         bindSelectedDayIndexEvents(input: input, output: output)
         return output
@@ -91,12 +97,27 @@ final class HomeViewModel {
         input.dayCollectionViewEvents
             .bind { [weak self] indexPath in
                 guard let self = self else { return }
-                let result = Date().dateCompare(fromDate: formatStringToDate(date: output.dayListRelay.value[indexPath.row].totalDate ?? ""))
-                if result == "Future" {
-                    output.futureRelay.accept(true)
-                    return
-                }
-                output.futureRelay.accept(false)
+                checkFutureDay(indexPath: indexPath, output: output)
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    /// 지난 주 이동 버튼
+    private func bindPrevButton(input: Input, output: Output) {
+        input.prevButtonEvents
+            .bind { [weak self]  in
+                guard let self = self else { return }
+                movePrevWeek(output: output)
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    /// 다음주 이동 버튼
+    private func bindNextButton(input: Input, output: Output) {
+        input.nextButtonEvents
+            .bind { [weak self]  in
+                guard let self = self else { return }
+                moveNextWeek(output: output)
             }
             .disposed(by: disposeBag)
     }
@@ -106,7 +127,6 @@ final class HomeViewModel {
         output.toggleOnOffButtonRelay
             .bind { [weak self] check in
                 guard let self = self else { return }
-                dayListRelay(output: output)
                 getMyInformation(output: output)
                 
                 if check { // On 인경우
@@ -224,30 +244,61 @@ final class HomeViewModel {
                             output: output)
     }
     
+    /// 미래인지 확인
+    private func checkFutureDay(indexPath: IndexPath, output: Output) {
+        let result = Date().dateCompare(fromDate: formatStringToDate(date: output.dayListRelay.value[indexPath.row].totalDate ?? ""))
+        if result == "Future" {
+            output.futureRelay.accept(true)
+            return
+        }
+        output.futureRelay.accept(false)
+    }
+    
     /// Day List Relay
     private func dayListRelay(output: Output) {
-        var list: [DayInfo] = []
-        
         service.weekDayInit()
             .subscribe(onNext: { [weak self] weekDay in
                 guard let self = self else { return }
-                list.append(formatToDayInfo(date: weekDay.monday ?? ""))
-                list.append(formatToDayInfo(date: weekDay.tuesday ?? ""))
-                list.append(formatToDayInfo(date: weekDay.wednesday ?? ""))
-                list.append(formatToDayInfo(date: weekDay.thursday ?? ""))
-                list.append(formatToDayInfo(date: weekDay.friday ?? ""))
-                list.append(formatToDayInfo(date: weekDay.saturday ?? ""))
-                list.append(formatToDayInfo(date: weekDay.sunday ?? ""))
-                
-                output.dayListRelay.accept(list)
-                if output.toggleOnOffButtonRelay.value {
-                    output.monthRelay.accept(formatSelectedMonth(monthColor: .OnOffMain, output: output))
-                    return
-                }
-                output.monthRelay.accept(formatSelectedMonth(monthColor: .white, output: output))
+                changeWeekType(weekDay: weekDay, output: output)
             }, onError: { error in
                 print(#function, error)
             })
+            .disposed(by: disposeBag)
+    }
+    
+    /// Change Type WeekDay To DayInfo
+    private func changeWeekType(weekDay: WeekDay, output: Output) {
+        var list: [DayInfo] = []
+        list.append(formatToDayInfo(date: weekDay.monday ?? ""))
+        list.append(formatToDayInfo(date: weekDay.tuesday ?? ""))
+        list.append(formatToDayInfo(date: weekDay.wednesday ?? ""))
+        list.append(formatToDayInfo(date: weekDay.thursday ?? ""))
+        list.append(formatToDayInfo(date: weekDay.friday ?? ""))
+        list.append(formatToDayInfo(date: weekDay.saturday ?? ""))
+        list.append(formatToDayInfo(date: weekDay.sunday ?? ""))
+        
+        output.dayListRelay.accept(list)
+        checkToday(output: output)
+        if output.toggleOnOffButtonRelay.value {
+            output.monthRelay.accept(formatSelectedMonth(monthColor: .OnOffMain, output: output))
+            return
+        }
+        output.monthRelay.accept(formatSelectedMonth(monthColor: .white, output: output))
+    }
+    
+    /// 오늘 날짜 확인해서 선택된 효과 발생
+    private func checkToday(output: Output) {
+        output.dayListRelay
+            .bind { [weak self] list in
+                guard let self = self else { return }
+                for index in 0..<list.count {
+                    let nowDate = formatDateToString(date: Date()).split(separator: " ")
+                    if let splitDate = list[index].totalDate?.split(separator: "-"), splitDate[0] == nowDate[0] && splitDate[1] == nowDate[1] && splitDate[2] == nowDate[2] {
+                        output.selectedDayIndex.accept(IndexPath(item: index, section: 0))
+                        return
+                    }
+                }
+            }
             .disposed(by: disposeBag)
     }
     
@@ -265,6 +316,32 @@ final class HomeViewModel {
                 output.titleRelay.accept(setTitleOptions(nickName: nickName, nickNameColor: .cyan,
                                                          subTitle: "님,\n오늘 하루도 고생하셨어요", subTitleColor: .white,
                                                          output: output))
+            }, onError: { error in
+                print(#function, error)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    /// 이전 주로 이동
+    private func movePrevWeek(output: Output) {
+        service.movePrevWeek(date: output.dayListRelay.value[output.selectedDayIndex.value.row].totalDate ?? "")
+            .subscribe(onNext: { [weak self] weekDay in
+                guard let self = self else { return }
+                changeWeekType(weekDay: weekDay, output: output)
+                checkFutureDay(indexPath: output.selectedDayIndex.value, output: output)
+            }, onError: { error in
+                print(#function, error)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    /// 다음 주로 이동
+    private func moveNextWeek(output: Output) {
+        service.moveNextWeek(date: output.dayListRelay.value[output.selectedDayIndex.value.row].totalDate ?? "")
+            .subscribe(onNext: { [weak self] weekDay in
+                guard let self = self else { return }
+                changeWeekType(weekDay: weekDay, output: output)
+                checkFutureDay(indexPath: output.selectedDayIndex.value, output: output)
             }, onError: { error in
                 print(#function, error)
             })
