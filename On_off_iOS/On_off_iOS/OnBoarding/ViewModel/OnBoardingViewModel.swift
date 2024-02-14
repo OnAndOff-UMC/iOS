@@ -12,39 +12,35 @@ import UIKit
 
 final class OnBoardingViewModel {
     private let disposeBag = DisposeBag()
-    var navigationController: UINavigationController
 
     /// Input
     struct Input {
         let startButtonTapped: Observable<Void>
         let jumpButtonTapped: Observable<Void>
     }
-
-    // MARK: - Init
-    init(navigationController: UINavigationController) {
-        self.navigationController = navigationController
+    
+    /// Output
+    struct Output {
+        let moveToLogin = PublishSubject<Void>()
     }
     
     /// bind
     /// - Parameter input:startButtonTapped, jumpButtonTapped
-    func bind(input: Input) {
+    func bind(input: Input) -> Output {
+        let output = Output()
+        
         input.startButtonTapped
-                .bind { [weak self] in
-                    self?.moveToLogin()
+                .bind { _ in
+                    output.moveToLogin.onNext(())
                 }
                 .disposed(by: disposeBag)
         
         input.jumpButtonTapped
-                .bind { [weak self] in
-                    self?.moveToLogin()
+                .bind { _ in
+                    output.moveToLogin.onNext(())
                 }
                 .disposed(by: disposeBag)
-    }
-    
-    /// 로그인 화면으로 이동
-    private func moveToLogin() {
-        let loginViewModel = LoginViewModel(navigationController: navigationController)
-        let vc = LoginViewController(viewModel: loginViewModel)
-        navigationController.pushViewController(vc, animated: true)
+        
+        return output
     }
 }
