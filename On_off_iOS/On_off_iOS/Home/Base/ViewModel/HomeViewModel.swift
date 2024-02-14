@@ -106,7 +106,6 @@ final class HomeViewModel {
         output.toggleOnOffButtonRelay
             .bind { [weak self] check in
                 guard let self = self else { return }
-                dayListRelay(output: output)
                 getMyInformation(output: output)
                 
                 if check { // On 인경우
@@ -240,6 +239,7 @@ final class HomeViewModel {
                 list.append(formatToDayInfo(date: weekDay.sunday ?? ""))
                 
                 output.dayListRelay.accept(list)
+                checkToday(output: output)
                 if output.toggleOnOffButtonRelay.value {
                     output.monthRelay.accept(formatSelectedMonth(monthColor: .OnOffMain, output: output))
                     return
@@ -248,6 +248,22 @@ final class HomeViewModel {
             }, onError: { error in
                 print(#function, error)
             })
+            .disposed(by: disposeBag)
+    }
+    
+    /// 오늘 날짜 확인해서 선택된 효과 발생
+    private func checkToday(output: Output) {
+        output.dayListRelay
+            .bind { [weak self] list in
+                guard let self = self else { return }
+                for index in 0..<list.count {
+                    let nowDate = formatDateToString(date: Date()).split(separator: " ")
+                    if let splitDate = list[index].totalDate?.split(separator: "-"), splitDate[0] == nowDate[0] && splitDate[1] == nowDate[1] && splitDate[2] == nowDate[2] {
+                        output.selectedDayIndex.accept(IndexPath(item: index, section: 0))
+                        return
+                    }
+                }
+            }
             .disposed(by: disposeBag)
     }
     
