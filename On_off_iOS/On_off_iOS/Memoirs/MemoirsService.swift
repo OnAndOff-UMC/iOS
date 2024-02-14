@@ -153,6 +153,7 @@ final class MemoirsService: MemoirsProtocol {
         return Observable.create { observer in
             AF.request(url,
                        method: .patch,
+                       encoding: URLEncoding.default,
                        headers: headers)
             .validate(statusCode: 200..<201)
             .responseDecodable(of: MemoirResponse.self) { response in

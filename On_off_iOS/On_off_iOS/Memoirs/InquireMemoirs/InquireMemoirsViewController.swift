@@ -338,24 +338,26 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
     private func setupBindings() {
         let toggleEditing = PublishSubject<Void>()
         
-        let revisedMemoirData = Observable.combineLatest(
-            learnedTextField.rx.text.orEmpty,
-            praisedTextField.rx.text.orEmpty,
-            improvementTextField.rx.text.orEmpty
-        ) { (learnedText: $0, praisedText: $1, improvementText: $2) }
+//        let revisedMemoirData = Observable.combineLatest(
+//            learnedTextField.rx.text.orEmpty,
+//            praisedTextField.rx.text.orEmpty,
+//            improvementTextField.rx.text.orEmpty
+//        ) { (learnedText: $0, praisedText: $1, improvementText: $2) }
         
         
-        
+        let learnedTextObservable: Observable<String?> = learnedTextField.rx.text.asObservable()
+        let praisedTextObservable: Observable<String?> = praisedTextField.rx.text.asObservable()
+        let improvementTextObservable: Observable<String?> = improvementTextField.rx.text.asObservable()
+
         let input = InquireMemoirsViewModel.Input(
             bookMarkButtonTapped: bookmarkButton.rx.tap.asObservable(),
             menuButtonTapped: menuButton.rx.tap.asObservable(),
             reviseButtonTapped: reviceButton.rx.tap.asObservable(),
-            memoirId: 8,
             memoirInquiry: Observable.just(()),
             toggleEditing: PublishSubject<Void>().asObservable(),
-            learnedText: learnedTextField.rx.text.asObservable(),
-            praisedText: praisedTextField.rx.text.asObservable(),
-            improvementText: improvementTextField.rx.text.asObservable()
+            learnedText: learnedTextObservable,
+            praisedText: praisedTextObservable,
+            improvementText: improvementTextObservable
         )
         
         emoticonButton.rx.tap
@@ -432,7 +434,7 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
     }
     private func updateUIWithMemoirResponse(_ response: MemoirResponse) {
             
-            if let url = URL(string: response.result.emoticonUrl) {
+        if let url = URL(string: response.result.emoticonUrl ?? "1") {
                 emoticonImage.kf.setImage(with: url)
             }
             
