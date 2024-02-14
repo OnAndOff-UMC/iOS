@@ -44,3 +44,10 @@ enum WeekDayPath: String {
 enum MyPage: String {
     case myInfo = "/users/information"
 }
+
+enum StatisticsPath: String {
+    case week = "/stats/week"
+    case month = "/stats/month"
+    case prevMonth = "/stats/month/prev?date=DATE"
+    case nextMonth = "/stats/month/next?date=DATE"
+}

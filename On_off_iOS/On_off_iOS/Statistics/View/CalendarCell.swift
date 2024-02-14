@@ -12,7 +12,6 @@ import UIKit
 
 /// 달력 Custom Cell
 final class CalendarCell: FSCalendarCell {
-    static let identifier = "CalendarCell"
     
     /// 동그라미 뒷 배경
     private lazy var backGroundUIView: UIView = {
@@ -39,6 +38,7 @@ final class CalendarCell: FSCalendarCell {
     required init!(coder aDecoder: NSCoder!) {
         super.init(coder: aDecoder)
     }
+    
     
     /// Add Subviews
     private func addSubViews() {

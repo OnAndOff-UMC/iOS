@@ -15,4 +15,22 @@ struct DayStatistics: Codable {
     let friday: Float?
     let saturday: Float?
     let sunday: Float?
+    
+    enum CodingKeys: String, CodingKey {
+        case monday = "mon"
+        case tuesday = "tue"
+        case wendseday = "wen"
+        case thursday = "thu"
+        case friday = "fri"
+        case saturday = "sat"
+        case sunday = "sun"
+    }
+}
+
+struct WeekStatistics: Codable {
+    let today: String?
+    let on: Double?
+    let off: Double?
+    let weekOfMonth: Int?
+    let weekStatsDTO: DayStatistics?
 }

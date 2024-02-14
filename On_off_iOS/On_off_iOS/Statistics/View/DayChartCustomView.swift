@@ -155,15 +155,13 @@ final class DayChartCustomView: UIView {
             make.center.equalToSuperview()
             make.height.width.equalTo(nightTimeProgressView.snp.height).multipliedBy(0.7)
         }
-        
     }
-    
     
     /// Input Data about ProgressView
     /// - Parameter statistics: 낮, 밤 비율 (0.0 ~ 1.0)
     func inputData(statistics: MonthStatistics) {
-        dayTimeProgressView.progress = statistics.dayTime ?? 0
-        nightTimeProgressView.progress = statistics.nightTime ?? 0
+        dayTimeProgressView.progress = Float(statistics.dayTime ?? 0)
+        nightTimeProgressView.progress = Float(statistics.nightTime ?? 0)
     }
     
 }
