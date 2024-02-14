@@ -15,7 +15,7 @@ final class ClickWorklogService {
     /// - Parameter worklogid: worklog id
     /// - Returns: true false
     func delayTomorrow(worklogid: Int) -> Observable<Bool> {
-        let url = Domain.RESTAPI + WorklogPath.delayTomorrow.rawValue
+        let url = Domain.RESTAPI + WorklogPath.Worklog.rawValue
             .replacingOccurrences(of: "worklogid", with: "\(worklogid)")
         let header = Header.header.getHeader()
         
@@ -41,7 +41,7 @@ final class ClickWorklogService {
     /// - Parameter WorklogId: Worklog Id
     /// - Returns: true false
     func deletelog(worklogid: Int) -> Observable<Bool> {
-        let url = Domain.RESTAPI + WorklogPath.delete.rawValue
+        let url = Domain.RESTAPI + WorklogPath.Worklog.rawValue
             .replacingOccurrences(of: "worklogid", with: "\(worklogid)")
         let header = Header.header.getHeader()
         

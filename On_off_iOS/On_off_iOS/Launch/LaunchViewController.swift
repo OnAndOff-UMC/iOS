@@ -79,8 +79,8 @@ final class LaunchViewController: UIViewController {
             let viewController: UIViewController
             switch navigation {
             case .main:
-                let viewModel = BookmarkViewModel()
-                viewController = BookmarkViewController(viewModel: viewModel)
+                let viewModel = HomeViewModel()
+                viewController = HomeViewController()
                 
             case .onBoarding:
                 let viewModel = OnBoardingViewModel()

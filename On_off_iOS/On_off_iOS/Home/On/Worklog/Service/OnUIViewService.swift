@@ -18,7 +18,7 @@ final class OnUIViewService {
     /// - Parameter date: 선택한 날짜
     /// - Returns: Feed List
     func getWLList(date: String) -> Observable<[Worklog]> {
-        let url = Domain.RESTAPI + WorklogPath.worklog.rawValue
+        let url = Domain.RESTAPI + WorklogPath.addWorklog.rawValue
             .replacingOccurrences(of: "DATE", with: "\(date)")
         let header = Header.header.getHeader()
         print(url)
@@ -44,8 +44,8 @@ final class OnUIViewService {
     /// Check Worklog
     /// - Parameter worklogId: worklog Id
     /// - Returns: 성공 여부
-    func checkWLFeed(worklogid: Int) -> Observable<Bool> {
-        let url = Domain.RESTAPI + WorklogPath.checkWL.rawValue
+    func checkWL(worklogid: Int) -> Observable<Bool> {
+        let url = Domain.RESTAPI + WorklogPath.Worklog.rawValue
             .replacingOccurrences(of: "worklogid", with: "\(worklogid)")
         let header = Header.header.getHeader()
         print(url)

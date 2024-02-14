@@ -18,7 +18,6 @@ enum CellIdentifier: String {
     case BookmarkTableViewCell
     case ModalSelectProfileTableViewCell // 프로필 설정
     
-
-    case ImageCollectionView
-    case WorkLifeBalanceTableViewCell
+    // MARK: WorklogViewCell
+    case WorkLogTableViewCell
 }

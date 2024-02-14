@@ -16,7 +16,7 @@ final class InsertWorkLogService {
     /// - Parameter Worklog: 추가할 log
     /// - Returns: Worklog
     func addWorklog(Worklog: AddWorklog) -> Observable<Bool> {
-        let url = Domain.RESTAPI + WorklogPath.worklog.rawValue
+        let url = Domain.RESTAPI + WorklogPath.addWorklog.rawValue
         let header = Header.header.getHeader()
         print(url)
         
@@ -45,7 +45,7 @@ final class InsertWorkLogService {
     /// - Parameter WorklogID: 수정할 Worklog ID
     /// - Returns: true false
     func insertlog(worklogid: Int, content: String) -> Observable<Bool> {
-        let url = Domain.RESTAPI + WorklogPath.delete.rawValue
+        let url = Domain.RESTAPI + WorklogPath.Worklog.rawValue
             .replacingOccurrences(of: "worklogid", with: "\(worklogid)")
         let body: Parameters = [ "content": content ]
         let header = Header.header.getHeader()

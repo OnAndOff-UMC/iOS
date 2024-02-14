@@ -18,7 +18,7 @@ final class InsertWorkLogViewModel {
     struct Input {
         let textFieldEvents: ControlProperty<String>?
         let doneButtonEvents: ControlEvent<Void>?
-        let insertFeed: Observable<Worklog>
+        let insertWorklog: Observable<Worklog>
     }
     
     struct Output {
@@ -69,7 +69,7 @@ final class InsertWorkLogViewModel {
                     insertWorklog(worklogId: id, output: output)
                     return
                 }
-                AddWorklog(output: output)
+                addWorklog(output: output)
             }
             .disposed(by: disposeBag)
     }
@@ -99,7 +99,7 @@ final class InsertWorkLogViewModel {
         let Worklog: AddWorklog = AddWorklog(date: formatDate(date: Date()),
                                     content: output.textRelay.value)
         print(Worklog)
-        service.AddWorklog(Worklog: Worklog)
+        service.addWorklog(Worklog: Worklog)
             .subscribe(onNext: { check in
                 if check {
                     output.successAddWorklogRelay.accept(check)

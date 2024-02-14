@@ -63,8 +63,8 @@ final class HomeViewController: UIViewController {
         return view
     }()
     
-    /// On UIView
-    private lazy var onUIView: UIView = {
+    /// Off UIViewr
+    private lazy var offUIView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
         view.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
@@ -77,6 +77,21 @@ final class HomeViewController: UIViewController {
         return view
     }()
     
+    /// On UIView
+    private lazy var onUIView: OnUIView = {
+        let view = OnUIView(frame: CGRect(x: .zero, y: .zero, width: view.safeAreaLayoutGuide.layoutFrame.width, height: .zero))
+        view.backgroundColor = .white
+        view.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
+        view.layer.cornerRadius = 25
+        
+        view.layer.shadowRadius = 10
+        view.layer.shadowOffset = CGSize(width: 0, height: -10)
+        view.layer.shadowOpacity = 0.5
+        
+        return view
+    }()
+    
+    
     private let disposeBag = DisposeBag()
     private let viewModel = HomeViewModel()
     
@@ -86,14 +101,47 @@ final class HomeViewController: UIViewController {
         
         addBaseSubViews()
         bind()
+        print("\(OnUIView.self) 화면에 좀 떠주라...제발...나 시간이 없어...")
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        onUIView.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0,
-                                                              width: onUIView.frame.width,
-                                                              height: onUIView.frame.height - 50)).cgPath
+        offUIView.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0,
+                                                              width: offUIView.frame.width,
+                                                              height: offUIView.frame.height - 50)).cgPath
         
+    }
+    
+    /// Off  UI Add View
+    private func addOffSubViews() {
+        view.addSubview(offUIView)
+        
+        offConstraints()
+    }
+    
+    /// Off UI Constraints
+    private func offConstraints() {
+        offUIView.snp.makeConstraints { make in
+            make.top.equalTo(dayCollectionView.snp.bottom).offset(20)
+            make.horizontalEdges.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+    }
+    
+    /// On  UI Add View
+    private func addOnSubViews() {
+        view.addSubview(onUIView)
+        
+        onConstraints()
+    }
+    
+    /// On UI Constraints
+    private func onConstraints() {
+        onUIView.snp.makeConstraints { make in
+            make.top.equalTo(dayCollectionView.snp.bottom).offset(20)
+            make.horizontalEdges.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
     }
     
     /// On - Off 공통 UI Add View
@@ -145,22 +193,6 @@ final class HomeViewController: UIViewController {
         }
     }
     
-    /// On  UI Add View
-    private func addOnSubViews() {
-        view.addSubview(onUIView)
-        
-        onConstraints()
-    }
-    
-    /// On UI Constraints
-    private func onConstraints() {
-        onUIView.snp.makeConstraints { make in
-            make.top.equalTo(dayCollectionView.snp.bottom).offset(20)
-            make.horizontalEdges.equalToSuperview()
-            make.bottom.equalToSuperview()
-        }
-    }
-    
     /// Binding
     private func bind() {
         let input = HomeViewModel.Input(onOffButtonEvents: onOffButton.rx.tap)
@@ -174,7 +206,7 @@ final class HomeViewController: UIViewController {
         bindBackGroundColor(output: output)
         bindBlankViewShadowColor(output: output)
         bindToggleOnOffButton(output: output)
-        bindAddWorkLifeBalanceFeedButton()
+        bindAddWorkLogButton()
         bindSelectedFeedTableViewCell()
         
         
@@ -271,54 +303,54 @@ final class HomeViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    /// 워라벨 피드 추가 버튼
-    private func bindAddWorkLifeBalanceFeedButton() {
-        onUIView.clickedAddfeedButton
+    ///  피드 추가 버튼
+    private func bindAddWorkLogButton() {
+        OnUIView().clickedAddWorklogButton
             .bind { [weak self] in
                 guard let self = self else { return }
-                presentInsertWLBFeedView(insertFeed: nil)
+                presentInsertWorkLogView(insertFeed: nil)
             }
             .disposed(by: disposeBag)
     }
     
-    /// 워라벨 피드 클릭한 경우
+    /// Worklog 클릭한 경우
     private func bindSelectedFeedTableViewCell() {
-        offUIView.selectedFeedTableViewCell
-            .bind { [weak self] feed in
+        OnUIView().selectedWorklogTableViewCell
+            .bind { [weak self] Worklog in
                 guard let self = self else { return }
-                let clickWorkLifeBalanceFeedView = ClickWorkLifeBalanceFeedView()
-                clickWorkLifeBalanceFeedView.feedSubject.onNext(feed)
-                clickWorkLifeBalanceFeedView.successConnect
+                let ClickWorklogView = ClickWorklogView()
+                ClickWorklogView.feedSubject.onNext(Worklog)
+                ClickWorklogView.successConnect
                     .bind { [weak self] in
                         guard let self = self else { return }
-                        onUIView.successAddFeed.onNext(())
+                        OnUIView().successAddWorklog.onNext(())
                     }
                     .disposed(by: disposeBag)
                 
-                clickWorkLifeBalanceFeedView.insertFeedSubject
+                ClickWorklogView.insertFeedSubject
                     .bind { [weak self] feed in
                         guard let self = self else { return }
-                        presentInsertWLBFeedView(insertFeed: feed)
+                        presentInsertWorkLogView(insertFeed: feed)
                     }
                     .disposed(by: disposeBag)
-                present(clickWorkLifeBalanceFeedView, animated: true)
+                present(ClickWorklogView, animated: true)
             }
             .disposed(by: disposeBag)
     }
     
-    /// Present Insert W.L.B Feed View
-    private func presentInsertWLBFeedView(insertFeed: Feed?) {
-        let insertWorkLifeBalanceFeedView = InsertWorkLifeBalanceFeedView()
+    /// Present Insert W.L.
+    private func presentInsertWorkLogView(insertFeed: Worklog?) {
+        let InsertWorkLogView = InsertWorkLogView()
         if let insertFeed = insertFeed {
-            insertWorkLifeBalanceFeedView.insertFeed.onNext(insertFeed)
+            InsertWorkLogView.insertFeed.onNext(insertFeed)
         }
-        insertWorkLifeBalanceFeedView.successAddFeedSubject
+        InsertWorkLogView.successAddWorklogSubject
             .bind { [weak self] in
                 guard let self = self else { return }
-                onUIView.successAddFeed.onNext(())
+                OnUIView().successAddWorklog.onNext(())
             }
             .disposed(by: disposeBag)
-        present(insertWorkLifeBalanceFeedView, animated: true)
+        present(InsertWorkLogView, animated: true)
     }
     
     
@@ -336,19 +368,4 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat { 10 }
-}
-
-import SwiftUI
-struct VCPreViewHomeViewController:PreviewProvider {
-    static var previews: some View {
-        HomeViewController().toPreview().previewDevice("iPhone 15 Pro")
-        // 실행할 ViewController이름 구분해서 잘 지정하기
-    }
-}
-
-struct VCPreViewHomeViewController2:PreviewProvider {
-    static var previews: some View {
-        HomeViewController().toPreview().previewDevice("iPhone SE (3rd generation)")
-        // 실행할 ViewController이름 구분해서 잘 지정하기
-    }
 }

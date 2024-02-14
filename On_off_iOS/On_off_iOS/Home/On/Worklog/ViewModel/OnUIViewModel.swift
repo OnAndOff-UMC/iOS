@@ -17,7 +17,6 @@ final class OnUIViewModel {
     private let service = OnUIViewService()
     
     struct Input {
-        let collectionViewCellEvents: ControlEvent<IndexPath>?
         let loadWLFeed: Observable<Void>?
         let clickCheckMarkOfWLFeed: Observable<Worklog>?
         let selectedDate: Observable<String>?
@@ -25,7 +24,6 @@ final class OnUIViewModel {
     }
     
     struct Output {
-        var collectionViewHeightConstraint: BehaviorRelay<Constraint?> = BehaviorRelay(value: nil)
         var tableViewHeightConstraint: BehaviorRelay<Constraint?> = BehaviorRelay(value: nil)
         var workLogRelay: BehaviorRelay<[Worklog]> = BehaviorRelay(value: [])
         var successCheckWLRelay: PublishRelay<Bool> = PublishRelay()
@@ -47,7 +45,7 @@ final class OnUIViewModel {
         return output
     }
     
-    /// Binding Load W.L.B Feed
+    /// Binding Load W.L.
     private func bindLoadWLFeed(input: Input, output: Output) {
         input.loadWLFeed?
             .bind {  [weak self] in
@@ -64,7 +62,7 @@ final class OnUIViewModel {
             .disposed(by: disposeBag)
     }
     
-    /// Binding Success Add Feed
+    /// Binding Success Add Worklog
     private func bindSuccessAddWorklog(input: Input, output: Output) {
         input.successAddWorklog?
             .bind {  [weak self] in
@@ -74,12 +72,12 @@ final class OnUIViewModel {
             .disposed(by: disposeBag)
     }
     
-    /// Binding Selected W.L.B Feed
+    /// Binding Selected W.L
     private func bindSelectedWLFeed(input: Input, output: Output) {
         input.clickCheckMarkOfWLFeed?
             .bind { [weak self] feed in
                 guard let self = self, let id = feed.worklogId else { return }
-                checkWLFeed(feedId: id, input: input, output: output)
+                checkWL(worklogId: id, input: input, output: output)
             }
             .disposed(by: disposeBag)
     }
@@ -110,14 +108,14 @@ final class OnUIViewModel {
    
     /// 업무일지 체크 유무
     /// - Parameters:
-    ///   - worklogId: Feed Id
+    ///   - worklogId: Worklog Id
     ///   - output: Output
     private func checkWL(worklogId: Int, input: Input, output: Output) {
-        service.checkWL(worklogId: worklogId)
-            .subscribe(onNext: { [weak self] check in
+        service.checkWL(worklogid: worklogId)
+            .subscribe(onNext: { [weak self] Worklog in
                 guard let self = self else { return }
-                if check {
-                    output.successCheckWLRelay.accept(check)
+                if Worklog {
+                    output.successCheckWLRelay.accept(Worklog)
                     getWorkLogList(output: output)
                 }
             }, onError:  { error in

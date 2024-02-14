@@ -55,7 +55,7 @@ final class AddWriteViewController: UIViewController {
     /// customBackButton
     private let backButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .plain, target: nil, action: nil)
-        button.tintColor = .OnOffBackButton
+        button.tintColor = .black
         return button
     }()
     

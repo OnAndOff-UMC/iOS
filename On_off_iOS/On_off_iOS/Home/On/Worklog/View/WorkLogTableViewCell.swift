@@ -73,10 +73,10 @@ final class WorkLogTableViewCell: UITableViewCell {
     }
 
     /// Input Data
-    /// - Parameter feed: Feed
-    func inputData(feed: Feed) {
-        titleLabel.text = feed.content ?? ""
-        let image: String = feed.isChecked ?? false ? "checkMark" : "nonCheckMark"
+    /// - Parameter Worklog: Worklog
+    func inputData(Worklog: Worklog) {
+        titleLabel.text = Worklog.content ?? ""
+        let image: String = Worklog.isChecked ?? false ? "checkMark" : "nonCheckMark"
         checkMarkButton.setImage(UIImage(named: image), for: .normal)
     }
     

@@ -11,7 +11,7 @@ import SnapKit
 import RxSwift
 import UIKit
 
-/// 워라벨 피드 입력
+/// Worklog 입력
 final class InsertWorkLogView: DimmedViewController {
     
     /// 배경 뷰
@@ -34,7 +34,7 @@ final class InsertWorkLogView: DimmedViewController {
     /// 입력받는 TextField
     private lazy var textField: UITextField = {
         let view = UITextField()
-        view.attributedPlaceholder = NSAttributedString(string: "워라벨 피드를 적어주세요",
+        view.attributedPlaceholder = NSAttributedString(string: "업무 일지를 적어주세요",
                                                         attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
         view.textColor = .black
         view.font = .pretendard(size: 14, weight: .medium)
@@ -60,13 +60,14 @@ final class InsertWorkLogView: DimmedViewController {
     }()
     
     private let disposeBag = DisposeBag()
-    private let viewModel = InsertWorkLifeBalanceFeedViewModel()
-    var successAddFeedSubject: PublishSubject<Void> = PublishSubject<Void>()
-    var insertFeed: PublishSubject<Feed> = PublishSubject<Feed>()
+    private let viewModel = InsertWorkLogViewModel()
+    var successAddWorklogSubject: PublishSubject<Void> = PublishSubject<Void>()
+    var insertFeed: PublishSubject<Worklog> = PublishSubject<Worklog>()
     
     // MARK: - Init
     init() {
         super.init(durationTime: 0.3, alpha: 0.7)
+        print("InsertWorkLogView initialized") // Add this line for debugging
         addSubviews()
         bind()
         setupKeyboardEvent()
@@ -129,26 +130,26 @@ final class InsertWorkLogView: DimmedViewController {
     
     /// Binding
     private func bind() {
-        let input = InsertWorkLifeBalanceFeedViewModel.Input(textFieldEvents: textField.rx.text.orEmpty,
+        let input = InsertWorkLogViewModel.Input(textFieldEvents: textField.rx.text.orEmpty,
                                                              doneButtonEvents: doneButton.rx.tap,
-                                                             insertFeed: insertFeed)
+                                                 insertWorklog: insertFeed)
         
         let output = viewModel.createOutput(input: input)
         
         bindTextRelay(output: output)
         bindtextCountRelay(output: output)
-        bindSuccessAddFeedRelay(output: output)
+        bindSuccessAddWorklogRelay(output: output)
     }
     
     /// Binding TextField Relay
-    private func bindTextRelay(output: InsertWorkLifeBalanceFeedViewModel.Output) {
+    private func bindTextRelay(output: InsertWorkLogViewModel.Output) {
         output.textRelay
             .bind(to: textField.rx.text)
             .disposed(by: disposeBag)
     }
     
     /// Binding Text Count Relay
-    private func bindtextCountRelay(output: InsertWorkLifeBalanceFeedViewModel.Output) {
+    private func bindtextCountRelay(output: InsertWorkLogViewModel.Output) {
         output.textCountRelay
             .bind { [weak self] text in
                 guard let self = self else { return }
@@ -157,14 +158,14 @@ final class InsertWorkLogView: DimmedViewController {
             .disposed(by: disposeBag)
     }
     
-    /// Binding When Success Add Feed
-    private func bindSuccessAddFeedRelay(output: InsertWorkLifeBalanceFeedViewModel.Output) {
-        output.successAddFeedRelay
+    /// Binding When Success Add Worklog
+    private func bindSuccessAddWorklogRelay(output: InsertWorkLogViewModel.Output) {
+        output.successAddWorklogRelay
             .bind { [weak self] check in
                 guard let self = self else { return }
                 dismiss(animated: true) { [weak self] in
                     guard let self = self else { return }
-                    successAddFeedSubject.onNext(())
+                    successAddWorklogSubject.onNext(())
                 }
             }
             .disposed(by: disposeBag)

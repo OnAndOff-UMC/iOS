@@ -62,7 +62,7 @@ final class ClickWorklogViewModel {
         input.deleteButtonEvents?
             .bind { [weak self] in
                 guard let self = self, let id = output.selectedWorkRelay.value?.worklogId else { return }
-                service.delete(feedId: worklogId)
+                service.deletelog(worklogid: id)
                     .subscribe(onNext: { check in
                         if check {
                             output.successConnectRelay.accept(check)
@@ -78,7 +78,7 @@ final class ClickWorklogViewModel {
     /// 내일로 미루기
     private func delayTomorrow(output: Output) {
         guard let id = output.selectedWorkRelay.value?.worklogId else { return }
-        service.delayTomorrow(feedId: id)
+        service.delayTomorrow(worklogid: id)
             .subscribe(onNext: { check in
                 if check {
                     output.successConnectRelay.accept(check)

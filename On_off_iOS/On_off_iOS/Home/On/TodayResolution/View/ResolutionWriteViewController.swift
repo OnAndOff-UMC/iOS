@@ -17,7 +17,7 @@ final class ResolutionWriteViewController: UIViewController {
     /// customBackButton
     private let backButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .plain, target: nil, action: nil)
-        button.tintColor = .OnOffBackButton
+        button.tintColor = .black
         return button
     }()
     
@@ -33,7 +33,7 @@ final class ResolutionWriteViewController: UIViewController {
     /// 메뉴 버튼 - 네비게이션 바
     private lazy var menuButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: UIImage(named: "menu"), style: .plain, target: nil, action: nil)
-        button.tintColor = .OnOffBackButton
+        button.tintColor = .black
         button.rx.tap
             .subscribe(onNext: { [weak self] in
                 print("메뉴 로직 구현")
