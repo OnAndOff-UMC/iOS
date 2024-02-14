@@ -14,23 +14,21 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
     
     /// 북마크 버튼 - 네비게이션 바
     private lazy var bookmarkButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: UIImage(systemName: MemoirsImage.bookmark.rawValue), style: .plain, target: nil, action: nil)
-        button.rx.tap
-            .subscribe(onNext: { [weak self] in
-                print("북마크 로직 구현")
-            })
-            .disposed(by: disposeBag)
+        let button = UIBarButtonItem(image: UIImage(systemName: MemoirsImage.bookmark.rawValue),
+                                     style: .plain,
+                                     target: nil,
+                                     action: nil)
+        
         return button
     }()
     
     /// 메뉴 버튼 - 네비게이션 바
     private lazy var menuButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: UIImage(systemName: MemoirsImage.ellipsis.rawValue)?.rotated(by: .pi / 2), style: .plain, target: nil, action: nil)
-        button.rx.tap
-            .subscribe(onNext: { [weak self] in
-                print("메뉴 로직 구현")
-            })
-            .disposed(by: disposeBag)
+        let button = UIBarButtonItem(image: UIImage(systemName: MemoirsImage.ellipsis.rawValue)?.rotated(by: .pi / 2),
+                                     style: .plain,
+                                     target: nil,
+                                     action: nil)
+        
         return button
     }()
     
@@ -331,16 +329,16 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
     
     /// 뷰모델과 setupBindings
     private func setupBindings() {
-            
+        
         let learnedTextObservable: Observable<String?> = learnedTextField.rx.text.asObservable()
         let praisedTextObservable: Observable<String?> = praisedTextField.rx.text.asObservable()
         let improvementTextObservable: Observable<String?> = improvementTextField.rx.text.asObservable()
-
+        
         let input = InquireMemoirsViewModel.Input(
             bookMarkButtonTapped: bookmarkButton.rx.tap.asObservable(),
             menuButtonTapped: menuButton.rx.tap.asObservable(),
-            reviseButtonTapped: reviceButton.rx.tap.asObservable(), 
-            memoirId: 24,
+            reviseButtonTapped: reviceButton.rx.tap.asObservable(),
+            memoirId: 25,
             memoirInquiry: Observable.just(()),
             toggleEditing: PublishSubject<Void>().asObservable(),
             learnedText: learnedTextObservable,
@@ -355,6 +353,8 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
             .disposed(by: disposeBag)
         
         let output = viewModel.bind(input: input)
+        
+        
         
         reviceButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
@@ -423,33 +423,36 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
     }
     
     private func updateUIWithMemoirResponse(_ response: MemoirResponse) {
-            
+        
         if let url = URL(string: response.result.emoticonUrl ?? "1") {
-                emoticonImage.kf.setImage(with: url)
-            }
-            
-            // 날짜 정보 설정
-            dateLabel.text = response.result.date
-            
-            // 회고록 답변 리스트에서 특정 요약 정보에 맞는 답변을 찾아서 UI 설정함
-            if let learnedAnswer = response.result.memoirAnswerList.first(where: { $0.summary == "오늘 배운 점" }) {
-                learnedTextField.text = learnedAnswer.answer
-            } else {
-                learnedTextField.text = "오늘의 회고를 작성해 보세요!"
-            }
-            
-            if let praisedAnswer = response.result.memoirAnswerList.first(where: { $0.summary == "오늘 칭찬할 점" }) {
-                praisedTextField.text = praisedAnswer.answer
-            } else {
-                praisedTextField.text = "오늘의 회고를 완료해 보세요"
-            }
-            
-            if let improvementAnswer = response.result.memoirAnswerList.first(where: { $0.summary == "앞으로 개선할 점" }) {
-                improvementTextField.text = improvementAnswer.answer
-            } else {
-                improvementTextField.text = "오늘의 회고를 작성해 보세요!"
-            }
+            emoticonImage.kf.setImage(with: url)
         }
+        
+        // 날짜 정보 설정
+        dateLabel.text = response.result.date
+        // 북마크 상태에 따라 아이콘 업데이트
+        let bookmarkImageName = response.result.isBookmarked ?? false ? "bookmark.fill" : "bookmark"
+        bookmarkButton.image = UIImage(systemName: bookmarkImageName)
+        
+        // 회고록 답변 리스트에서 특정 요약 정보에 맞는 답변을 찾아서 UI 설정함
+        if let learnedAnswer = response.result.memoirAnswerList.first(where: { $0.summary == "오늘 배운 점" }) {
+            learnedTextField.text = learnedAnswer.answer
+        } else {
+            learnedTextField.text = "오늘의 회고를 작성해 보세요!"
+        }
+        
+        if let praisedAnswer = response.result.memoirAnswerList.first(where: { $0.summary == "오늘 칭찬할 점" }) {
+            praisedTextField.text = praisedAnswer.answer
+        } else {
+            praisedTextField.text = "오늘의 회고를 완료해 보세요"
+        }
+        
+        if let improvementAnswer = response.result.memoirAnswerList.first(where: { $0.summary == "앞으로 개선할 점" }) {
+            improvementTextField.text = improvementAnswer.answer
+        } else {
+            improvementTextField.text = "오늘의 회고를 작성해 보세요!"
+        }
+    }
     private func moveToHome() {
         let vc = HomeViewController()
         navigationController?.pushViewController(vc, animated: true)
@@ -465,7 +468,7 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
         
         let deleteAction = UIAlertAction(title: "삭제하기", style: .destructive) { [weak self] _ in
             guard let self = self, let navigationController = navigationController else { return }
-
+            
             let deletedMemoirsPopUpView = DeletedMemoirsPopUpView(navigationController: UINavigationController())
             present(deletedMemoirsPopUpView, animated: true, completion: nil)
         }
