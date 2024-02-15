@@ -44,25 +44,6 @@ final class InquireMemoirsViewModel {
     func bind(input: Input) -> Output {
         
         let isEditingRelay = BehaviorRelay<Bool>(value: false)
-//        
-//        // 각 입력 필드에 대한 처리
-//        input.learnedText
-//                .subscribe(onNext: { text in
-//                    print("Learned Text: \(text ?? "")")
-//                })
-//                .disposed(by: disposeBag)
-//
-//            input.praisedText
-//                .subscribe(onNext: { text in
-//                    print("Praised Text: \(text ?? "")")
-//                })
-//                .disposed(by: disposeBag)
-//
-//            input.improvementText
-//                .subscribe(onNext: { text in
-//                    print("Improvement Text: \(text ?? "")")
-//                })
-//                .disposed(by: disposeBag)
         
         // 편집 모드 토글 액션 처리
         input.toggleEditing

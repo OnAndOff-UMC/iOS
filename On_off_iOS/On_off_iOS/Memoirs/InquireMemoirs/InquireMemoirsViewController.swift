@@ -428,13 +428,15 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
             emoticonImage.kf.setImage(with: url)
         }
         
-        // 날짜 정보 설정
+        /// 날짜 정보 설정
         dateLabel.text = response.result.date
-        // 북마크 상태에 따라 아이콘 업데이트
+        print(response.result.date)
+        
+        /// 북마크 상태에 따라 아이콘 업데이트
         let bookmarkImageName = response.result.isBookmarked ?? false ? "bookmark.fill" : "bookmark"
         bookmarkButton.image = UIImage(systemName: bookmarkImageName)
         
-        // 회고록 답변 리스트에서 특정 요약 정보에 맞는 답변을 찾아서 UI 설정함
+        /// 회고록 답변 리스트에서 특정 요약 정보에 맞는 답변을 찾아서 UI 설정함
         if let learnedAnswer = response.result.memoirAnswerList.first(where: { $0.summary == "오늘 배운 점" }) {
             learnedTextField.text = learnedAnswer.answer
         } else {
@@ -470,8 +472,10 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
         let deleteAction = UIAlertAction(title: "삭제하기", style: .destructive) { [weak self] _ in
             guard let self = self, let navigationController = navigationController else { return }
             
-            let deletedMemoirsPopUpView = DeletedMemoirsPopUpView(navigationController: UINavigationController())
-            present(deletedMemoirsPopUpView, animated: true, completion: nil)
+            if let date = dateLabel.text {
+                let deletedMemoirsPopUpView = DeletedMemoirsPopUpView(navigationController: UINavigationController(),date: "2024-02-15", memoirId: 25)
+                present(deletedMemoirsPopUpView, animated: true, completion: nil)
+            }
         }
         
         

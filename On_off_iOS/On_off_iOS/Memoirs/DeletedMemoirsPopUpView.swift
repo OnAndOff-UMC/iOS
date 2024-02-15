@@ -39,7 +39,7 @@ final class DeletedMemoirsPopUpView: DimmedViewController {
     /// 설명 라벨 1
     private lazy var descriptionLabel1: UILabel = {
         let label = UILabel()
-        label.text = "2023년 11월 22일에 기록한 회고를"
+        label.text = "ㅎ에 기록한 회고를"
         label.textColor = .black
         label.font = .pretendard(size: 18, weight: .bold)
         label.backgroundColor = .clear
@@ -95,10 +95,16 @@ final class DeletedMemoirsPopUpView: DimmedViewController {
     private let navigationControllers: UINavigationController
     private let viewModel = DeletedMemoirsPopUpViewModel()
     
+    private var date: String
+    private var memoirId: Int
+    
     // MARK: - Init
-    init(navigationController: UINavigationController) {
+    init(navigationController: UINavigationController, date: String, memoirId: Int) {
+        self.date = date
+        self.memoirId = memoirId
         self.navigationControllers = navigationController
         super.init(durationTime: 0.3, alpha: 0.7)
+        setupViews()
         addSubviews()
         bind()
     }
@@ -107,6 +113,10 @@ final class DeletedMemoirsPopUpView: DimmedViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    private func setupViews() {
+        descriptionLabel1.text = "\"\(date)\"에 기록한 회고를"
+    }
+    
     /// Add Subviews
     private func addSubviews() {
         view.addSubview(baseUIView)
@@ -157,22 +167,11 @@ final class DeletedMemoirsPopUpView: DimmedViewController {
     
     /// Binding
     private func bind() {
-        let input = DeletedMemoirsPopUpViewModel.Input(clickDeleteButtonEvents: deleteButton.rx.tap)
+        let input = DeletedMemoirsPopUpViewModel.Input(clickDeleteButtonEvents: deleteButton.rx.tap, 
+                                                       memoirId: self.memoirId)
         
         let output = viewModel.createOutput(input: input)
         
-        output.successDeleteSubject
-              .subscribe(onNext: { [weak self] isSuccess in
-                  if isSuccess {
-                      // 삭제 성공 시, 처리 로직
-                      print("회고록 삭제 성공")
-                      self?.dismiss(animated: true, completion: nil)
-                  } else {
-                      // 삭제 실패 시, 처리 로직
-                      print("회고록 삭제 실패")
-                  }
-              })
-              .disposed(by: disposeBag)
         bindSuccessDeleteSubject(output: output)
         bindCancelButton()
     }
@@ -186,6 +185,8 @@ final class DeletedMemoirsPopUpView: DimmedViewController {
             }
             .disposed(by: disposeBag)
     }
+    
+
     
     /// Binding 삭제 성공 했을 때
     private func bindSuccessDeleteSubject(output: DeletedMemoirsPopUpViewModel.Output) {

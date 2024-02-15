@@ -16,6 +16,7 @@ final class DeletedMemoirsPopUpViewModel {
     
     struct Input {
         var clickDeleteButtonEvents: ControlEvent<Void>?
+        var memoirId: Int
     }
     
     struct Output {
@@ -41,7 +42,7 @@ final class DeletedMemoirsPopUpViewModel {
             .flatMapLatest { [weak self] _ -> Observable<Bool> in
                 guard let self = self else { return .just(false) }
                 
-                return self.service.deleteMemoirs(memoirId: 22)
+                return self.service.deleteMemoirs(memoirId: input.memoirId)
                     .map { response -> Bool in
                         return response.isSuccess
                     }
