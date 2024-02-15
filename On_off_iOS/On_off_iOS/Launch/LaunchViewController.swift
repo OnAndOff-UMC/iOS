@@ -80,7 +80,7 @@ final class LaunchViewController: UIViewController {
             let viewController: UIViewController
             switch navigation {
             case .main:
-                viewController = TabBarController()
+                viewController = MyPageViewController()
             case .onBoarding:
                 let viewModel = OnBoardingViewModel()
                 viewController = OnBoardingViewController(viewModel: viewModel)

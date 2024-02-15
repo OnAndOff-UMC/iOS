@@ -50,9 +50,9 @@ final class TopCustomButton: UIButton {
     private func constraints() {
         iconImageView.snp.makeConstraints { make in
             make.top.equalToSuperview()
-            make.width.equalTo(iconImageView.snp.height)
-            make.bottom.equalTo(topTitleLabel.snp.top).offset(-5)
+            make.bottom.equalTo(topTitleLabel.snp.top)
             make.centerX.equalToSuperview()
+            make.height.equalTo(80)
         }
         
         topTitleLabel.snp.makeConstraints { make in
@@ -66,7 +66,7 @@ final class TopCustomButton: UIButton {
     ///   - icon: 아이콘
     ///   - title: 제목
     func inputData(icon: String, title: String) {
-        iconImageView.image = UIImage(named: "icon")
+        iconImageView.image = UIImage(named: icon)
         topTitleLabel.text = title
     }
 }
