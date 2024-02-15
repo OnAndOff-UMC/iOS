@@ -151,6 +151,9 @@
 		3BEFD3132B7BA2D700EE6EFF /* FutureUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEFD3122B7BA2D700EE6EFF /* FutureUIView.swift */; };
 		3BEFD3152B7BA75D00EE6EFF /* Ext + Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEFD3142B7BA75D00EE6EFF /* Ext + Date.swift */; };
 		3BEFD3172B7BAE8500EE6EFF /* MemoirPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEFD3162B7BAE8500EE6EFF /* MemoirPreview.swift */; };
+		3BF02BD72B7E0B840079A091 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF02BD62B7E0B840079A091 /* MyPageViewController.swift */; };
+		3BF02BD92B7E0B970079A091 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF02BD82B7E0B970079A091 /* MyPageViewModel.swift */; };
+		3BF02BDC2B7E0DE00079A091 /* TopCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF02BDB2B7E0DE00079A091 /* TopCustomButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -281,6 +284,9 @@
 		3BEFD3122B7BA2D700EE6EFF /* FutureUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureUIView.swift; sourceTree = "<group>"; };
 		3BEFD3142B7BA75D00EE6EFF /* Ext + Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext + Date.swift"; sourceTree = "<group>"; };
 		3BEFD3162B7BAE8500EE6EFF /* MemoirPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoirPreview.swift; sourceTree = "<group>"; };
+		3BF02BD62B7E0B840079A091 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
+		3BF02BD82B7E0B970079A091 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
+		3BF02BDB2B7E0DE00079A091 /* TopCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopCustomButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -819,7 +825,6 @@
 			children = (
 				3B26CF432B790A4700E05581 /* Image.swift */,
 				3B26CF4B2B79F3F800E05581 /* Feed.swift */,
-				3BEFD3102B7B13CE00EE6EFF /* MyInfo.swift */,
 				3BEFD3162B7BAE8500EE6EFF /* MemoirPreview.swift */,
 			);
 			path = Model;
@@ -891,6 +896,7 @@
 		3B42300C2B41572200D0B038 /* On_off_iOS */ = {
 			isa = PBXGroup;
 			children = (
+				3BF02BD32B7E0B630079A091 /* MyPage */,
 				37CC77732B6F95F4007999E5 /* KeyChain */,
 				37FED6052B6E23380071BB23 /* Bookmark */,
 				37A1E9832B6C7FC60013FFD7 /* On_off_iOS.entitlements */,
@@ -981,6 +987,41 @@
 				3BEFD30C2B7AF53F00EE6EFF /* HomeViewService.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		3BF02BD32B7E0B630079A091 /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				3BF02BDA2B7E0C090079A091 /* Model */,
+				3BF02BD52B7E0B720079A091 /* ViewModel */,
+				3BF02BD42B7E0B6D0079A091 /* View */,
+			);
+			path = MyPage;
+			sourceTree = "<group>";
+		};
+		3BF02BD42B7E0B6D0079A091 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3BF02BD62B7E0B840079A091 /* MyPageViewController.swift */,
+				3BF02BDB2B7E0DE00079A091 /* TopCustomButton.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3BF02BD52B7E0B720079A091 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				3BF02BD82B7E0B970079A091 /* MyPageViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		3BF02BDA2B7E0C090079A091 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3BEFD3102B7B13CE00EE6EFF /* MyInfo.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1121,12 +1162,14 @@
 				37C1612C2B6BDEF8000E0B21 /* Header.swift in Sources */,
 				3787D0082B429C1100F054DD /* OnboardingModel.swift in Sources */,
 				37C70B422B714C8B004CB0F6 /* Ext + NSAttributedString.swift in Sources */,
+				3BF02BD72B7E0B840079A091 /* MyPageViewController.swift in Sources */,
 				378140662B42F0AB00F2AA5A /* ProfileSettingViewModel.swift in Sources */,
 				37C1613C2B6BE519000E0B21 /* Login.swift in Sources */,
 				3B1658F72B4D8559004EFBC3 /* WeekChartCustomView.swift in Sources */,
 				378588EF2B707EED004E262F /* ModalSelectProfileViewController.swift in Sources */,
 				37D606FD2B7783E20092F113 /* LaunchModel.swift in Sources */,
 				37AEB1F22B6CFE3500A6CDD6 /* MemoirsService.swift in Sources */,
+				3BF02BD92B7E0B970079A091 /* MyPageViewModel.swift in Sources */,
 				3B42300E2B41572200D0B038 /* AppDelegate.swift in Sources */,
 				37FED6032B6E15000071BB23 /* MemoirsImage.swift in Sources */,
 				37DEF20D2B66B31D00AF47DB /* MemoirsCompleteViewController.swift in Sources */,
@@ -1170,6 +1213,7 @@
 				371B9EB92B5B0723006AC06D /* WritePraisedViewModel.swift in Sources */,
 				371B9EA72B5AD838006AC06D /* MemoirsViewController.swift in Sources */,
 				371B9EAE2B5AFD42006AC06D /* StartToWriteViewModel.swift in Sources */,
+				3BF02BDC2B7E0DE00079A091 /* TopCustomButton.swift in Sources */,
 				378588F72B708701004E262F /* ProfileDataType.swift in Sources */,
 				3BEFD30F2B7AF56300EE6EFF /* WeekDay.swift in Sources */,
 				37BD17702B764B2800A4EA46 /* LaunchViewModel.swift in Sources */,
