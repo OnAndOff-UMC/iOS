@@ -95,7 +95,6 @@ final class InquireMemoirsViewModel {
                         return response.result.isBookmarked ?? false
                     }
                     .catchAndReturn(false)
-                
             }
         
         return Output(updateBookmarkStatus: updateBookmarkStatus,
