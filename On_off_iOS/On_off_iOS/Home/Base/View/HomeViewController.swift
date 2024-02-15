@@ -101,7 +101,6 @@ final class HomeViewController: UIViewController {
         
         addBaseSubViews()
         bind()
-        print("\(OnUIView.self) 화면에 좀 떠주라...제발...나 시간이 없어...")
     }
     
     override func viewDidLayoutSubviews() {
@@ -305,7 +304,7 @@ final class HomeViewController: UIViewController {
     
     ///  피드 추가 버튼
     private func bindAddWorkLogButton() {
-        OnUIView().clickedAddWorklogButton
+        onUIView.clickedAddWorklogButton
             .bind { [weak self] in
                 guard let self = self else { return }
                 presentInsertWorkLogView(insertFeed: nil)
@@ -315,7 +314,7 @@ final class HomeViewController: UIViewController {
     
     /// Worklog 클릭한 경우
     private func bindSelectedFeedTableViewCell() {
-        OnUIView().selectedWorklogTableViewCell
+        onUIView.selectedWorklogTableViewCell
             .bind { [weak self] Worklog in
                 guard let self = self else { return }
                 let ClickWorklogView = ClickWorklogView()

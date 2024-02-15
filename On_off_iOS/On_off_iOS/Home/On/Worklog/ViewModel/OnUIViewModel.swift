@@ -44,7 +44,7 @@ final class OnUIViewModel {
         
         return output
     }
-    
+        
     /// Binding Load W.L.
     private func bindLoadWLFeed(input: Input, output: Output) {
         input.loadWLFeed?
@@ -71,7 +71,7 @@ final class OnUIViewModel {
             }
             .disposed(by: disposeBag)
     }
-    
+
     /// Binding Selected W.L
     private func bindSelectedWLFeed(input: Input, output: Output) {
         input.clickCheckMarkOfWLFeed?
@@ -105,7 +105,7 @@ final class OnUIViewModel {
             .disposed(by: disposeBag)
      
     }
-   
+    
     /// 업무일지 체크 유무
     /// - Parameters:
     ///   - worklogId: Worklog Id

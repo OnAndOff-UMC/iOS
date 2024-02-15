@@ -125,25 +125,11 @@ final class OnUIView: UIView {
         scrollView.addSubview(contentView)
         contentView.addSubview(feedlabelBackgroundUIView)
         contentView.addSubview(feedTitleButton)
-        feedlabelBackgroundUIView.addSubview(feedPlusIconImageButton) // 버튼을 상위 뷰에 추가
-        
-        // 상위 뷰의 사용자 상호 작용 가능 설정
-        feedlabelBackgroundUIView.isUserInteractionEnabled = true
-        
+        feedlabelBackgroundUIView.addSubview(feedPlusIconImageButton)
         contentView.addSubview(feedUITableView)
         contentView.addSubview(dateLabel)
         
         constraints(output: output)
-        
-        // 버튼의 클릭 이벤트 처리
-        feedPlusIconImageButton.rx.tap
-            .bind { [weak self] in
-                guard let self = self else { return }
-                print("feedPlusIconImageButton tapped") // 버튼이 눌렸을 때 메시지를 출력하여 확인
-                // 추가로 필요한 작업 수행
-            }
-            .disposed(by: disposeBag)
-        
     }
     
     
@@ -159,7 +145,6 @@ final class OnUIView: UIView {
             //            make.trailing.equalTo(scrollView.snp.trailing)
             ////            make.bottom.equalTo(scrollView.snp.bottom)
             //            make.width.equalTo(scrollView.snp.width)
-            //            make.height.equalTo(1000)
             make.edges.equalToSuperview()
             make.height.equalTo(1000)
             make.width.equalTo(scrollView.snp.width)
@@ -215,15 +200,15 @@ final class OnUIView: UIView {
     
     // Worklog 제목 버튼 및 이미지 버튼
     private func bindFeedEvents() {
-        feedTitleButton.rx.tap
-            .bind { [weak self] in
+        feedPlusIconImageButton.rx.tap
+            .subscribe(onNext: { [weak self] in
                 guard let self = self else { return }
-                print("Button tapped") // Add this line for debugging
-                clickedAddWorklogButton.onNext(())
-            }
+                print("Button tapped")
+                self.clickedAddWorklogButton.onNext(())
+            })
             .disposed(by: disposeBag)
     }
-    
+
     /// Binding Work log Table View
     private func bindTableViewHeight(output: OnUIViewModel.Output) {
         output.workLogRelay
