@@ -101,7 +101,7 @@ iOSInjectionProject/
 # End of https://www.toptal.com/developers/gitignore/api/swift,xcode
 
 On_off_iOS/.DS_Store
-
+*/.DS_Store
 On_off_iOS/On_off_iOS/Config.xcconfig
 
-On_off_iOS/On_off_iOS/Constants/.DS_Store
+.DS_Store

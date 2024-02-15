@@ -38,8 +38,7 @@ final class LaunchViewController: UIViewController {
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        KeychainWrapper.delete(key: LoginKeyChain.accessToken.rawValue)
-         KeychainWrapper.delete(key: LoginKeyChain.refreshToken.rawValue)
+        // KeychainWrapper.delete(key: LoginKeyChain.refreshToken.rawValue)
         
         setupAnim()
         finishAnimation()
@@ -81,9 +80,7 @@ final class LaunchViewController: UIViewController {
             let viewController: UIViewController
             switch navigation {
             case .main:
-                let viewModel = InquireMemoirsViewModel()
-                viewController = InquireMemoirsViewController(viewModel: viewModel)
-                
+                viewController = TabBarController()
             case .onBoarding:
                 let viewModel = OnBoardingViewModel()
                 viewController = OnBoardingViewController(viewModel: viewModel)
