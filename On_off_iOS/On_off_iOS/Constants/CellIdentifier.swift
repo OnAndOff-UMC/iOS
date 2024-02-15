@@ -21,4 +21,7 @@ enum CellIdentifier: String {
     // MARK: - Off UIView
     case ImageCollectionView
     case WorkLifeBalanceTableViewCell
+    
+    // MARK: - Calendar
+    case CalendarCell
 }
