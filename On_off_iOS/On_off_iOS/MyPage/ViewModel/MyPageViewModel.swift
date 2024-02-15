@@ -39,7 +39,19 @@ final class MyPageViewModel {
         let output = Output()
         
         getMyInformation(output: output)
+        bindLogOutButton(input: input, output: output)
+        
         return output
+    }
+    
+    /// Bind Log Out Button
+    private func bindLogOutButton(input: Input, output: Output) {
+        input.logOutButton
+            .bind { _ in
+                _ = KeychainWrapper.delete(key: LoginKeyChain.accessToken.rawValue)
+                _ = KeychainWrapper.delete(key: LoginKeyChain.refreshToken.rawValue)
+            }
+            .disposed(by: disposeBag)
     }
     
     /// Input Nick Name
