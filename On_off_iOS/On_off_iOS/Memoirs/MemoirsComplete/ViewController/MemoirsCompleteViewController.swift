@@ -49,7 +49,7 @@ final class MemoirsCompleteViewController: UIViewController {
     /// 확인 버튼 뷰
     private lazy var saveButtonView: UIView = {
         let view = UIView()
-        view.backgroundColor = .OnOffLightMain
+        view.backgroundColor = .OnOffMain
         return view
     }()
     
@@ -126,6 +126,12 @@ final class MemoirsCompleteViewController: UIViewController {
             make.centerX.equalToSuperview()
         }
 
+    }
+    
+    private func navigateToTabbar() {
+        let tabBarController = TabBarController()
+        self.navigationController?.pushViewController(tabBarController, animated: true)
+     // navigation?.rootViewController = TabBarController()
     }
     
     /// 뷰모델과 setupBindings

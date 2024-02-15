@@ -39,7 +39,7 @@ final class DeletedMemoirsPopUpView: DimmedViewController {
     /// 설명 라벨 1
     private lazy var descriptionLabel1: UILabel = {
         let label = UILabel()
-        label.text = "ㅎ에 기록한 회고를"
+        label.text = "에 기록한 회고를"
         label.textColor = .black
         label.font = .pretendard(size: 18, weight: .bold)
         label.backgroundColor = .clear
@@ -112,7 +112,7 @@ final class DeletedMemoirsPopUpView: DimmedViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     private func setupViews() {
         descriptionLabel1.text = "\"\(date)\"에 기록한 회고를"
     }
@@ -167,7 +167,7 @@ final class DeletedMemoirsPopUpView: DimmedViewController {
     
     /// Binding
     private func bind() {
-        let input = DeletedMemoirsPopUpViewModel.Input(clickDeleteButtonEvents: deleteButton.rx.tap, 
+        let input = DeletedMemoirsPopUpViewModel.Input(clickDeleteButtonEvents: deleteButton.rx.tap,
                                                        memoirId: self.memoirId)
         
         let output = viewModel.createOutput(input: input)
@@ -186,21 +186,28 @@ final class DeletedMemoirsPopUpView: DimmedViewController {
             .disposed(by: disposeBag)
     }
     
-
-    
     /// Binding 삭제 성공 했을 때
     private func bindSuccessDeleteSubject(output: DeletedMemoirsPopUpViewModel.Output) {
         output.successDeleteSubject
-            .bind { [weak self] check in
+            .subscribe(onNext: { [weak self] isSuccess in
                 guard let self = self else { return }
-                if check {
-                    dismiss(animated: true) { [weak self]  in
-                        guard let self = self else { return }
-                        navigationControllers.popViewController(animated: true)
-                    }
+                if isSuccess {
+                    /// 삭제 성공
+                    print("회고록 삭제 성공")
+                    dismiss(animated: true)
+                    let tabBarController = TabBarController()
+                    navigationControllers.popToViewController(TabBarController(), animated: true)
+                    
+                    
+                } else {
+                    /// 삭제 실패
+                    print("회고록 삭제 실패")
+                    //지울코드
+                    dismiss(animated: true)
+                    let tabBarController = TabBarController()
+                    navigationControllers.popToViewController(TabBarController(), animated: true)
                 }
-            }
+            })
             .disposed(by: disposeBag)
     }
 }
-

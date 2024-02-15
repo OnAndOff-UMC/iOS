@@ -69,24 +69,23 @@ final class MemoirsService: MemoirsProtocol {
     }
     
     /// 회고록 삭제하기
-    func deleteMemoirs(memoirId: Int) -> RxSwift.Observable<MemoirResponse> {
+    func deleteMemoirs(memoirId: Int) -> RxSwift.Observable<Response<Int>> {
         let url = Domain.RESTAPI + MemoirsPath.memoirsRevise.rawValue
             .replacingOccurrences(of: "MEMOIRID", with: String(memoirId))
         let headers = Header.header.getHeader()
-        
+        print(url)
         return Observable.create { observer in
             AF.request(url,
                        method: .delete,
                        headers: headers)
             .validate(statusCode: 200..<201)
-            .responseDecodable(of: MemoirResponse.self) { response in
-                
-                switch response.result {
-                case .success(let data):
-                    observer.onNext(data)
-                case .failure(let error):
-                    observer.onError(error)
-                }
+            .responseDecodable(of: Response<Int>.self) { response in
+                        switch response.result {
+                        case .success(let data):
+                            observer.onNext(data)
+                        case .failure(let error):
+                            observer.onError(error)
+                        }
                 print(response)
             }
             return Disposables.create()

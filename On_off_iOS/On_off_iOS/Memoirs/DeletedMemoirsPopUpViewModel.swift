@@ -37,12 +37,12 @@ final class DeletedMemoirsPopUpViewModel {
     /// Bindingn Click Delete Button Events
     /// - Parameters:
     private func bindClickDeleteButtonEvents(input: Input, output: Output) {
-        let output = Output()
+        print(input.memoirId)
         input.clickDeleteButtonEvents?
             .flatMapLatest { [weak self] _ -> Observable<Bool> in
                 guard let self = self else { return .just(false) }
                 
-                return self.service.deleteMemoirs(memoirId: input.memoirId)
+                return service.deleteMemoirs(memoirId: input.memoirId)
                     .map { response -> Bool in
                         return response.isSuccess
                     }

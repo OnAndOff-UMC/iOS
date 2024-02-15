@@ -171,7 +171,8 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
     
     private var viewModel: InquireMemoirsViewModel
     private let disposeBag = DisposeBag()
-    
+    private var latestMemoirResponse: MemoirResponse?
+
     // MARK: - Init
     init(viewModel: InquireMemoirsViewModel) {
         self.viewModel = viewModel
@@ -333,12 +334,11 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
         let learnedTextObservable: Observable<String?> = learnedTextField.rx.text.asObservable()
         let praisedTextObservable: Observable<String?> = praisedTextField.rx.text.asObservable()
         let improvementTextObservable: Observable<String?> = improvementTextField.rx.text.asObservable()
-        
+ 
         let input = InquireMemoirsViewModel.Input(
             bookMarkButtonTapped: bookmarkButton.rx.tap.asObservable(),
             menuButtonTapped: menuButton.rx.tap.asObservable(),
             reviseButtonTapped: reviceButton.rx.tap.asObservable(),
-            memoirId: 25,
             memoirInquiry: Observable.just(()),
             toggleEditing: PublishSubject<Void>().asObservable(),
             learnedText: learnedTextObservable,
@@ -354,7 +354,11 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
         
         let output = viewModel.bind(input: input)
         
-        
+        output.latestMemoirInquiryResult
+               .subscribe(onNext: { [weak self] response in
+                   self?.latestMemoirResponse = response
+               })
+               .disposed(by: disposeBag)
         
         reviceButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
@@ -400,7 +404,8 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
         
         menuButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
-                self?.presentActionSheet()
+                guard let latestResponse = self?.latestMemoirResponse else { return }
+                self?.presentActionSheet(latestResponse)
             })
             .disposed(by: disposeBag)
     }
@@ -428,10 +433,12 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
             emoticonImage.kf.setImage(with: url)
         }
         
+        self.latestMemoirResponse = response
+
         /// 날짜 정보 설정
         dateLabel.text = response.result.date
         print(response.result.date)
-        
+        print(response.result.memoirId)
         /// 북마크 상태에 따라 아이콘 업데이트
         let bookmarkImageName = response.result.isBookmarked ?? false ? "bookmark.fill" : "bookmark"
         bookmarkButton.image = UIImage(systemName: bookmarkImageName)
@@ -461,7 +468,7 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    private func presentActionSheet() {
+    private func presentActionSheet(_ response: MemoirResponse) {
         
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
@@ -472,10 +479,10 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
         let deleteAction = UIAlertAction(title: "삭제하기", style: .destructive) { [weak self] _ in
             guard let self = self, let navigationController = navigationController else { return }
             
-            if let date = dateLabel.text {
-                let deletedMemoirsPopUpView = DeletedMemoirsPopUpView(navigationController: UINavigationController(),date: "2024-02-15", memoirId: 25)
-                present(deletedMemoirsPopUpView, animated: true, completion: nil)
-            }
+            if let date = latestMemoirResponse?.result.date, let memoirId = latestMemoirResponse?.result.memoirId {
+                           let deletedMemoirsPopUpView = DeletedMemoirsPopUpView(navigationController: navigationController, date: date, memoirId: memoirId)
+                           self.present(deletedMemoirsPopUpView, animated: true, completion: nil)
+                       }
         }
         
         

@@ -17,13 +17,12 @@ final class InquireMemoirsViewModel {
     private let memoirsService = MemoirsService()
     
     private let latestMemoirInquiryResult = BehaviorSubject<MemoirResponse?>(value: nil)
-
+    
     // Input 구조체 정의
     struct Input {
         let bookMarkButtonTapped: Observable<Void>
         let menuButtonTapped: Observable<Void>
         let reviseButtonTapped: Observable<Void>
-        let memoirId: Int
         let memoirInquiry: Observable<Void>
         let toggleEditing: Observable<Void>
         
@@ -39,6 +38,7 @@ final class InquireMemoirsViewModel {
         let memoirInquiryResult: Observable<MemoirResponse>
         let isEditing: Observable<Bool> // 편집 모드 상태
         let reviseResult: Observable<Bool>
+        let latestMemoirInquiryResult: Observable<MemoirResponse?>
     }
     
     func bind(input: Input) -> Output {
@@ -56,8 +56,8 @@ final class InquireMemoirsViewModel {
         let reviseResult = input.reviseButtonTapped
             .withLatestFrom(Observable.combineLatest(input.learnedText, input.praisedText, input.improvementText, latestMemoirInquiryResult))
             .flatMapLatest { [weak self] learnedText, praisedText, improvementText, latestResult -> Observable<Bool> in
-                guard let self = self else { return .just(false) }
-                
+                guard let self = self, let memoirId = latestResult?.result.memoirId else { return .just(false) }
+
                 // 사용자 입력이 없을 경우 기존 값 사용
                 let finalLearnedText = (learnedText?.isEmpty ?? true) ? latestResult?.result.memoirAnswerList.first(where: { $0.summary == "오늘 배운 점" })?.answer ?? "" : learnedText ?? ""
                 let finalPraisedText = (praisedText?.isEmpty ?? true) ? latestResult?.result.memoirAnswerList.first(where: { $0.summary == "오늘 칭찬할 점" })?.answer ?? "" : praisedText ?? ""
@@ -67,7 +67,7 @@ final class InquireMemoirsViewModel {
                     learnedText: finalLearnedText,
                     praisedText: finalPraisedText,
                     improvementText: finalImprovementText,
-                    memoirId: input.memoirId
+                    memoirId: memoirId
                 )
             }
         
@@ -84,20 +84,25 @@ final class InquireMemoirsViewModel {
         
         /// 북마크 버튼 탭 처리
         let updateBookmarkStatus = input.bookMarkButtonTapped
-            .flatMapLatest { [weak self] _ -> Observable<Bool> in
-                guard let self = self else { return .just(false) }
-                
-                return self.memoirsService.bookMarkMemoirs(memoirId: input.memoirId)
+            .withLatestFrom(latestMemoirInquiryResult)
+            .flatMapLatest { [weak self] latestMemoirResponse -> Observable<Bool> in
+                guard let self = self,
+                      let memoirId = latestMemoirResponse?.result.memoirId else {
+                    return .just(false) // 회고록 ID가 없는 경우 실패 처리
+                }
+                return self.memoirsService.bookMarkMemoirs(memoirId: memoirId)
                     .map { response -> Bool in
-                        return response.result.isBookmarked ?? true
+                        return response.result.isBookmarked ?? false
                     }
                     .catchAndReturn(false)
+                
             }
         
         return Output(updateBookmarkStatus: updateBookmarkStatus,
                       memoirInquiryResult: memoirInquiryResult,
                       isEditing: isEditingRelay.asObservable(),
-                      reviseResult: reviseResult)
+                      reviseResult: reviseResult,
+                      latestMemoirInquiryResult: latestMemoirInquiryResult.asObservable())
     }
     
     private func sendReviceMemoirsData(learnedText: String, praisedText: String, improvementText: String, memoirId: Int) -> Observable<Bool> {
@@ -114,8 +119,7 @@ final class InquireMemoirsViewModel {
                 MemoirRevisedRequest.MemoirAnswer(questionId: 3, answer: answer3)
             ]
         )
-        print(request)
-        print(memoirId)
+        print("🍎\(memoirId)")
         return memoirsService.reviseMemoirs(request: request, memoirId: memoirId)
             .map { _ -> Bool in true }
             .catchAndReturn(false)

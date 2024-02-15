@@ -97,7 +97,6 @@ final class ProfileSettingViewModel {
             let fullName = FullName(giveName: givenName, familyName: familyName)
             
             let additionalInfo = AdditionalInfo(nickname: nickname, fieldOfWork: fieldOfWork, job: job, experienceYear: experienceYear)
-            
             let request = AppleTokenValidationRequest(
                 oauthId: oauthId,
                 fullName: fullName,

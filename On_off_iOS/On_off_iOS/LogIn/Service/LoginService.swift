@@ -108,7 +108,7 @@ final class LoginService: LoginProtocol {
                        headers: headers)
             .validate()
             .responseDecodable(of: Response<TokenResult>.self) { response in
-
+                print(request)
                 switch response.result {
                     
                 case .success(let data):

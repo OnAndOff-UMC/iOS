@@ -80,7 +80,7 @@ final class LaunchViewController: UIViewController {
             let viewController: UIViewController
             switch navigation {
             case .main:
-                viewController = TabBarController()
+                viewController = InquireMemoirsViewController(viewModel: InquireMemoirsViewModel())//BookmarkViewController(viewModel: BookmarkViewModel())// InquireMemoirsViewController(viewModel: InquireMemoirsViewModel())//TabBarController()//InquireMemoirsViewController(viewModel: InquireMemoirsViewModel())//BookmarkViewController(viewModel: BookmarkViewModel())//TabBarController()
             case .onBoarding:
                 let viewModel = OnBoardingViewModel()
                 viewController = OnBoardingViewController(viewModel: viewModel)

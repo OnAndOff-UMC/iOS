@@ -192,7 +192,6 @@ final class ExpressedIconViewController: UIViewController {
     
     /// 임시 초기로 이동
     private func navigateTobookMark() {
-        print("aaaa")
         let memoirsCompleteViewModel = MemoirsCompleteViewModel()
         let memoirsCompleteViewController = MemoirsCompleteViewController(viewModel: memoirsCompleteViewModel)
         self.navigationController?.pushViewController(memoirsCompleteViewController, animated: false)
