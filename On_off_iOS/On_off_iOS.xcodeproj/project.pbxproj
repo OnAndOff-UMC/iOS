@@ -26,6 +26,7 @@
 		371B9EBF2B5B075A006AC06D /* WriteImprovementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371B9EBE2B5B075A006AC06D /* WriteImprovementViewController.swift */; };
 		371B9EC32B5B076E006AC06D /* WriteLearnedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371B9EC22B5B076E006AC06D /* WriteLearnedViewModel.swift */; };
 		371B9EC52B5B0B61006AC06D /* WriteLearnedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371B9EC42B5B0B61006AC06D /* WriteLearnedViewController.swift */; };
+		37225CF42B7DE7D300F06C2C /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 37225CF32B7DE7D300F06C2C /* Config.xcconfig */; };
 		374FD4932B4268EC00F2E645 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 374FD4922B4268EC00F2E645 /* RxCocoa */; };
 		374FD4952B4268EC00F2E645 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 374FD4942B4268EC00F2E645 /* RxRelay */; };
 		374FD4972B4268EC00F2E645 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 374FD4962B4268EC00F2E645 /* RxSwift */; };
@@ -33,7 +34,6 @@
 		374FD49D2B4281E100F2E645 /* OnboardingCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374FD49C2B4281E100F2E645 /* OnboardingCustomView.swift */; };
 		374FD49F2B42825B00F2E645 /* CustomPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374FD49E2B42825B00F2E645 /* CustomPageControl.swift */; };
 		374FD4A42B4297BE00F2E645 /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374FD4A32B4297BE00F2E645 /* OnBoardingViewController.swift */; };
-		376879EA2B7B953800833623 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 376879E92B7B953800833623 /* Config.xcconfig */; };
 		376879F22B7C75FB00833623 /* DeletedMemoirsPopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376879F12B7C75FB00833623 /* DeletedMemoirsPopUpView.swift */; };
 		376879F42B7C76DD00833623 /* DeletedMemoirsPopUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376879F32B7C76DD00833623 /* DeletedMemoirsPopUpViewModel.swift */; };
 		3769A6862B58563000D79C33 /* SelectTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3769A6852B58563000D79C33 /* SelectTimeViewModel.swift */; };
@@ -135,7 +135,6 @@
 		3B4230102B41572200D0B038 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B42300F2B41572200D0B038 /* SceneDelegate.swift */; };
 		3B4230172B41572400D0B038 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B4230162B41572400D0B038 /* Assets.xcassets */; };
 		3B42301A2B41572400D0B038 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B4230182B41572400D0B038 /* LaunchScreen.storyboard */; };
-		3B44BDE92B7CCD2C00AE9170 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3B44BDE82B7CCD2C00AE9170 /* Config.xcconfig */; };
 		3B51B5272B63DF9500E5FEF9 /* CellIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B51B5262B63DF9500E5FEF9 /* CellIdentifier.swift */; };
 		3B8570CB2B582B4E000BC503 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 3B8570CA2B582B4E000BC503 /* FSCalendar */; };
 		3B9C89D12B4AED7C0083CF44 /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9C89D02B4AED7C0083CF44 /* StatisticsViewController.swift */; };
@@ -186,10 +185,10 @@
 		371B9EBE2B5B075A006AC06D /* WriteImprovementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteImprovementViewController.swift; sourceTree = "<group>"; };
 		371B9EC22B5B076E006AC06D /* WriteLearnedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteLearnedViewModel.swift; sourceTree = "<group>"; };
 		371B9EC42B5B0B61006AC06D /* WriteLearnedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteLearnedViewController.swift; sourceTree = "<group>"; };
+		37225CF32B7DE7D300F06C2C /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		374FD49C2B4281E100F2E645 /* OnboardingCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCustomView.swift; sourceTree = "<group>"; };
 		374FD49E2B42825B00F2E645 /* CustomPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPageControl.swift; sourceTree = "<group>"; };
 		374FD4A32B4297BE00F2E645 /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
-		376879E92B7B953800833623 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		376879F12B7C75FB00833623 /* DeletedMemoirsPopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedMemoirsPopUpView.swift; sourceTree = "<group>"; };
 		376879F32B7C76DD00833623 /* DeletedMemoirsPopUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedMemoirsPopUpViewModel.swift; sourceTree = "<group>"; };
 		3769A6852B58563000D79C33 /* SelectTimeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTimeViewModel.swift; sourceTree = "<group>"; };
@@ -272,7 +271,6 @@
 		3B4230162B41572400D0B038 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3B4230192B41572400D0B038 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3B42301B2B41572400D0B038 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3B44BDE82B7CCD2C00AE9170 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		3B51B5262B63DF9500E5FEF9 /* CellIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellIdentifier.swift; sourceTree = "<group>"; };
 		3B9C89D02B4AED7C0083CF44 /* StatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewController.swift; sourceTree = "<group>"; };
 		3BB7D07E2B64EB31002F1860 /* OffUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffUIView.swift; sourceTree = "<group>"; };
@@ -943,9 +941,8 @@
 				3B0129C42B6242D400B191AD /* Extension */,
 				35E0C7282B68C7AC006BF427 /* Fonts */,
 				3B4230182B41572400D0B038 /* LaunchScreen.storyboard */,
-				3B44BDE82B7CCD2C00AE9170 /* Config.xcconfig */,
+				37225CF32B7DE7D300F06C2C /* Config.xcconfig */,
 				3B42301B2B41572400D0B038 /* Info.plist */,
-				376879E92B7B953800833623 /* Config.xcconfig */,
 				37C161252B6BDAD0000E0B21 /* GoogleService-Info.plist */,
 				370826202B669BFC00FBCAAF /* UICalculate+Ex.swift */,
 			);
@@ -1112,7 +1109,7 @@
 				3B42301A2B41572400D0B038 /* LaunchScreen.storyboard in Resources */,
 				37C161262B6BDAD1000E0B21 /* GoogleService-Info.plist in Resources */,
 				376A4B592B55054D004FBB56 /* onBoarding.json in Resources */,
-				376879EA2B7B953800833623 /* Config.xcconfig in Resources */,
+				37225CF42B7DE7D300F06C2C /* Config.xcconfig in Resources */,
 				3B4230172B41572400D0B038 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1259,7 +1256,6 @@
 /* Begin XCBuildConfiguration section */
 		3B42301C2B41572400D0B038 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 376879E92B7B953800833623 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1323,7 +1319,6 @@
 		};
 		3B42301D2B41572400D0B038 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 376879E92B7B953800833623 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1380,7 +1375,6 @@
 		};
 		3B42301F2B41572400D0B038 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 376879E92B7B953800833623 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1413,7 +1407,6 @@
 		};
 		3B4230202B41572400D0B038 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 376879E92B7B953800833623 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

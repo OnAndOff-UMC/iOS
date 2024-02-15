@@ -345,7 +345,7 @@ final class ProfileSettingViewController: UIViewController {
     }
     
     /// 글자수 출력 바인딩
-    private func jobBu(){
+    private func jobButton(output: ProfileSettingViewModel.Output){
         output.jobLength
             .map { "(\($0)/30)" }
             .bind(to: checkLenghtJobLabel.rx.text)
