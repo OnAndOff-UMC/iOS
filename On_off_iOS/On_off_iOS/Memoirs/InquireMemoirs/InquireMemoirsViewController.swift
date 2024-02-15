@@ -269,7 +269,7 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
         
         emoticonButton.snp.makeConstraints { make in
             make.center.equalToSuperview()
-            make.width.height.equalTo(100)
+            make.width.height.equalTo(emoticonImage)
         }
         
         dateLabel.snp.makeConstraints { make in
@@ -289,7 +289,7 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
         }
         
         learnedTextField.snp.makeConstraints { make in
-            make.leading.top.equalTo(learnedView).offset(50)
+            make.top.equalTo(learnedView).offset(20)
             make.height.equalTo(30).priority(.low)
             make.horizontalEdges.equalTo(learnedView).inset(30)
         }
@@ -306,7 +306,7 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
         }
         
         praisedTextField.snp.makeConstraints { make in
-            make.leading.top.equalTo(praisedView).offset(50)
+            make.top.equalTo(praisedView).offset(20)
             make.height.equalTo(30).priority(.low)
             make.horizontalEdges.equalTo(praisedView).inset(30)
         }
@@ -324,7 +324,7 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
         }
         
         improvementTextField.snp.makeConstraints { make in
-            make.leading.top.equalTo(improvementView).offset(50)
+            make.top.equalTo(improvementView).offset(20)
             make.height.equalTo(30).priority(.low)
             make.horizontalEdges.equalTo(improvementView).inset(30)
         }
@@ -431,8 +431,7 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
         
         /// 날짜 정보 설정
         dateLabel.text = response.result.date
-        print(response.result.date)
-        print(response.result.memoirId)
+    
         /// 북마크 상태에 따라 아이콘 업데이트
         let bookmarkImageName = response.result.isBookmarked ?? false ? "bookmark.fill" : "bookmark"
         bookmarkButton.image = UIImage(systemName: bookmarkImageName)
