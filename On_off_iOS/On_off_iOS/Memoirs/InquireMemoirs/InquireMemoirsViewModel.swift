@@ -127,6 +127,7 @@ final class InquireMemoirsViewModel {
     
     /// Get memoir Inquiry Result
     private func getMemoirInquiryResult(output: Output) {
+        print(#function, output.selectedDate.value)
         memoirsService.inquireMemoirs(date: output.selectedDate.value)
             .subscribe(onNext: { result in
                 output.memoirInquiryResult.accept(result)

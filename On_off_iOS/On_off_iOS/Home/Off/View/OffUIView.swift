@@ -220,8 +220,8 @@ final class OffUIView: UIView {
         todayMemoirsLabelBackgroundUIView.addSubview(todayMemoirsIconImageButton)
         contentView.addSubview(todayMemoirsUIView)
         todayMemoirsUIView.addSubview(memoirDoneBackGroundImageView)
-        todayMemoirsUIView.addSubview(memoirLabelStackView)
         todayMemoirsUIView.addSubview(memoirImageView)
+        todayMemoirsUIView.addSubview(memoirLabelStackView)
         contentView.addSubview(feedTitleButton)
         contentView.addSubview(feedlabelBackgroundUIView)
         feedlabelBackgroundUIView.addSubview(feedPlusIconImageButton)
@@ -370,8 +370,8 @@ final class OffUIView: UIView {
     
     /// Bind Memoir Events
     private func bindMemoirEvents(output: OffUIViewModel.Output) {
-        Observable.zip(todayMemoirsButton.rx.tap,
-                       todayMemoirsIconImageButton.rx.tap)
+        Observable.merge(todayMemoirsButton.rx.tap.asObservable(),
+                         todayMemoirsIconImageButton.rx.tap.asObservable())
         .bind { [weak self] _ in
             guard let self = self else { return }
             if output.checkMemoirPreview.value?.written ?? false {
