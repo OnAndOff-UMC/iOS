@@ -82,6 +82,7 @@ final class ProfileSettingViewController: UIViewController {
         label.textColor = .lightGray
         return label
     }()
+    
     /// 직업 - 밑줄
     private lazy var jobLine : UIView = {
         let lineView = UIView()
@@ -110,6 +111,7 @@ final class ProfileSettingViewController: UIViewController {
         return button
     }()
     
+    /// 연차 -  아래버튼 이미지
     private lazy var annualDownImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "chevron.down")
@@ -297,7 +299,7 @@ final class ProfileSettingViewController: UIViewController {
             make.height.equalTo(checkButtonView.snp.width).multipliedBy(0.15)
             make.leading.trailing.equalToSuperview().inset(17)
             
-        checkButton.snp.makeConstraints { make in
+            checkButton.snp.makeConstraints { make in
                 make.center.equalToSuperview()
             }
         }
@@ -330,12 +332,28 @@ final class ProfileSettingViewController: UIViewController {
             .disposed(by: disposeBag)
         
         output.success
-               .filter { $0 }
-               .subscribe(onNext: { [weak self] _ in
-                   self?.moveToSelectTime()
-               })
-               .disposed(by: disposeBag)
+            .filter { $0 }
+            .subscribe(onNext: { [weak self] _ in
+                self?.moveToSelectTime()
+            })
+            .disposed(by: disposeBag)
         
+        checkButtonTapped()
+        fieldOfWorkButtonTapped()
+        annualButtonTapped()
+        
+    }
+    
+    /// 글자수 출력 바인딩
+    private func jobBu(){
+        output.jobLength
+            .map { "(\($0)/30)" }
+            .bind(to: checkLenghtJobLabel.rx.text)
+            .disposed(by: disposeBag)
+    }
+    
+    /// 확인  버튼 탭 이벤트
+    private func checkButtonTapped() {
         checkButton.rx.tap
             .bind { [weak self] in
                 if let job = self?.jobTextField.text {
@@ -343,12 +361,20 @@ final class ProfileSettingViewController: UIViewController {
                 }
             }
             .disposed(by: disposeBag)
+    }
+    
+    /// 직업 분야 보기 탭 이벤트
+    private func fieldOfWorkButtonTapped() {
         
         fieldOfWorkButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.presentModalForProfileSetting(dataType: .fieldOfWork)
             })
             .disposed(by: disposeBag)
+    }
+    
+    /// 연차 보기 탭 이벤트
+    private func annualButtonTapped() {
         
         annualButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
