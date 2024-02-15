@@ -256,7 +256,8 @@ final class HomeViewController: UIViewController {
         let input = HomeViewModel.Input(onOffButtonEvents: onOffButton.rx.tap,
                                         dayCollectionViewEvents: dayCollectionView.rx.itemSelected,
                                         prevButtonEvents: prevButton.rx.tap,
-                                        nextButtonEvents: nextButton.rx.tap)
+                                        nextButtonEvents: nextButton.rx.tap,
+                                        moveStartToWriteViewControllerEvents: offUIView.moveStartToWriteViewController)
         let output = viewModel.createOutput(input: input)
         
         bindDayCollectionView(output: output)
@@ -273,6 +274,8 @@ final class HomeViewController: UIViewController {
         bindClickImageButton()
         bindAddWorkLifeBalanceFeedButton()
         bindSelectedFeedTableViewCell()
+        bindCheckToday(output: output)
+        bindMoveInquireMemoirsViewController()
     }
     
     /// Binding Day CollectionView Cell
@@ -477,6 +480,33 @@ final class HomeViewController: UIViewController {
                     }
                     .disposed(by: disposeBag)
                 present(clickWorkLifeBalanceFeedView, animated: true)
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    /// Binding Move Start To Write View Controller
+    private func bindCheckToday(output: HomeViewModel.Output) {
+        output.checkToday
+            .bind { [weak self] check in
+                guard let self = self else { return }
+                if check { // 오늘 날짜
+                    let startToWriteViewController = StartToWriteViewController(viewModel: StartToWriteViewModel())
+                    present(startToWriteViewController, animated: true)
+                    return
+                }
+                
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    /// Binding Move Inquire Memoirs ViewController
+    private func bindMoveInquireMemoirsViewController() {
+        offUIView.moveInquireMemoirsViewController
+            .bind { [weak self] date in
+                guard let self = self else { return }
+                /// 날짜
+                let inquireMemoirsViewController = InquireMemoirsViewController(viewModel: InquireMemoirsViewModel())
+                present(inquireMemoirsViewController, animated: true)
             }
             .disposed(by: disposeBag)
     }

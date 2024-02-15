@@ -30,19 +30,21 @@ final class InquireMemoirsViewModel {
         let learnedText: Observable<String?>
         let praisedText: Observable<String?>
         let improvementText: Observable<String?>
+        
+        let selectedDateEvents: Observable<String>
     }
     
     // Output 구조체 정의
     struct Output {
-        let updateBookmarkStatus: Observable<Bool>
-        let memoirInquiryResult: Observable<MemoirResponse>
-        let isEditing: Observable<Bool> // 편집 모드 상태
-        let reviseResult: Observable<Bool>
-        let latestMemoirInquiryResult: Observable<MemoirResponse?>
+        let updateBookmarkStatus: PublishRelay<Bool> = PublishRelay()
+        let memoirInquiryResult: PublishRelay<MemoirResponse> = PublishRelay()
+        let isEditing: PublishRelay<Bool> = PublishRelay() // 편집 모드 상태
+        let reviseResult: PublishRelay<Bool> = PublishRelay()
+        let selectedDate: BehaviorRelay<String> = BehaviorRelay(value: "")
     }
     
     func bind(input: Input) -> Output {
-        
+        let output = Output()
         let isEditingRelay = BehaviorRelay<Bool>(value: false)
         
         // 편집 모드 토글 액션 처리
@@ -82,27 +84,21 @@ final class InquireMemoirsViewModel {
                 self?.latestMemoirInquiryResult.onNext(response)
             })
         
-        /// 북마크 버튼 탭 처리
-        let updateBookmarkStatus = input.bookMarkButtonTapped
-            .withLatestFrom(latestMemoirInquiryResult)
-            .flatMapLatest { [weak self] latestMemoirResponse -> Observable<Bool> in
-                guard let self = self,
-                      let memoirId = latestMemoirResponse?.result.memoirId else {
-                    return .just(false) // 회고록 ID가 없는 경우 실패 처리
-                }
-                return self.memoirsService.bookMarkMemoirs(memoirId: memoirId)
-                    .map { response -> Bool in
-                        return response.result.isBookmarked ?? false
-                    }
-                    .catchAndReturn(false)
-                
-            }
+//        /// 북마크 버튼 탭 처리
+//        let updateBookmarkStatus = input.bookMarkButtonTapped
+//            .flatMapLatest { [weak self] _ -> Observable<Bool> in
+//                guard let self = self else { return .just(false) }
+//                
+//                return self.memoirsService.bookMarkMemoirs(memoirId: input.memoirId)
+//                    .map { response -> Bool in
+//                        return response.result.isBookmarked ?? true
+//                    }
+//                    .catchAndReturn(false)
+//            }
         
-        return Output(updateBookmarkStatus: updateBookmarkStatus,
-                      memoirInquiryResult: memoirInquiryResult,
-                      isEditing: isEditingRelay.asObservable(),
-                      reviseResult: reviseResult,
-                      latestMemoirInquiryResult: latestMemoirInquiryResult.asObservable())
+        bindSelectedDateEvents(input: input, output: output)
+        
+        return output
     }
     
     private func sendReviceMemoirsData(learnedText: String, praisedText: String, improvementText: String, memoirId: Int) -> Observable<Bool> {
@@ -123,5 +119,39 @@ final class InquireMemoirsViewModel {
         return memoirsService.reviseMemoirs(request: request, memoirId: memoirId)
             .map { _ -> Bool in true }
             .catchAndReturn(false)
+    }
+    
+    ///
+    private func bindBookMarkButtonTapped(input: Input, output: Output) {
+        /// 북마크 버튼 탭 처리
+        input.bookMarkButtonTapped
+//            .bind {  [weak self] _ in
+//                guard let self = self else { return }
+//                
+//            }
+//            .disposed(by: disposeBag)
+        
+            .flatMapLatest { [weak self] _ -> Observable<Bool> in
+                guard let self = self else { return .just(false) }
+                
+                return self.memoirsService.bookMarkMemoirs(memoirId: input.memoirId)
+                    .map { response -> Bool in
+                        return response.result.isBookmarked ?? true
+                    }
+                    .catchAndReturn(false)
+            }
+    }
+    
+    
+    /// Bind Selected Date Events
+    private func bindSelectedDateEvents(input: Input, output: Output) {
+        input.selectedDateEvents
+            .bind(to: output.selectedDate)
+            .disposed(by: disposeBag)
+    }
+    
+    ///
+    private func getMemoirResponse(output: Output) {
+            
     }
 }

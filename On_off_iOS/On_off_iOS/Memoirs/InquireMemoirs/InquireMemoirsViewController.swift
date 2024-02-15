@@ -169,6 +169,9 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
         return imageView
     }()
     
+    /// 오늘날짜 받아옴
+    var todayDateSubject: PublishSubject<String> = PublishSubject()
+    
     private var viewModel: InquireMemoirsViewModel
     private let disposeBag = DisposeBag()
     private var latestMemoirResponse: MemoirResponse?
@@ -343,7 +346,8 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
             toggleEditing: PublishSubject<Void>().asObservable(),
             learnedText: learnedTextObservable,
             praisedText: praisedTextObservable,
-            improvementText: improvementTextObservable
+            improvementText: improvementTextObservable,
+            selectedDateEvents: todayDateSubject
         )
         
         emoticonButton.rx.tap

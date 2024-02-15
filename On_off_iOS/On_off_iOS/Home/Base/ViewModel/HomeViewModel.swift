@@ -23,6 +23,8 @@ final class HomeViewModel {
         let prevButtonEvents: ControlEvent<Void>
         
         let nextButtonEvents: ControlEvent<Void>
+        
+        let moveStartToWriteViewControllerEvents: Observable<String>
     }
     
     struct Output {
@@ -70,6 +72,10 @@ final class HomeViewModel {
         var selectedDayIndex: BehaviorRelay<IndexPath> = BehaviorRelay(value: IndexPath(item: 0, section: 0))
         
         var futureRelay: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+        
+        /// 오늘 날짜인지 확인
+        /// True: 오늘, False: 오늘 아님
+        var checkToday: PublishRelay<Bool> = PublishRelay()
     }
     
     /// Create Output
@@ -90,6 +96,16 @@ final class HomeViewModel {
         dayListRelay(output: output)
         bindSelectedDayIndexEvents(input: input, output: output)
         return output
+    }
+    
+    /// Bind Move Star tTo Write View Controller Events
+    private func bindMoveStartToWriteViewControllerEvents(input: Input, output: Output) {
+        input.moveStartToWriteViewControllerEvents
+            .bind { [weak self] date in
+                guard let self = self else { return }
+                
+            }
+            .disposed(by: disposeBag)
     }
     
     /// Bind Selected Day Index Events
@@ -346,5 +362,16 @@ final class HomeViewModel {
                 print(#function, error)
             })
             .disposed(by: disposeBag)
+    }
+    
+    /// 오늘 날짜인지 확인
+    private func checkToday(date: String, output: Output) {
+        let result = Date().dateCompare(fromDate: formatStringToDate(date: date))
+        print(result)
+        if result == "Same" {
+            output.checkToday.accept(true)
+            return
+        }
+        output.checkToday.accept(false)
     }
 }
