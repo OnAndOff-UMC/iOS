@@ -491,7 +491,7 @@ final class HomeViewController: UIViewController {
                 guard let self = self else { return }
                 if check { // 오늘 날짜
                     let startToWriteViewController = StartToWriteViewController(viewModel: StartToWriteViewModel())
-                    present(startToWriteViewController, animated: true)
+                    navigationController?.pushViewController(startToWriteViewController, animated: true)
                     return
                 }
                 
@@ -504,9 +504,9 @@ final class HomeViewController: UIViewController {
         offUIView.moveInquireMemoirsViewController
             .bind { [weak self] date in
                 guard let self = self else { return }
-                /// 날짜
                 let inquireMemoirsViewController = InquireMemoirsViewController(viewModel: InquireMemoirsViewModel())
-                present(inquireMemoirsViewController, animated: true)
+                inquireMemoirsViewController.todayDate = date
+                navigationController?.pushViewController(inquireMemoirsViewController, animated: true)
             }
             .disposed(by: disposeBag)
     }

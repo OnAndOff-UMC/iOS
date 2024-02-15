@@ -170,7 +170,7 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
     }()
     
     /// 오늘날짜 받아옴
-    var todayDateSubject: PublishSubject<String> = PublishSubject()
+    var todayDate: String?
     
     private var viewModel: InquireMemoirsViewModel
     private let disposeBag = DisposeBag()
@@ -346,7 +346,7 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
             learnedText: learnedTextObservable,
             praisedText: praisedTextObservable,
             improvementText: improvementTextObservable,
-            selectedDateEvents: todayDateSubject
+            selectedDateEvents: Observable.just(todayDate ?? "")
         )
         
         emoticonButton.rx.tap
