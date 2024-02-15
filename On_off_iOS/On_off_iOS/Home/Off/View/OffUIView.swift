@@ -189,6 +189,8 @@ final class OffUIView: UIView {
     private var successDeleteImage: PublishSubject<Void> = PublishSubject()
     var successAddFeed: PublishSubject<Void> = PublishSubject()
     var selectedFeedTableViewCell: PublishSubject<Feed> = PublishSubject()
+    var moveStartToWriteViewController: PublishSubject<String> = PublishSubject()
+    var moveInquireMemoirsViewController: PublishSubject<String> = PublishSubject()
     private var loadWLBFeed: PublishSubject<Void> = PublishSubject()
     private var clickCheckMarkOfWLBFeed: PublishSubject<Feed> = PublishSubject()
     
@@ -345,6 +347,7 @@ final class OffUIView: UIView {
         bindClickImageButton(output: output)
         bindSelectedMonth(output: output)
         bindCheckMemoirsPreview(output: output)
+        bindMemoirEvents(output: output)
         bindFeedEvents()
     }
     
@@ -363,6 +366,21 @@ final class OffUIView: UIView {
                 clickedAddfeedButton.onNext(())
             }
             .disposed(by: disposeBag)
+    }
+    
+    /// Bind Memoir Events
+    private func bindMemoirEvents(output: OffUIViewModel.Output) {
+        Observable.zip(todayMemoirsButton.rx.tap,
+                       todayMemoirsIconImageButton.rx.tap)
+        .bind { [weak self] _ in
+            guard let self = self else { return }
+            if output.checkMemoirPreview.value?.written ?? false {
+                moveInquireMemoirsViewController.onNext(output.selectedDate.value)
+                return
+            }
+            moveStartToWriteViewController.onNext(output.selectedDate.value)
+        }
+        .disposed(by: disposeBag)
     }
     
     /// Binding Work Life Balance Table View

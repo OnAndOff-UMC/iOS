@@ -169,10 +169,12 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
         return imageView
     }()
     
+    /// 오늘날짜 받아옴
+    var todayDateSubject: PublishSubject<String> = PublishSubject()
+    
     private var viewModel: InquireMemoirsViewModel
     private let disposeBag = DisposeBag()
-    private var latestMemoirResponse: MemoirResponse?
-
+    
     // MARK: - Init
     init(viewModel: InquireMemoirsViewModel) {
         self.viewModel = viewModel
@@ -334,7 +336,7 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
         let learnedTextObservable: Observable<String?> = learnedTextField.rx.text.asObservable()
         let praisedTextObservable: Observable<String?> = praisedTextField.rx.text.asObservable()
         let improvementTextObservable: Observable<String?> = improvementTextField.rx.text.asObservable()
- 
+        
         let input = InquireMemoirsViewModel.Input(
             bookMarkButtonTapped: bookmarkButton.rx.tap.asObservable(),
             menuButtonTapped: menuButton.rx.tap.asObservable(),
@@ -343,7 +345,8 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
             toggleEditing: PublishSubject<Void>().asObservable(),
             learnedText: learnedTextObservable,
             praisedText: praisedTextObservable,
-            improvementText: improvementTextObservable
+            improvementText: improvementTextObservable,
+            selectedDateEvents: todayDateSubject
         )
         
         emoticonButton.rx.tap
@@ -354,12 +357,6 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
         
         let output = viewModel.bind(input: input)
         
-        output.latestMemoirInquiryResult
-               .subscribe(onNext: { [weak self] response in
-                   self?.latestMemoirResponse = response
-               })
-               .disposed(by: disposeBag)
-        
         reviceButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.toggleEditingMode(isEditing: false)
@@ -368,8 +365,8 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
         output.memoirInquiryResult
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] response in
-                print(response)
-                self?.updateUIWithMemoirResponse(response)
+                guard let self = self, let response = response else { return }
+                updateUIWithMemoirResponse(response)
             })
             .disposed(by: disposeBag)
         
@@ -385,7 +382,6 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
                 self?.learnedTextField.isEnabled = isEditing
                 self?.praisedTextField.isEnabled = isEditing
                 self?.improvementTextField.isEnabled = isEditing
-                
             })
             .disposed(by: disposeBag)
         
@@ -404,8 +400,8 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
         
         menuButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
-                guard let latestResponse = self?.latestMemoirResponse else { return }
-                self?.presentActionSheet(latestResponse)
+                guard let self = self, let response = output.memoirInquiryResult.value else { return }
+                presentActionSheet(response)
             })
             .disposed(by: disposeBag)
     }
@@ -433,8 +429,6 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
             emoticonImage.kf.setImage(with: url)
         }
         
-        self.latestMemoirResponse = response
-
         /// 날짜 정보 설정
         dateLabel.text = response.result.date
         print(response.result.date)
@@ -479,10 +473,10 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
         let deleteAction = UIAlertAction(title: "삭제하기", style: .destructive) { [weak self] _ in
             guard let self = self, let navigationController = navigationController else { return }
             
-            if let date = latestMemoirResponse?.result.date, let memoirId = latestMemoirResponse?.result.memoirId {
-                           let deletedMemoirsPopUpView = DeletedMemoirsPopUpView(navigationController: navigationController, date: date, memoirId: memoirId)
-                           self.present(deletedMemoirsPopUpView, animated: true, completion: nil)
-                       }
+            if let date = response.result.date, let memoirId = response.result.memoirId {
+                let deletedMemoirsPopUpView = DeletedMemoirsPopUpView(navigationController: navigationController, date: date, memoirId: memoirId)
+                self.present(deletedMemoirsPopUpView, animated: true, completion: nil)
+            }
         }
         
         
