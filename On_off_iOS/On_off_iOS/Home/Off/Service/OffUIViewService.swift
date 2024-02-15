@@ -100,13 +100,15 @@ final class OffUIViewService {
     /// - Returns: Feed List
     func getWLBFeedList(date: String) -> Observable<[Feed]> {
         let url = Domain.RESTAPI + FeedPath.workLifeBalacne.rawValue
-            .replacingOccurrences(of: "DATE", with: "\(date)")
+        let parameters: Parameters = ["date": date]
         let header = Header.header.getHeader()
         print(#function, url)
         
         return Observable.create { observer in
             AF.request(url,
                        method: .get,
+                       parameters: parameters,
+                       encoding: URLEncoding.default,
                        headers: header)
             .validate(statusCode: 200..<201)
             .responseDecodable(of: Response<[Feed]>.self) { response in
@@ -154,13 +156,15 @@ final class OffUIViewService {
     /// - Returns: 성공 여부
     func checkMemoirsPreview(date: String) -> Observable<MemoirPreview> {
         let url = Domain.RESTAPI + MemoirsPath.preview.rawValue
-            .replacingOccurrences(of: "DATE", with: date)
+        let parameters: Parameters = ["date": date]
         let header = Header.header.getHeader()
         print(url)
         
         return Observable.create { observer in
             AF.request(url,
                        method: .get,
+                       parameters: parameters,
+                       encoding: URLEncoding.default,
                        headers: header)
             .validate(statusCode: 200..<201)
             .responseDecodable(of: Response<MemoirPreview>.self) { response in

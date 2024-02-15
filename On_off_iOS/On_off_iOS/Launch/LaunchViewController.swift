@@ -37,12 +37,12 @@ final class LaunchViewController: UIViewController {
     
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
-         super.viewDidLoad()
-       // KeychainWrapper.delete(key: LoginKeyChain.refreshToken.rawValue)
+        super.viewDidLoad()
+        // KeychainWrapper.delete(key: LoginKeyChain.refreshToken.rawValue)
         
         setupAnim()
         finishAnimation()
-     }
+    }
     
     /// Setup Lottie animation
     private func setupAnim() {
@@ -54,23 +54,24 @@ final class LaunchViewController: UIViewController {
     
     /// Setup animation 시간 완료 동작
     private func finishAnimation() {
-           animationView.play { [weak self] finished in
-               if finished {
-                   self?.navigateAfterAnimation()
-               }
-           }
-       }
-       
-       private func navigateAfterAnimation() {
-           let input = LaunchViewModel.Input(animationCompleted: Observable.just(()))
-           let output = viewModel.bind(input: input)
-            output.navigationSignal
-               .observe(on: MainScheduler.instance)
-               .subscribe(onNext: { [weak self] navigation in
-                   self?.navigate(to: navigation)
-               })
-               .disposed(by: disposeBag)
-       }
+        animationView.play { [weak self] finished in
+            if finished {
+                self?.navigateAfterAnimation()
+            }
+        }
+    }
+    
+    private func navigateAfterAnimation() {
+        let input = LaunchViewModel.Input(animationCompleted: Observable.just(()))
+        let output = viewModel.bind(input: input)
+        output.navigationSignal
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] navigation in
+                self?.navigate(to: navigation)
+            })
+            .disposed(by: disposeBag)
+    }
+    
     /// 화면 전환 로직
     private func navigate(to navigation: LaunchNavigation) {
         DispatchQueue.main.async { [weak self] in
@@ -79,9 +80,7 @@ final class LaunchViewController: UIViewController {
             let viewController: UIViewController
             switch navigation {
             case .main:
-                let viewModel = BookmarkViewModel()
-                viewController = BookmarkViewController(viewModel: viewModel)
-                
+                viewController = TabBarController()
             case .onBoarding:
                 let viewModel = OnBoardingViewModel()
                 viewController = OnBoardingViewController(viewModel: viewModel)

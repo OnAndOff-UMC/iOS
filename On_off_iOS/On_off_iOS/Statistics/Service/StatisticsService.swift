@@ -65,13 +65,15 @@ final class StatisticsService {
     /// - Returns: WeekStatistics
     func getPrevMonthAchieveRate(date: String) -> Observable<MonthArchive> {
         let url = Domain.RESTAPI + StatisticsPath.prevMonth.rawValue
-            .replacingOccurrences(of: "DATE", with: date)
+        let parameters: Parameters = ["date": date]
         let header = Header.header.getHeader()
         print(url, #function)
         
         return Observable.create { observer in
             AF.request(url,
                        method: .get,
+                       parameters: parameters,
+                       encoding: URLEncoding.default,
                        headers: header)
             .validate(statusCode: 200..<201)
             .responseDecodable(of: Response<MonthArchive>.self) { response in
@@ -91,13 +93,15 @@ final class StatisticsService {
     /// - Returns: WeekStatistics
     func getNextMonthAchieveRate(date: String) -> Observable<MonthArchive> {
         let url = Domain.RESTAPI + StatisticsPath.nextMonth.rawValue
-            .replacingOccurrences(of: "DATE", with: date)
+        let parameters: Parameters = ["date": date]
         let header = Header.header.getHeader()
         print(url, #function)
         
         return Observable.create { observer in
             AF.request(url,
                        method: .get,
+                       parameters: parameters,
+                       encoding: URLEncoding.default,
                        headers: header)
             .validate(statusCode: 200..<201)
             .responseDecodable(of: Response<MonthArchive>.self) { response in

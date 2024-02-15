@@ -66,12 +66,14 @@ final class HomeViewService {
     /// - Parameter date: 선택한 날짜
     func movePrevWeek(date: String) -> Observable<WeekDay> {
         let url = Domain.RESTAPI + WeekDayPath.prevWeek.rawValue
-            .replacingOccurrences(of: "DATE", with: date)
+        let parameters: Parameters = ["date": date]
         let header = Header.header.getHeader()
         print(url, #function)
         return Observable.create { observer in
             AF.request(url,
                        method: .get,
+                       parameters: parameters,
+                       encoding: URLEncoding.default,
                        headers: header)
             .validate(statusCode: 200..<201)
             .responseDecodable(of: Response<WeekDay>.self) { response in
@@ -93,12 +95,14 @@ final class HomeViewService {
     /// - Parameter date: 선택한 날짜
     func moveNextWeek(date: String) -> Observable<WeekDay> {
         let url = Domain.RESTAPI + WeekDayPath.nextWeek.rawValue
-            .replacingOccurrences(of: "DATE", with: date)
+        let parameters: Parameters = ["date": date]
         let header = Header.header.getHeader()
         print(url, #function)
         return Observable.create { observer in
             AF.request(url,
                        method: .get,
+                       parameters: parameters,
+                       encoding: URLEncoding.default,
                        headers: header)
             .validate(statusCode: 200..<201)
             .responseDecodable(of: Response<WeekDay>.self) { response in
