@@ -126,7 +126,7 @@ final class MyPageViewController: UIViewController {
     private lazy var feedBackButton: ListCustomButton = {
         let button = ListCustomButton()
         button.backgroundColor = .clear
-        button.inputData(icon: "list", 
+        button.inputData(icon: "feedBack",
                          title: "피드백 공간",
                          titleColor: .black,
                          rightSide: "",
@@ -138,7 +138,7 @@ final class MyPageViewController: UIViewController {
     private lazy var policyButton: ListCustomButton = {
         let button = ListCustomButton()
         button.backgroundColor = .clear
-        button.inputData(icon: "list", 
+        button.inputData(icon: "policy",
                          title: "약관 및 정책",
                          titleColor: .black,
                          rightSide: "",
@@ -150,7 +150,7 @@ final class MyPageViewController: UIViewController {
     private lazy var versionButton: ListCustomButton = {
         let button = ListCustomButton()
         button.backgroundColor = .clear
-        button.inputData(icon: "list", 
+        button.inputData(icon: "version", 
                          title: "현재 버전",
                          titleColor: .black,
                          rightSide: "v 1.0.0",
@@ -218,7 +218,7 @@ final class MyPageViewController: UIViewController {
     /// Constraints
     private func constraints() {
         nickNameLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(30)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(25)
             make.centerX.equalToSuperview()
         }
         
@@ -240,7 +240,7 @@ final class MyPageViewController: UIViewController {
         }
         
         listUIView.snp.makeConstraints { make in
-            make.top.equalTo(topUIView.snp.bottom).offset(20)
+            make.top.equalTo(topUIView.snp.bottom).offset(30)
             make.horizontalEdges.equalToSuperview()
             make.bottom.equalToSuperview()
         }
@@ -250,20 +250,5 @@ final class MyPageViewController: UIViewController {
             make.horizontalEdges.equalToSuperview()
         }
         
-    }
-}
-
-
-import SwiftUI
-struct VCPreViewMyPageViewController: PreviewProvider {
-    static var previews: some View {
-        MyPageViewController().toPreview().previewDevice("iPhone 14 Pro")
-        // 실행할 ViewController이름 구분해서 잘 지정하기
-    }
-}
-struct VCPreViewMyPageViewController2: PreviewProvider {
-    static var previews: some View {
-        MyPageViewController().toPreview().previewDevice("iPhone SE (3rd generation)")
-        // 실행할 ViewController이름 구분해서 잘 지정하기
     }
 }
