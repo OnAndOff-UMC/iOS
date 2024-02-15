@@ -155,6 +155,7 @@
 		3BF02BDC2B7E0DE00079A091 /* TopCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF02BDB2B7E0DE00079A091 /* TopCustomButton.swift */; };
 		3BF02BDE2B7E30400079A091 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3BF02BDD2B7E30400079A091 /* Config.xcconfig */; };
 		3BF02BE02B7E39DD0079A091 /* ListCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF02BDF2B7E39DD0079A091 /* ListCustomButton.swift */; };
+		3BF02BE32B7E46F10079A091 /* MyPageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF02BE22B7E46F10079A091 /* MyPageService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -289,6 +290,7 @@
 		3BF02BDB2B7E0DE00079A091 /* TopCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopCustomButton.swift; sourceTree = "<group>"; };
 		3BF02BDD2B7E30400079A091 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		3BF02BDF2B7E39DD0079A091 /* ListCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCustomButton.swift; sourceTree = "<group>"; };
+		3BF02BE22B7E46F10079A091 /* MyPageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -994,6 +996,7 @@
 		3BF02BD32B7E0B630079A091 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
+				3BF02BE12B7E46E90079A091 /* Service */,
 				3BF02BDA2B7E0C090079A091 /* Model */,
 				3BF02BD52B7E0B720079A091 /* ViewModel */,
 				3BF02BD42B7E0B6D0079A091 /* View */,
@@ -1025,6 +1028,14 @@
 				3BEFD3102B7B13CE00EE6EFF /* MyInfo.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		3BF02BE12B7E46E90079A091 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				3BF02BE22B7E46F10079A091 /* MyPageService.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1244,6 +1255,7 @@
 				3BF02BE02B7E39DD0079A091 /* ListCustomButton.swift in Sources */,
 				378588FB2B7092F7004E262F /* ModalSelectProfileDelegate.swift in Sources */,
 				3BD415C42B7A3ED800BAB0DC /* ClickWorkLifeBalanceFeedView.swift in Sources */,
+				3BF02BE32B7E46F10079A091 /* MyPageService.swift in Sources */,
 				3B3576442B78F5B1008464AA /* WatchPictureController.swift in Sources */,
 				3B0129C62B6242F800B191AD /* Ext + ViewController.swift in Sources */,
 				3B26CF4C2B79F3F800E05581 /* Feed.swift in Sources */,

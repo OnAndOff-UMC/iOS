@@ -194,6 +194,8 @@ final class MyPageViewController: UIViewController {
         return button
     }()
     
+    private let disposeBag = DisposeBag()
+    private let viewModel = MyPageViewModel()
     
     // MARK: - View Did Load
     override func viewDidLoad() {
@@ -201,6 +203,7 @@ final class MyPageViewController: UIViewController {
         view.backgroundColor = .white
         
         addSubViews()
+        bind()
     }
     
     /// Add SubViews
@@ -251,4 +254,43 @@ final class MyPageViewController: UIViewController {
         }
         
     }
+    
+    /// Bind
+    private func bind() {
+        let input = MyPageViewModel.Input(bookMarkButtonEvents: bookMarkButton.rx.tap,
+                                          alertSettingButtonEvents: alertSettingButton.rx.tap,
+                                          faqButtonEvents: faqButton.rx.tap,
+                                          myInfoButtonEvents: myInfoButton.rx.tap,
+                                          noticeButtonEvents: noticeButton.rx.tap,
+                                          feedBackButton: feedBackButton.rx.tap,
+                                          policyButton: policyButton.rx.tap,
+                                          versionButton: versionButton.rx.tap,
+                                          reportButton: reportButton.rx.tap,
+                                          logOutButton: logOutButton.rx.tap,
+                                          getOutButton: getOutButton.rx.tap)
+        
+        let output = viewModel.createOutput(input: input)
+        bindNickNameRelay(output: output)
+        bindSubTitleRelay(output: output)
+    }
+    
+    /// Bind Nick Name Relay
+    private func bindNickNameRelay(output: MyPageViewModel.Output) {
+        output.nickNameRelay
+            .bind(to: nickNameLabel.rx.text)
+            .disposed(by: disposeBag)
+    }
+    
+    /// Bind Sub Title Relay
+    private func bindSubTitleRelay(output: MyPageViewModel.Output) {
+        output.subTitleRelay
+            .do(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                fieldOfWorkAndExperienceYearLabel.textColor = .black
+            })
+            .bind(to: fieldOfWorkAndExperienceYearLabel.rx.text)
+            .disposed(by: disposeBag)
+    }
+    
+    
 }

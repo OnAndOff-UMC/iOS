@@ -38,7 +38,7 @@ final class TabBarController: UITabBarController {
         case .home:
             viewController = HomeViewController()
         case .my:
-            viewController = StatisticsViewController()
+            viewController = MyPageViewController()
         }
 
         // 탭 바 아이템 설정
