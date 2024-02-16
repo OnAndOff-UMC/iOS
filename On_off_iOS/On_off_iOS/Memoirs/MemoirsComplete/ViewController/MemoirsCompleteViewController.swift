@@ -128,19 +128,26 @@ final class MemoirsCompleteViewController: UIViewController {
 
     }
     
-    private func navigateToTabbar() {
-        let tabBarController = TabBarController()
-        self.navigationController?.pushViewController(tabBarController, animated: true)
-     // navigation?.rootViewController = TabBarController()
-    }
-    
     /// 뷰모델과 setupBindings
     private func setupBindings() {
         let input = MemoirsCompleteViewModel.Input(completedButtonTapped: saveButton.rx.tap.asObservable(),
                                                  backButtonTapped: backButton.rx.tap.asObservable())
         
-        let _ = viewModel.bind(input: input)
-        
+        let output = viewModel.bind(input: input)
+        moveToNext(output)
+    }
+    
+    private func moveToNext(_ output: MemoirsCompleteViewModel.Output) {
+        output.moveToNext
+            .subscribe(onNext: { [weak self] in
+                self?.navigateToTabbar()
+            })
+    }
+    
+    private func navigateToTabbar() {
+        if let navigationController = self.navigationController {
+            navigationController.popToRootViewController(animated: true)
+        }
     }
 }
 

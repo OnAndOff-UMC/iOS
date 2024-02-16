@@ -398,6 +398,7 @@ final class HomeViewController: UIViewController {
                 } else if !output.futureRelay.value {
                     onUIView.removeFromSuperview()
                     addOffSubViews()
+                    print("👍\(output.dayListRelay.value[output.selectedDayIndex.value.row])")
                     offUIView.selectedDate.onNext(output.dayListRelay.value[output.selectedDayIndex.value.row].totalDate ?? "")
                 }
             }

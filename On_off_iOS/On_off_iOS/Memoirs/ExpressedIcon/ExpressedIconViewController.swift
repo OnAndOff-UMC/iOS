@@ -190,10 +190,9 @@ final class ExpressedIconViewController: UIViewController {
     }
     
     private func moveToNext(_ output: ExpressedIconViewModel.Output) {
-        output.moveToBack
+        output.moveToNext
             .subscribe(onNext: { [weak self] in
-                self?.navigationController?
-                    .popViewController(animated: false)
+                self?.navigateMemoirsCompleteViewModel()
             })
     }
     
@@ -205,7 +204,7 @@ final class ExpressedIconViewController: UIViewController {
     }
     
     /// 임시 초기로 이동
-    private func navigateTobookMark() {
+    private func navigateMemoirsCompleteViewModel() {
         let memoirsCompleteViewModel = MemoirsCompleteViewModel()
         let memoirsCompleteViewController = MemoirsCompleteViewController(viewModel: memoirsCompleteViewModel)
         self.navigationController?.pushViewController(memoirsCompleteViewController, animated: false)
