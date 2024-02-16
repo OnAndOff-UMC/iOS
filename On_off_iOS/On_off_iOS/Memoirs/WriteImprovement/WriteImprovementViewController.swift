@@ -51,7 +51,7 @@ final class WriteImprovementViewController: UIViewController {
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
-
+    
     /// 회고글 TextField
     private let textView: UITextView = {
         let textView = UITextView()
@@ -136,7 +136,7 @@ final class WriteImprovementViewController: UIViewController {
         
         view.addSubview(textpageImage)
         view.addSubview(textView)
-
+        
         view.addSubview(checkLenghtLabel)
         
         view.addSubview(checkButtonView)
@@ -147,9 +147,9 @@ final class WriteImprovementViewController: UIViewController {
     
     /// configureConstraints
     private func configureConstraints() {
-
+        
         self.navigationItem.leftBarButtonItem = backButton
-
+        
         pageControlImage.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.width.equalTo(view.snp.width).multipliedBy(0.25)
@@ -213,7 +213,7 @@ final class WriteImprovementViewController: UIViewController {
         
         /// 글자수 출력 바인딩
         bindingTextLength(output)
-
+        
     }
     
     private func bindingTextLength(_ output: WriteImprovementViewModel.Output) {
@@ -233,12 +233,14 @@ final class WriteImprovementViewController: UIViewController {
                 }
             })
             .disposed(by: disposeBag)
-        
+    }
+    
+    private func bindingMoveToBack(_ output: WriteImprovementViewModel.Output) {
         output.moveToBack
-                .subscribe(onNext: { [weak self] _ in
-                    self?.navigationController?.popViewController(animated: false)
-                })
-                .disposed(by: disposeBag)
+            .subscribe(onNext: { [weak self] _ in
+                self?.navigationController?.popViewController(animated: false)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func navigateToImprovement() {
