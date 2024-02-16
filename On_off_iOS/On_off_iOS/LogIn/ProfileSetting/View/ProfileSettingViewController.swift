@@ -304,7 +304,6 @@ final class ProfileSettingViewController: UIViewController {
         checkButton.snp.makeConstraints { make in
             make.center.equalToSuperview()
         }
-        
     }
     
     /// 뷰모델과 setupBindings
@@ -315,6 +314,15 @@ final class ProfileSettingViewController: UIViewController {
         
         
         // 버튼 활성화 상태 및 색상 변경 바인딩
+        bindingjobLength(output: output)
+        checkButtonTapped()
+        fieldOfWorkButtonTapped()
+        annualButtonTapped()
+        /// 글자수 출력 바인딩
+        bindingjobLength(output: output)
+    }
+    
+    private func bindingIsCheckButtonEnabled(output: ProfileSettingViewModel.Output) {
         output.isCheckButtonEnabled
             .observe(on: MainScheduler.instance)
             .bind { [weak self] isEnabled in
@@ -327,16 +335,10 @@ final class ProfileSettingViewController: UIViewController {
                 checkButton.setTitleColor(isEnabled ? .white : UIColor.OnOffMain, for: .normal)
             }
             .disposed(by: disposeBag)
-        
-        checkButtonTapped()
-        fieldOfWorkButtonTapped()
-        annualButtonTapped()
-        /// 글자수 출력 바인딩
-        bindingjobLength(output: output)
     }
     
     /// 글자수 출력 바인딩
-    private func bindingjobLength(output: ProfileSettingViewModel.Output){
+    private func bindingjobLength(output: ProfileSettingViewModel.Output) {
         output.jobLength
             .map { "(\($0)/30)" }
             .bind(to: checkLenghtJobLabel.rx.text)

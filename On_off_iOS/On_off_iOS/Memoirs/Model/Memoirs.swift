@@ -27,28 +27,6 @@ struct MemoirRevisedRequest: Codable {
         let answer: String?
     }
 }
-//
-//struct MemoirResponse: Codable {
-//    let isSuccess: Bool
-//    let code: String
-//    let message: String
-//    let result: MemoirResult
-//
-//    struct MemoirResult: Codable {
-//        let memoirId: Int?
-//        let date: String?
-//        let emoticonUrl: String?
-//        let isBookmarked: Bool?
-//        var memoirAnswerList: [MemoirAnswerDetail]
-//
-//        struct MemoirAnswerDetail: Codable {
-//            let answerId: Int?
-//            let question: String?
-//            let summary: String?
-//            let answer: String?
-//        }
-//    }
-//}
 
 //북마크용
 struct MemoirResponse: Codable {

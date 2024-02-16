@@ -45,7 +45,7 @@ final class LaunchViewModel {
                 let request = TokenResult(accessToken: accessToken, refreshToken: refreshToken)
                 return self.loginService.validateTokenAndSendInfo(request: request)
                     .map { response in
-                        response.isSuccess ? .main : .login // 응답 성공 시 메인, 실패 시 로그인으로
+                        response.isSuccess ?? false ? .main : .login // 응답 성공 시 메인, 실패 시 로그인으로
                     }
                     .catchAndReturn(.login) // 오류 발생 시 로그인 화면으로
             }

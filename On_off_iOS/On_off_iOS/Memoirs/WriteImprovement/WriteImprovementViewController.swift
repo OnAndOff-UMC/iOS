@@ -204,12 +204,26 @@ final class WriteImprovementViewController: UIViewController {
         
         let output = viewModel.bind(input: input)
         
+        
+        /// 다음화면으로 이동
+        bindingMoveToNext(output)
+        
+        /// 뒤로 가기
+        bindingMoveToBack(output)
+        
         /// 글자수 출력 바인딩
+        bindingTextLength(output)
+
+    }
+    
+    private func bindingTextLength(_ output: WriteImprovementViewModel.Output) {
         output.textLength
             .map { "(\($0)/500)" }
             .bind(to: checkLenghtLabel.rx.text)
             .disposed(by: disposeBag)
-        
+    }
+    
+    private func bindingMoveToNext(_ output: WriteImprovementViewModel.Output) {
         output.moveToNext
             .subscribe(onNext: { [weak self] isSuccess in
                 if isSuccess {
@@ -219,12 +233,13 @@ final class WriteImprovementViewController: UIViewController {
                 }
             })
             .disposed(by: disposeBag)
-        
+    }
+    
+    private func bindingMoveToBack(_ output: WriteImprovementViewModel.Output) {
         output.moveToBack
-                .subscribe(onNext: { [weak self] _ in
-                    self?.navigationController?.popViewController(animated: false)
-                })
-                .disposed(by: disposeBag)
+            .subscribe(onNext: { [weak self] in
+                self?.navigationController?
+                .popViewController(animated: false)})
     }
     
     private func navigateToImprovement() {
@@ -241,6 +256,7 @@ final class WriteImprovementViewController: UIViewController {
     }
 }
 
+/// extension WriteImprovementViewController :  textField 동적 높이
 extension WriteImprovementViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         let size = CGSize(width: textView.frame.width, height: .infinity)

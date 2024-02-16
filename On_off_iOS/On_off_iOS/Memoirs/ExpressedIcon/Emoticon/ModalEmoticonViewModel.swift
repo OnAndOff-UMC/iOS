@@ -8,6 +8,7 @@
 import RxCocoa
 import RxSwift
 
+/// ModalEmoticonViewModel
 final class ModalEmoticonViewModel {
     
     private let disposeBag = DisposeBag()

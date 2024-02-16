@@ -147,25 +147,36 @@ final class StartToWriteViewController: UIViewController {
                                                 backButtonTapped: backButton.rx.tap.asObservable())
         let output = viewModel.bind(input: input)
         
-        output.moveToNext
-                .subscribe(onNext: { [weak self] _ in
-                    self?.navigateToWriteLearned()
-
-                })
-                .disposed(by: disposeBag)
+        /// 다음화면으로 이동
+        bingdingMoveToNext(output)
         
-        output.moveToBack
-                .subscribe(onNext: { [weak self] _ in
-                    self?.navigationController?.popViewController(animated: false)
-                })
-                .disposed(by: disposeBag)
+        /// 뒤로 가기
+        bingdingMoveToBack(output)
     }
     
+    /// 버튼과 다음이동 바인딩
+    private func bingdingMoveToNext(_ output: StartToWriteViewModel.Output) {
+        output.moveToNext
+            .subscribe(onNext: { [weak self] _ in
+                self?.navigateToWriteLearned()
+                
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    /// 뒤로가기 이벤트
+    private func bingdingMoveToBack(_ output: StartToWriteViewModel.Output) {
+        output.moveToBack
+            .subscribe(onNext: { [weak self] _ in
+                self?.navigationController?.popViewController(animated: false)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    /// 다음 글 작성 페이지로 이동
     private func navigateToWriteLearned() {
         let writeLearnedViewModel = WriteLearnedViewModel()
         let writeLearnedViewController = WriteLearnedViewController(viewModel: writeLearnedViewModel)
         self.navigationController?.pushViewController(writeLearnedViewController, animated: false)
     }
-    
-
 }

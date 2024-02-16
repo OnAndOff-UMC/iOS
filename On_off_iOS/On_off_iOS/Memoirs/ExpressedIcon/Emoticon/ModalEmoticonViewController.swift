@@ -10,6 +10,7 @@ import RxCocoa
 import SnapKit
 import UIKit
 
+/// ModalEmoticonViewController
 final class ModalEmoticonViewController: UIViewController {
     
     /// imageView collectionView
@@ -23,14 +24,14 @@ final class ModalEmoticonViewController: UIViewController {
         collectionView.delegate = self
         return collectionView
     }()
-
+    
     private let viewModel: ModalEmoticonViewModel
     private let disposeBag = DisposeBag()
-   
+    
     var onImageSelected: ((String) -> Void)?
-
+    
     weak var delegate: ModalEmoticonDelegate?
-
+    
     // MARK: - Init
     init(viewModel: ModalEmoticonViewModel) {
         self.viewModel = viewModel
@@ -42,28 +43,29 @@ final class ModalEmoticonViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
+    // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         setupConstraints()
         setupBindings()
     }
-
+    
     /// setupViews
     private func setupViews() {
         view.backgroundColor = .white
         view.addSubview(collectionView)
     }
-
+    
     /// setupConstraints
     private func setupConstraints() {
         collectionView.snp.makeConstraints { make in
             make.horizontalEdges.bottom.equalToSuperview().inset(10)
             make.top.equalToSuperview().inset(50)
         }
-    } 
+    }
     
+    /// setupBindings
     private func setupBindings() {
         
         let viewDidLoad = Observable.just(())
@@ -72,15 +74,24 @@ final class ModalEmoticonViewController: UIViewController {
         let input = ModalEmoticonViewModel.Input(viewDidLoad: viewDidLoad, imageSelected: imageSelected)
         let output = viewModel.bind(input: input)
         
+        /// 콜렉션뷰 선택 이벤트
+        collectionViewSelectedEvent()
+        
+        /// 이모티콘 바인딩
+        bindingEmoticon(output)
+    }
+    
+    private func collectionViewSelectedEvent() {
         collectionView.rx.modelSelected(Emoticon.self)
             .subscribe(onNext: { [weak self] emoticon in
-
+                
                 self?.delegate?.emoticonSelected(emoticon: emoticon)
                 self?.dismiss(animated: true, completion: nil)
             })
             .disposed(by: disposeBag)
-
-        
+    }
+    
+    private func bindingEmoticon(_ output: ModalEmoticonViewModel.Output) {
         output.emoticons
             .bind(to: collectionView.rx.items(cellIdentifier: CellIdentifier.EmoticonCollectionViewCell.rawValue, cellType: EmoticonCollectionViewCell.self)) { index, emoticon, cell in
                 cell.configure(with: emoticon.imageUrl)
@@ -101,15 +112,15 @@ extension ModalEmoticonViewController: UICollectionViewDelegateFlowLayout {
         
         return CGSize(width: widthPerItem, height: widthPerItem)
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 10
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 10
     }

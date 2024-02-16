@@ -201,12 +201,25 @@ final class WritePraisedViewController: UIViewController {
         
         let output = viewModel.bind(input: input)
         
+        
+        /// 다음화면으로 이동
+        bingdingMoveToNext(output)
+        
+        /// 뒤로 가기
+        bingdingMoveToBack(output)
+        
         /// 글자수 출력 바인딩
+        bindingTextLength(output)
+    }
+    
+    private func bindingTextLength(_ output: WritePraisedViewModel.Output) {
         output.textLength
             .map { "(\($0)/500)" }
             .bind(to: checkLenghtLabel.rx.text)
             .disposed(by: disposeBag)
-        
+    }
+    
+    private func bingdingMoveToNext(_ output: WritePraisedViewModel.Output) {
         output.moveToNext
             .subscribe(onNext: { [weak self] isSuccess in
                 if isSuccess {
@@ -216,13 +229,13 @@ final class WritePraisedViewController: UIViewController {
                 }
             })
             .disposed(by: disposeBag)
-
-        
+    }
+    
+    private func bingdingMoveToBack(_ output: WritePraisedViewModel.Output) {
         output.moveToBack
-                .subscribe(onNext: { [weak self] _ in
-                    self?.navigationController?.popViewController(animated: false)
-                })
-                .disposed(by: disposeBag)
+            .subscribe(onNext: { [weak self] in
+                self?.navigationController?
+                .popViewController(animated: false)})
     }
     
     private func navigateToExpressdIcon() {

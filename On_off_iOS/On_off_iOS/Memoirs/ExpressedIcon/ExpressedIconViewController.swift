@@ -56,7 +56,7 @@ final class ExpressedIconViewController: UIViewController {
         button.setTitle("저장하기", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
         button.titleLabel?.tintColor = .OnOffMain
-
+        
         return button
     }()
     
@@ -167,27 +167,41 @@ final class ExpressedIconViewController: UIViewController {
                                                  backButtonTapped: backButton.rx.tap.asObservable())
         
         // 이미지 뷰 탭 제스처에 대한 바인딩
+        
+        let output = viewModel.bind(input: input)
+        
+        /// 이미지터치
+        moveTextpageImage()
+        
+        /// 다음화면으로 이동
+        moveToNext(output)
+        
+        /// 뒤로 가기
+        moveToBack(output)
+    }
+    
+    private func moveTextpageImage() {
         textpageImage.rx.tapGesture()
             .when(.recognized)
             .subscribe(onNext: { _ in
                 self.presentModalEmoticonViewController()
             })
             .disposed(by: disposeBag)
-        
-        let output = viewModel.bind(input: input)
-        
-        // 다음 화면으로 이동
-        output.moveToNext
+    }
+    
+    private func moveToNext(_ output: ExpressedIconViewModel.Output) {
+        output.moveToBack
             .subscribe(onNext: { [weak self] in
-                self?.navigateTobookMark()
+                self?.navigationController?
+                    .popViewController(animated: false)
             })
-            .disposed(by: disposeBag)
-        
+    }
+    
+    private func moveToBack(_ output: ExpressedIconViewModel.Output) {
         output.moveToBack
             .subscribe(onNext: { [weak self] in
                 self?.navigationController?
                 .popViewController(animated: false)})
-        
     }
     
     /// 임시 초기로 이동
@@ -215,26 +229,27 @@ final class ExpressedIconViewController: UIViewController {
     }
 }
 
+/// extension ExpressedIconViewControlle
 extension ExpressedIconViewController: ModalEmoticonDelegate {
     func emoticonSelected(emoticon: Emoticon) {
-            self.emoticonImage.kf.setImage(with: URL(string: emoticon.imageUrl), 
-                                           completionHandler:  { [weak self] result in
-                switch result {
-                case .success(_):
-                    DispatchQueue.main.async {
-                        // 이미지 로드 성공 시 버튼 활성화
-                        _ = KeychainWrapper.saveItem(value: String(emoticon.emoticonId),
-                                                     forKey: MemoirsKeyChain.emoticonID.rawValue)
-                        self?.saveButton.isEnabled = true
-                        self?.saveButtonView.backgroundColor = .OnOffMain
-                        self?.saveButton.setTitleColor(.white, for: .normal)
-                    }
-                case .failure(_):
-                    // 이미지 로드 실패 시 버튼 비활성화
-                    self?.saveButton.isEnabled = false
-                    self?.saveButtonView.backgroundColor = .lightGray
-                    self?.saveButton.setTitleColor(.gray, for: .normal)
+        self.emoticonImage.kf.setImage(with: URL(string: emoticon.imageUrl),
+                                       completionHandler:  { [weak self] result in
+            switch result {
+            case .success(_):
+                DispatchQueue.main.async {
+                    // 이미지 로드 성공 시 버튼 활성화
+                    _ = KeychainWrapper.saveItem(value: String(emoticon.emoticonId),
+                                                 forKey: MemoirsKeyChain.emoticonID.rawValue)
+                    self?.saveButton.isEnabled = true
+                    self?.saveButtonView.backgroundColor = .OnOffMain
+                    self?.saveButton.setTitleColor(.white, for: .normal)
                 }
-            })
-        }
+            case .failure(_):
+                // 이미지 로드 실패 시 버튼 비활성화
+                self?.saveButton.isEnabled = false
+                self?.saveButtonView.backgroundColor = .lightGray
+                self?.saveButton.setTitleColor(.gray, for: .normal)
+            }
+        })
+    }
 }

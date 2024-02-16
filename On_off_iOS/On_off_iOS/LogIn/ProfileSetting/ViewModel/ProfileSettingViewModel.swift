@@ -61,7 +61,7 @@ final class ProfileSettingViewModel {
                 return self.loginWithSelectedData()
             }
             .subscribe(onNext: { response in
-                if response.isSuccess {
+                if response.isSuccess ?? false {
                     output.success.onNext(true)
                 } else {
                     output.errorMessage.onNext(response.message)

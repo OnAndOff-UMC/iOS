@@ -46,7 +46,7 @@ final class DeletedMemoirsPopUpViewModel {
                 
                 return service.deleteMemoirs(memoirId: input.memoirId)
                     .map { response -> Bool in
-                        return response.isSuccess
+                        return response.isSuccess ?? false
                     }
                     .catchAndReturn(false)
             }

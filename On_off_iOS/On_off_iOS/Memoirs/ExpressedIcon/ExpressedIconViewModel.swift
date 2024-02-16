@@ -14,7 +14,7 @@ import UIKit
 final class ExpressedIconViewModel {
     private let disposeBag = DisposeBag()
     private let memoirsService = MemoirsService()
-
+    
     /// Input
     struct Input {
         let startButtonTapped: Observable<Void>
@@ -37,19 +37,19 @@ final class ExpressedIconViewModel {
         
         /// 완료버튼 클릭
         input.startButtonTapped
-                   .flatMapLatest { [weak self] _ -> Observable<Bool> in
-                       guard let self = self else { return .just(false) }
-                       return self.sendMemoirsData()
-                           .do(onNext: { success in
-                                                   print("Memoir 데이터 저장 성공 여부: \(success)")
-                                               })
-                   }
-                   .subscribe(onNext: { success in
-                       if success {
-                           output.moveToNext.onNext(())
-                       }
-                   })
-                   .disposed(by: disposeBag)
+            .flatMapLatest { [weak self] _ -> Observable<Bool> in
+                guard let self = self else { return .just(false) }
+                return self.sendMemoirsData()
+                    .do(onNext: { success in
+                        print("Memoir 데이터 저장 성공 여부: \(success)")
+                    })
+            }
+            .subscribe(onNext: { success in
+                if success {
+                    output.moveToNext.onNext(())
+                }
+            })
+            .disposed(by: disposeBag)
         
         /// 뒤로가기 버튼 클릭
         input.backButtonTapped
