@@ -48,13 +48,13 @@ final class BookmarkViewModel {
         return output
     }
     /// BookmarkVC에서 재로드시 실행될 메소드
-    //    func reloadBookmarksData() {
-    //        let output = Output()
-    //        service.inquireBookmark(pageNumber: 0).subscribe(onNext: { [weak self] response in
-    //            guard let self = self, response.isSuccess ?? false else { return }
-    //               output.memoirList.accept(response.result.memoirList)
-    //           }).disposed(by: disposeBag)
-    //       }
+        func reloadBookmarksData() {
+            let output = Output()
+            service.inquireBookmark(pageNumber: 0).subscribe(onNext: { [weak self] response in
+                guard let self = self, response.isSuccess ?? false else { return }
+                   output.memoirList.accept(response.result.memoirList)
+               }).disposed(by: disposeBag)
+           }
     
     
     /// 처음 화면 떴을때 데이터 bindingViewDidLoad

@@ -38,9 +38,10 @@ final class BookmarkViewController: UIViewController {
     // MARK: - View Will Appear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         loadDataSubject.onNext(())
         tableView.reloadData()
-//        reloadBookmarksData()
+        //        reloadBookmarksData()
     }
     
     private func setupTableView() {
@@ -62,20 +63,10 @@ final class BookmarkViewController: UIViewController {
         
         let output = viewModel.bind(input: input)
         
-        bindTableViewReloadData(output)
         bindMemoirListToTableViewCell(output)
         bindMoveInquireMemoirsViewController(output)
     }
     
-    private func bindTableViewReloadData(_ output: BookmarkViewModel.Output) {
-        output.memoirList
-              .observeOn(MainScheduler.instance)
-              .subscribe(onNext: { [weak self] memoirList in
-                  guard let self = self else { return }
-                  self.tableView.reloadData()
-              })
-              .disposed(by: disposeBag)   
-    }
     
     private func bindMemoirListToTableViewCell(_ output: BookmarkViewModel.Output) {
         output.memoirList
@@ -83,7 +74,7 @@ final class BookmarkViewController: UIViewController {
                                          cellType: BookmarkTableViewCell.self)) { (index, memoir, cell) in
                 cell.configure(with: memoir, at: IndexPath(row: index, section: 0))
             }
-            .disposed(by: disposeBag)
+                                         .disposed(by: disposeBag)
     }
     
     /// Binding Move Inquire Memoirs ViewController
@@ -105,6 +96,6 @@ final class BookmarkViewController: UIViewController {
 /// UITableViewDelegate
 extension BookmarkViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UIScreen.main.bounds.height * 0.2
+        return view.safeAreaLayoutGuide.layoutFrame.height * 0.2
     }
 }

@@ -37,7 +37,7 @@ final class MyInfoSettingViewController: UIViewController {
     /// 닉네임 라인
     private lazy var nickNameLine: UIView = {
         let lineView = UIView()
-        lineView.backgroundColor = .black
+        lineView.backgroundColor = .OnOffMain
         return lineView
     }()
     
@@ -90,6 +90,7 @@ final class MyInfoSettingViewController: UIViewController {
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
+    
     /// 업무분야 - 밑줄
     private lazy var fieldOfWorkLine: UIView = {
         let lineView = UIView()
@@ -216,7 +217,7 @@ final class MyInfoSettingViewController: UIViewController {
     private func settingView(){
         view.backgroundColor = UIColor.white
         setupCheckButtonView()
-        
+        view.backgroundColor = .white
     }
     
     /// 시작  버튼 속성 설정
@@ -225,9 +226,11 @@ final class MyInfoSettingViewController: UIViewController {
         checkButtonView.layer.cornerRadius = cornerRadius
         checkButtonView.layer.masksToBounds = true
     }
+    
     // 키보드내리기
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
+        nickNameTextField.endEditing(true)
         jobTextField.endEditing(true)
     }
     
@@ -237,6 +240,7 @@ final class MyInfoSettingViewController: UIViewController {
         view.addSubview(nickName)
         view.addSubview(nickNameTextField)
         view.addSubview(nickNameLine)
+        view.addSubview(checkLenghtLabel)
         
         view.addSubview(fieldOfWork)
         view.addSubview(fieldOfWorkButton)
@@ -264,7 +268,7 @@ final class MyInfoSettingViewController: UIViewController {
         
         ///닉네임
         nickName.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(100)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(50)
             make.leading.equalToSuperview().offset(10)
         }
         
@@ -279,9 +283,19 @@ final class MyInfoSettingViewController: UIViewController {
             make.height.equalTo(1)
         }
         
+        checkLenghtLabel.snp.makeConstraints { make in
+            make.trailing.equalTo(jobLine.snp.trailing)
+            make.centerY.equalTo(nickNameTextField.snp.centerY)
+        }
+        
+        nickNameExplainLabel.snp.makeConstraints { make in
+            make.top.equalTo(nickNameLine.snp.top).offset(10)
+            make.leading.trailing.equalToSuperview().inset(10)
+        }
+        
         /// 분야
         fieldOfWork.snp.makeConstraints { make in
-            make.top.equalTo(nickNameLine.snp.bottom).offset(50)
+            make.top.equalTo(nickNameExplainLabel.snp.bottom).offset(50)
             make.leading.equalToSuperview().offset(10)
         }
         
@@ -350,10 +364,7 @@ final class MyInfoSettingViewController: UIViewController {
             make.height.equalTo(1)
             
         }
-        nickNameExplainLabel.snp.makeConstraints { make in
-            make.bottom.equalTo(checkButton.snp.top).offset(-20)
-            make.leading.trailing.equalToSuperview().inset(10)
-        }
+     
         
         checkButtonView.snp.makeConstraints { make in
             make.bottom.equalToSuperview().inset(50)
@@ -441,6 +452,7 @@ final class MyInfoSettingViewController: UIViewController {
         let vc = SelectTimeViewController(viewModel: selectTimeViewModel)
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
 }
 
 /// extension : ModalSelectProfileDelegate : 모달창으로 부터 데이터 받기
