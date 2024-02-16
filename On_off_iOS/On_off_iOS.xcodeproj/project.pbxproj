@@ -56,6 +56,7 @@
 		3787D00A2B429F1700F054DD /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787D0092B429F1700F054DD /* LaunchViewController.swift */; };
 		3787D00F2B42AD6F00F054DD /* OnBoardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787D00E2B42AD6F00F054DD /* OnBoardingViewModel.swift */; };
 		3787D0132B42E0F000F054DD /* NickNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787D0122B42E0F000F054DD /* NickNameViewController.swift */; };
+		3789F5F62B7FB91700B8EADB /* MyInfoSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3789F5F52B7FB91700B8EADB /* MyInfoSettingViewController.swift */; };
 		37A1E9862B6C821A0013FFD7 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = 37A1E9852B6C821A0013FFD7 /* RxGesture */; };
 		37A1E9882B6CB1DD0013FFD7 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A1E9872B6CB1DD0013FFD7 /* LoginService.swift */; };
 		37A1E98A2B6CB1F70013FFD7 /* LoginProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A1E9892B6CB1F70013FFD7 /* LoginProtocol.swift */; };
@@ -222,6 +223,7 @@
 		3787D0092B429F1700F054DD /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		3787D00E2B42AD6F00F054DD /* OnBoardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewModel.swift; sourceTree = "<group>"; };
 		3787D0122B42E0F000F054DD /* NickNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameViewController.swift; sourceTree = "<group>"; };
+		3789F5F52B7FB91700B8EADB /* MyInfoSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoSettingViewController.swift; sourceTree = "<group>"; };
 		37A1E9832B6C7FC60013FFD7 /* On_off_iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = On_off_iOS.entitlements; sourceTree = "<group>"; };
 		37A1E9872B6CB1DD0013FFD7 /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		37A1E9892B6CB1F70013FFD7 /* LoginProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginProtocol.swift; sourceTree = "<group>"; };
@@ -611,6 +613,14 @@
 				3787D0072B429C1100F054DD /* OnboardingModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		3789F5F42B7FB8F300B8EADB /* MyInfoSetting */ = {
+			isa = PBXGroup;
+			children = (
+				3789F5F52B7FB91700B8EADB /* MyInfoSettingViewController.swift */,
+			);
+			path = MyInfoSetting;
 			sourceTree = "<group>";
 		};
 		379380CC2B44282B00BB7BDE /* ProfileSetting */ = {
@@ -1112,6 +1122,7 @@
 		3BF02BD32B7E0B630079A091 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
+				3789F5F42B7FB8F300B8EADB /* MyInfoSetting */,
 				3BA89DE32B7F438D002ACCCF /* SetAlert */,
 				3BA89DE22B7F4381002ACCCF /* Base */,
 			);
@@ -1354,6 +1365,7 @@
 				3BEFD30F2B7AF56300EE6EFF /* WeekDay.swift in Sources */,
 				37BD17702B764B2800A4EA46 /* LaunchViewModel.swift in Sources */,
 				37CFD3002B66533900E00D92 /* ExpressedIconViewController.swift in Sources */,
+				3789F5F62B7FB91700B8EADB /* MyInfoSettingViewController.swift in Sources */,
 				37AEB1EE2B6CF3F400A6CDD6 /* ModalEmoticonViewModel.swift in Sources */,
 				3B2D93022B77C91B00D88787 /* OffUIViewModel.swift in Sources */,
 				3B26CF442B790A4700E05581 /* Image.swift in Sources */,

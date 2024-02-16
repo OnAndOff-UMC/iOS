@@ -274,6 +274,7 @@ final class MyPageViewController: UIViewController {
         bindFeedBackButton()
         bindNoticeButton()
         bindFAQButton()
+        bindMyInfoSettingButton()
     }
     
     /// Bind Nick Name Relay
@@ -314,6 +315,17 @@ final class MyPageViewController: UIViewController {
                 let setAlertViewController = SetAlertViewController()
                 setAlertViewController.navigationItem.title = "알림설정"
                 navigationController?.pushViewController(setAlertViewController, animated: true)
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    private func bindMyInfoSettingButton() {
+        myInfoButton.rx.tap
+            .bind { [weak self] in
+                guard let self = self else { return }
+                let myInfoSettingViewController = MyInfoSettingViewController(viewModel: ProfileSettingViewModel(loginService: LoginService()))
+                myInfoSettingViewController.navigationItem.title = "마이페이지"
+                navigationController?.pushViewController(myInfoSettingViewController, animated: true)
             }
             .disposed(by: disposeBag)
     }

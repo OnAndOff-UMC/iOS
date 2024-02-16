@@ -11,6 +11,7 @@ import RxRelay
 import RxCocoa
 
 final class SetAlertViewModel {
+    
     private let disposeBag = DisposeBag()
     private let service = SetAlertService()
     
