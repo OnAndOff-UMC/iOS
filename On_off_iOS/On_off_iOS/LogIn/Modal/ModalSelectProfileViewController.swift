@@ -30,11 +30,11 @@ final class ModalSelectProfileViewController: UIViewController {
     private let viewModel: ModalSelectProfileViewModel
     private let disposeBag = DisposeBag()
     private var dataType: ProfileDataType
-
+    
     var onImageSelected: ((String) -> Void)?
     
     weak var delegate: ModalSelectProfileDelegate?
-
+    
     // MARK: - Init
     init(viewModel: ModalSelectProfileViewModel, dataType: ProfileDataType) {
         self.viewModel = viewModel
@@ -85,10 +85,9 @@ final class ModalSelectProfileViewController: UIViewController {
         /// 라벨 바인딩
         bindingLabelText(output)
         
-        /// 테이블뷰 바인딩
         bindingTableView(output)
- 
     }
+    
     private func bindingOptions(_ output: ModalSelectProfileViewModel.Output) {
         output.options
             .bind(to: tableView.rx.items(cellIdentifier: CellIdentifier.ModalSelectProfileTableViewCell.rawValue, cellType: ModalSelectProfileTableViewCell.self)) { (row, element, cell) in
@@ -99,8 +98,8 @@ final class ModalSelectProfileViewController: UIViewController {
     
     private func bindingLabelText(_ output: ModalSelectProfileViewModel.Output) {
         output.labelText
-               .bind(to: label.rx.text)
-               .disposed(by: disposeBag)
+            .bind(to: label.rx.text)
+            .disposed(by: disposeBag)
     }
     
     private func bindingTableView(_ output: ModalSelectProfileViewModel.Output) {

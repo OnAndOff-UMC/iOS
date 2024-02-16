@@ -201,6 +201,7 @@ final class DeletedMemoirsPopUpView: DimmedViewController {
                     dismiss(animated: true)
                     self.delegate?.didDeleteMemoirSuccessfully()
                 }
+                dismiss(animated: true)
             })
             .disposed(by: disposeBag)
     }

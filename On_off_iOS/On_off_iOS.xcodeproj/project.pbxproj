@@ -611,9 +611,8 @@
 		37A1E9922B6CD8B70013FFD7 /* Emoticon */ = {
 			isa = PBXGroup;
 			children = (
+				37BD57F32B7F570C0078B9D0 /* ModalEmoticon */,
 				37A1E9952B6CDCE50013FFD7 /* CollectionView */,
-				37A1E9932B6CDAD70013FFD7 /* ModalEmoticonViewController.swift */,
-				37AEB1ED2B6CF3F400A6CDD6 /* ModalEmoticonViewModel.swift */,
 			);
 			path = Emoticon;
 			sourceTree = "<group>";
@@ -652,6 +651,22 @@
 				37B890752B6A1EDC008A8BBC /* Endpoint.swift */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		37BD57F22B7F562E0078B9D0 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		37BD57F32B7F570C0078B9D0 /* ModalEmoticon */ = {
+			isa = PBXGroup;
+			children = (
+				37A1E9932B6CDAD70013FFD7 /* ModalEmoticonViewController.swift */,
+				37AEB1ED2B6CF3F400A6CDD6 /* ModalEmoticonViewModel.swift */,
+			);
+			path = ModalEmoticon;
 			sourceTree = "<group>";
 		};
 		37C1611E2B6BD9F7000E0B21 /* LogIn */ = {
@@ -743,6 +758,7 @@
 		37DC38A32B79E529003CBBFB /* InquireMemoirs */ = {
 			isa = PBXGroup;
 			children = (
+				37BD57F22B7F562E0078B9D0 /* ViewModel */,
 				372F690A2B7A1EED00273952 /* Modal */,
 				37DC38A42B79E543003CBBFB /* InquireMemoirsViewController.swift */,
 				37DC38A62B79E548003CBBFB /* InquireMemoirsViewModel.swift */,

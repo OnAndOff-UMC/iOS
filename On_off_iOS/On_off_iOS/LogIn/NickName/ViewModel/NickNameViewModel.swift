@@ -51,7 +51,7 @@ final class NickNameViewModel {
             .do(onNext: { (length, isValid) in
                 output.isCheckButtonEnabled.accept(length >= 2 && length <= 10 && isValid)
             })
-            .map { $0.0 } // Only length
+            .map { $0.0 }
             .bind(to: output.nickNameLength)
             .disposed(by: disposeBag)
     }
