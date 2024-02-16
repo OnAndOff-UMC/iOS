@@ -145,6 +145,34 @@ final class MemoirsService: MemoirsProtocol {
         }
     }
     
+    /// 북마크 조회하기
+    func inquireBookmark(pageNumber: Int) -> Observable<Response<BookMarkListResponse>> {
+        let url = Domain.RESTAPI + MemoirsPath.bookMarkPreview.rawValue
+        let headers = Header.header.getHeader()
+        let parameters: Parameters = ["pageNumber" : pageNumber]
+        print(#function, url, pageNumber)
+        return Observable.create { observer in
+            AF.request(url,
+                       method: .get,
+                       parameters: parameters,
+                       encoding: URLEncoding.default,
+                       headers: headers)
+            .validate(statusCode: 200..<201)
+            .responseDecodable(of: Response<BookMarkListResponse>.self) { response in
+                print(#function, response)
+                switch response.result {
+                case .success(let data):
+                    observer.onNext(data)
+                case .failure(let error):
+                    observer.onError(error)
+                }
+                
+            }
+            return Disposables.create()
+        }
+    }
+    
+    
     /// 북마크 설정하기 //     case bookMark = "/memoirs/MEMOIRID/bookmark" // 북마크 체크
     func bookMarkMemoirs(memoirId: Int) -> RxSwift.Observable<MemoirResponse> {
         let url = Domain.RESTAPI + MemoirsPath.bookMark.rawValue

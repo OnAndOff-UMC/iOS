@@ -108,7 +108,6 @@
 		37FED6032B6E15000071BB23 /* MemoirsImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FED6022B6E15000071BB23 /* MemoirsImage.swift */; };
 		37FED6072B6E23560071BB23 /* BookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FED6062B6E23560071BB23 /* BookmarkViewController.swift */; };
 		37FED6092B6E235D0071BB23 /* BookmarkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FED6082B6E235D0071BB23 /* BookmarkViewModel.swift */; };
-		37FED60B2B6E23650071BB23 /* BookmarkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FED60A2B6E23650071BB23 /* BookmarkService.swift */; };
 		37FED60D2B6E29070071BB23 /* BookmarkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FED60C2B6E29070071BB23 /* BookmarkTableViewCell.swift */; };
 		3B0129C32B623BB900B191AD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0129C22B623BB900B191AD /* HomeViewController.swift */; };
 		3B0129C62B6242F800B191AD /* Ext + ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0129C52B6242F800B191AD /* Ext + ViewController.swift */; };
@@ -244,7 +243,6 @@
 		37FED6022B6E15000071BB23 /* MemoirsImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoirsImage.swift; sourceTree = "<group>"; };
 		37FED6062B6E23560071BB23 /* BookmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewController.swift; sourceTree = "<group>"; };
 		37FED6082B6E235D0071BB23 /* BookmarkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewModel.swift; sourceTree = "<group>"; };
-		37FED60A2B6E23650071BB23 /* BookmarkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkService.swift; sourceTree = "<group>"; };
 		37FED60C2B6E29070071BB23 /* BookmarkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkTableViewCell.swift; sourceTree = "<group>"; };
 		3B0129C22B623BB900B191AD /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		3B0129C52B6242F800B191AD /* Ext + ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext + ViewController.swift"; sourceTree = "<group>"; };
@@ -797,7 +795,6 @@
 			children = (
 				37FED6062B6E23560071BB23 /* BookmarkViewController.swift */,
 				37FED6082B6E235D0071BB23 /* BookmarkViewModel.swift */,
-				37FED60A2B6E23650071BB23 /* BookmarkService.swift */,
 				37FED60C2B6E29070071BB23 /* BookmarkTableViewCell.swift */,
 			);
 			path = Bookmark;
@@ -1232,7 +1229,6 @@
 				378588F92B708F99004E262F /* ModalSelectProfileTableViewCell.swift in Sources */,
 				3787D00A2B429F1700F054DD /* LaunchViewController.swift in Sources */,
 				3BD552682B58FCF70043920E /* CalendarCell.swift in Sources */,
-				37FED60B2B6E23650071BB23 /* BookmarkService.swift in Sources */,
 				35AC0F522B64030400AB0A6B /* TabBarController.swift in Sources */,
 				37A1E98A2B6CB1F70013FFD7 /* LoginProtocol.swift in Sources */,
 				37FED6072B6E23560071BB23 /* BookmarkViewController.swift in Sources */,

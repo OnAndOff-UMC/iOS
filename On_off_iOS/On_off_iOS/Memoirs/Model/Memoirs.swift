@@ -28,7 +28,24 @@ struct MemoirRevisedRequest: Codable {
     }
 }
 
-//북마크용
+/// BookMark Response
+struct BookMarkListResponse: Codable {
+    let memoirList: [Memoir]
+    let pageNumber: Int
+    let pageSize: Int
+    let totalPages: Int
+    let totalElements: Int
+    let isFirst: Bool
+    let isLast: Bool
+}
+
+struct Memoir: Codable {
+    let date: String?
+    let emoticonUrl: String?
+    let remain: Int?
+}
+
+/// 북마크수정용
 struct MemoirResponse: Codable {
     let isSuccess: Bool
     let code: String

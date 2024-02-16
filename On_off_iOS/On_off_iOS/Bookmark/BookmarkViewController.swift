@@ -13,11 +13,10 @@ import SnapKit
 final class BookmarkViewController: UIViewController {
     
     private lazy var tableView = UITableView()
-    // 더미 데이터❎
-    var items = PublishSubject<[Item]>()
     
     private let viewModel: BookmarkViewModel
     private let disposeBag = DisposeBag()
+    private var loadDataSubject: PublishSubject<Void> = PublishSubject<Void>()
     
     // MARK: - Init
     init(viewModel: BookmarkViewModel) {
@@ -30,11 +29,18 @@ final class BookmarkViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
-        bindTableView()
         setupBindings()
+    }
+    
+    // MARK: - View Will Appear
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        loadDataSubject.onNext(())
     }
     
     private func setupTableView() {
@@ -43,52 +49,32 @@ final class BookmarkViewController: UIViewController {
             make.edges.equalToSuperview()
         }
         tableView.register(BookmarkTableViewCell.self, forCellReuseIdentifier: CellIdentifier.BookmarkTableViewCell.rawValue)
+        
         tableView.rx.setDelegate(self).disposed(by: disposeBag)
     }
     
-    private func bindTableView() {
-        items
-            .bind(to: tableView.rx.items(cellIdentifier: CellIdentifier.BookmarkTableViewCell.rawValue, cellType: BookmarkTableViewCell.self)) { (row, item, cell) in
-                cell.configure(with: item, at: IndexPath(row: row, section: 0))
-            }
-            .disposed(by: disposeBag)
-        
-        // 더미 데이터 생성, 바인딩
-        let dummyItems = (1...20).map { Item(title: "Item \($0)", image: UIImage(named: "AppIcon") ?? UIImage()) }
-        items.onNext(dummyItems)
-    }
-    
-    /// 뷰모델과 setupBindings
     private func setupBindings() {
+        let input = BookmarkViewModel.Input(
+            reloadDataEvents: loadDataSubject.asObservable(),
+            cellTapped: tableView.rx.itemSelected.asObservable(),
+            bookmarkButtonTapped: .never()
+        )
         
-        let cellTapped = tableView.rx.itemSelected
-            .map { [unowned self] indexPath -> Item in
-                try! self.tableView.rx.model(at: indexPath)
-            }
-            .share()
+        let output = viewModel.bind(input: input)
         
-        cellTapped
-            .subscribe(onNext: { item in
-                print("Selected item: \(item.title)")
-            })
-            .disposed(by: disposeBag)
-        
-        // ViewModel의 Input 생성 및 바인딩
-        let input = BookmarkViewModel.Input(cellTapped: cellTapped.map { $0.title })
-        viewModel.bind(input: input)
-        
-        tableView.rx.modelSelected(Item.self)
-            .subscribe(onNext: { [weak self] item in
-                self?.navigateToDetail(for: item)
-            })
-            .disposed(by: disposeBag)
-        
-    }
+        output.memoirList
+              .observeOn(MainScheduler.instance)
+              .subscribe(onNext: { [weak self] memoirList in
+                  guard let self = self else { return }
+                  self.tableView.reloadData()
+              })
+              .disposed(by: disposeBag)
     
-    private func navigateToDetail(for item: Item) {
-        let memoirsViewModel = MemoirsViewModel()
-        let memoirsViewController = MemoirsViewController(viewModel: memoirsViewModel)
-        self.navigationController?.pushViewController(memoirsViewController, animated: true)
+        output.memoirList
+            .bind(to: tableView.rx.items(cellIdentifier: CellIdentifier.BookmarkTableViewCell.rawValue, cellType: BookmarkTableViewCell.self)) { (index, memoir, cell) in
+                cell.configure(with: memoir, at: IndexPath(row: index, section: 0))
+            }
+            .disposed(by: disposeBag)
     }
 }
 

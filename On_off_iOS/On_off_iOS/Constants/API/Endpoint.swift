@@ -26,6 +26,7 @@ enum MemoirsPath: String {
     case memoirsSave = "/memoirs" //회고록 저장,보기
     case memoirsRevise = "/memoirs/MEMOIRID" // 회고록 수정
     case bookMark = "/memoirs/MEMOIRID/bookmark" // 북마크 체크
+    case bookMarkPreview = "/memoirs/bookmarks" // 북마크 회고
     case getEmoticon = "/emoticons"
     case preview = "/memoirs/previews"
 }
