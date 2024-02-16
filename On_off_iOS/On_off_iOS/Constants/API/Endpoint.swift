@@ -55,3 +55,7 @@ enum StatisticsPath: String {
     case prevMonth = "/stats/month/prev"
     case nextMonth = "/stats/month/next"
 }
+
+enum AlertPath: String {
+    case alertStatus = "/users/pushNotification"
+}
