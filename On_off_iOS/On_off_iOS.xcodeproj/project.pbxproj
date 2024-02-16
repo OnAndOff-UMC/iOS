@@ -136,6 +136,8 @@
 		3BA89DEB2B7F44E8002ACCCF /* SetAlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA89DEA2B7F44E8002ACCCF /* SetAlertViewModel.swift */; };
 		3BA89DED2B7F50D9002ACCCF /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA89DEC2B7F50D9002ACCCF /* Alert.swift */; };
 		3BA89DEF2B7F511E002ACCCF /* SetAlertService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA89DEE2B7F511E002ACCCF /* SetAlertService.swift */; };
+		3BA89DF12B7FAF38002ACCCF /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA89DF02B7FAF38002ACCCF /* WebViewController.swift */; };
+		3BA89DF32B7FB30A002ACCCF /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA89DF22B7FB30A002ACCCF /* User.swift */; };
 		3BB7D07F2B64EB31002F1860 /* OffUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB7D07E2B64EB31002F1860 /* OffUIView.swift */; };
 		3BB806D02B5012F400555E58 /* DayChartCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB806CF2B5012F400555E58 /* DayChartCustomView.swift */; };
 		3BB806D32B5021BC00555E58 /* StatisticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB806D22B5021BC00555E58 /* StatisticsViewModel.swift */; };
@@ -275,6 +277,8 @@
 		3BA89DEA2B7F44E8002ACCCF /* SetAlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetAlertViewModel.swift; sourceTree = "<group>"; };
 		3BA89DEC2B7F50D9002ACCCF /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		3BA89DEE2B7F511E002ACCCF /* SetAlertService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetAlertService.swift; sourceTree = "<group>"; };
+		3BA89DF02B7FAF38002ACCCF /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		3BA89DF22B7FB30A002ACCCF /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		3BB7D07E2B64EB31002F1860 /* OffUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffUIView.swift; sourceTree = "<group>"; };
 		3BB806CF2B5012F400555E58 /* DayChartCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayChartCustomView.swift; sourceTree = "<group>"; };
 		3BB806D22B5021BC00555E58 /* StatisticsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewModel.swift; sourceTree = "<group>"; };
@@ -1025,6 +1029,7 @@
 			isa = PBXGroup;
 			children = (
 				3BA89DEC2B7F50D9002ACCCF /* Alert.swift */,
+				3BA89DF22B7FB30A002ACCCF /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1068,6 +1073,7 @@
 			isa = PBXGroup;
 			children = (
 				3BF02BD62B7E0B840079A091 /* MyPageViewController.swift */,
+				3BA89DF02B7FAF38002ACCCF /* WebViewController.swift */,
 				3BF02BDB2B7E0DE00079A091 /* TopCustomButton.swift */,
 				3BF02BDF2B7E39DD0079A091 /* ListCustomButton.swift */,
 			);
@@ -1225,6 +1231,7 @@
 				3B26CF462B7919C100E05581 /* InsertWorkLifeBalanceFeedView.swift in Sources */,
 				374FD49F2B42825B00F2E645 /* CustomPageControl.swift in Sources */,
 				37C161232B6BD9F8000E0B21 /* LoginViewModel.swift in Sources */,
+				3BA89DF12B7FAF38002ACCCF /* WebViewController.swift in Sources */,
 				355283122B68CB70002BBFFD /* Ext + UIFont.swift in Sources */,
 				37FED60D2B6E29070071BB23 /* BookmarkTableViewCell.swift in Sources */,
 				3B44BDEC2B7CF30100AE9170 /* StatisticsService.swift in Sources */,
@@ -1320,6 +1327,7 @@
 				378588FB2B7092F7004E262F /* ModalSelectProfileDelegate.swift in Sources */,
 				3BD415C42B7A3ED800BAB0DC /* ClickWorkLifeBalanceFeedView.swift in Sources */,
 				3BF02BE32B7E46F10079A091 /* MyPageService.swift in Sources */,
+				3BA89DF32B7FB30A002ACCCF /* User.swift in Sources */,
 				3B3576442B78F5B1008464AA /* WatchPictureController.swift in Sources */,
 				3B0129C62B6242F800B191AD /* Ext + ViewController.swift in Sources */,
 				3B26CF4C2B79F3F800E05581 /* Feed.swift in Sources */,

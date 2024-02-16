@@ -17,11 +17,7 @@ final class MyPageViewModel {
     struct Input {
         let bookMarkButtonEvents: ControlEvent<Void>
         let alertSettingButtonEvents: ControlEvent<Void>
-        let faqButtonEvents: ControlEvent<Void>
         let myInfoButtonEvents: ControlEvent<Void>
-        let noticeButtonEvents: ControlEvent<Void>
-        let feedBackButton: ControlEvent<Void>
-        let policyButton: ControlEvent<Void>
         let versionButton: ControlEvent<Void>
         let reportButton: ControlEvent<Void>
         let logOutButton: ControlEvent<Void>
@@ -47,9 +43,21 @@ final class MyPageViewModel {
     /// Bind Log Out Button
     private func bindLogOutButton(input: Input, output: Output) {
         input.logOutButton
-            .bind { _ in
+            .bind { 
                 _ = KeychainWrapper.delete(key: LoginKeyChain.accessToken.rawValue)
                 _ = KeychainWrapper.delete(key: LoginKeyChain.refreshToken.rawValue)
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    /// Gind Get Out Button
+    private func bindGetOutButton(input: Input, output: Output) {
+        input.getOutButton
+            .bind {  [weak self] in
+                guard let self = self else { return }
+                _ = KeychainWrapper.delete(key: LoginKeyChain.accessToken.rawValue)
+                _ = KeychainWrapper.delete(key: LoginKeyChain.refreshToken.rawValue)
+                softDelete(output: output)
             }
             .disposed(by: disposeBag)
     }
@@ -71,6 +79,18 @@ final class MyPageViewModel {
                 guard let self = self else { return }
                 inputNickName(nickName: info.nickname ?? "", output: output)
                 inputSubTitle(info: info, output: output)
+            }, onError: { error in
+                print(#function, error)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    /// Soft Delete
+    private func softDelete(output: Output) {
+        service.softDelete()
+            .subscribe(onNext: { [weak self] check in
+                guard let self = self else { return }
+                print(check)
             }, onError: { error in
                 print(#function, error)
             })

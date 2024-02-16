@@ -55,3 +55,7 @@ enum StatisticsPath: String {
 enum AlertPath: String {
     case alertStatus = "/users/pushNotification"
 }
+
+enum UserPath: String {
+    case softDelete = "/users/withdraw"
+}

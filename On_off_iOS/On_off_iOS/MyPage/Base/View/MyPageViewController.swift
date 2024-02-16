@@ -259,11 +259,7 @@ final class MyPageViewController: UIViewController {
     private func bind() {
         let input = MyPageViewModel.Input(bookMarkButtonEvents: bookMarkButton.rx.tap,
                                           alertSettingButtonEvents: alertSettingButton.rx.tap,
-                                          faqButtonEvents: faqButton.rx.tap,
                                           myInfoButtonEvents: myInfoButton.rx.tap,
-                                          noticeButtonEvents: noticeButton.rx.tap,
-                                          feedBackButton: feedBackButton.rx.tap,
-                                          policyButton: policyButton.rx.tap,
                                           versionButton: versionButton.rx.tap,
                                           reportButton: reportButton.rx.tap,
                                           logOutButton: logOutButton.rx.tap,
@@ -273,6 +269,10 @@ final class MyPageViewController: UIViewController {
         bindNickNameRelay(output: output)
         bindSubTitleRelay(output: output)
         bindAlertSettingButton()
+        bindPolicyButton()
+        bindFeedBackButton()
+        bindNoticeButton()
+        bindFAQButton()
     }
     
     /// Bind Nick Name Relay
@@ -296,7 +296,7 @@ final class MyPageViewController: UIViewController {
     /// Bind Alert Setting Button
     private func bindAlertSettingButton() {
         alertSettingButton.rx.tap
-            .bind { [weak self] _ in
+            .bind { [weak self] in
                 guard let self = self else { return }
                 let setAlertViewController = SetAlertViewController()
                 setAlertViewController.navigationItem.title = "알림설정"
@@ -304,4 +304,58 @@ final class MyPageViewController: UIViewController {
             }
             .disposed(by: disposeBag)
     }
+    
+    /// Binding Policy Button
+    private func bindPolicyButton() {
+        policyButton.rx.tap
+            .bind { [weak self] in
+                guard let self = self else { return }
+                let url = "https://jungseo0.notion.site/cdc22df3df514d11a8f9e30f99de2f02"
+                let webViewController = WebViewController()
+                webViewController.url = url
+                navigationController?.pushViewController(webViewController, animated: true)
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    /// Binding Feed Back Button
+    private func bindFeedBackButton() {
+        feedBackButton.rx.tap
+            .bind { [weak self] in
+                guard let self = self else { return }
+                let url = "https://jungseo0.notion.site/b9441203ee8b4294ab8f71d6b4846916"
+                let webViewController = WebViewController()
+                webViewController.url = url
+                navigationController?.pushViewController(webViewController, animated: true)
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    /// Binding Notice Button
+    private func bindNoticeButton() {
+        noticeButton.rx.tap
+            .bind { [weak self] in
+                guard let self = self else { return }
+                let url = "https://jungseo0.notion.site/839bef18339a430099227c816516788d"
+                let webViewController = WebViewController()
+                webViewController.url = url
+                navigationController?.pushViewController(webViewController, animated: true)
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    /// Binding FAQ Button
+    private func bindFAQButton() {
+        faqButton.rx.tap
+            .bind { [weak self] in
+                guard let self = self else { return }
+                let url = "https://jungseo0.notion.site/FAQ-a4a98155fa3845bc88bfda0e40905e16"
+                let webViewController = WebViewController()
+                webViewController.url = url
+                navigationController?.pushViewController(webViewController, animated: true)
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    
 }
