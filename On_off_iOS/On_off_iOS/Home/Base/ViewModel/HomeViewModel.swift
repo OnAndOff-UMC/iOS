@@ -244,10 +244,10 @@ final class HomeViewModel {
     /// Format Date To String
     /// - Parameter date: Date
     /// - Returns: String Type Date
-    private func formatDateToString(date: Date, seperate: String, idNeedDay: Bool) -> String {
+    private func formatDateToString(date: Date, seperate: String, isNeedDay: Bool) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy\(seperate)MM\(seperate)dd"
-        if idNeedDay {
+        if isNeedDay {
             dateFormatter.dateFormat = "yyyy\(seperate)MM\(seperate)dd\(seperate)EEE"
         }
         
@@ -268,7 +268,7 @@ final class HomeViewModel {
     
     /// Format To Day Info
     private func formatToDayInfo(date: String) -> DayInfo {
-        let formatDate = formatDateToString(date: formatStringToDate(date: date),seperate: " ", idNeedDay: true).split(separator: " ")
+        let formatDate = formatDateToString(date: formatStringToDate(date: date),seperate: " ", isNeedDay: true).split(separator: " ")
         return DayInfo(totalDate: date, date: "\(formatDate[2])", day: "\(formatDate[3])")
     }
     
@@ -282,7 +282,8 @@ final class HomeViewModel {
     
     /// 미래인지 확인
     private func checkFutureDay(indexPath: IndexPath, output: Output) {
-        let result = Date().dateCompare(fromDate: formatStringToDate(date: output.dayListRelay.value[indexPath.row].totalDate ?? ""))
+        let today = formatStringToDate(date: formatDateToString(date: Date(), seperate: "-", isNeedDay: false))
+        let result = today.dateCompare(fromDate: formatStringToDate(date: output.dayListRelay.value[indexPath.row].totalDate ?? ""))
         if result == "Future" {
             output.futureRelay.accept(true)
             return
@@ -329,7 +330,7 @@ final class HomeViewModel {
                 guard let self = self else { return }
                 print(#function)
                 for index in 0..<list.count {
-                    let nowDate = formatDateToString(date: Date(), seperate: " ", idNeedDay: false).split(separator: " ")
+                    let nowDate = formatDateToString(date: Date(), seperate: " ", isNeedDay: false).split(separator: " ")
                     if let splitDate = list[index].totalDate?.split(separator: "-"), splitDate[0] == nowDate[0] && splitDate[1] == nowDate[1] && splitDate[2] == nowDate[2] {
                         output.selectedDayIndex.accept(IndexPath(item: index, section: 0))
                         return
@@ -387,7 +388,7 @@ final class HomeViewModel {
     
     /// 오늘 날짜인지 확인
     private func checkTodayDoMemoir(date: String, output: Output) {
-        let result = formatStringToDate(date: formatDateToString(date: Date(), seperate: "-", idNeedDay: false)).dateCompare(fromDate: formatStringToDate(date: date))
+        let result = formatStringToDate(date: formatDateToString(date: Date(), seperate: "-", isNeedDay: false)).dateCompare(fromDate: formatStringToDate(date: date))
         if result == "Same" {
             output.checkToday.accept(true)
             return
