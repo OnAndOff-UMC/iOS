@@ -132,6 +132,10 @@
 		3B51B5272B63DF9500E5FEF9 /* CellIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B51B5262B63DF9500E5FEF9 /* CellIdentifier.swift */; };
 		3B8570CB2B582B4E000BC503 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 3B8570CA2B582B4E000BC503 /* FSCalendar */; };
 		3B9C89D12B4AED7C0083CF44 /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9C89D02B4AED7C0083CF44 /* StatisticsViewController.swift */; };
+		3BA89DE92B7F43B6002ACCCF /* SetAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA89DE82B7F43B6002ACCCF /* SetAlertViewController.swift */; };
+		3BA89DEB2B7F44E8002ACCCF /* SetAlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA89DEA2B7F44E8002ACCCF /* SetAlertViewModel.swift */; };
+		3BA89DED2B7F50D9002ACCCF /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA89DEC2B7F50D9002ACCCF /* Alert.swift */; };
+		3BA89DEF2B7F511E002ACCCF /* SetAlertService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA89DEE2B7F511E002ACCCF /* SetAlertService.swift */; };
 		3BB7D07F2B64EB31002F1860 /* OffUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB7D07E2B64EB31002F1860 /* OffUIView.swift */; };
 		3BB806D02B5012F400555E58 /* DayChartCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB806CF2B5012F400555E58 /* DayChartCustomView.swift */; };
 		3BB806D32B5021BC00555E58 /* StatisticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB806D22B5021BC00555E58 /* StatisticsViewModel.swift */; };
@@ -267,6 +271,10 @@
 		3B44BDEB2B7CF30100AE9170 /* StatisticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsService.swift; sourceTree = "<group>"; };
 		3B51B5262B63DF9500E5FEF9 /* CellIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellIdentifier.swift; sourceTree = "<group>"; };
 		3B9C89D02B4AED7C0083CF44 /* StatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewController.swift; sourceTree = "<group>"; };
+		3BA89DE82B7F43B6002ACCCF /* SetAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetAlertViewController.swift; sourceTree = "<group>"; };
+		3BA89DEA2B7F44E8002ACCCF /* SetAlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetAlertViewModel.swift; sourceTree = "<group>"; };
+		3BA89DEC2B7F50D9002ACCCF /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		3BA89DEE2B7F511E002ACCCF /* SetAlertService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetAlertService.swift; sourceTree = "<group>"; };
 		3BB7D07E2B64EB31002F1860 /* OffUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffUIView.swift; sourceTree = "<group>"; };
 		3BB806CF2B5012F400555E58 /* DayChartCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayChartCustomView.swift; sourceTree = "<group>"; };
 		3BB806D22B5021BC00555E58 /* StatisticsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewModel.swift; sourceTree = "<group>"; };
@@ -967,6 +975,60 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		3BA89DE22B7F4381002ACCCF /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				3BF02BE12B7E46E90079A091 /* Service */,
+				3BF02BDA2B7E0C090079A091 /* Model */,
+				3BF02BD52B7E0B720079A091 /* ViewModel */,
+				3BF02BD42B7E0B6D0079A091 /* View */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		3BA89DE32B7F438D002ACCCF /* SetAlert */ = {
+			isa = PBXGroup;
+			children = (
+				3BA89DE72B7F43AB002ACCCF /* Model */,
+				3BA89DE62B7F43A8002ACCCF /* Service */,
+				3BA89DE52B7F43A3002ACCCF /* ViewModel */,
+				3BA89DE42B7F43A1002ACCCF /* View */,
+			);
+			path = SetAlert;
+			sourceTree = "<group>";
+		};
+		3BA89DE42B7F43A1002ACCCF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3BA89DE82B7F43B6002ACCCF /* SetAlertViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3BA89DE52B7F43A3002ACCCF /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				3BA89DEA2B7F44E8002ACCCF /* SetAlertViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		3BA89DE62B7F43A8002ACCCF /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				3BA89DEE2B7F511E002ACCCF /* SetAlertService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		3BA89DE72B7F43AB002ACCCF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3BA89DEC2B7F50D9002ACCCF /* Alert.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		3BB806D12B5021AA00555E58 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -996,10 +1058,8 @@
 		3BF02BD32B7E0B630079A091 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
-				3BF02BE12B7E46E90079A091 /* Service */,
-				3BF02BDA2B7E0C090079A091 /* Model */,
-				3BF02BD52B7E0B720079A091 /* ViewModel */,
-				3BF02BD42B7E0B6D0079A091 /* View */,
+				3BA89DE32B7F438D002ACCCF /* SetAlert */,
+				3BA89DE22B7F4381002ACCCF /* Base */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -1155,6 +1215,7 @@
 			files = (
 				37C161242B6BD9F8000E0B21 /* LoginViewController.swift in Sources */,
 				3B51B5272B63DF9500E5FEF9 /* CellIdentifier.swift in Sources */,
+				3BA89DEB2B7F44E8002ACCCF /* SetAlertViewModel.swift in Sources */,
 				378140612B42E83100F2AA5A /* NickNameViewModel.swift in Sources */,
 				3787D0132B42E0F000F054DD /* NickNameViewController.swift in Sources */,
 				3708261B2B66962000FBCAAF /* ExpressedIconModel.swift in Sources */,
@@ -1173,6 +1234,7 @@
 				374FD4A42B4297BE00F2E645 /* OnBoardingViewController.swift in Sources */,
 				3769A6882B58563C00D79C33 /* SelectTimeViewController.swift in Sources */,
 				37A1E9972B6CDCEF0013FFD7 /* EmoticonCollectionViewCell.swift in Sources */,
+				3BA89DEF2B7F511E002ACCCF /* SetAlertService.swift in Sources */,
 				37C1612C2B6BDEF8000E0B21 /* Header.swift in Sources */,
 				3787D0082B429C1100F054DD /* OnboardingModel.swift in Sources */,
 				37C70B422B714C8B004CB0F6 /* Ext + NSAttributedString.swift in Sources */,
@@ -1224,7 +1286,9 @@
 				3B0129C32B623BB900B191AD /* HomeViewController.swift in Sources */,
 				371B9EBD2B5B0753006AC06D /* WriteImprovementViewModel.swift in Sources */,
 				3708261F2B6699E000FBCAAF /* MemoirsText.swift in Sources */,
+				3BA89DE92B7F43B6002ACCCF /* SetAlertViewController.swift in Sources */,
 				371B9EB92B5B0723006AC06D /* WritePraisedViewModel.swift in Sources */,
+				3BA89DED2B7F50D9002ACCCF /* Alert.swift in Sources */,
 				371B9EA72B5AD838006AC06D /* MemoirsViewController.swift in Sources */,
 				371B9EAE2B5AFD42006AC06D /* StartToWriteViewModel.swift in Sources */,
 				3BF02BDC2B7E0DE00079A091 /* TopCustomButton.swift in Sources */,

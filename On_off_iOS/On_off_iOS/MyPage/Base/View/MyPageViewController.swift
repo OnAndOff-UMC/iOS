@@ -272,6 +272,7 @@ final class MyPageViewController: UIViewController {
         let output = viewModel.createOutput(input: input)
         bindNickNameRelay(output: output)
         bindSubTitleRelay(output: output)
+        bindAlertSettingButton()
     }
     
     /// Bind Nick Name Relay
@@ -292,5 +293,15 @@ final class MyPageViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    
+    /// Bind Alert Setting Button
+    private func bindAlertSettingButton() {
+        alertSettingButton.rx.tap
+            .bind { [weak self] _ in
+                guard let self = self else { return }
+                let setAlertViewController = SetAlertViewController()
+                setAlertViewController.navigationItem.title = "알림설정"
+                navigationController?.pushViewController(setAlertViewController, animated: true)
+            }
+            .disposed(by: disposeBag)
+    }
 }
