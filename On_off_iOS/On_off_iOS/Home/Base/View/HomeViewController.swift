@@ -281,7 +281,7 @@ final class HomeViewController: UIViewController {
         bindFutureRelay(output: output)
         bindClickImagePlusButton()
         bindClickImageButton()
-        bindAddWorkLifeBalanceFeedButton()
+        bindAddWorkLifeBalanceFeedButton(output: output)
         bindSelectedFeedTableViewCell()
         bindCheckToday(output: output)
         bindMoveInquireMemoirsViewController()
@@ -460,11 +460,14 @@ final class HomeViewController: UIViewController {
     }
     
     /// 워라벨 피드 추가 버튼
-    private func bindAddWorkLifeBalanceFeedButton() {
+    private func bindAddWorkLifeBalanceFeedButton(output: HomeViewModel.Output) {
         offUIView.clickedAddfeedButton
             .bind { [weak self] in
                 guard let self = self else { return }
-                presentInsertWLBFeedView(insertFeed: nil)
+                presentInsertWLBFeedView(insertFeed: Feed(feedId: nil,
+                                                          isChecked: nil,
+                                                          date: output.dayListRelay.value[output.selectedDayIndex.value.row].totalDate,
+                                                          content: nil))
             }
             .disposed(by: disposeBag)
     }
