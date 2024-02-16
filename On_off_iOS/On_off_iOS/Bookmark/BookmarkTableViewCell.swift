@@ -16,10 +16,14 @@ final class BookmarkTableViewCell: UITableViewCell {
         image.contentMode = .scaleAspectFit
         return image
     }()
-//    private lazy var bookmarkButtonImage : UIImageView = {
-//        let image = UIImageView()
-//        return image
-//    }()
+    
+    private lazy var bookmarkButton: UIButton = {
+            let button = UIButton()
+            button.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
+            button.tintColor = .OnOffMain
+            return button
+        }()
+    
     private let dateLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
@@ -46,7 +50,7 @@ final class BookmarkTableViewCell: UITableViewCell {
     private func addSubviews() {
         addSubview(iconImageView)
         addSubview(dateLabel)
-       // addSubview(bookmarkButtonImage)
+        addSubview(bookmarkButton)
         
         configureContraints()
     }
@@ -60,7 +64,11 @@ final class BookmarkTableViewCell: UITableViewCell {
         dateLabel.snp.makeConstraints { make in
             make.center.equalToSuperview()
         }
-
+        
+        bookmarkButton.snp.makeConstraints { make in
+              make.top.equalToSuperview().offset(10)
+              make.trailing.equalToSuperview().offset(-10)
+          }
     }
     
     func configure(with memoir: Memoir, at indexPath: IndexPath) {

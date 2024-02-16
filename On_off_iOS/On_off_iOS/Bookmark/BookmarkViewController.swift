@@ -29,8 +29,6 @@ final class BookmarkViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
@@ -41,6 +39,8 @@ final class BookmarkViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         loadDataSubject.onNext(())
+        tableView.reloadData()
+
     }
     
     private func setupTableView() {
@@ -62,17 +62,41 @@ final class BookmarkViewController: UIViewController {
         
         let output = viewModel.bind(input: input)
         
+       
+        bindTableViewReloadData(output)
+        bindMemoirListToTableViewCell(output)
+        bindMoveInquireMemoirsViewController(output)
+    }
+    
+    private func bindTableViewReloadData(_ output: BookmarkViewModel.Output) {
         output.memoirList
               .observeOn(MainScheduler.instance)
               .subscribe(onNext: { [weak self] memoirList in
                   guard let self = self else { return }
                   self.tableView.reloadData()
               })
-              .disposed(by: disposeBag)
+              .disposed(by: disposeBag)   
+    }
     
+    private func bindMemoirListToTableViewCell(_ output: BookmarkViewModel.Output) {
         output.memoirList
             .bind(to: tableView.rx.items(cellIdentifier: CellIdentifier.BookmarkTableViewCell.rawValue, cellType: BookmarkTableViewCell.self)) { (index, memoir, cell) in
                 cell.configure(with: memoir, at: IndexPath(row: index, section: 0))
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    /// Binding Move Inquire Memoirs ViewController
+    private func bindMoveInquireMemoirsViewController(_ output: BookmarkViewModel.Output) {
+        tableView.rx.itemSelected
+            .map { indexPath in
+                output.memoirList.value[indexPath.row].date ?? ""
+            }
+            .bind { [weak self] date in
+                guard let self = self else { return }
+                let inquireMemoirsViewController = InquireMemoirsViewController(viewModel: InquireMemoirsViewModel())
+                inquireMemoirsViewController.todayDate = date
+                self.navigationController?.pushViewController(inquireMemoirsViewController, animated: true)
             }
             .disposed(by: disposeBag)
     }
