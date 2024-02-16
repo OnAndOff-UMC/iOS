@@ -34,6 +34,7 @@
 		374FD49D2B4281E100F2E645 /* OnboardingCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374FD49C2B4281E100F2E645 /* OnboardingCustomView.swift */; };
 		374FD49F2B42825B00F2E645 /* CustomPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374FD49E2B42825B00F2E645 /* CustomPageControl.swift */; };
 		374FD4A42B4297BE00F2E645 /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374FD4A32B4297BE00F2E645 /* OnBoardingViewController.swift */; };
+		375F52572B7F04320034A960 /* DeletedMemoirsPopUpDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375F52562B7F04320034A960 /* DeletedMemoirsPopUpDelegate.swift */; };
 		376879F22B7C75FB00833623 /* DeletedMemoirsPopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376879F12B7C75FB00833623 /* DeletedMemoirsPopUpView.swift */; };
 		376879F42B7C76DD00833623 /* DeletedMemoirsPopUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376879F32B7C76DD00833623 /* DeletedMemoirsPopUpViewModel.swift */; };
 		3769A6862B58563000D79C33 /* SelectTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3769A6852B58563000D79C33 /* SelectTimeViewModel.swift */; };
@@ -190,6 +191,7 @@
 		374FD49C2B4281E100F2E645 /* OnboardingCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCustomView.swift; sourceTree = "<group>"; };
 		374FD49E2B42825B00F2E645 /* CustomPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPageControl.swift; sourceTree = "<group>"; };
 		374FD4A32B4297BE00F2E645 /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
+		375F52562B7F04320034A960 /* DeletedMemoirsPopUpDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedMemoirsPopUpDelegate.swift; sourceTree = "<group>"; };
 		376879F12B7C75FB00833623 /* DeletedMemoirsPopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedMemoirsPopUpView.swift; sourceTree = "<group>"; };
 		376879F32B7C76DD00833623 /* DeletedMemoirsPopUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedMemoirsPopUpViewModel.swift; sourceTree = "<group>"; };
 		3769A6852B58563000D79C33 /* SelectTimeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTimeViewModel.swift; sourceTree = "<group>"; };
@@ -630,6 +632,7 @@
 			isa = PBXGroup;
 			children = (
 				37AEB1F42B6CFE6C00A6CDD6 /* MemoirsProtocol.swift */,
+				375F52562B7F04320034A960 /* DeletedMemoirsPopUpDelegate.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1230,6 +1233,7 @@
 				3B9C89D12B4AED7C0083CF44 /* StatisticsViewController.swift in Sources */,
 				37AEB1F52B6CFE6C00A6CDD6 /* MemoirsProtocol.swift in Sources */,
 				37C1613A2B6BE43A000E0B21 /* SignUpProtocol.swift in Sources */,
+				375F52572B7F04320034A960 /* DeletedMemoirsPopUpDelegate.swift in Sources */,
 				37DC38AB2B79F950003CBBFB /* ModalMenuOptionViewController.swift in Sources */,
 				37A1E9942B6CDAD70013FFD7 /* ModalEmoticonViewController.swift in Sources */,
 				378588FB2B7092F7004E262F /* ModalSelectProfileDelegate.swift in Sources */,

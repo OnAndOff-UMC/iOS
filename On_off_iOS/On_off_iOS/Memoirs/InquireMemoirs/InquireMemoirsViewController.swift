@@ -349,19 +349,60 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
             selectedDateEvents: Observable.just(todayDate ?? "")
         )
         
+        let output = viewModel.bind(input: input)
+        /// 이벤트 바인딩
+        bindUIEvents(output)
+        
+        
+    }
+
+    private func bindUIEvents(_ output: InquireMemoirsViewModel.Output) {
+        // 이모티콘 선택 버튼 이벤트 처리
+        bindEmoticonButton()
+
+        // 메모 수정 버튼 이벤트 처리
+        bindReviseButton(output)
+
+        // 북마크 버튼 이벤트 처리
+        bindBookmarkButton(output)
+
+        // 회고록 조회 결과 처리
+        bindMemoirInquiryResult(output)
+
+        // 편집 모드 상태 바인딩
+        bindEditingMode(output)
+        
+        //메뉴 선택 이벤트 처리
+        bindMenuButton(output)
+
+    }
+
+    // 각 바인딩 메소드
+    private func bindEmoticonButton() {
         emoticonButton.rx.tap
             .bind { [weak self] in
                 self?.presentModalEmoticonViewController()
             }
             .disposed(by: disposeBag)
-        
-        let output = viewModel.bind(input: input)
-        
+    }
+
+    private func bindReviseButton(_ output: InquireMemoirsViewModel.Output) {
         reviceButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.toggleEditingMode(isEditing: false)
             }).disposed(by: disposeBag)
-        
+    }
+
+    private func bindBookmarkButton(_ output: InquireMemoirsViewModel.Output) {
+        output.updateBookmarkStatus
+            .subscribe(onNext: { [weak self] isBookmarked in
+                let imageName = isBookmarked ? "bookmark.fill" : "bookmark"
+                self?.bookmarkButton.image = UIImage(systemName: imageName)
+            })
+            .disposed(by: disposeBag)
+    }
+
+    private func bindMemoirInquiryResult(_ output: InquireMemoirsViewModel.Output) {
         output.memoirInquiryResult
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] response in
@@ -369,14 +410,9 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
                 updateUIWithMemoirResponse(response)
             })
             .disposed(by: disposeBag)
-        
-        output.updateBookmarkStatus
-            .subscribe(onNext: { [weak self] isBookmarked in
-                let imageName = isBookmarked ? "bookmark.fill" : "bookmark"
-                self?.bookmarkButton.image = UIImage(systemName: imageName)
-            })
-            .disposed(by: disposeBag)
-        
+    }
+
+    private func bindEditingMode(_ output: InquireMemoirsViewModel.Output) {
         output.isEditing
             .subscribe(onNext: { [weak self] isEditing in
                 self?.learnedTextField.isEnabled = isEditing
@@ -384,25 +420,29 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
                 self?.improvementTextField.isEnabled = isEditing
             })
             .disposed(by: disposeBag)
-        
+    }
+
+    private func bindMenuButton(_ output: InquireMemoirsViewModel.Output) {
+        menuButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self, let response = output.memoirInquiryResult.value else { return }
+                presentActionSheet(response)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func afterReviseEvent(_ output: InquireMemoirsViewModel.Output) {
         output.reviseResult
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { isSuccess in
                 if isSuccess {
-                    //self.moveToHome()
+                    self.moveToHome()
                     print("회고록 수정 성공")
                 } else {
                     print("회고록 수정 실패")
                 }
             })
         
-            .disposed(by: disposeBag)
-        
-        menuButton.rx.tap
-            .subscribe(onNext: { [weak self] _ in
-                guard let self = self, let response = output.memoirInquiryResult.value else { return }
-                presentActionSheet(response)
-            })
             .disposed(by: disposeBag)
     }
     
@@ -474,7 +514,8 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
             
             if let date = response.result.date, let memoirId = response.result.memoirId {
                 let deletedMemoirsPopUpView = DeletedMemoirsPopUpView(navigationController: navigationController, date: date, memoirId: memoirId)
-                self.present(deletedMemoirsPopUpView, animated: true, completion: nil)
+                deletedMemoirsPopUpView.delegate = self
+                present(deletedMemoirsPopUpView, animated: true, completion: nil)
             }
         }
         
@@ -540,5 +581,12 @@ extension InquireMemoirsViewController: ModalEmoticonDelegate {
             case .failure(_): break
             }
         })
+    }
+}
+
+extension InquireMemoirsViewController: DeletedMemoirsPopUpDelegate {
+    func didDeleteMemoirSuccessfully() {
+        //이전 화면으로 돌아가는 로직
+        navigationController?.popViewController(animated: true)
     }
 }

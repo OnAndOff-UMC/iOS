@@ -186,33 +186,51 @@ final class SelectTimeViewController : UIViewController {
             make.bottom.equalTo(selectedTimeButton.snp.top).offset(-5)
             make.leading.equalTo(selectedTimeButton.snp.leading)
         }
+        
         checkButtonView.snp.makeConstraints { make in
             make.bottom.equalToSuperview().inset(50)
             make.height.equalTo(checkButtonView.snp.width).multipliedBy(0.15)
             make.leading.trailing.equalToSuperview().inset(17)
         }
+        
         checkButton.snp.makeConstraints { make in
             make.center.equalToSuperview()
         }
     }
+    
     /// DatePicker 값 바인딩
     private func setupBindings() {
         let input = SelectTimeViewModel.Input(startButtonTapped: checkButton.rx.tap.asObservable())
         let output = viewModel.bind(input: input)
         
+        bindUIEvents(output)
+    }
+    
+    // 각 바인딩 메소드
+    private func bindUIEvents(_ output: SelectTimeViewModel.Output) {
+        
+        // 시간 선택 버튼 이벤트 처리
+        bindSelectedTimeButton()
+        
+        // 다음화면 이동 버튼 이벤트 처리
+        bindMoveToNext(output)
+        
+    }
+    
+    private func bindSelectedTimeButton() {
         selectedTimeButton.rx.tap
             .bind { [weak self] in
                 self?.showTimePicker()
             }
             .disposed(by: disposeBag)
-                
-
+    }
+    
+    private func bindMoveToNext(_ output: SelectTimeViewModel.Output) {
         output.moveToNext
             .subscribe(onNext: { [weak self] in
                 self?.moveToMain()
             })
             .disposed(by: disposeBag)
-        
     }
     
     /// 확인  버튼 속성 설정
@@ -221,6 +239,7 @@ final class SelectTimeViewController : UIViewController {
         checkButtonView.layer.cornerRadius = cornerRadius
         checkButtonView.layer.masksToBounds = true
     }
+    
     /// timePicker 창 보기
     private func showTimePicker() {
         let alertController = UIAlertController(title: "시간 선택", message: nil, preferredStyle: .actionSheet)

@@ -9,7 +9,11 @@ import Foundation
 import UIKit
 import RxSwift
 
+/// DeletedMemoirsPopUpView: 팝업창
 final class DeletedMemoirsPopUpView: DimmedViewController {
+    
+    /// 삭제버튼 후 동작 전달 델리게이트
+    weak var delegate: DeletedMemoirsPopUpDelegate?
     
     /// 배경 뷰
     private lazy var baseUIView: UIView = {
@@ -195,17 +199,16 @@ final class DeletedMemoirsPopUpView: DimmedViewController {
                     /// 삭제 성공
                     print("회고록 삭제 성공")
                     dismiss(animated: true)
-                    let tabBarController = TabBarController()
-                    navigationControllers.popToViewController(TabBarController(), animated: true)
-                    
+                    self.delegate?.didDeleteMemoirSuccessfully()
+
                     
                 } else {
                     /// 삭제 실패
                     print("회고록 삭제 실패")
                     //지울코드
                     dismiss(animated: true)
-                    let tabBarController = TabBarController()
-                    navigationControllers.popToViewController(TabBarController(), animated: true)
+                    self.delegate?.didDeleteMemoirSuccessfully()
+
                 }
             })
             .disposed(by: disposeBag)

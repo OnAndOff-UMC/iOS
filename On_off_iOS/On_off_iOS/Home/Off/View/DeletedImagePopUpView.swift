@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 
 final class DeletedImagePopUpView: DimmedViewController {
-    
+
     /// 배경 뷰
     private lazy var baseUIView: UIView = {
         let view = UIView()

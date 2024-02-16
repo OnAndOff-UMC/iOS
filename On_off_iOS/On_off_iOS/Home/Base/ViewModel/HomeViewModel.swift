@@ -96,7 +96,17 @@ final class HomeViewModel {
         dayListRelay(output: output)
         bindSelectedDayIndexEvents(input: input, output: output)
         return output
-    }
+    
+       }
+
+    func getSelectedDateAsString() -> String? {
+           let selectedIndex = Output().selectedDayIndex.value.row
+           guard selectedIndex < Output().dayListRelay.value.count else {
+               return nil
+           }
+           return Output().dayListRelay.value[selectedIndex].totalDate
+       }
+    
     
     /// Bind Move Star tTo Write View Controller Events
     private func bindMoveStartToWriteViewControllerEvents(input: Input, output: Output) {

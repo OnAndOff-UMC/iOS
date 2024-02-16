@@ -126,10 +126,19 @@ final class HomeViewController: UIViewController {
     private let disposeBag = DisposeBag()
     private let viewModel = HomeViewModel()
     
+    // MARK: - View Will Appear
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)     
+        // ViewModel을 통해 선택된 날짜를 가져와 설정
+        if let selectedDate = viewModel.getSelectedDateAsString() {
+            offUIView.selectedDate.onNext(selectedDate)
+        }
+    }
+    
     // MARK: - View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         addBaseSubViews()
         bind()
     }
@@ -137,8 +146,8 @@ final class HomeViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         onUIView.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0,
-                                                                      width: onUIView.frame.width,
-                                                                      height: onUIView.frame.height - 50)).cgPath
+                                                              width: onUIView.frame.width,
+                                                              height: onUIView.frame.height - 50)).cgPath
         
     }
     
@@ -296,7 +305,7 @@ final class HomeViewController: UIViewController {
             }
         }
         .disposed(by: disposeBag)
-
+        
         dayCollectionView.rx.setDelegate(self)
             .disposed(by: disposeBag)
         
@@ -312,7 +321,7 @@ final class HomeViewController: UIViewController {
                 cell.selectedEffect(color: output.dayCollectionViewBackgroundColorRelay.value,
                                     textColor: output.dayCollectionTextColorRelay.value)
                 selectedCell.selectedEffect(color: output.selectedDayCollectionViewBackgroundColorRelay.value,
-                                    textColor: output.selectedDayCollectionTextColorRelay.value)
+                                            textColor: output.selectedDayCollectionTextColorRelay.value)
                 output.selectedDayIndex.accept(indexPath)
                 offUIView.selectedDate.onNext(output.dayListRelay.value[output.selectedDayIndex.value.row].totalDate ?? "")
             }
@@ -435,7 +444,7 @@ final class HomeViewController: UIViewController {
             }
             .disposed(by: disposeBag)
     }
-
+    
     /// 이미지 선택했을 때
     /// 이미지 크게 보는 화면으로 이동
     private func bindClickImageButton() {
@@ -617,14 +626,14 @@ final class HomeViewController: UIViewController {
         alertController.addAction(alertAction)
         controller.present(alertController, animated: true, completion: nil)
     }
-
+    
     private func simpleAlert(_ controller: UIViewController, message: String, title: String, handler: ((UIAlertAction) -> Void)?) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let alertAction = UIAlertAction(title: "OK", style: .default, handler: handler)
         alertController.addAction(alertAction)
         controller.present(alertController, animated: true, completion: nil)
     }
-
+    
     private func simpleDestructiveYesAndNo(_ controller: UIViewController, message: String, title: String, yesHandler: ((UIAlertAction) -> Void)?) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let alertActionNo = UIAlertAction(title: "No", style: .cancel, handler: nil)
@@ -633,7 +642,7 @@ final class HomeViewController: UIViewController {
         alertController.addAction(alertActionYes)
         controller.present(alertController, animated: true, completion: nil)
     }
-
+    
     private func simpleYesAndNo(_ controller: UIViewController, message: String, title: String, yesHandler: ((UIAlertAction) -> Void)?) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let alertActionNo = UIAlertAction(title: "No", style: .cancel, handler: nil)

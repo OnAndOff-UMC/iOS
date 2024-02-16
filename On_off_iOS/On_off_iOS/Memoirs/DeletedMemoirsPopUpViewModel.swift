@@ -9,16 +9,18 @@ import Foundation
 import RxCocoa
 import RxSwift
 
+/// DeletedMemoirsPopUpViewModel: 팝업창 뷰모델
 final class DeletedMemoirsPopUpViewModel {
     private let disposeBag = DisposeBag()
     private let service = MemoirsService()
     
-    
+    /// Input
     struct Input {
         var clickDeleteButtonEvents: ControlEvent<Void>?
         var memoirId: Int
     }
     
+    /// Output
     struct Output {
         var successDeleteSubject: PublishSubject<Bool> = PublishSubject()
     }
