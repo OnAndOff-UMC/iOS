@@ -12,6 +12,8 @@ struct Worklog: Codable {
     let content: String?
     let isChecked: Bool?
     let date: String?
+    let createdAt: String?
+
 }
 
 struct AddWorklog: Codable {

@@ -42,6 +42,7 @@ final class LaunchViewController: UIViewController {
         
         setupAnim()
         finishAnimation()
+//        KeychainWrapper.delete(key: LoginKeyChain.refreshToken.rawValue)
      }
     
     /// Setup Lottie animation

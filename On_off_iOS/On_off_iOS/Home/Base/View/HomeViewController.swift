@@ -227,6 +227,7 @@ final class HomeViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
+    
     /// Binding Month Label
     private func bindMonthLabel(output: HomeViewModel.Output) {
         output.monthRelay

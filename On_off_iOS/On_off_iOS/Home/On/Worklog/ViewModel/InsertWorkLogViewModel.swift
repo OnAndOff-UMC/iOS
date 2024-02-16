@@ -99,7 +99,7 @@ final class InsertWorkLogViewModel {
         let Worklog: AddWorklog = AddWorklog(date: formatDate(date: Date()),
                                     content: output.textRelay.value)
         print(Worklog)
-        service.addWorklog(Worklog: Worklog)
+        service.addWorklog(worklog: Worklog)
             .subscribe(onNext: { check in
                 if check {
                     output.successAddWorklogRelay.accept(check)
