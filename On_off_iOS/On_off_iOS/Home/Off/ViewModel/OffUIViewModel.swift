@@ -88,6 +88,7 @@ final class OffUIViewModel {
             .bind {  [weak self] in
                 guard let self = self else { return }
                 getWorkLifeBalanceList(output: output)
+                getMemoirPreview(output: output)
             }
             .disposed(by: disposeBag)
     }
