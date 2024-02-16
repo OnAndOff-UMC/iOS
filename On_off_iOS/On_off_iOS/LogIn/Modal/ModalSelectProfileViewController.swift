@@ -62,6 +62,7 @@ final class ModalSelectProfileViewController: UIViewController {
         view.addSubview(tableView)
     }
     
+    /// setupConstraints
     private func setupConstraints() {
         
         label.snp.makeConstraints { make in
@@ -73,20 +74,36 @@ final class ModalSelectProfileViewController: UIViewController {
         }
     }
     
+    /// setupBindings
     private func setupBindings() {
         let input = ModalSelectProfileViewModel.Input(viewDidLoad: Observable.just(()))
         let output = viewModel.bind(input: input, dataType: dataType)
-       
+        
+        /// 옵션 바인딩
+        bindingOptions(output)
+        
+        /// 라벨 바인딩
+        bindingLabelText(output)
+        
+        /// 테이블뷰 바인딩
+        bindingTableView(output)
+ 
+    }
+    private func bindingOptions(_ output: ModalSelectProfileViewModel.Output) {
         output.options
             .bind(to: tableView.rx.items(cellIdentifier: CellIdentifier.ModalSelectProfileTableViewCell.rawValue, cellType: ModalSelectProfileTableViewCell.self)) { (row, element, cell) in
                 cell.configure(with: element)
             }
             .disposed(by: disposeBag)
-        
+    }
+    
+    private func bindingLabelText(_ output: ModalSelectProfileViewModel.Output) {
         output.labelText
                .bind(to: label.rx.text)
                .disposed(by: disposeBag)
-        
+    }
+    
+    private func bindingTableView(_ output: ModalSelectProfileViewModel.Output) {
         tableView.rx.modelSelected(String.self)
             .bind { [weak self] selectedOption in
                 self?.delegate?.optionSelected(data: selectedOption, dataType: self?.dataType ?? .fieldOfWork)

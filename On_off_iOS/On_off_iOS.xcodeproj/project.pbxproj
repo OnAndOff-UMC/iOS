@@ -75,7 +75,6 @@
 		37C161292B6BDECF000E0B21 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 37C161282B6BDECF000E0B21 /* Alamofire */; };
 		37C1612C2B6BDEF8000E0B21 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C1612B2B6BDEF8000E0B21 /* Header.swift */; };
 		37C161312B6BDF59000E0B21 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C161302B6BDF59000E0B21 /* KeychainWrapper.swift */; };
-		37C1613A2B6BE43A000E0B21 /* SignUpProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C161392B6BE43A000E0B21 /* SignUpProtocol.swift */; };
 		37C1613C2B6BE519000E0B21 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C1613B2B6BE519000E0B21 /* Login.swift */; };
 		37C161402B6BE77A000E0B21 /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 37C1613F2B6BE77A000E0B21 /* KakaoSDK */; };
 		37C161422B6BE77A000E0B21 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 37C161412B6BE77A000E0B21 /* KakaoSDKAuth */; };
@@ -229,7 +228,6 @@
 		37C161252B6BDAD0000E0B21 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		37C1612B2B6BDEF8000E0B21 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		37C161302B6BDF59000E0B21 /* KeychainWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
-		37C161392B6BE43A000E0B21 /* SignUpProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpProtocol.swift; sourceTree = "<group>"; };
 		37C1613B2B6BE519000E0B21 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		37C70B412B714C8B004CB0F6 /* Ext + NSAttributedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext + NSAttributedString.swift"; sourceTree = "<group>"; };
 		37CC77742B6F9620007999E5 /* KeyChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChain.swift; sourceTree = "<group>"; };
@@ -716,7 +714,6 @@
 		37C161382B6BE42F000E0B21 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
-				37C161392B6BE43A000E0B21 /* SignUpProtocol.swift */,
 				37A1E9892B6CB1F70013FFD7 /* LoginProtocol.swift */,
 			);
 			path = Protocol;
@@ -1232,7 +1229,6 @@
 				3BD415CA2B7A563600BAB0DC /* ClickWorkLifeBalanceFeedService.swift in Sources */,
 				3B9C89D12B4AED7C0083CF44 /* StatisticsViewController.swift in Sources */,
 				37AEB1F52B6CFE6C00A6CDD6 /* MemoirsProtocol.swift in Sources */,
-				37C1613A2B6BE43A000E0B21 /* SignUpProtocol.swift in Sources */,
 				375F52572B7F04320034A960 /* DeletedMemoirsPopUpDelegate.swift in Sources */,
 				37DC38AB2B79F950003CBBFB /* ModalMenuOptionViewController.swift in Sources */,
 				37A1E9942B6CDAD70013FFD7 /* ModalEmoticonViewController.swift in Sources */,
