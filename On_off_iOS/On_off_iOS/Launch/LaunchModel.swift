@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// 상황별 화면 이동 enum
 enum LaunchNavigation {
     case main
     case onBoarding

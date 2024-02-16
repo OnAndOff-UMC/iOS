@@ -9,6 +9,7 @@ import Alamofire
 import RxSwift
 import UIKit
 
+/// MemoirsService
 final class MemoirsService: MemoirsProtocol {
     
     private let disposeBag = DisposeBag()
@@ -129,7 +130,7 @@ final class MemoirsService: MemoirsProtocol {
                        parameters: parameters,
                        encoding: URLEncoding.default, 
                        headers: headers)
-//            .validate(statusCode: 200..<201)
+            .validate(statusCode: 200..<201)
             .responseDecodable(of: MemoirResponse.self) { response in
                 print(#function, response)
                 switch response.result {

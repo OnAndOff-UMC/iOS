@@ -351,6 +351,7 @@ final class OffUIView: UIView {
         bindFeedEvents()
     }
     
+    
     /// 워라벨 피드 제목 버튼 및 이미지 버튼
     private func bindFeedEvents() {
         feedTitleButton.rx.tap
@@ -367,6 +368,7 @@ final class OffUIView: UIView {
             }
             .disposed(by: disposeBag)
     }
+    
     
     /// Bind Memoir Events
     private func bindMemoirEvents(output: OffUIViewModel.Output) {
@@ -499,7 +501,7 @@ final class OffUIView: UIView {
     }
     
     /// Bind Check Memoirs Preview
-    private func bindCheckMemoirsPreview(output: OffUIViewModel.Output) {
+     func bindCheckMemoirsPreview(output: OffUIViewModel.Output) {
         output.checkMemoirPreview
             .bind { [weak self] preview in
                 guard let self = self else { return }

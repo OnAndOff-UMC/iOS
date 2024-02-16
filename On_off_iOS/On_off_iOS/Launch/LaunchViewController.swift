@@ -38,7 +38,7 @@ final class LaunchViewController: UIViewController {
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-       // _ = KeychainWrapper.delete(key: LoginKeyChain.refreshToken.rawValue)
+        // _ = KeychainWrapper.delete(key: LoginKeyChain.refreshToken.rawValue)
         
         setupAnim()
         finishAnimation()
@@ -61,9 +61,16 @@ final class LaunchViewController: UIViewController {
         }
     }
     
+    /// 로티 애니메이션 종료후 동작
     private func navigateAfterAnimation() {
         let input = LaunchViewModel.Input(animationCompleted: Observable.just(()))
         let output = viewModel.bind(input: input)
+        
+        /// 네비게이션 상황별 이동 시그널
+        bindNabigationSignal(output)
+    }
+    
+    private func bindNabigationSignal(_ output: LaunchViewModel.Output){
         output.navigationSignal
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] navigation in
@@ -79,12 +86,16 @@ final class LaunchViewController: UIViewController {
             
             let viewController: UIViewController
             switch navigation {
+                /// 메인화면으로 : - 로그인 성공후 자동로그인
             case .main:
-                viewController = InquireMemoirsViewController(viewModel: InquireMemoirsViewModel())//BookmarkViewController(viewModel: BookmarkViewModel())// InquireMemoirsViewController(viewModel: InquireMemoirsViewModel())//TabBarController()//InquireMemoirsViewController(viewModel: InquireMemoirsViewModel())//BookmarkViewController(viewModel: BookmarkViewModel())//TabBarController()
+                viewController = TabBarController()
+                
+                /// 온보딩으로: - 회원가입으로
             case .onBoarding:
                 let viewModel = OnBoardingViewModel()
                 viewController = OnBoardingViewController(viewModel: viewModel)
                 
+                /// 로그인으로: - 로그인화면으로
             case .login:
                 let viewModel = LoginViewModel(loginService: LoginService())
                 viewController = LoginViewController(viewModel: viewModel)
