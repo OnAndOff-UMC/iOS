@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import UserNotifications
 
 /// 닉네임 설정
 final class ProfileSettingViewController: UIViewController {
@@ -82,6 +83,7 @@ final class ProfileSettingViewController: UIViewController {
         label.textColor = .lightGray
         return label
     }()
+    
     /// 직업 - 밑줄
     private lazy var jobLine : UIView = {
         let lineView = UIView()
@@ -110,6 +112,7 @@ final class ProfileSettingViewController: UIViewController {
         return button
     }()
     
+    /// 연차 -  아래버튼 이미지
     private lazy var annualDownImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "chevron.down")
@@ -297,9 +300,9 @@ final class ProfileSettingViewController: UIViewController {
             make.height.equalTo(checkButtonView.snp.width).multipliedBy(0.15)
             make.leading.trailing.equalToSuperview().inset(17)
             
+        }
         checkButton.snp.makeConstraints { make in
-                make.center.equalToSuperview()
-            }
+            make.center.equalToSuperview()
         }
     }
     
@@ -309,13 +312,27 @@ final class ProfileSettingViewController: UIViewController {
                                                   jobTextChanged: jobTextField.rx.text.orEmpty.asObservable())
         let output = viewModel.bind(input: input)
         
-        /// 글자수 출력 바인딩
-        output.jobLength
-            .map { "(\($0)/30)" }
-            .bind(to: checkLenghtJobLabel.rx.text)
-            .disposed(by: disposeBag)
         
         // 버튼 활성화 상태 및 색상 변경 바인딩
+        bindingjobLength(output: output)
+        
+        /// 확인 버튼 탭 이벤트
+        checkButtonTapped()
+        
+        /// 분야 버튼 탭
+        fieldOfWorkButtonTapped()
+        
+        /// 연차 버튼 탭
+        annualButtonTapped()
+        
+        /// 글자수 출력 바인딩
+        bindingjobLength(output: output)
+        
+        /// 버튼 클릭가능 시각적  바인딩
+        bindingIsCheckButtonEnabled(output: output)
+    }
+    
+    private func bindingIsCheckButtonEnabled(output: ProfileSettingViewModel.Output) {
         output.isCheckButtonEnabled
             .observe(on: MainScheduler.instance)
             .bind { [weak self] isEnabled in
@@ -328,27 +345,60 @@ final class ProfileSettingViewController: UIViewController {
                 checkButton.setTitleColor(isEnabled ? .white : UIColor.OnOffMain, for: .normal)
             }
             .disposed(by: disposeBag)
-        
-        output.success
-               .filter { $0 }
-               .subscribe(onNext: { [weak self] _ in
-                   self?.moveToSelectTime()
-               })
-               .disposed(by: disposeBag)
-        
+    }
+    
+    /// 글자수 출력 바인딩
+    private func bindingjobLength(output: ProfileSettingViewModel.Output) {
+        output.jobLength
+            .map { "(\($0)/30)" }
+            .bind(to: checkLenghtJobLabel.rx.text)
+            .disposed(by: disposeBag)
+    }
+    
+    /// 확인  버튼 탭 이벤트
+    private func checkButtonTapped() {
         checkButton.rx.tap
             .bind { [weak self] in
-                if let job = self?.jobTextField.text {
-                    _ = KeychainWrapper.saveItem(value: job, forKey: ProfileKeyChain.job.rawValue)
+                UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
+                    DispatchQueue.main.async {
+                        if granted {
+                            print("알림 권한 허락")
+                            self?.moveToSelectTime()
+                        } else {
+                            print("알림 권한 거부")
+                            self?.moveToTabBarController()
+                        }
+                    }
                 }
             }
             .disposed(by: disposeBag)
+    }
+    
+    /// 시간설정으로 이동
+    private func moveToSelectTime() {
+        let selectTimeViewModel = SelectTimeViewModel()
+        let vc = SelectTimeViewController(viewModel: selectTimeViewModel)
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    /// 알림 거부 시 탭바 로 이동
+    private func moveToTabBarController() {
+        let tabBarController = TabBarController()
+        navigationController?.pushViewController(tabBarController, animated: true)
+    }
+    
+    /// 직업 분야 보기 탭 이벤트
+    private func fieldOfWorkButtonTapped() {
         
         fieldOfWorkButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.presentModalForProfileSetting(dataType: .fieldOfWork)
             })
             .disposed(by: disposeBag)
+    }
+    
+    /// 연차 보기 탭 이벤트
+    private func annualButtonTapped() {
         
         annualButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
@@ -370,13 +420,6 @@ final class ProfileSettingViewController: UIViewController {
             }
         }
         present(modalSelectProfileViewController, animated: true, completion: nil)
-    }
-    
-    /// 프로필설정으로 이동
-    private func moveToSelectTime() {
-        let selectTimeViewModel = SelectTimeViewModel()
-        let vc = SelectTimeViewController(viewModel: selectTimeViewModel)
-        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 

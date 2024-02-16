@@ -172,15 +172,15 @@ final class WritePraisedViewController: UIViewController {
         }
         
         textView.snp.makeConstraints { make in
-            make.top.equalTo(textpageImage).offset(50)
-            make.bottom.equalTo(textpageImage).offset(-50)
+            make.leading.top.equalTo(textpageImage).offset(50)
+            make.height.equalTo(30).priority(.low)
             make.horizontalEdges.equalTo(textpageImage).inset(30)
         }
         
         checkLenghtLabel.snp.makeConstraints { make in
             make.top.equalTo(textpageImage.snp.bottom).offset(10)
-            make.trailing.equalTo(textView)
-        }
+            make.trailing.equalTo(textpageImage.snp.trailing).offset(10)
+    }
         
         checkButtonView.snp.makeConstraints { make in
             make.bottom.equalToSuperview().inset(50)
@@ -201,12 +201,25 @@ final class WritePraisedViewController: UIViewController {
         
         let output = viewModel.bind(input: input)
         
+        
+        /// 다음화면으로 이동
+        bingdingMoveToNext(output)
+        
+        /// 뒤로 가기
+        bingdingMoveToBack(output)
+        
         /// 글자수 출력 바인딩
+        bindingTextLength(output)
+    }
+    
+    private func bindingTextLength(_ output: WritePraisedViewModel.Output) {
         output.textLength
             .map { "(\($0)/500)" }
             .bind(to: checkLenghtLabel.rx.text)
             .disposed(by: disposeBag)
-        
+    }
+    
+    private func bingdingMoveToNext(_ output: WritePraisedViewModel.Output) {
         output.moveToNext
             .subscribe(onNext: { [weak self] isSuccess in
                 if isSuccess {
@@ -216,13 +229,13 @@ final class WritePraisedViewController: UIViewController {
                 }
             })
             .disposed(by: disposeBag)
-
-        
+    }
+    
+    private func bingdingMoveToBack(_ output: WritePraisedViewModel.Output) {
         output.moveToBack
-                .subscribe(onNext: { [weak self] _ in
-                    self?.navigationController?.popViewController(animated: false)
-                })
-                .disposed(by: disposeBag)
+            .subscribe(onNext: { [weak self] in
+                self?.navigationController?
+                .popViewController(animated: false)})
     }
     
     private func navigateToExpressdIcon() {
@@ -237,3 +250,20 @@ final class WritePraisedViewController: UIViewController {
         textView.endEditing(true)
     }
 }
+
+extension WritePraisedViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        let size = CGSize(width: textView.frame.width, height: .infinity)
+        let estimatedSize = textView.sizeThatFits(size)
+        
+        let maxHeight = textpageImage.frame.height - 50
+        let newHeight = min(estimatedSize.height, maxHeight)
+        
+        textView.snp.updateConstraints { make in
+            make.height.equalTo(newHeight).priority(.low)
+        }
+        
+        self.view.layoutIfNeeded()
+    }
+}
+

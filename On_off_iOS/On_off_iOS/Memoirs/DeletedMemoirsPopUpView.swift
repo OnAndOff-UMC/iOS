@@ -1,16 +1,20 @@
 //
-//  DeletedImagePopUpView.swift
+//  DeletedMemoirsPopUpView.swift
 //  On_off_iOS
 //
-//  Created by 정호진 on 2/11/24.
+//  Created by 박다미 on 2024/02/14.
 //
 
 import Foundation
 import UIKit
 import RxSwift
 
-final class DeletedImagePopUpView: DimmedViewController {
-
+/// DeletedMemoirsPopUpView: 팝업창
+final class DeletedMemoirsPopUpView: DimmedViewController {
+    
+    /// 삭제버튼 후 동작 전달 델리게이트
+    weak var delegate: DeletedMemoirsPopUpDelegate?
+    
     /// 배경 뷰
     private lazy var baseUIView: UIView = {
         let view = UIView()
@@ -22,7 +26,7 @@ final class DeletedImagePopUpView: DimmedViewController {
     /// 제목 라벨
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "피드 사진 삭제"
+        label.text = "회고 기록 삭제"
         label.textColor = .OnOffMain
         label.font = .pretendard(size: 18, weight: .bold)
         label.backgroundColor = .clear
@@ -39,7 +43,7 @@ final class DeletedImagePopUpView: DimmedViewController {
     /// 설명 라벨 1
     private lazy var descriptionLabel1: UILabel = {
         let label = UILabel()
-        label.text = "피드 사진을 삭제하시겠습니까?"
+        label.text = "에 기록한 회고를"
         label.textColor = .black
         label.font = .pretendard(size: 18, weight: .bold)
         label.backgroundColor = .clear
@@ -49,9 +53,9 @@ final class DeletedImagePopUpView: DimmedViewController {
     /// 설명 라벨 2
     private lazy var descriptionLabel2: UILabel = {
         let label = UILabel()
-        label.text = "삭제한 피드는 되돌릴 수 없습니다"
-        label.textColor = .OnOffMain
-        label.font = .pretendard(size: 18, weight: .medium)
+        label.text = "삭제하시겠어요?"
+        label.textColor = .black
+        label.font = .pretendard(size: 18, weight: .bold)
         label.backgroundColor = .clear
         return label
     }()
@@ -92,15 +96,19 @@ final class DeletedImagePopUpView: DimmedViewController {
     }()
     
     private let disposeBag = DisposeBag()
-    private let selectedImage: Image?
     private let navigationControllers: UINavigationController
-    private let viewModel = DeletedImagePopUpViewModel()
+    private let viewModel = DeletedMemoirsPopUpViewModel()
+    
+    private var date: String
+    private var memoirId: Int
     
     // MARK: - Init
-    init(selectedImage: Image?, navigationController: UINavigationController) {
-        self.selectedImage = selectedImage
+    init(navigationController: UINavigationController, date: String, memoirId: Int) {
+        self.date = date
+        self.memoirId = memoirId
         self.navigationControllers = navigationController
         super.init(durationTime: 0.3, alpha: 0.7)
+        setupViews()
         addSubviews()
         bind()
     }
@@ -108,7 +116,11 @@ final class DeletedImagePopUpView: DimmedViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
+    private func setupViews() {
+        descriptionLabel1.text = "\"\(date)\"에 기록한 회고를"
+    }
+    
     /// Add Subviews
     private func addSubviews() {
         view.addSubview(baseUIView)
@@ -159,9 +171,10 @@ final class DeletedImagePopUpView: DimmedViewController {
     
     /// Binding
     private func bind() {
-        let input = DeletedImagePopUpViewModel.Input(clickDeleteButtonEvents: deleteButton.rx.tap)
+        let input = DeletedMemoirsPopUpViewModel.Input(clickDeleteButtonEvents: deleteButton.rx.tap,
+                                                       memoirId: self.memoirId)
         
-        let output = viewModel.createOutput(input: input, selectedImage: selectedImage)
+        let output = viewModel.createOutput(input: input)
         
         bindSuccessDeleteSubject(output: output)
         bindCancelButton()
@@ -178,17 +191,18 @@ final class DeletedImagePopUpView: DimmedViewController {
     }
     
     /// Binding 삭제 성공 했을 때
-    private func bindSuccessDeleteSubject(output: DeletedImagePopUpViewModel.Output) {
+    private func bindSuccessDeleteSubject(output: DeletedMemoirsPopUpViewModel.Output) {
         output.successDeleteSubject
-            .bind { [weak self] check in
+            .subscribe(onNext: { [weak self] isSuccess in
                 guard let self = self else { return }
-                if check {
-                    dismiss(animated: true) { [weak self]  in
-                        guard let self = self else { return }
-                        navigationControllers.popViewController(animated: true)
-                    }
+                if isSuccess {
+                    
+                    /// 삭제 성공
+                    dismiss(animated: true)
+                    self.delegate?.didDeleteMemoirSuccessfully()
                 }
-            }
+                dismiss(animated: true)
+            })
             .disposed(by: disposeBag)
     }
 }

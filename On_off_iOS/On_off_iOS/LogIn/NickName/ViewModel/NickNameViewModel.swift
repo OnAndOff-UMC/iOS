@@ -12,12 +12,12 @@ import UIKit
 
 final class NickNameViewModel {
     private let disposeBag = DisposeBag()
-
+    
     /// Input
     struct Input {
         let startButtonTapped: Observable<Void>
         let nickNameTextChanged: Observable<String>
-       }
+    }
     
     /// Output
     struct Output {
@@ -33,25 +33,37 @@ final class NickNameViewModel {
     /// - Returns: Output 구조체
     func bind(input: Input) -> Output {
         let output = Output()
-
+        
         /// 닉네임필드 관찰후 유효문자,길이 판정
-        input.nickNameTextChanged
-            .map { [weak self] nickName in
-                   return (nickName.count, self?.isValidNickName(nickName) ?? false)
-               }
-            .do(onNext: { (length, isValid) in
-                output.isCheckButtonEnabled.accept(length >= 2 && length <= 10 && isValid)
-               })
-            .map { $0.0 } // 길이만
-            .bind(to: output.nickNameLength)
-            .disposed(by: disposeBag)
-
+        observeNickNameTextChanged(input.nickNameTextChanged, output: output)
+        
         /// 완료버튼 클릭
-        input.startButtonTapped
-            .bind(to: output.moveToNext)
-            .disposed(by: disposeBag)
+        handleStartButtonTapped(input.startButtonTapped, nickNameTextChanged: input.nickNameTextChanged, output: output)
         
         return output
+    }
+    
+    private func observeNickNameTextChanged(_ nickNameTextChanged: Observable<String>, output: Output) {
+        nickNameTextChanged
+            .map { [weak self] nickName in
+                return (nickName.count, self?.isValidNickName(nickName) ?? false)
+            }
+            .do(onNext: { (length, isValid) in
+                output.isCheckButtonEnabled.accept(length >= 2 && length <= 10 && isValid)
+            })
+            .map { $0.0 }
+            .bind(to: output.nickNameLength)
+            .disposed(by: disposeBag)
+    }
+    
+    private func handleStartButtonTapped(_ startButtonTapped: Observable<Void>, nickNameTextChanged: Observable<String>, output: Output) {
+        startButtonTapped
+            .withLatestFrom(nickNameTextChanged)
+            .subscribe(onNext: { nickname in
+                _ = KeychainWrapper.saveItem(value: nickname, forKey: ProfileKeyChain.nickname.rawValue)
+                output.moveToNext.onNext(())
+            })
+            .disposed(by: disposeBag)
     }
     
     /// 정규식을 사용해서 조건에 맞는지 확인

@@ -17,9 +17,7 @@ final class ModalSelectProfileViewModel {
     struct Input {
         
         /// 뷰가 로드될 때 이벤트 처리
-        let viewDidLoad: Observable<Void>
-        //   let dataSelected: Observable<String>
-        
+        let viewDidLoad: Observable<Void>        
     }
     
     /// Output

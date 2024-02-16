@@ -14,4 +14,5 @@ protocol MemoirsProtocol {
     /// - Parameter request: 서버에 보내는 회고록  정보
     /// - Returns: MemoirResponse
     func saveMemoirs(request: MemoirRequest) -> Observable<MemoirResponse>
+    func getEmoticon() -> RxSwift.Observable<EmoticonResponse>
 }

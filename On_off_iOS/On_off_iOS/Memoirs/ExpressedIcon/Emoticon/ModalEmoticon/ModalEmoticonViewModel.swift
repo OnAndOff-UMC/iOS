@@ -8,6 +8,7 @@
 import RxCocoa
 import RxSwift
 
+/// ModalEmoticonViewModel
 final class ModalEmoticonViewModel {
     
     private let disposeBag = DisposeBag()
@@ -15,7 +16,6 @@ final class ModalEmoticonViewModel {
 
     /// Input
     struct Input {
-        
         /// 뷰가 로드될 때 이벤트 처리
         let viewDidLoad: Observable<Void>
         
