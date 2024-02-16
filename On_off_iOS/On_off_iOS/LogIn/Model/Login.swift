@@ -17,8 +17,6 @@ struct KakaoTokenValidationRequest: Codable {
 /// 애플 로그인 요청 구조체
 struct AppleTokenValidationRequest: Codable {
    let oauthId: String?
-   let fullName: FullName?
-   let email: String?
    let identityToken: String?
    let authorizationCode: String?
    let additionalInfo: AdditionalInfo?
@@ -30,12 +28,6 @@ struct AdditionalInfo: Codable {
     let fieldOfWork: String?
     let job: String?
     let experienceYear: String?
-}
-
-/// 사용자 이름 구조체
-struct FullName: Codable {
-    let giveName: String?
-    let familyName: String?
 }
 
 /// ❎추후 Login파일말고 공동사용 구조체로서 이동할 파일 말할것

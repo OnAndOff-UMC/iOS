@@ -315,11 +315,21 @@ final class ProfileSettingViewController: UIViewController {
         
         // 버튼 활성화 상태 및 색상 변경 바인딩
         bindingjobLength(output: output)
+        
+        /// 확인 버튼 탭 이벤트
         checkButtonTapped()
+        
+        /// 분야 버튼 탭
         fieldOfWorkButtonTapped()
+        
+        /// 연차 버튼 탭
         annualButtonTapped()
+        
         /// 글자수 출력 바인딩
         bindingjobLength(output: output)
+        
+        /// 버튼 클릭가능 시각적  바인딩
+        bindingIsCheckButtonEnabled(output: output)
     }
     
     private func bindingIsCheckButtonEnabled(output: ProfileSettingViewModel.Output) {

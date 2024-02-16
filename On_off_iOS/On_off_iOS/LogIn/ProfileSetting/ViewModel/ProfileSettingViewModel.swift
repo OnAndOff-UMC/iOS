@@ -41,7 +41,7 @@ final class ProfileSettingViewModel {
     func bind(input: Input) -> Output {
         let output = Output()
         
-        // 닉네임 텍스트 변경 관찰 및 유효성 검사
+        // 텍스트 변경 관찰 및 유효성 검사
         input.jobTextChanged
             .map { nickName in
                 return nickName.count // 닉네임 길이만 반환
@@ -51,6 +51,7 @@ final class ProfileSettingViewModel {
             })
             .bind(to: output.jobLength)
             .disposed(by: disposeBag)
+
         
         // 시작 버튼 탭 이벤트 처리
         input.startButtonTapped
@@ -88,19 +89,13 @@ final class ProfileSettingViewModel {
         /// apple은 최초 이후엔 정보 optional로 nil 값
         if loginMethod == "apple" {
             let oauthId = KeychainWrapper.loadItem(forKey: AppleLoginKeyChain.oauthId.rawValue) ?? ""
-            let givenName = KeychainWrapper.loadItem(forKey: AppleLoginKeyChain.giveName.rawValue) ?? ""
-            let familyName = KeychainWrapper.loadItem(forKey: AppleLoginKeyChain.familyName.rawValue) ?? ""
-            let email = KeychainWrapper.loadItem(forKey: AppleLoginKeyChain.email.rawValue) ?? ""
             let identityTokenString = KeychainWrapper.loadItem(forKey: AppleLoginKeyChain.identityTokenString.rawValue) ?? ""
             let authorizationCodeString = KeychainWrapper.loadItem(forKey: AppleLoginKeyChain.authorizationCodeString.rawValue) ?? ""
-            
-            let fullName = FullName(giveName: givenName, familyName: familyName)
-            
+                        
             let additionalInfo = AdditionalInfo(nickname: nickname, fieldOfWork: fieldOfWork, job: job, experienceYear: experienceYear)
             let request = AppleTokenValidationRequest(
                 oauthId: oauthId,
-                fullName: fullName,
-                email: email,
+               
                 identityToken: identityTokenString,
                 authorizationCode: authorizationCodeString,
                 additionalInfo: additionalInfo
