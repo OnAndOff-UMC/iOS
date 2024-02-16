@@ -40,7 +40,7 @@ final class BookmarkViewController: UIViewController {
         super.viewWillAppear(animated)
         loadDataSubject.onNext(())
         tableView.reloadData()
-
+//        reloadBookmarksData()
     }
     
     private func setupTableView() {
@@ -62,7 +62,6 @@ final class BookmarkViewController: UIViewController {
         
         let output = viewModel.bind(input: input)
         
-       
         bindTableViewReloadData(output)
         bindMemoirListToTableViewCell(output)
         bindMoveInquireMemoirsViewController(output)
@@ -80,7 +79,8 @@ final class BookmarkViewController: UIViewController {
     
     private func bindMemoirListToTableViewCell(_ output: BookmarkViewModel.Output) {
         output.memoirList
-            .bind(to: tableView.rx.items(cellIdentifier: CellIdentifier.BookmarkTableViewCell.rawValue, cellType: BookmarkTableViewCell.self)) { (index, memoir, cell) in
+            .bind(to: tableView.rx.items(cellIdentifier: CellIdentifier.BookmarkTableViewCell.rawValue, 
+                                         cellType: BookmarkTableViewCell.self)) { (index, memoir, cell) in
                 cell.configure(with: memoir, at: IndexPath(row: index, section: 0))
             }
             .disposed(by: disposeBag)

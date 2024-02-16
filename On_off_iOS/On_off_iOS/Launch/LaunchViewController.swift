@@ -88,8 +88,8 @@ final class LaunchViewController: UIViewController {
             switch navigation {
                 /// 메인화면으로 : - 로그인 성공후 자동로그인
             case .main:
-               // viewController = TabBarController()
-                viewController = BookmarkViewController(viewModel: BookmarkViewModel())
+                viewController = TabBarController()
+               // viewController = BookmarkViewController(viewModel: BookmarkViewModel())
                 
                 /// 온보딩으로: - 회원가입으로
             case .onBoarding:

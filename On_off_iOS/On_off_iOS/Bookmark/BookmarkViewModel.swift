@@ -35,7 +35,7 @@ final class BookmarkViewModel {
         /// 위치(왼쪽 오른쪽)
         var locationRelay: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     }
-
+    
     /// binding Input
     /// - Parameters:
     ///   - input: Input 구조체
@@ -44,19 +44,25 @@ final class BookmarkViewModel {
         let output = Output()
         
         bindingViewDidLoad(input, output)
-        bindingTouchEvent(input, output)
         
         return output
     }
-    private func bindingTouchEvent(_ input: Input, _ output: Output) {
-        
-     }
-      
+    /// BookmarkVC에서 재로드시 실행될 메소드
+    //    func reloadBookmarksData() {
+    //        let output = Output()
+    //        service.inquireBookmark(pageNumber: 0).subscribe(onNext: { [weak self] response in
+    //            guard let self = self, response.isSuccess ?? false else { return }
+    //               output.memoirList.accept(response.result.memoirList)
+    //           }).disposed(by: disposeBag)
+    //       }
+    
+    
+    /// 처음 화면 떴을때 데이터 bindingViewDidLoad
     private func bindingViewDidLoad(_ input: Input, _ output: Output) {
         input.reloadDataEvents
             .flatMapLatest { [weak self] _ -> Observable<Response<BookMarkListResponse>> in
                 guard let self = self else { return .empty() }
-                print("fetching")
+                
                 return service.inquireBookmark(pageNumber: 0)
             }
             .subscribe(onNext: { response in
@@ -64,7 +70,6 @@ final class BookmarkViewModel {
                     print("Error")
                     return
                 }
-                print("성공")
                 self.handleBookmarkResponse(response.result, output: output)
             }, onError: { error in
                 print("Error fetching bookmarks")
@@ -72,18 +77,19 @@ final class BookmarkViewModel {
             .disposed(by: disposeBag)
     }
     
+    /// bindiㅜㅎ handleBookmarkResponse
     private func handleBookmarkResponse(_ response: BookMarkListResponse, output: Output) {
-         response.memoirList.forEach { memoir in
-             if let date = memoir.date, let emoticonUrl = memoir.emoticonUrl, let remain = memoir.remain {
-                 print("Memoir date: \(date), URL: \(emoticonUrl), Remain: \(remain)")
-
-                 output.memoirList.accept(response.memoirList)
-                 output.emoticonImageRelay.accept(emoticonUrl)
-                 output.dateRelay.accept(date)
-                 output.locationRelay.accept(remain % 2 == 0)
-             }
-         }
-     }
+        response.memoirList.forEach { memoir in
+            if let date = memoir.date, let emoticonUrl = memoir.emoticonUrl, let remain = memoir.remain {
+                print("Memoir date: \(date), URL: \(emoticonUrl), Remain: \(remain)")
+                
+                output.memoirList.accept(response.memoirList)
+                output.emoticonImageRelay.accept(emoticonUrl)
+                output.dateRelay.accept(date)
+                output.locationRelay.accept(remain % 2 == 0)
+            }
+        }
+    }
     
 }
 

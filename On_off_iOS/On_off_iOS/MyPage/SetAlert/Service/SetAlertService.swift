@@ -53,7 +53,7 @@ final class SetAlertService {
                 print(#function, response)
                 switch response.result {
                 case .success(let data):
-                    observer.onNext(data.isSuccess)
+                    observer.onNext(data.isSuccess ?? false)
                 case .failure(let error):
                     observer.onError(error)
                 }
