@@ -95,6 +95,8 @@ final class HomeViewModel {
         bindNextButton(input: input, output: output)
         dayListRelay(output: output)
         bindSelectedDayIndexEvents(input: input, output: output)
+        bindMoveStartToWriteViewControllerEvents(input: input, output: output)
+        
         return output
     
        }
@@ -113,7 +115,9 @@ final class HomeViewModel {
         input.moveStartToWriteViewControllerEvents
             .bind { [weak self] date in
                 guard let self = self else { return }
-                
+                print(#function, output.dayListRelay.value[output.selectedDayIndex.value.row].totalDate)
+                checkTodayDoMemoir(date: output.dayListRelay.value[output.selectedDayIndex.value.row].totalDate ?? "",
+                                   output: output)
             }
             .disposed(by: disposeBag)
     }
@@ -240,9 +244,13 @@ final class HomeViewModel {
     /// Format Date To String
     /// - Parameter date: Date
     /// - Returns: String Type Date
-    private func formatDateToString(date: Date) -> String {
+    private func formatDateToString(date: Date, seperate: String, idNeedDay: Bool) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy MM dd EEE"
+        dateFormatter.dateFormat = "yyyy\(seperate)MM\(seperate)dd"
+        if idNeedDay {
+            dateFormatter.dateFormat = "yyyy\(seperate)MM\(seperate)dd\(seperate)EEE"
+        }
+        
         return dateFormatter.string(from: date)
     }
     
@@ -253,12 +261,14 @@ final class HomeViewModel {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ko_KR")
         dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
+        
         return dateFormatter.date(from: date) ?? Date()
     }
     
     /// Format To Day Info
     private func formatToDayInfo(date: String) -> DayInfo {
-        let formatDate = formatDateToString(date: formatStringToDate(date: date)).split(separator: " ")
+        let formatDate = formatDateToString(date: formatStringToDate(date: date),seperate: " ", idNeedDay: true).split(separator: " ")
         return DayInfo(totalDate: date, date: "\(formatDate[2])", day: "\(formatDate[3])")
     }
     
@@ -317,8 +327,9 @@ final class HomeViewModel {
         output.dayListRelay
             .bind { [weak self] list in
                 guard let self = self else { return }
+                print(#function)
                 for index in 0..<list.count {
-                    let nowDate = formatDateToString(date: Date()).split(separator: " ")
+                    let nowDate = formatDateToString(date: Date(), seperate: " ", idNeedDay: false).split(separator: " ")
                     if let splitDate = list[index].totalDate?.split(separator: "-"), splitDate[0] == nowDate[0] && splitDate[1] == nowDate[1] && splitDate[2] == nowDate[2] {
                         output.selectedDayIndex.accept(IndexPath(item: index, section: 0))
                         return
@@ -375,9 +386,8 @@ final class HomeViewModel {
     }
     
     /// 오늘 날짜인지 확인
-    private func checkToday(date: String, output: Output) {
-        let result = Date().dateCompare(fromDate: formatStringToDate(date: date))
-        print(result)
+    private func checkTodayDoMemoir(date: String, output: Output) {
+        let result = formatStringToDate(date: formatDateToString(date: Date(), seperate: "-", idNeedDay: false)).dateCompare(fromDate: formatStringToDate(date: date))
         if result == "Same" {
             output.checkToday.accept(true)
             return

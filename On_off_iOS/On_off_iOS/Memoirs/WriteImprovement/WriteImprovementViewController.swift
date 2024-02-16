@@ -233,13 +233,12 @@ final class WriteImprovementViewController: UIViewController {
                 }
             })
             .disposed(by: disposeBag)
-    }
-    
-    private func bindingMoveToBack(_ output: WriteImprovementViewModel.Output) {
+        
         output.moveToBack
-            .subscribe(onNext: { [weak self] in
-                self?.navigationController?
-                .popViewController(animated: false)})
+                .subscribe(onNext: { [weak self] _ in
+                    self?.navigationController?.popViewController(animated: false)
+                })
+                .disposed(by: disposeBag)
     }
     
     private func navigateToImprovement() {

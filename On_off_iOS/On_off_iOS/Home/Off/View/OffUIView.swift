@@ -376,6 +376,7 @@ final class OffUIView: UIView {
                          todayMemoirsIconImageButton.rx.tap.asObservable())
         .bind { [weak self] _ in
             guard let self = self else { return }
+            print(#function)
             if output.checkMemoirPreview.value?.written ?? false {
                 moveInquireMemoirsViewController.onNext(output.selectedDate.value)
                 return

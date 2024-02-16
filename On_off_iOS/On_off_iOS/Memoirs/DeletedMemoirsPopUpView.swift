@@ -200,6 +200,15 @@ final class DeletedMemoirsPopUpView: DimmedViewController {
                     print("회고록 삭제 성공")
                     dismiss(animated: true)
                     self.delegate?.didDeleteMemoirSuccessfully()
+
+                    
+                } else {
+                    /// 삭제 실패
+                    print("회고록 삭제 실패")
+                    //지울코드
+                    dismiss(animated: true)
+                    self.delegate?.didDeleteMemoirSuccessfully()
+
                 }
             })
             .disposed(by: disposeBag)

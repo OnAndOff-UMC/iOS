@@ -192,7 +192,7 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
         setupView()
         addSubviews()
         setupBindings()
-        
+
         /// 탭 제스처 리코그나이저를 뷰에 추가 (  키보드 숨기기 이슈 )
         let tapGesture = UITapGestureRecognizer()
         view.addGestureRecognizer(tapGesture)
@@ -352,7 +352,6 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
         let output = viewModel.bind(input: input)
         /// 이벤트 바인딩
         bindUIEvents(output)
-        
         
     }
 
