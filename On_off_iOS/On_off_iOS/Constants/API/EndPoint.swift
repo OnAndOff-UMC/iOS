@@ -14,6 +14,7 @@ enum LoginPath: String {
     case checkValidation = "/token/validate"
     case kakaoLogin = "/oauth2/kakao/token/validate"
     case appleLogin = "/oauth2/apple/token/validate"
+    case nicknameDuplicate = "/users/nickname"
     
     /// 직업
     case job = "/enums/field-of-works"
@@ -22,8 +23,36 @@ enum LoginPath: String {
 
 /// 회고록
 enum MemoirsPath: String {
-    case memoirsSave = "/Memoirs"
+    case memoirsSave = "/memoirs" //회고록 저장,보기
+    case memoirsRevise = "/memoirs/MEMOIRID" // 회고록 수정
+    case bookMark = "/memoirs/MEMOIRID/bookmark" // 북마크 체크
     case getEmoticon = "/emoticons"
+    case preview = "/memoirs/previews"
+}
+
+enum FeedPath: String {
+    case feedImage = "/feed-images"
+    case workLifeBalacne = "/feeds"
+    case checkWLB = "/feeds/FEEDID/check"
+    case delayTomorrow = "/feeds/FEEDID/delay"
+    case delete = "/feeds/FEEDID"
+}
+
+enum WeekDayPath: String {
+    case weekdayInit = "/weekdays/init"
+    case prevWeek = "/weekdays/prev"
+    case nextWeek = "/weekdays/next"
+}
+
+enum MyPage: String {
+    case myInfo = "/users/information"
+}
+
+enum StatisticsPath: String {
+    case week = "/stats/week"
+    case month = "/stats/month"
+    case prevMonth = "/stats/month/prev"
+    case nextMonth = "/stats/month/next"
 }
 
 enum WorklogPath: String {

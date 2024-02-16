@@ -13,7 +13,8 @@ import RxCocoa
 final class OnBoardingViewController : UIViewController {
     
     // MARK: - Properties
-    // 스크롤 뷰: 온보딩 페이지를 표시
+    
+    /// 스크롤 뷰: 온보딩 페이지를 표시
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.isPagingEnabled = true
@@ -23,12 +24,14 @@ final class OnBoardingViewController : UIViewController {
         scrollView.delegate = self
         return scrollView
     }()
+    
     private let contentView = UIView()
     
     /// 현재 페이지 상태를 관리
     private var currentPage = BehaviorRelay<Int>(value: 0)
     private let totalPages = 3
     
+    /// customPageControl
     private let customPageControl : CustomPageControl = {
         let customPageControl = CustomPageControl()
         customPageControl.numberOfPages = 3
@@ -174,6 +177,7 @@ final class OnBoardingViewController : UIViewController {
     
     /// ViewModel과 bind
     private func setupBindings() {
+        
         let startButtonTapOnLastPage = nextButton.rx.tap
             .withLatestFrom(currentPage.asObservable())
             .filter { [weak self] page in
@@ -188,15 +192,33 @@ final class OnBoardingViewController : UIViewController {
         )
         
         let output = viewModel.bind(input: input)
+        bindUIEvents(output)
+        
+    }
+    
+    // 각 바인딩 메소드
+    private func bindUIEvents(_ output: OnBoardingViewModel.Output) {
         
         // 로그인 화면으로 이동하는 이벤트 구독
-         output.moveToLogin
-             .subscribe(onNext: { [weak self] _ in
-                 self?.moveToLogin()
-             })
-             .disposed(by: disposeBag)
+        bindMoveToLogin(output)
         
-        // 나머지 페이지에서 버튼이 눌렸을 때의 동작
+        /// 나머지 페이지에서 버튼이 눌렸을 때의 동작
+        bindNextButton()
+        
+        /// 현재 페이지 변경 감지
+        bindcurrentPage()
+        
+    }
+    private func bindMoveToLogin(_ output: OnBoardingViewModel.Output) {
+        output.moveToLogin
+            .subscribe(onNext: { [weak self] _ in
+                self?.moveToLogin()
+            })
+            .disposed(by: disposeBag)
+        
+    }
+    
+    private func bindNextButton() {
         nextButton.rx.tap
             .withLatestFrom(currentPage.asObservable())
             .filter { [weak self] page in
@@ -208,8 +230,9 @@ final class OnBoardingViewController : UIViewController {
                 let nextPage = (self.currentPage.value + 1) % totalPages
                 currentPage.accept(nextPage)
             }).disposed(by: disposeBag)
-        
-        // 현재 페이지 변경 감지
+    }
+    
+    private func bindcurrentPage() {
         currentPage.subscribe(onNext: { [weak self] page in
             guard let self = self else { return }
             
@@ -220,7 +243,7 @@ final class OnBoardingViewController : UIViewController {
             }
             self.jumpButton.isHidden = false
             
-            // 마지막 페이지인 경우
+            // 위치 측정으로 마지막 페이지인 경우
             if isLastPage {
                 nextButton.snp.remakeConstraints { make in
                     make.centerX.equalToSuperview()
@@ -240,7 +263,6 @@ final class OnBoardingViewController : UIViewController {
             self.customPageControl.currentPage = page
         }).disposed(by: disposeBag)
     }
-    
     
     /// 로그인 화면으로 이동
     private func moveToLogin() {

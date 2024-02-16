@@ -81,9 +81,22 @@ final class DayCollectionViewCell: UICollectionViewCell {
     /// Input Data About Day, Date
     /// - Parameter info: DayInfo
     /// - Parameter color: BackGround Color
-    func inputData(info: DayInfo, color: UIColor) {
+    /// - Parameter textColor: TextColor
+    func inputData(info: DayInfo, color: UIColor, textColor: UIColor) {
         dayLabel.text = info.day ?? ""
+        dayLabel.textColor = textColor
         dateLabel.text = info.date ?? ""
+        dateLabel.textColor = textColor
         cornerUIView.backgroundColor = color
+    }
+    
+    /// 선택됐을때 효과
+    /// - Parameters:
+    ///   - color: BackGround Color
+    ///   - textColor: Text Color
+    func selectedEffect(color: UIColor, textColor: UIColor) {
+        cornerUIView.backgroundColor = color
+        dayLabel.textColor = textColor
+        dateLabel.textColor = textColor
     }
 }

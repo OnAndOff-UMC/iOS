@@ -135,13 +135,11 @@ final class LoginViewController: UIViewController {
     private func onAppleLoginImageViewTapped() {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
-        request.requestedScopes = [.fullName, .email] //유저로 부터 알 수 있는 정보들(name, email)
         
         let authorizationController = ASAuthorizationController(authorizationRequests: [request])
         authorizationController.delegate = self
         authorizationController.presentationContextProvider = self
         authorizationController.performRequests()
-        
     }
     
     /// setupBindings : viewMode과l bind
@@ -152,7 +150,7 @@ final class LoginViewController: UIViewController {
             appleLoginSuccess: appleLoginSuccessSubject.asObservable() // 애플 로그인 성공 이벤트를 Observable로 전달
             
         )
-
+        
         let output = viewModel.bind(input: input)
         
         output.checkSignInService.subscribe(onNext: { signInStatus in
@@ -160,29 +158,43 @@ final class LoginViewController: UIViewController {
         })
         .disposed(by: disposeBag)
         
+        /// 닉네임설정 뷰 바인딩
+        bindingMoveToNickName(output)
+        
+        /// 뒤로 이동 바인딩
+        bindingMoveToBack(output)
+        
+        /// 메인화면으로 바인딩
+        bindingMoveToMain(output)
+        
+    }
+    private func bindingMoveToNickName(_ output: LoginViewModel.Output) {
         output.moveToNickName
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] _ in
-                print("🍎")
                 self?.moveToNickName()
             })
             .disposed(by: disposeBag)
-
+    }
+    
+    private func bindingMoveToMain(_ output: LoginViewModel.Output) {
         output.moveToMain
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] _ in
-                print("🍎")
                 self?.moveToMain()
             })
             .disposed(by: disposeBag)
-
-        
-        output.moveToBack
-                .subscribe(onNext: { [weak self] _ in
-                    self?.navigationController?.popViewController(animated: false)
-                })
-                .disposed(by: disposeBag)
     }
+    
+    private func bindingMoveToBack(_ output: LoginViewModel.Output) {
+        output.moveToBack
+            .subscribe(onNext: { [weak self] _ in
+                self?.navigationController?.popViewController(animated: false)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    
     /// 닉네임 설정으로 이동
     private func moveToNickName() {
         print("이동해야함")
@@ -212,9 +224,6 @@ extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
         switch authorization.credential {
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
             let userIdentifier = appleIDCredential.user
-            let givenName = appleIDCredential.fullName?.givenName ?? ""
-            let familyName = appleIDCredential.fullName?.familyName ?? ""
-            let email = appleIDCredential.email ?? ""
             
             ///identityToken, authorizationCode를 인코딩
             guard let identityToken = appleIDCredential.identityToken,
@@ -227,11 +236,6 @@ extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
             print("""
                   {
                   "oauthId": \(userIdentifier),
-                  "fullName": {
-                    "givenName": \(givenName),
-                    "familyName": \(familyName)
-                  },
-                  "email": \(email),
                   "identityToken": \(identityTokenString),
                   "authorizationCode": \(authorizationCodeString),
                   "additionalInfo": {
@@ -243,11 +247,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
                   """)
             // 키체인에 정보 저장
             _ = KeychainWrapper.saveItem(value: "apple", forKey: LoginMethod.loginMethod.rawValue)
-            
             _ = KeychainWrapper.saveItem(value: userIdentifier, forKey: AppleLoginKeyChain.oauthId.rawValue)
-            _ = KeychainWrapper.saveItem(value: givenName, forKey: AppleLoginKeyChain.giveName.rawValue)
-            _ = KeychainWrapper.saveItem(value: familyName, forKey: AppleLoginKeyChain.familyName.rawValue)
-            _ = KeychainWrapper.saveItem(value: email, forKey: AppleLoginKeyChain.email.rawValue)
             _ = KeychainWrapper.saveItem(value: identityTokenString, forKey: AppleLoginKeyChain.identityTokenString.rawValue)
             _ = KeychainWrapper.saveItem(value: authorizationCodeString, forKey: AppleLoginKeyChain.authorizationCodeString.rawValue)
             appleLoginSuccessSubject.onNext(())

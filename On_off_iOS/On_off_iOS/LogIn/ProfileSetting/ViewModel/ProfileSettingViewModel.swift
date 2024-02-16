@@ -41,27 +41,33 @@ final class ProfileSettingViewModel {
     func bind(input: Input) -> Output {
         let output = Output()
         
-        // 닉네임 텍스트 변경 관찰 및 유효성 검사
-        input.jobTextChanged
-            .map { nickName in
-                return nickName.count // 닉네임 길이만 반환
-            }
+        // 텍스트 변경 관찰 및 유효성 검사
+        observeJobTextChanges(input.jobTextChanged, output: output)
+        
+        // 시작 버튼 탭 이벤트 처리
+        handleStartButtonTapped(input.startButtonTapped, output: output)
+        
+        return output
+    }
+    
+    private func observeJobTextChanges(_ jobTextChanged: Observable<String>, output: Output) {
+        jobTextChanged
+            .map { $0.count }
             .do(onNext: { length in
-                output.isCheckButtonEnabled.accept(length >= 2 && length <= 30) // 2자 이상 30자 이하 조건만 검사
+                output.isCheckButtonEnabled.accept(length >= 2 && length <= 30)
             })
             .bind(to: output.jobLength)
             .disposed(by: disposeBag)
-        
-        // 시작 버튼 탭 이벤트 처리
-        input.startButtonTapped
+    }
+    
+    private func handleStartButtonTapped(_ startButtonTapped: Observable<Void>, output: Output) {
+        startButtonTapped
             .flatMapLatest { [weak self] _ -> Observable<Response<TokenResult>> in
-                guard let self = self else {
-                    return .empty()
-                }
+                guard let self = self else { return .empty() }
                 return self.loginWithSelectedData()
             }
             .subscribe(onNext: { response in
-                if response.isSuccess {
+                if response.isSuccess ?? false {
                     output.success.onNext(true)
                 } else {
                     output.errorMessage.onNext(response.message)
@@ -70,10 +76,9 @@ final class ProfileSettingViewModel {
                 output.errorMessage.onNext(error.localizedDescription)
             })
             .disposed(by: disposeBag)
-        
-        return output
     }
     
+    /// loginWithSelectedData 로그인 종류별 로그인
     private func loginWithSelectedData() -> Observable<Response<TokenResult>> {
         
         guard let loginMethod = KeychainWrapper.loadItem(forKey: LoginMethod.loginMethod.rawValue),
@@ -88,20 +93,13 @@ final class ProfileSettingViewModel {
         /// apple은 최초 이후엔 정보 optional로 nil 값
         if loginMethod == "apple" {
             let oauthId = KeychainWrapper.loadItem(forKey: AppleLoginKeyChain.oauthId.rawValue) ?? ""
-            let givenName = KeychainWrapper.loadItem(forKey: AppleLoginKeyChain.giveName.rawValue) ?? ""
-            let familyName = KeychainWrapper.loadItem(forKey: AppleLoginKeyChain.familyName.rawValue) ?? ""
-            let email = KeychainWrapper.loadItem(forKey: AppleLoginKeyChain.email.rawValue) ?? ""
             let identityTokenString = KeychainWrapper.loadItem(forKey: AppleLoginKeyChain.identityTokenString.rawValue) ?? ""
             let authorizationCodeString = KeychainWrapper.loadItem(forKey: AppleLoginKeyChain.authorizationCodeString.rawValue) ?? ""
             
-            let fullName = FullName(giveName: givenName, familyName: familyName)
-            
             let additionalInfo = AdditionalInfo(nickname: nickname, fieldOfWork: fieldOfWork, job: job, experienceYear: experienceYear)
-            
             let request = AppleTokenValidationRequest(
                 oauthId: oauthId,
-                fullName: fullName,
-                email: email,
+                
                 identityToken: identityTokenString,
                 authorizationCode: authorizationCodeString,
                 additionalInfo: additionalInfo

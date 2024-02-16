@@ -33,16 +33,30 @@ final class StartToWriteViewModel {
     func bind(input: Input) -> Output {
         let output = Output()
         
+        /// 각 바인딩 메소드
+        bindUIEvents(input, output)
+        
+        return output
+    }
+    
+    private func bindUIEvents(_ input: StartToWriteViewModel.Input, _ output: StartToWriteViewModel.Output) {
+        
         /// 시작하기 버튼 클릭
+        bindStartButtonTapped(input, output)
+        
+        /// 뒤로가기 버튼 클릭
+        bindBackButtonTapped(input, output)
+    }
+    
+    private func bindStartButtonTapped(_ input: StartToWriteViewModel.Input, _ output: StartToWriteViewModel.Output) {
         input.startButtonTapped
             .bind(to: output.moveToNext)
             .disposed(by: disposeBag)
-        
-        /// 뒤로가기 버튼 클릭
+    }
+    
+    private func bindBackButtonTapped(_ input: StartToWriteViewModel.Input, _ output: StartToWriteViewModel.Output) {
         input.backButtonTapped
             .bind(to: output.moveToBack)
             .disposed(by: disposeBag)
-        
-        return output
     }
 }

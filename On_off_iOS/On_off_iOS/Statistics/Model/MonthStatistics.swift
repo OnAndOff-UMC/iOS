@@ -8,6 +8,6 @@
 import Foundation
 
 struct MonthStatistics: Codable {
-    let dayTime: Float?
-    let nightTime: Float?
+    let dayTime: Double?
+    let nightTime: Double?
 }

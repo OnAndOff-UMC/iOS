@@ -7,7 +7,8 @@
 
 import Foundation
 
+/// DayButton에서 쓰이는 버튼
 struct DayModel {
-    let name: String
-    var isChecked: Bool
+    let name: String?
+    var isChecked: Bool?
 }

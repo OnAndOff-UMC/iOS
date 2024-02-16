@@ -81,8 +81,8 @@ final class LoginService: LoginProtocol {
                 case .success(let data):
                     print("로그인 성공: \(response)")
                     observer.onNext(data)
-                    _ = KeychainWrapper.saveItem(value: data.result.accessToken, forKey: LoginKeyChain.accessToken.rawValue)
-                    _ = KeychainWrapper.saveItem(value: data.result.refreshToken, forKey: LoginKeyChain.refreshToken.rawValue)
+                    _ = KeychainWrapper.saveItem(value: data.result.accessToken ?? "", forKey: LoginKeyChain.accessToken.rawValue)
+                    _ = KeychainWrapper.saveItem(value: data.result.refreshToken ?? "", forKey: LoginKeyChain.refreshToken.rawValue)
 
                     observer.onCompleted()
                     
@@ -108,14 +108,14 @@ final class LoginService: LoginProtocol {
                        headers: headers)
             .validate()
             .responseDecodable(of: Response<TokenResult>.self) { response in
-
+                print(request)
                 switch response.result {
                     
                 case .success(let data):
                     print("👍로그인 성공: \(response)")
                     observer.onNext(data)
-                    _ = KeychainWrapper.saveItem(value: data.result.accessToken, forKey: LoginKeyChain.accessToken.rawValue)
-                    _ = KeychainWrapper.saveItem(value: data.result.refreshToken, forKey: LoginKeyChain.refreshToken.rawValue)
+                    _ = KeychainWrapper.saveItem(value: data.result.accessToken ?? "", forKey: LoginKeyChain.accessToken.rawValue)
+                    _ = KeychainWrapper.saveItem(value: data.result.refreshToken ?? "", forKey: LoginKeyChain.refreshToken.rawValue)
                     
                     observer.onCompleted()
                     
@@ -186,8 +186,8 @@ final class LoginService: LoginProtocol {
                 case .success(let data):
                     print("👍로그인 성공: \(response)")
                     observer.onNext(data)
-                    _ = KeychainWrapper.saveItem(value: data.result.accessToken, forKey: LoginKeyChain.accessToken.rawValue)
-                    _ = KeychainWrapper.saveItem(value: data.result.refreshToken, forKey: LoginKeyChain.refreshToken.rawValue)
+                    _ = KeychainWrapper.saveItem(value: data.result.accessToken ?? "", forKey: LoginKeyChain.accessToken.rawValue)
+                    _ = KeychainWrapper.saveItem(value: data.result.refreshToken ?? "", forKey: LoginKeyChain.refreshToken.rawValue)
                     observer.onCompleted()
                     
                 case .failure(let error):

@@ -40,8 +40,11 @@ final class StatisticsViewController: UIViewController {
     /// 햇빛, 달 차트
     private lazy var monthChartView: DayChartCustomView = {
         let view = DayChartCustomView()
-        view.backgroundColor = .cyan
+        view.backgroundColor = .backGround
         view.layer.cornerRadius = 20
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOpacity = 0.5
+        view.layer.shadowOffset = CGSize(width: 3, height: 3)
         return view
     }()
     
@@ -66,8 +69,18 @@ final class StatisticsViewController: UIViewController {
     /// 회고 작성 비율
     private lazy var writeRateUIView: UIView = {
         let view = UIView()
-        view.backgroundColor = .cyan
+        view.backgroundColor = .backGround
         view.layer.cornerRadius = 20
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOpacity = 0.5
+        view.layer.shadowOffset = CGSize(width: 3, height: 3)
+        return view
+    }()
+    
+    /// 회고 작성 비율 점선 테두리
+    private lazy var writeRateBackgrounImageView: UIImageView = {
+        let view = UIImageView(image: UIImage(named: "memoirDoneCorner"))
+        view.backgroundColor = .clear
         return view
     }()
     
@@ -76,7 +89,7 @@ final class StatisticsViewController: UIViewController {
         let label = UILabel()
         label.backgroundColor = .clear
         label.numberOfLines = 2
-        label.textAlignment = .left
+        label.textAlignment = .center
         label.textColor = .black
         return label
     }()
@@ -84,8 +97,11 @@ final class StatisticsViewController: UIViewController {
     /// 캘린더 백그라운드 뷰
     private lazy var calendarBackgroundUIView: UIView = {
         let view = UIView()
-        view.backgroundColor = .lightGray
+        view.backgroundColor = .backGround
         view.layer.cornerRadius = 20
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOpacity = 0.5
+        view.layer.shadowOffset = CGSize(width: 3, height: 3)
         return view
     }()
     
@@ -116,6 +132,7 @@ final class StatisticsViewController: UIViewController {
         view.dataSource = self
         view.locale = Locale(identifier: "ko_KR")
         view.allowsSelection = false
+        view.placeholderType = .none
         
         // 오늘 날짜 색상 변경
         view.appearance.todayColor = .clear
@@ -123,16 +140,23 @@ final class StatisticsViewController: UIViewController {
         
         // 캘린더 week 뷰 설정
         view.appearance.weekdayTextColor = .black
+        view.appearance.weekdayFont = .pretendard(size: 18, weight: .bold)
         
         // 캘린더 헤더 뷰 설정
         view.appearance.headerMinimumDissolvedAlpha = 0.0
         view.appearance.headerTitleColor = .black
+        view.appearance.headerTitleFont = .pretendard(size: 18, weight: .bold)
         view.appearance.headerDateFormat = "YYYY년 MM월"
+        
+        view.appearance.titleFont = .pretendard(size: 18, weight: .medium)
+
+        view.register(CalendarCell.self, forCellReuseIdentifier: CellIdentifier.CalendarCell.rawValue)
         return view
     }()
     
     private let viewModel: StatisticsViewModel = StatisticsViewModel()
     private var output: StatisticsViewModel.Output?
+    private var loadDataSubject: PublishSubject<Void> = PublishSubject<Void>()
     private let disposeBag = DisposeBag()
     
     // MARK: - View Did Load
@@ -144,6 +168,12 @@ final class StatisticsViewController: UIViewController {
         bind()
     }
     
+    // MARK: - View Will Appear
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        loadDataSubject.onNext(())
+    }
+    
     /// Add SubViews
     private func addSubViews() {
         view.addSubview(monthChartTitleLabel)
@@ -153,10 +183,10 @@ final class StatisticsViewController: UIViewController {
         contentView.addSubview(weekChartTitleLabel)
         contentView.addSubview(monthChartView)
         contentView.addSubview(writeRateUIView)
+        writeRateUIView.addSubview(writeRateBackgrounImageView)
         writeRateUIView.addSubview(writeRateUILabel)
         contentView.addSubview(calendarBackgroundUIView)
         calendarBackgroundUIView.addSubview(calendarView)
-        calendarView.register(CalendarCell.self, forCellReuseIdentifier: CalendarCell.identifier)
         
         contentView.addSubview(prevMonthButton)
         contentView.addSubview(nextMonthButton)
@@ -206,7 +236,11 @@ final class StatisticsViewController: UIViewController {
         writeRateUIView.snp.makeConstraints { make in
             make.top.equalTo(weekChartUIView.snp.bottom).offset(50)
             make.horizontalEdges.equalToSuperview().inset(20)
-            make.height.equalTo(130)
+            make.height.equalTo(150)
+        }
+        
+        writeRateBackgrounImageView.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(10)
         }
         
         writeRateUILabel.snp.makeConstraints { make in
@@ -240,26 +274,48 @@ final class StatisticsViewController: UIViewController {
     /// Binding
     private func bind() {
         let output = viewModel.createoutput(input: StatisticsViewModel.Input(prevButtonEvents: prevMonthButton.rx.tap,
-                                                                             nextButtonEvents: nextMonthButton.rx.tap))
+                                                                             nextButtonEvents: nextMonthButton.rx.tap,
+                                                                             reloadDataEvents: loadDataSubject))
         self.output = output
         bindWeekView(output: output)
         bindMonthView(output: output)
         bindWriteRateUILabel(output: output)
         bindMonthButtonAction(output: output)
+        bindCalendarListRelay(output: output)
     }
     
     /// binding WeekChartUIView Data
     private func bindWeekView(output: StatisticsViewModel.Output) {
-        guard let statistics = output.weekStatisticsRelay.value else { return }
-        weekChartTitleLabel.text = output.weekTitleRelay.value
-        weekChartUIView.inputData(statistics: statistics)
+        output.weekStatisticsRelay
+            .bind { [weak self] statistics in
+                guard let self = self, let statistics = statistics else { return }
+                weekChartUIView.inputData(statistics: statistics)
+            }
+            .disposed(by: disposeBag)
+        
+        output.weekTitleRelay
+            .bind { [weak self] title in
+                guard let self = self else { return }
+                weekChartTitleLabel.text = title
+            }
+            .disposed(by: disposeBag)
     }
     
     /// binding MonthChartUIView Data
     private func bindMonthView(output: StatisticsViewModel.Output) {
-        guard let statistics = output.monthStatisticsRelay.value else { return }
-        monthChartView.inputData(statistics: statistics)
-        monthChartTitleLabel.text = output.monthTitleRelay.value
+        output.monthStatisticsRelay
+            .bind { [weak self] statistics in
+                guard let self = self, let statistics = statistics else { return }
+                monthChartView.inputData(statistics: statistics)
+            }
+            .disposed(by: disposeBag)
+        
+        output.monthTitleRelay
+            .bind { [weak self] title in
+                guard let self = self else { return }
+                monthChartTitleLabel.text = title
+            }
+            .disposed(by: disposeBag)
     }
     
     /// binding Write Rate UILabel
@@ -281,6 +337,17 @@ final class StatisticsViewController: UIViewController {
                 dateComponents.month = move
                 calendarView.currentPage = Calendar.current.date(byAdding: dateComponents, to: calendarView.currentPage) ?? Date()
                 calendarView.setCurrentPage(calendarView.currentPage, animated: true)
+                calendarView.reloadData()
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    /// Bind Calendar List Relay
+    private func bindCalendarListRelay(output: StatisticsViewModel.Output) {
+        output.calendarListRelay
+            .bind { [weak self] _ in
+                guard let self = self else { return }
+                calendarView.reloadData()
             }
             .disposed(by: disposeBag)
     }
@@ -297,7 +364,7 @@ final class StatisticsViewController: UIViewController {
 
 extension StatisticsViewController: FSCalendarDelegate, FSCalendarDataSource {
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
-        guard let cell = calendar.dequeueReusableCell(withIdentifier: CalendarCell.identifier, for: date, at: position) as? CalendarCell else { return FSCalendarCell()}
+        guard let cell = calendar.dequeueReusableCell(withIdentifier: CellIdentifier.CalendarCell.rawValue, for: date, at: position) as? CalendarCell else { return FSCalendarCell()}
         cell.backgroundColor = .clear
         
         output?.calendarListRelay.value
@@ -307,20 +374,5 @@ extension StatisticsViewController: FSCalendarDelegate, FSCalendarDataSource {
                 }
             }
         return cell
-    }
-}
-
-import SwiftUI
-struct VCPreViewStatisticsViewController:PreviewProvider {
-    static var previews: some View {
-        StatisticsViewController().toPreview().previewDevice("iPhone 15 Pro")
-        // 실행할 ViewController이름 구분해서 잘 지정하기
-    }
-}
-
-struct VCPreViewStatisticsViewController2:PreviewProvider {
-    static var previews: some View {
-        StatisticsViewController().toPreview().previewDevice("iPhone SE (3rd generation)")
-        // 실행할 ViewController이름 구분해서 잘 지정하기
     }
 }

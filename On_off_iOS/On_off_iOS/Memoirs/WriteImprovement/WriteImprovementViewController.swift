@@ -51,7 +51,7 @@ final class WriteImprovementViewController: UIViewController {
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
-
+    
     /// 회고글 TextField
     private let textView: UITextView = {
         let textView = UITextView()
@@ -136,7 +136,7 @@ final class WriteImprovementViewController: UIViewController {
         
         view.addSubview(textpageImage)
         view.addSubview(textView)
-
+        
         view.addSubview(checkLenghtLabel)
         
         view.addSubview(checkButtonView)
@@ -147,9 +147,9 @@ final class WriteImprovementViewController: UIViewController {
     
     /// configureConstraints
     private func configureConstraints() {
-
+        
         self.navigationItem.leftBarButtonItem = backButton
-
+        
         pageControlImage.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.width.equalTo(view.snp.width).multipliedBy(0.25)
@@ -174,14 +174,14 @@ final class WriteImprovementViewController: UIViewController {
         }
         
         textView.snp.makeConstraints { make in
-            make.top.equalTo(textpageImage).offset(50)
-            make.bottom.equalTo(textpageImage).offset(-50)
+            make.leading.top.equalTo(textpageImage).offset(50)
+            make.height.equalTo(30).priority(.low)
             make.horizontalEdges.equalTo(textpageImage).inset(30)
         }
         
         checkLenghtLabel.snp.makeConstraints { make in
             make.top.equalTo(textpageImage.snp.bottom).offset(10)
-            make.trailing.equalTo(textView)
+            make.trailing.equalTo(textpageImage.snp.trailing).offset(-10)
         }
         
         checkButtonView.snp.makeConstraints { make in
@@ -204,12 +204,26 @@ final class WriteImprovementViewController: UIViewController {
         
         let output = viewModel.bind(input: input)
         
+        
+        /// 다음화면으로 이동
+        bindingMoveToNext(output)
+        
+        /// 뒤로 가기
+        bindingMoveToBack(output)
+        
         /// 글자수 출력 바인딩
+        bindingTextLength(output)
+        
+    }
+    
+    private func bindingTextLength(_ output: WriteImprovementViewModel.Output) {
         output.textLength
             .map { "(\($0)/500)" }
             .bind(to: checkLenghtLabel.rx.text)
             .disposed(by: disposeBag)
-        
+    }
+    
+    private func bindingMoveToNext(_ output: WriteImprovementViewModel.Output) {
         output.moveToNext
             .subscribe(onNext: { [weak self] isSuccess in
                 if isSuccess {
@@ -219,14 +233,14 @@ final class WriteImprovementViewController: UIViewController {
                 }
             })
             .disposed(by: disposeBag)
-
-        
+    }
+    
+    private func bindingMoveToBack(_ output: WriteImprovementViewModel.Output) {
         output.moveToBack
-                .subscribe(onNext: { [weak self] _ in
-                    self?.navigationController?.popViewController(animated: false)
-                })
-                .disposed(by: disposeBag)
-        
+            .subscribe(onNext: { [weak self] _ in
+                self?.navigationController?.popViewController(animated: false)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func navigateToImprovement() {
@@ -240,5 +254,22 @@ final class WriteImprovementViewController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         textView.endEditing(true)
+    }
+}
+
+/// extension WriteImprovementViewController :  textField 동적 높이
+extension WriteImprovementViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        let size = CGSize(width: textView.frame.width, height: .infinity)
+        let estimatedSize = textView.sizeThatFits(size)
+        
+        let maxHeight = textpageImage.frame.height - 50
+        let newHeight = min(estimatedSize.height, maxHeight)
+        
+        textView.snp.updateConstraints { make in
+            make.height.equalTo(newHeight).priority(.low)
+        }
+        
+        self.view.layoutIfNeeded()
     }
 }

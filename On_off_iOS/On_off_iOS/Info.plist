@@ -59,5 +59,7 @@
 		<string>kakaolink</string>
 		<string>kakaoplus</string>
 	</array>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>앨범에서 사진 가져오기</string>
 </dict>
 </plist>

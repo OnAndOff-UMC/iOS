@@ -49,7 +49,7 @@ final class MemoirsCompleteViewController: UIViewController {
     /// 확인 버튼 뷰
     private lazy var saveButtonView: UIView = {
         let view = UIView()
-        view.backgroundColor = .OnOffLightMain
+        view.backgroundColor = .OnOffMain
         return view
     }()
     
@@ -125,7 +125,6 @@ final class MemoirsCompleteViewController: UIViewController {
             make.bottom.equalTo(saveButtonView.snp.top).offset(-30)
             make.centerX.equalToSuperview()
         }
-
     }
     
     /// 뷰모델과 setupBindings
@@ -133,8 +132,21 @@ final class MemoirsCompleteViewController: UIViewController {
         let input = MemoirsCompleteViewModel.Input(completedButtonTapped: saveButton.rx.tap.asObservable(),
                                                  backButtonTapped: backButton.rx.tap.asObservable())
         
-        let _ = viewModel.bind(input: input)
-        
+        let output = viewModel.bind(input: input)
+        moveToNext(output)
+    }
+    
+    private func moveToNext(_ output: MemoirsCompleteViewModel.Output) {
+        output.moveToNext
+            .subscribe(onNext: { [weak self] in
+                self?.navigateToTabbar()
+            })
+    }
+    
+    private func navigateToTabbar() {
+        if let navigationController = self.navigationController {
+            navigationController.popToRootViewController(animated: true)
+        }
     }
 }
 
