@@ -13,6 +13,7 @@ import UIKit
 /// SelectTimeViewController
 final class SelectTimeViewController : UIViewController {
     
+    /// clockImage: 온보딩이미지
     private lazy var clockImage : UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -20,6 +21,7 @@ final class SelectTimeViewController : UIViewController {
         return imageView
     }()
     
+    /// titleLabel
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "알림 받을 요일과 퇴근 시간을 골라주세요"
@@ -29,6 +31,7 @@ final class SelectTimeViewController : UIViewController {
         return label
     }()
     
+    /// subTitleLabel
     private lazy var subTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "퇴근 시간에 회고할 수 있도록 도와드릴게요"
@@ -38,7 +41,10 @@ final class SelectTimeViewController : UIViewController {
         return label
     }()
     
+    /// 날짜 클릭 버튼
     private var dayButtons: [DayButton] = []
+    
+    /// 주별 날짜
     private var daysOfWeek = [
         DayModel(name: "월", isChecked: false),
         DayModel(name: "화", isChecked: false),
@@ -56,6 +62,7 @@ final class SelectTimeViewController : UIViewController {
         return stackView
     }()
     
+    /// 고정 글씨 Status
     private lazy var stateLabel: UILabel = {
         let label = UILabel()
         label.text = "Status"
@@ -64,6 +71,7 @@ final class SelectTimeViewController : UIViewController {
         return label
     }()
     
+    /// 아래버튼
     private lazy var downImage : UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "chevron.down"), for:.normal)
@@ -71,6 +79,7 @@ final class SelectTimeViewController : UIViewController {
         return button
     }()
     
+    /// 선택된 버튼 속성
     private lazy var selectedTimeButton: UIButton = {
         let button = UIButton()
         button.setTitle("오후 00:00", for: .normal)
@@ -91,6 +100,7 @@ final class SelectTimeViewController : UIViewController {
         return button
     }()
     
+    /// 체크 버튼뷰
     private lazy var checkButtonView: UIView = {
         let view = UIView()
         view.backgroundColor = .OnOffMain
@@ -186,33 +196,51 @@ final class SelectTimeViewController : UIViewController {
             make.bottom.equalTo(selectedTimeButton.snp.top).offset(-5)
             make.leading.equalTo(selectedTimeButton.snp.leading)
         }
+        
         checkButtonView.snp.makeConstraints { make in
             make.bottom.equalToSuperview().inset(50)
             make.height.equalTo(checkButtonView.snp.width).multipliedBy(0.15)
             make.leading.trailing.equalToSuperview().inset(17)
         }
+        
         checkButton.snp.makeConstraints { make in
             make.center.equalToSuperview()
         }
     }
+    
     /// DatePicker 값 바인딩
     private func setupBindings() {
         let input = SelectTimeViewModel.Input(startButtonTapped: checkButton.rx.tap.asObservable())
         let output = viewModel.bind(input: input)
         
+        bindUIEvents(output)
+    }
+    
+    // 각 바인딩 메소드
+    private func bindUIEvents(_ output: SelectTimeViewModel.Output) {
+        
+        // 시간 선택 버튼 이벤트 처리
+        bindSelectedTimeButton()
+        
+        // 다음화면 이동 버튼 이벤트 처리
+        bindMoveToNext(output)
+        
+    }
+    
+    private func bindSelectedTimeButton() {
         selectedTimeButton.rx.tap
             .bind { [weak self] in
                 self?.showTimePicker()
             }
             .disposed(by: disposeBag)
-                
-
+    }
+    
+    private func bindMoveToNext(_ output: SelectTimeViewModel.Output) {
         output.moveToNext
             .subscribe(onNext: { [weak self] in
                 self?.moveToMain()
             })
             .disposed(by: disposeBag)
-        
     }
     
     /// 확인  버튼 속성 설정
@@ -221,6 +249,7 @@ final class SelectTimeViewController : UIViewController {
         checkButtonView.layer.cornerRadius = cornerRadius
         checkButtonView.layer.masksToBounds = true
     }
+    
     /// timePicker 창 보기
     private func showTimePicker() {
         let alertController = UIAlertController(title: "시간 선택", message: nil, preferredStyle: .actionSheet)

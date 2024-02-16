@@ -47,7 +47,6 @@ final class OffUIViewModel {
     func createOutput(input: Input) -> Output {
         let output = Output()
         
-        bindTodayMemoirsEvents(input: input, output: output)
         bindClickedCollectoinViewCell(input: input, output: output)
         bindSelectedCroppedImage(input: input, output: output)
         bindSuccessDeleteImageEvents(input: input, output: output)
@@ -57,21 +56,6 @@ final class OffUIViewModel {
         bindSuccessAddFeed(input: input, output: output)
         
         return output
-    }
-    
-    /// 오늘의 회고 제목 버튼 및 이미지 버튼
-    private func bindTodayMemoirsEvents(input: Input, output: Output) {
-        input.todayMemoirsButtonEvents?
-            .bind {
-                print("tap todayMemoirsButtonEvents")
-            }
-            .disposed(by: disposeBag)
-        
-        input.todayMemoirsIconImageButtonEvents?
-            .bind {
-                print("tap todayMemoirsIconImageButtonEvents")
-            }
-            .disposed(by: disposeBag)
     }
     
     /// Bind Clicked CollectionView Cell
@@ -104,6 +88,7 @@ final class OffUIViewModel {
             .bind {  [weak self] in
                 guard let self = self else { return }
                 getWorkLifeBalanceList(output: output)
+                getMemoirPreview(output: output)
             }
             .disposed(by: disposeBag)
     }

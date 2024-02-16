@@ -54,6 +54,16 @@ final class LoginViewModel {
     /// - Returns: Output 구조체
     private func createOutput(input: Input) -> Output {
         let output = Output()
+
+        /// 카카오 버튼 탭
+        bindingKakaoButtonTapped(input)
+        
+        /// 애플  버튼 탭
+        bindingAppleButtonTapped(input, output)
+        return output
+    }
+    
+    private func bindingKakaoButtonTapped(_ input: LoginViewModel.Input) {
         input.kakaoButtonTapped
             .bind { [weak self] _ in
                 guard let self = self else {return}
@@ -61,14 +71,14 @@ final class LoginViewModel {
                 kakaoLogin()
             }
             .disposed(by: disposeBag)
-
+    }
+    
+    private func bindingAppleButtonTapped(_ input: LoginViewModel.Input, _ output: LoginViewModel.Output) {
         input.appleLoginSuccess
             .subscribe(onNext: { [weak self] _ in
                 output.moveToNickName.onNext(())
             })
             .disposed(by: disposeBag)
-        
-        return output
     }
     
     // 서버 응답 처리

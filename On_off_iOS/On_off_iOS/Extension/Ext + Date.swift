@@ -17,7 +17,7 @@ extension Date {
     */
     public func dateCompare(fromDate: Date) -> String {
         var strDateMessage:String = ""
-        let result:ComparisonResult = self.compare(fromDate)
+        let result: ComparisonResult = self.compare(fromDate)
         switch result {
         case .orderedAscending:
             strDateMessage = "Future"

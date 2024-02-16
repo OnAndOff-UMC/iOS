@@ -7,11 +7,26 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
+/// BookmarkTableViewCell
 final class BookmarkTableViewCell: UITableViewCell {
     
-    private lazy var iconImageView = UIImageView()
+    private lazy var iconImageView: UIImageView = {
+        let image = UIImageView()
+        image.contentMode = .scaleAspectFit
+        return image
+    }()
     
+    /// 북마크 버튼
+    private lazy var bookmarkButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
+        button.tintColor = .OnOffMain
+        return button
+    }()
+    
+    /// 날짜 label
     private let dateLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
@@ -30,45 +45,56 @@ final class BookmarkTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    /// setupViews
     private func setupViews() {
+        addSubviews()
+    }
+    
+    /// addSubviews
+    private func addSubviews() {
         addSubview(iconImageView)
         addSubview(dateLabel)
+        addSubview(bookmarkButton)
         
-        iconImageView.contentMode = .scaleAspectFit
-        dateLabel.textAlignment = .center
-        
+        configureContraints()
+    }
+    
+    /// configureContraints
+    private func configureContraints() {
         iconImageView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.height.equalToSuperview().multipliedBy(0.8)
-            make.width.equalTo(iconImageView.snp.height)
+            make.height.width.equalToSuperview().multipliedBy(0.8)
         }
         
         dateLabel.snp.makeConstraints { make in
             make.center.equalToSuperview()
         }
+        
+        bookmarkButton.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(10)
+            make.trailing.equalToSuperview().offset(-10)
+            make.width.height.equalTo(contentView.snp.height).multipliedBy(0.2)
+        }
     }
     
-    func configure(with item: Item, at indexPath: IndexPath) {
-        dateLabel.text = item.title
-        iconImageView.image = item.image
-        iconImageView.backgroundColor = .blue
+    /// configure위치
+    func configure(with memoir: Memoir, at indexPath: IndexPath) {
+        dateLabel.text = memoir.date
+        
+        if let url = URL(string: memoir.emoticonUrl ?? "") {
+            iconImageView.kf.setImage(with: url)
+        }
         
         iconImageView.snp.remakeConstraints { make in
             make.centerY.equalToSuperview()
-            make.height.equalToSuperview().multipliedBy(0.8)
-            make.width.equalTo(iconImageView.snp.height)
+            make.height.width.equalToSuperview().multipliedBy(0.8)
             
-            if indexPath.row % 2 == 0 {
-                make.leading.equalToSuperview().offset(10)
+            if let remain = memoir.remain, remain % 2 == 0 {
+                make.leading.equalToSuperview().inset(-10)
             } else {
-                make.trailing.equalToSuperview().offset(-10)
+                make.trailing.equalToSuperview().inset(-10)
             }
         }
+        
     }
-}
-
-/// 더미 데이터 예시 형식임 ❎
-struct Item {
-    var title: String
-    var image : UIImage
 }

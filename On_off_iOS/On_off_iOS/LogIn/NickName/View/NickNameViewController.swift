@@ -194,30 +194,56 @@ final class NickNameViewController: UIViewController {
         let output = viewModel.bind(input: input)
         
         /// 글자수 출력 바인딩
+        bindNickNameLength()
+        
+        // 버튼 활성화 상태 및 색상 변경 바인딩
+        bindCheckButtonEnabled()
+        
+        // 버튼 활성화 상태 및 색상 변경 바인딩
+        bindMoveToNext()
+    }
+    
+    private func bindNickNameLength() {
+        let output = viewModelOutput()
         output.nickNameLength
             .map { "(\($0)/10)" }
             .bind(to: checkLenghtLabel.rx.text)
             .disposed(by: disposeBag)
-        
-        // 버튼 활성화 상태 및 색상 변경 바인딩
+    }
+    
+    private func bindCheckButtonEnabled() {
+        let output = viewModelOutput()
         output.isCheckButtonEnabled
             .observe(on: MainScheduler.instance)
             .bind { [weak self] isEnabled in
-                guard let self = self else { return }
-                checkButton.isEnabled = isEnabled
-                checkButtonView.layer.borderColor = UIColor.OnOffMain.cgColor
-                checkButtonView.layer.borderWidth = 1
-                
-                checkButtonView.backgroundColor = isEnabled ? UIColor.OnOffMain : .white
-                checkButton.setTitleColor(isEnabled ? .white : UIColor.OnOffMain, for: .normal)
+                self?.updateCheckButtonState(isEnabled: isEnabled)
             }
             .disposed(by: disposeBag)
-        
+    }
+    
+    private func bindMoveToNext() {
+        let output = viewModelOutput()
         output.moveToNext
             .subscribe(onNext: { [weak self] _ in
                 self?.moveToProfile()
             })
             .disposed(by: disposeBag)
+    }
+    
+    /// viewModelOutput 으로 치환후 output에 대입해서 사용할 함수
+    private func viewModelOutput() -> NickNameViewModel.Output {
+        let input = NickNameViewModel.Input(startButtonTapped: checkButton.rx.tap.asObservable(),
+                                            nickNameTextChanged: nickNameTextField.rx.text.orEmpty.asObservable())
+        return viewModel.bind(input: input)
+    }
+    
+    private func updateCheckButtonState(isEnabled: Bool) {
+        checkButton.isEnabled = isEnabled
+        checkButtonView.layer.borderColor = UIColor.OnOffMain.cgColor
+        checkButtonView.layer.borderWidth = 1
+        
+        checkButtonView.backgroundColor = isEnabled ? UIColor.OnOffMain : .white
+        checkButton.setTitleColor(isEnabled ? .white : UIColor.OnOffMain, for: .normal)
     }
     
     /// 프로필설정으로 이동

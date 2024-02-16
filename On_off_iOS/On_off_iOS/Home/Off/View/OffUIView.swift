@@ -189,6 +189,8 @@ final class OffUIView: UIView {
     private var successDeleteImage: PublishSubject<Void> = PublishSubject()
     var successAddFeed: PublishSubject<Void> = PublishSubject()
     var selectedFeedTableViewCell: PublishSubject<Feed> = PublishSubject()
+    var moveStartToWriteViewController: PublishSubject<String> = PublishSubject()
+    var moveInquireMemoirsViewController: PublishSubject<String> = PublishSubject()
     private var loadWLBFeed: PublishSubject<Void> = PublishSubject()
     private var clickCheckMarkOfWLBFeed: PublishSubject<Feed> = PublishSubject()
     
@@ -218,8 +220,8 @@ final class OffUIView: UIView {
         todayMemoirsLabelBackgroundUIView.addSubview(todayMemoirsIconImageButton)
         contentView.addSubview(todayMemoirsUIView)
         todayMemoirsUIView.addSubview(memoirDoneBackGroundImageView)
-        todayMemoirsUIView.addSubview(memoirLabelStackView)
         todayMemoirsUIView.addSubview(memoirImageView)
+        todayMemoirsUIView.addSubview(memoirLabelStackView)
         contentView.addSubview(feedTitleButton)
         contentView.addSubview(feedlabelBackgroundUIView)
         feedlabelBackgroundUIView.addSubview(feedPlusIconImageButton)
@@ -345,8 +347,10 @@ final class OffUIView: UIView {
         bindClickImageButton(output: output)
         bindSelectedMonth(output: output)
         bindCheckMemoirsPreview(output: output)
+        bindMemoirEvents(output: output)
         bindFeedEvents()
     }
+    
     
     /// 워라벨 피드 제목 버튼 및 이미지 버튼
     private func bindFeedEvents() {
@@ -363,6 +367,23 @@ final class OffUIView: UIView {
                 clickedAddfeedButton.onNext(())
             }
             .disposed(by: disposeBag)
+    }
+    
+    
+    /// Bind Memoir Events
+    private func bindMemoirEvents(output: OffUIViewModel.Output) {
+        Observable.merge(todayMemoirsButton.rx.tap.asObservable(),
+                         todayMemoirsIconImageButton.rx.tap.asObservable())
+        .bind { [weak self] _ in
+            guard let self = self else { return }
+            print(#function)
+            if output.checkMemoirPreview.value?.written ?? false {
+                moveInquireMemoirsViewController.onNext(output.selectedDate.value)
+                return
+            }
+            moveStartToWriteViewController.onNext(output.selectedDate.value)
+        }
+        .disposed(by: disposeBag)
     }
     
     /// Binding Work Life Balance Table View
@@ -481,7 +502,7 @@ final class OffUIView: UIView {
     }
     
     /// Bind Check Memoirs Preview
-    private func bindCheckMemoirsPreview(output: OffUIViewModel.Output) {
+     func bindCheckMemoirsPreview(output: OffUIViewModel.Output) {
         output.checkMemoirPreview
             .bind { [weak self] preview in
                 guard let self = self else { return }

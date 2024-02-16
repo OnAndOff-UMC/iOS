@@ -9,6 +9,7 @@ import RxSwift
 import RxCocoa
 import UIKit
 
+/// DayButton 선택 버튼
 final class DayButton: UIButton {
     var disposeBag = DisposeBag()
 
@@ -42,7 +43,7 @@ final class DayButton: UIButton {
         self.rx.tap
             .bind { [weak self] in
                 guard let self = self else { return }
-                dayModel.isChecked.toggle()
+                dayModel.isChecked?.toggle()
                 updateUI()
             }
             .disposed(by: disposeBag)
@@ -50,8 +51,7 @@ final class DayButton: UIButton {
 
     /// 버튼 클릭시 토글적용 업데이트
     private func updateUI() {
-        self.backgroundColor = dayModel.isChecked ? .OnOffMain : .lightGray
-        self.setTitleColor(dayModel.isChecked ? .white : .black, for: .normal)
-
+        self.backgroundColor = dayModel.isChecked ?? false ? .OnOffMain : .lightGray
+        self.setTitleColor(dayModel.isChecked ?? false ? .white : .black, for: .normal)
     }
 }

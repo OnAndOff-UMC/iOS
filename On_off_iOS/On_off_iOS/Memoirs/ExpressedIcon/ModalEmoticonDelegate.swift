@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// 이모티콘 전송 프로토콜
 protocol ModalEmoticonDelegate: AnyObject {
     func emoticonSelected(emoticon: Emoticon)
 }

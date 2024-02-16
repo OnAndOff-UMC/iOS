@@ -177,14 +177,14 @@ final class WriteLearnedViewController: UIViewController {
         }
         
         textView.snp.makeConstraints { make in
-            make.top.equalTo(textpageImage).offset(50)
-            make.bottom.equalTo(textpageImage).offset(-50)
+            make.leading.top.equalTo(textpageImage).offset(50)
+            make.height.equalTo(30).priority(.low)
             make.horizontalEdges.equalTo(textpageImage).inset(30)
         }
-        
+
         checkLenghtLabel.snp.makeConstraints { make in
             make.top.equalTo(textpageImage.snp.bottom).offset(10)
-            make.trailing.equalTo(textView)
+            make.trailing.equalTo(textpageImage.snp.trailing).offset(10)
         }
         
         checkButtonView.snp.makeConstraints { make in
@@ -209,12 +209,30 @@ final class WriteLearnedViewController: UIViewController {
         
         let output = viewModel.bind(input: input)
         
-        /// 글자수 출력 바인딩
+        /// 각 바인딩 메소드
+        bindUIEvents(input, output)
+    }
+    
+    private func bindUIEvents(_ input: WriteLearnedViewModel.Input, _ output: WriteLearnedViewModel.Output) {
+        
+        /// text 변화감지
+        bindingTextLength(output)
+        
+        /// 시작하기 버튼 클릭
+        bindingSaveResult(output)
+        
+        /// 뒤로가기 버튼 클릭
+        bindingSaveResult(output)
+    }
+    
+    private func bindingTextLength(_ output: WriteLearnedViewModel.Output) {
         output.textLength
                .map { "(\($0)/500)" }
                .bind(to: checkLenghtLabel.rx.text)
                .disposed(by: disposeBag)
-        
+    }
+    
+    private func bindingSaveResult(_ output: WriteLearnedViewModel.Output) {
         output.saveResult
             .subscribe(onNext: { [weak self] isSuccess in
                 if isSuccess {
@@ -224,8 +242,9 @@ final class WriteLearnedViewController: UIViewController {
                 }
             })
             .disposed(by: disposeBag)
-
-        
+    }
+    
+    private func bindingMoveToBack(_ output: WriteLearnedViewModel.Output) {
         output.moveToBack
                 .subscribe(onNext: { [weak self] _ in
                     self?.navigationController?.popViewController(animated: false)
@@ -243,5 +262,21 @@ final class WriteLearnedViewController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         textView.endEditing(true)
+    }
+}
+
+extension WriteLearnedViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        let size = CGSize(width: textView.frame.width, height: .infinity)
+        let estimatedSize = textView.sizeThatFits(size)
+        
+        let maxHeight = textpageImage.frame.height - 50
+        let newHeight = min(estimatedSize.height, maxHeight)
+        
+        textView.snp.updateConstraints { make in
+            make.height.equalTo(newHeight).priority(.low)
+        }
+        
+        self.view.layoutIfNeeded()
     }
 }

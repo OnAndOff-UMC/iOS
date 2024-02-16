@@ -268,6 +268,7 @@ final class MyPageViewController: UIViewController {
         let output = viewModel.createOutput(input: input)
         bindNickNameRelay(output: output)
         bindSubTitleRelay(output: output)
+        bindBookmarkButton()
         bindAlertSettingButton()
         bindPolicyButton()
         bindFeedBackButton()
@@ -293,6 +294,18 @@ final class MyPageViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
+    /// Bind Bookmark Button
+    private func bindBookmarkButton() {
+        bookMarkButton.rx.tap
+            .bind { [weak self] _ in
+                guard let self = self else { return }
+                let bookmarkViewController = BookmarkViewController(viewModel: BookmarkViewModel())
+                bookmarkViewController.navigationItem.title = "북마크"
+                navigationController?.pushViewController(bookmarkViewController, animated: true)
+            }
+            .disposed(by: disposeBag)
+    }
+
     /// Bind Alert Setting Button
     private func bindAlertSettingButton() {
         alertSettingButton.rx.tap

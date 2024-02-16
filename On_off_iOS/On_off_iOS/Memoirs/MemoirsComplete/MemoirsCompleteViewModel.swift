@@ -23,6 +23,7 @@ final class MemoirsCompleteViewModel {
     /// Output
     struct Output {
         let textLength: PublishSubject<Int> = PublishSubject<Int>()
+        let moveToNext = PublishSubject<Void>()
     }
     
     /// binding Input
@@ -32,32 +33,19 @@ final class MemoirsCompleteViewModel {
     func bind(input: Input) -> Output {
         let output = Output()
 
-        /// 완료버튼 클릭
-        input.completedButtonTapped
-            .bind { [weak self] in
-                self?.moveToImprovement()
-            }
-            .disposed(by: disposeBag)
-        
-        /// 뒤로가기 버튼 클릭
-        input.backButtonTapped
-            .bind { [weak self] in
-                guard let self = self else { return }
-                moveToBack()
-            }
-            .disposed(by: disposeBag)
+        moveToImprovement(input, output)
         
         return output
     }
     
     /// Memoirs 초기 화면으로 이동
-    private func moveToImprovement() {
+    private func moveToImprovement(_ input: MemoirsCompleteViewModel.Input, _ output: MemoirsCompleteViewModel.Output) {
         
-    }
-    
-    /// 뒤로 이동
-    private func moveToBack() {
-//        navigationController.popViewController(animated: false)
+        input.completedButtonTapped
+            .bind { [weak self] in
+                output.moveToNext.onNext(())
+            }
+            .disposed(by: disposeBag)
     }
 }
 
