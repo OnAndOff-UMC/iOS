@@ -125,7 +125,6 @@ final class MemoirsCompleteViewController: UIViewController {
             make.bottom.equalTo(saveButtonView.snp.top).offset(-30)
             make.centerX.equalToSuperview()
         }
-
     }
     
     /// 뷰모델과 setupBindings

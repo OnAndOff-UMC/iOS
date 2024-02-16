@@ -14,6 +14,7 @@ enum LoginPath: String {
     case checkValidation = "/token/validate"
     case kakaoLogin = "/oauth2/kakao/token/validate"
     case appleLogin = "/oauth2/apple/token/validate"
+    case nicknameDuplicate = "/users/nickname"
     
     /// 직업
     case job = "/enums/field-of-works"
