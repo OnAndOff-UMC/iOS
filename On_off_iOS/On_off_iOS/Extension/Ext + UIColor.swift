@@ -40,10 +40,15 @@ extension UIColor {
 
 extension UIColor {
     static let OnOffMain = UIColor(hex: "7D4BFF") // OnOff 메인컬러
-    static let OnOffYellow = UIColor(hex: "#FFD572") //StatisticsView 그래프 컬러
+    static let OnOffYellow = UIColor(hex: "#FFD572")
+    static let OnOffLightMain = UIColor(hex: "#FCF8FF")
+    
+    //StatisticsView 그래프 컬러
     static let OnOffPurple = UIColor(hex: "#7D4BFF")
+    static let backGround = UIColor(hex: "#F8F5FF")
+    static let gradient1 = UIColor(hex: "#B297FE")
     static var OnOffLightPurple: UIColor { //날짜 선택 안되었을 때의 컬러
-        return OnOffPurple.withAlphaComponent(0.3)
+        return OnOffPurple.withAlphaComponent(0.1)
     }
 }
 

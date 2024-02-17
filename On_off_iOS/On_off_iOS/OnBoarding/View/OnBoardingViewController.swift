@@ -13,7 +13,8 @@ import RxCocoa
 final class OnBoardingViewController : UIViewController {
     
     // MARK: - Properties
-    // 스크롤 뷰: 온보딩 페이지를 표시
+    
+    /// 스크롤 뷰: 온보딩 페이지를 표시
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.isPagingEnabled = true
@@ -23,12 +24,14 @@ final class OnBoardingViewController : UIViewController {
         scrollView.delegate = self
         return scrollView
     }()
-    let contentView = UIView()
-        
+    
+    private let contentView = UIView()
+    
     /// 현재 페이지 상태를 관리
     private var currentPage = BehaviorRelay<Int>(value: 0)
     private let totalPages = 3
     
+    /// customPageControl
     private let customPageControl : CustomPageControl = {
         let customPageControl = CustomPageControl()
         customPageControl.numberOfPages = 3
@@ -38,9 +41,10 @@ final class OnBoardingViewController : UIViewController {
     /// 다음, 건너뛰기 버튼아래 뷰
     private lazy var buttonView: UIView = {
         let view = UIView()
-        view.backgroundColor = .blue
+        view.backgroundColor = UIColor.OnOffMain
         return view
     }()
+    
     /// 다음버튼
     private let nextButton : UIButton = {
         let button = UIButton()
@@ -56,8 +60,8 @@ final class OnBoardingViewController : UIViewController {
     }()
     
     private let disposeBag = DisposeBag()
-    private var viewModel: OnBoardingViewModel
-
+    private let viewModel: OnBoardingViewModel
+    
     // MARK: - Init
     init(viewModel: OnBoardingViewModel) {
         self.viewModel = viewModel
@@ -75,20 +79,22 @@ final class OnBoardingViewController : UIViewController {
         setupUI()
         addSubViews()
         setupBindings()
-
+        
     }
+    
     private func setupUI(){
         view.backgroundColor = .white
         navigationController?.navigationBar.isHidden = true
-
     }
+    
     /// 온보딩 뷰들을 설정
     private func setupOnboardingViews(in contentView: UIView) {
-        let onboardingData: [OnboardingItem] = [
-            OnboardingItem(imageName: "온보딩1", text: "퇴근길 회고하며 이제\n일에서 완전히 로그아웃하세요"),
-            OnboardingItem(imageName: "온보딩2", text: "왜 자꾸 실수할까?\n쌓인 회고들이 나를 성장시킬거예요"),
-            OnboardingItem(imageName: "온보딩3", text: "on & off로\n일과 삶의 밸런스를 관리해요!")
+        let onboardingData: [(imageName: String, text: NSAttributedString)] = [
+            (imageName: "온보딩1", text: createAttributedText(for: "퇴근길 회고하며 이제\n일에서 완전히 로그아웃하세요", highlightWords: [("회고", UIColor.OnOffMain, UIFont.boldSystemFont(ofSize: 22)), ("로그아웃", UIColor.OnOffMain, UIFont.boldSystemFont(ofSize: 22))])),
+            (imageName: "온보딩2", text: createAttributedText(for: "왜 자꾸 실수할까?\n쌓인 회고들이 나를 성장시킬거예요", highlightWords: [("성장", UIColor.OnOffMain,UIFont.boldSystemFont(ofSize: 22))])),
+            (imageName: "온보딩3", text: createAttributedText(for: "ON&OFF로\n일과 삶의 밸런스를 관리해요!", highlightWords: [("ON&OFF", UIColor.OnOffMain, UIFont.boldSystemFont(ofSize: 22)), ("밸런스", UIColor.OnOffMain, UIFont.boldSystemFont(ofSize: 22))]))
         ]
+        
         /// 이전 뷰 추적함
         var previousView: UIView?
         
@@ -127,10 +133,10 @@ final class OnBoardingViewController : UIViewController {
         view.addSubview(buttonView)
         buttonView.addSubview(nextButton)
         buttonView.addSubview(jumpButton)
-
+        
         configureConstraints()
         setupOnboardingViews(in: contentView)
-
+        
     }
     
     /// configureConstraints
@@ -157,10 +163,12 @@ final class OnBoardingViewController : UIViewController {
             make.leading.trailing.bottom.equalToSuperview()
             make.height.equalTo(buttonView.snp.width).multipliedBy(0.2)
         }
+        
         nextButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview().inset(17)
             make.bottom.equalToSuperview().inset(30)
         }
+        
         jumpButton.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(17)
             make.bottom.equalToSuperview().inset(30)
@@ -169,6 +177,7 @@ final class OnBoardingViewController : UIViewController {
     
     /// ViewModel과 bind
     private func setupBindings() {
+        
         let startButtonTapOnLastPage = nextButton.rx.tap
             .withLatestFrom(currentPage.asObservable())
             .filter { [weak self] page in
@@ -178,47 +187,72 @@ final class OnBoardingViewController : UIViewController {
             .map { _ in Void() }
         
         let input = OnBoardingViewModel.Input(
-            startButtonTapped: startButtonTapOnLastPage, 
+            startButtonTapped: startButtonTapOnLastPage,
             jumpButtonTapped: jumpButton.rx.tap.asObservable()
         )
         
-        let _ = viewModel.bind(input: input)
+        let output = viewModel.bind(input: input)
+        bindUIEvents(output)
         
-        // 나머지 페이지에서 버튼이 눌렸을 때의 동작
+    }
+    
+    // 각 바인딩 메소드
+    private func bindUIEvents(_ output: OnBoardingViewModel.Output) {
+        
+        // 로그인 화면으로 이동하는 이벤트 구독
+        bindMoveToLogin(output)
+        
+        /// 나머지 페이지에서 버튼이 눌렸을 때의 동작
+        bindNextButton()
+        
+        /// 현재 페이지 변경 감지
+        bindcurrentPage()
+        
+    }
+    private func bindMoveToLogin(_ output: OnBoardingViewModel.Output) {
+        output.moveToLogin
+            .subscribe(onNext: { [weak self] _ in
+                self?.moveToLogin()
+            })
+            .disposed(by: disposeBag)
+        
+    }
+    
+    private func bindNextButton() {
         nextButton.rx.tap
             .withLatestFrom(currentPage.asObservable())
             .filter { [weak self] page in
                 guard let self = self else { return false }
-                return page < self.totalPages - 1
+                return page < totalPages - 1
             }
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                let nextPage = (self.currentPage.value + 1) % self.totalPages
-                self.currentPage.accept(nextPage)
+                let nextPage = (self.currentPage.value + 1) % totalPages
+                currentPage.accept(nextPage)
             }).disposed(by: disposeBag)
-        
-        // 현재 페이지 변경 감지
+    }
+    
+    private func bindcurrentPage() {
         currentPage.subscribe(onNext: { [weak self] page in
             guard let self = self else { return }
             
             let isLastPage = page == totalPages - 1
-            self.nextButton.snp.remakeConstraints { make in
+            nextButton.snp.remakeConstraints { make in
                 make.trailing.equalToSuperview().inset(17)
                 make.bottom.equalToSuperview().inset(30)
             }
-                self.jumpButton.isHidden = false
-
-               
-            // 마지막 페이지인 경우
-               if isLastPage {
-                   self.nextButton.snp.remakeConstraints { make in
-                       make.centerX.equalToSuperview()
-                       make.bottom.equalToSuperview().inset(30)
-                   }
-                   self.jumpButton.isHidden = true
-               }
+            self.jumpButton.isHidden = false
             
-            let buttonTitle = page == self.totalPages - 1 ? "시작하기" : "다음"
+            // 위치 측정으로 마지막 페이지인 경우
+            if isLastPage {
+                nextButton.snp.remakeConstraints { make in
+                    make.centerX.equalToSuperview()
+                    make.bottom.equalToSuperview().inset(30)
+                }
+                self.jumpButton.isHidden = true
+            }
+            
+            let buttonTitle = page == self.totalPages - 1 ? "온앤오프 시작하기" : "다음"
             self.nextButton.setTitle(buttonTitle, for: .normal)
             
             let xOffset = CGFloat(page) * self.view.frame.width
@@ -230,6 +264,13 @@ final class OnBoardingViewController : UIViewController {
         }).disposed(by: disposeBag)
     }
     
+    /// 로그인 화면으로 이동
+    private func moveToLogin() {
+        let loginService = LoginService()
+        let loginViewModel = LoginViewModel(loginService: loginService)
+        let vc = LoginViewController(viewModel: loginViewModel)
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 // MARK: Extension - UIScrollViewDelegate

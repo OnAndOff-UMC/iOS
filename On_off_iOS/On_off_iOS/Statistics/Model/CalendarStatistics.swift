@@ -7,7 +7,13 @@
 
 import Foundation
 
-struct CalendarStatistics {
+struct CalendarStatistics: Codable {
     let date: String?
     let rate: Double?
+}
+
+struct MonthArchive: Codable {
+    let date: String?
+    let avg: Int?
+    let monthStatsList: [CalendarStatistics]?
 }

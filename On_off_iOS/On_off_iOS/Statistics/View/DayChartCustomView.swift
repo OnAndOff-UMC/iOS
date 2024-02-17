@@ -11,6 +11,16 @@ import SnapKit
 
 final class DayChartCustomView: UIView {
     
+    /// ON 제목
+    private lazy var onTitle: UILabel = {
+        let label = UILabel()
+        label.text = "ON"
+        label.backgroundColor = .clear
+        label.font = .pretendard(size: 14, weight: .bold)
+        label.textColor = .black
+        return label
+    }()
+    
     /// dayTime ProgressView
     private lazy var dayTimeProgressView: UIProgressView = {
         let view = UIProgressView()
@@ -18,23 +28,33 @@ final class DayChartCustomView: UIView {
         view.layer.cornerRadius = 15
         view.clipsToBounds = true
         view.backgroundColor = .clear
-        view.trackTintColor = .lightGray
-        view.progressTintColor = .blue
+        view.trackTintColor = .OnOffLightPurple
+        view.progressTintColor = .OnOffPurple
         return view
     }()
     
     /// 햇빛 이미지 담는 뷰
     private lazy var dayTimeUIView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(hex: "#9268FF")
         return view
     }()
     
     /// 햇빛 이미지
     private lazy var dayTimeImageView: UIImageView = {
-        let view = UIImageView(image: UIImage(named: "dayTime"))
+        let view = UIImageView(image: UIImage(named: "sun"))
         view.backgroundColor = .clear
         return view
+    }()
+    
+    /// OFF 제목
+    private lazy var offTitle: UILabel = {
+        let label = UILabel()
+        label.text = "OFF"
+        label.backgroundColor = .clear
+        label.font = .pretendard(size: 14, weight: .bold)
+        label.textColor = .black
+        return label
     }()
     
     /// nightTime ProgressView
@@ -44,21 +64,21 @@ final class DayChartCustomView: UIView {
         view.layer.cornerRadius = 15
         view.clipsToBounds = true
         view.backgroundColor = .clear
-        view.trackTintColor = .lightGray
-        view.progressTintColor = .blue
+        view.trackTintColor = .OnOffLightPurple
+        view.progressTintColor = .OnOffPurple
         return view
     }()
     
     /// 달 이미지 담는 뷰
     private lazy var nightTimeUIView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(hex: "#9268FF")
         return view
     }()
     
     /// 달 이미지
     private lazy var nightTimeImageView: UIImageView = {
-        let view = UIImageView(image: UIImage(named: "night"))
+        let view = UIImageView(image: UIImage(named: "moon"))
         view.backgroundColor = .clear
         return view
     }()
@@ -72,8 +92,6 @@ final class DayChartCustomView: UIView {
         view.distribution = .fillEqually
         return view
     }()
-    
-    private var dayConstraintItem: Constraint?
     
     // MARK: - init
     override init(frame: CGRect) {
@@ -90,22 +108,12 @@ final class DayChartCustomView: UIView {
         super.layoutSubviews()
         
         dayTimeUIView.layer.cornerRadius = dayTimeUIView.frame.height/2
-        dayTimeUIView.snp.remakeConstraints { make in
-            make.centerY.equalTo(dayTimeProgressView.snp.centerY)
-            make.height.width.equalTo(dayTimeProgressView.snp.height).multipliedBy(1.2)
-            make.centerX.equalTo(dayTimeProgressView.snp.leading).offset(dayTimeProgressView.frame.width * CGFloat(dayTimeProgressView.progress))
-        }
-        
         nightTimeUIView.layer.cornerRadius = nightTimeUIView.frame.height/2
-        nightTimeUIView.snp.remakeConstraints { make in
-            make.centerY.equalTo(nightTimeProgressView.snp.centerY)
-            make.height.width.equalTo(nightTimeProgressView.snp.height).multipliedBy(1.2)
-            make.centerX.equalTo(nightTimeProgressView.snp.leading).offset(nightTimeProgressView.frame.width * CGFloat(nightTimeProgressView.progress))
-        }
     }
     
     /// AddSubViews
     private func addSubViews() {
+        
         addSubview(stackView)
         
         addSubview(dayTimeUIView)
@@ -114,11 +122,24 @@ final class DayChartCustomView: UIView {
         addSubview(nightTimeUIView)
         nightTimeUIView.addSubview(nightTimeImageView)
         
+        addSubview(onTitle)
+        addSubview(offTitle)
+        
         constraints()
     }
     
     /// Set Constraints
     private func constraints() {
+        onTitle.snp.makeConstraints { make in
+            make.bottom.equalTo(dayTimeProgressView.snp.top).offset(-5)
+            make.leading.equalTo(stackView.snp.leading)
+        }
+        
+        offTitle.snp.makeConstraints { make in
+            make.bottom.equalTo(nightTimeProgressView.snp.top).offset(-5)
+            make.leading.equalTo(stackView.snp.leading)
+        }
+        
         stackView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(30)
             make.leading.equalToSuperview().offset(30)
@@ -155,15 +176,29 @@ final class DayChartCustomView: UIView {
             make.center.equalToSuperview()
             make.height.width.equalTo(nightTimeProgressView.snp.height).multipliedBy(0.7)
         }
-        
     }
     
+    /// Remake Constraints
+    private func remakeConstraints() {
+        dayTimeUIView.snp.remakeConstraints { make in
+            make.centerY.equalTo(dayTimeProgressView.snp.centerY)
+            make.height.width.equalTo(dayTimeProgressView.snp.height).multipliedBy(1.2)
+            make.centerX.equalTo(dayTimeProgressView.snp.leading).offset(dayTimeProgressView.frame.width * CGFloat(dayTimeProgressView.progress))
+        }
+        
+        nightTimeUIView.snp.remakeConstraints { make in
+            make.centerY.equalTo(nightTimeProgressView.snp.centerY)
+            make.height.width.equalTo(nightTimeProgressView.snp.height).multipliedBy(1.2)
+            make.centerX.equalTo(nightTimeProgressView.snp.leading).offset(nightTimeProgressView.frame.width * CGFloat(nightTimeProgressView.progress))
+        }
+    }
     
     /// Input Data about ProgressView
     /// - Parameter statistics: 낮, 밤 비율 (0.0 ~ 1.0)
     func inputData(statistics: MonthStatistics) {
-        dayTimeProgressView.progress = statistics.dayTime ?? 0
-        nightTimeProgressView.progress = statistics.nightTime ?? 0
+        dayTimeProgressView.progress = Float(statistics.dayTime ?? 0)
+        nightTimeProgressView.progress = Float(statistics.nightTime ?? 0)
+        remakeConstraints()
     }
     
 }

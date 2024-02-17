@@ -17,9 +17,8 @@ final class WeekChartCustomView: UIView {
         view.layer.cornerRadius = 15
         view.clipsToBounds = true
         view.backgroundColor = .clear
-        view.trackTintColor = .cyan
+        view.trackTintColor = .OnOffLightPurple
         view.progressTintColor = .yellow
-        view.setProgress(0.7, animated: true)
         return view
     }()
     
@@ -40,9 +39,9 @@ final class WeekChartCustomView: UIView {
         view.layoutIfNeeded()
         view.layer.cornerRadius = 15
         view.clipsToBounds = true
-        view.trackTintColor = .cyan
+        view.trackTintColor = .OnOffLightPurple
         view.progressTintColor = .yellow
-        view.setProgress(0.4, animated: true)
+        
         return view
     }()
     
@@ -57,21 +56,21 @@ final class WeekChartCustomView: UIView {
     }()
     
     /// Wendseday
-    private lazy var wendsedayProgressView: UIProgressView = {
+    private lazy var wednesdayProgressView: UIProgressView = {
         let view = UIProgressView()
         view.layoutIfNeeded()
         view.layer.cornerRadius = 15
         view.clipsToBounds = true
-        view.trackTintColor = .cyan
+        view.trackTintColor = .OnOffLightPurple
         view.progressTintColor = .yellow
         view.setProgress(0.4, animated: true)
         return view
     }()
     
     /// Wendseday Title
-    private lazy var wendsedayTitle: UILabel = {
+    private lazy var wednesdayTitle: UILabel = {
         let label = UILabel()
-        label.text = "Wen"
+        label.text = "Wed"
         label.textColor = .black
         label.backgroundColor = .clear
         label.adjustsFontSizeToFitWidth = true
@@ -84,7 +83,7 @@ final class WeekChartCustomView: UIView {
         view.layoutIfNeeded()
         view.layer.cornerRadius = 15
         view.clipsToBounds = true
-        view.trackTintColor = .cyan
+        view.trackTintColor = .OnOffLightPurple
         view.progressTintColor = .yellow
         view.setProgress(0.4, animated: true)
         return view
@@ -106,7 +105,7 @@ final class WeekChartCustomView: UIView {
         view.layoutIfNeeded()
         view.layer.cornerRadius = 15
         view.clipsToBounds = true
-        view.trackTintColor = .cyan
+        view.trackTintColor = .OnOffLightPurple
         view.progressTintColor = .yellow
         view.setProgress(0.4, animated: true)
         return view
@@ -129,7 +128,7 @@ final class WeekChartCustomView: UIView {
         view.layoutIfNeeded()
         view.layer.cornerRadius = 15
         view.clipsToBounds = true
-        view.trackTintColor = .cyan
+        view.trackTintColor = .OnOffLightPurple
         view.progressTintColor = .yellow
         view.setProgress(0.4, animated: true)
         return view
@@ -151,7 +150,7 @@ final class WeekChartCustomView: UIView {
         view.layoutIfNeeded()
         view.layer.cornerRadius = 15
         view.clipsToBounds = true
-        view.trackTintColor = .cyan
+        view.trackTintColor = .OnOffLightPurple
         view.progressTintColor = .yellow
         view.setProgress(0.4, animated: true)
         return view
@@ -171,7 +170,7 @@ final class WeekChartCustomView: UIView {
     private lazy var stackView: UIStackView = {
         let view = UIStackView(arrangedSubviews: [mondayProgressView,
                                                   tuesdayProgressView,
-                                                  wendsedayProgressView,
+                                                  wednesdayProgressView,
                                                   thursdayProgressView,
                                                   fridayProgressView,
                                                   saturdayProgressView,
@@ -200,7 +199,7 @@ final class WeekChartCustomView: UIView {
         
         addSubview(mondayTitle)
         addSubview(tuesdayTitle)
-        addSubview(wendsedayTitle)
+        addSubview(wednesdayTitle)
         addSubview(thursdayTitle)
         addSubview(fridayTitle)
         addSubview(saturdayTitle)
@@ -234,11 +233,11 @@ final class WeekChartCustomView: UIView {
         }
         tuesdayTitle.transform = CGAffineTransform(rotationAngle: (.pi / 2))
         
-        wendsedayTitle.snp.makeConstraints { make in
-            make.centerY.equalTo(wendsedayProgressView.snp.centerY)
+        wednesdayTitle.snp.makeConstraints { make in
+            make.centerY.equalTo(wednesdayProgressView.snp.centerY)
             make.centerX.equalTo(mondayTitle.snp.centerX)
         }
-        wendsedayTitle.transform = CGAffineTransform(rotationAngle: (.pi / 2))
+        wednesdayTitle.transform = CGAffineTransform(rotationAngle: (.pi / 2))
         
         thursdayTitle.snp.makeConstraints { make in
             make.centerY.equalTo(thursdayProgressView.snp.centerY)
@@ -264,16 +263,33 @@ final class WeekChartCustomView: UIView {
         }
         sundayTitle.transform = CGAffineTransform(rotationAngle: (.pi / 2))
     }
+
+    /// Set ProgressImage
+    private func setProgressImage(view: UIProgressView) -> UIImage? {
+        return UIImage(bounds: view.frame, colors: [UIColor.gradient1, UIColor.OnOffMain])
+    }
     
     /// Input Data
     func inputData(statistics: DayStatistics) {
-        print(#function, statistics)
         mondayProgressView.progress = statistics.monday ?? 0
+        mondayProgressView.progressImage = setProgressImage(view: mondayProgressView)
+        
         tuesdayProgressView.progress = statistics.tuesday ?? 0
-        wendsedayProgressView.progress = statistics.wendseday ?? 0
+        tuesdayProgressView.progressImage = setProgressImage(view: tuesdayProgressView)
+        
+        wednesdayProgressView.progress = statistics.wendseday ?? 0
+        wednesdayProgressView.progressImage = setProgressImage(view: wednesdayProgressView)
+        
         thursdayProgressView.progress = statistics.thursday ?? 0
+        thursdayProgressView.progressImage = setProgressImage(view: thursdayProgressView)
+        
         fridayProgressView.progress = statistics.friday ?? 0
+        fridayProgressView.progressImage = setProgressImage(view: fridayProgressView)
+        
         saturdayProgressView.progress = statistics.saturday ?? 0
+        saturdayProgressView.progressImage = setProgressImage(view: saturdayProgressView)
+        
         sundayProgressView.progress = statistics.sunday ?? 0
+        sundayProgressView.progressImage = setProgressImage(view: sundayProgressView)
     }
 }

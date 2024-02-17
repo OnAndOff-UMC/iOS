@@ -13,6 +13,7 @@ import UIKit
 /// SelectTimeViewController
 final class SelectTimeViewController : UIViewController {
     
+    /// clockImage: 온보딩이미지
     private lazy var clockImage : UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -20,6 +21,7 @@ final class SelectTimeViewController : UIViewController {
         return imageView
     }()
     
+    /// titleLabel
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "알림 받을 요일과 퇴근 시간을 골라주세요"
@@ -29,6 +31,7 @@ final class SelectTimeViewController : UIViewController {
         return label
     }()
     
+    /// subTitleLabel
     private lazy var subTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "퇴근 시간에 회고할 수 있도록 도와드릴게요"
@@ -38,7 +41,10 @@ final class SelectTimeViewController : UIViewController {
         return label
     }()
     
+    /// 날짜 클릭 버튼
     private var dayButtons: [DayButton] = []
+    
+    /// 주별 날짜
     private var daysOfWeek = [
         DayModel(name: "월", isChecked: false),
         DayModel(name: "화", isChecked: false),
@@ -56,14 +62,16 @@ final class SelectTimeViewController : UIViewController {
         return stackView
     }()
     
+    /// 고정 글씨 Status
     private lazy var stateLabel: UILabel = {
         let label = UILabel()
         label.text = "Status"
         label.textColor = .lightGray
-        label.font = .systemFont(ofSize: 15, weight: .regular)
+        label.font = .systemFont(ofSize: 12, weight: .regular)
         return label
     }()
     
+    /// 아래버튼
     private lazy var downImage : UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "chevron.down"), for:.normal)
@@ -71,6 +79,7 @@ final class SelectTimeViewController : UIViewController {
         return button
     }()
     
+    /// 선택된 버튼 속성
     private lazy var selectedTimeButton: UIButton = {
         let button = UIButton()
         button.setTitle("오후 00:00", for: .normal)
@@ -85,14 +94,16 @@ final class SelectTimeViewController : UIViewController {
     /// 확인버튼
     private let checkButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("확인", for: .normal)
+        button.setTitle("알람 설정 저장하기", for: .normal)
+        button.titleLabel?.tintColor = .white
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
         return button
     }()
     
+    /// 체크 버튼뷰
     private lazy var checkButtonView: UIView = {
         let view = UIView()
-        view.backgroundColor = .blue
+        view.backgroundColor = .OnOffMain
         return view
     }()
     
@@ -113,6 +124,7 @@ final class SelectTimeViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        setupCheckButtonView()
         setupDayButtons()
         addSubiews()
         setupBindings()
@@ -147,31 +159,31 @@ final class SelectTimeViewController : UIViewController {
     /// configureConstraint
     private func configureConstraint() {
         clockImage.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(20)
-            make.leading.trailing.equalToSuperview().inset(50)
+            make.top.equalToSuperview().inset(50)
+            make.leading.trailing.equalToSuperview().inset(80)
             make.height.equalTo(clockImage.snp.width)
         }
         
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(clockImage.snp.bottom).offset(10)
+            make.top.equalTo(clockImage.snp.bottom).offset(15)
             make.centerX.equalToSuperview()
         }
         
         subTitleLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(10)
+            make.top.equalTo(titleLabel.snp.bottom).offset(15)
             make.centerX.equalToSuperview()
         }
         
         stackView.snp.makeConstraints { make in
-            make.top.equalTo(subTitleLabel.snp.bottom).offset(10)
+            make.top.equalTo(subTitleLabel.snp.bottom).offset(15)
             make.centerX.equalToSuperview()
             make.leading.trailing.equalToSuperview().inset(10)
         }
         
         selectedTimeButton.snp.makeConstraints { make in
-            make.top.equalTo(stackView.snp.bottom).offset(30)
+            make.top.equalTo(stackView.snp.bottom).offset(35)
             make.centerX.equalToSuperview()
-            make.height.equalTo(selectedTimeButton.snp.width).multipliedBy(0.15)
+            make.height.equalTo(selectedTimeButton.snp.width).multipliedBy(0.13)
             make.leading.trailing.equalToSuperview().inset(10)
         }
         
@@ -184,22 +196,58 @@ final class SelectTimeViewController : UIViewController {
             make.bottom.equalTo(selectedTimeButton.snp.top).offset(-5)
             make.leading.equalTo(selectedTimeButton.snp.leading)
         }
+        
         checkButtonView.snp.makeConstraints { make in
             make.bottom.equalToSuperview().inset(50)
             make.height.equalTo(checkButtonView.snp.width).multipliedBy(0.15)
             make.leading.trailing.equalToSuperview().inset(17)
         }
+        
         checkButton.snp.makeConstraints { make in
             make.center.equalToSuperview()
         }
     }
+    
     /// DatePicker 값 바인딩
     private func setupBindings() {
+        let input = SelectTimeViewModel.Input(startButtonTapped: checkButton.rx.tap.asObservable())
+        let output = viewModel.bind(input: input)
+        
+        bindUIEvents(output)
+    }
+    
+    // 각 바인딩 메소드
+    private func bindUIEvents(_ output: SelectTimeViewModel.Output) {
+        
+        // 시간 선택 버튼 이벤트 처리
+        bindSelectedTimeButton()
+        
+        // 다음화면 이동 버튼 이벤트 처리
+        bindMoveToNext(output)
+        
+    }
+    
+    private func bindSelectedTimeButton() {
         selectedTimeButton.rx.tap
             .bind { [weak self] in
                 self?.showTimePicker()
             }
             .disposed(by: disposeBag)
+    }
+    
+    private func bindMoveToNext(_ output: SelectTimeViewModel.Output) {
+        output.moveToNext
+            .subscribe(onNext: { [weak self] in
+                self?.moveToMain()
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    /// 확인  버튼 속성 설정
+    private func setupCheckButtonView(){
+        let cornerRadius = UICalculator.calculate(for: .longButtonCornerRadius, width: view.frame.width)
+        checkButtonView.layer.cornerRadius = cornerRadius
+        checkButtonView.layer.masksToBounds = true
     }
     
     /// timePicker 창 보기
@@ -241,7 +289,6 @@ final class SelectTimeViewController : UIViewController {
         })
         alertController.addAction(selectAction)
         
-        
         present(alertController, animated: true, completion: nil)
     }
     
@@ -252,5 +299,11 @@ final class SelectTimeViewController : UIViewController {
         formatter.amSymbol = "오전" // 오전
         formatter.pmSymbol = "오후" // 오후
         selectedTimeButton.setTitle(formatter.string(from: date), for: .normal)
+    }
+    
+    /// 메인 화면으로 이동
+    private func moveToMain() {
+        let tabBarController = TabBarController()
+        navigationController?.pushViewController(tabBarController, animated: true)
     }
 }
