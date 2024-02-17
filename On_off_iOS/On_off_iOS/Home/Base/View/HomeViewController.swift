@@ -83,8 +83,8 @@ final class HomeViewController: UIViewController {
     }()
     
     /// On UIViewr
-    private lazy var onUIView: UIView = {
-        let view = UIView()
+    private lazy var onUIView: OnUIView = {
+        let view = OnUIView(frame: CGRect(x: .zero, y: .zero, width: view.safeAreaLayoutGuide.layoutFrame.width, height: .zero))
         view.backgroundColor = .white
         view.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
         view.layer.cornerRadius = 25
@@ -95,7 +95,7 @@ final class HomeViewController: UIViewController {
         
         return view
     }()
-    
+   
     /// Off UIView
     private lazy var offUIView: OffUIView = {
         let view = OffUIView(frame: CGRect(x: .zero, y: .zero, width: view.safeAreaLayoutGuide.layoutFrame.width, height: .zero))
