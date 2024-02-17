@@ -72,10 +72,8 @@ extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         print("파이어베이스 토큰: \(fcmToken ?? "")")
         guard let fcmToken = fcmToken else { return }
-//        _ = KeychainWrapper.saveItem(value: fcmToken, forKey: "DeviceToken")
-//        
-//        let loginService = SignInService()
-//        _ = loginService.updateFCMDeviceToken(fcmToken: fcmToken)
+        _ = KeychainWrapper.saveItem(value: fcmToken, forKey: "DeviceToken")
+        
     }
     
 }
@@ -97,21 +95,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         print(response.notification.request.content.title, response.notification.request.content.body)
         
         let userInfo = response.notification.request.content.userInfo
-        let type = "\(response.notification.request.content.body.split(separator: " ")[0])"
-        let id = userInfo.filter { "\($0.key)" == "id" }
-        
-        print("type: \(type)")
-        
-        guard let value = id.first?.value else { return }
-        print("value \(value)")
-        NotificationCenter.default.post(name: Notification.Name("showPage"),
-                                        object: nil,
-                                        userInfo: ["index": 1, "id": value, "type": type,
-                                                   "title": response.notification
-                                            .request.content.title,
-                                                   "body": response.notification
-                                            .request.content.body])
-        
+    
         userInfo.forEach { (key: AnyHashable, value: Any) in
             print(key, value)
         }
