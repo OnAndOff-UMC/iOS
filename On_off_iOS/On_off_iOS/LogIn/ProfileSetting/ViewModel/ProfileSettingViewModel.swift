@@ -19,6 +19,7 @@ final class ProfileSettingViewModel {
     struct Input {
         let startButtonTapped: Observable<Void>
         let jobTextChanged: Observable<String>
+        
     }
     
     /// Output
@@ -27,7 +28,6 @@ final class ProfileSettingViewModel {
         let isCheckButtonEnabled: BehaviorRelay<Bool> = BehaviorRelay<Bool>(value: true)
         let success: PublishSubject<Bool> = PublishSubject<Bool>()
         let errorMessage: PublishSubject<String?> = PublishSubject<String?>()
-        
     }
     
     // MARK: - Init

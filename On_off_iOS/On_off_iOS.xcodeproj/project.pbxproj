@@ -26,7 +26,6 @@
 		371B9EBF2B5B075A006AC06D /* WriteImprovementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371B9EBE2B5B075A006AC06D /* WriteImprovementViewController.swift */; };
 		371B9EC32B5B076E006AC06D /* WriteLearnedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371B9EC22B5B076E006AC06D /* WriteLearnedViewModel.swift */; };
 		371B9EC52B5B0B61006AC06D /* WriteLearnedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371B9EC42B5B0B61006AC06D /* WriteLearnedViewController.swift */; };
-		37225CF42B7DE7D300F06C2C /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 37225CF32B7DE7D300F06C2C /* Config.xcconfig */; };
 		374FD4932B4268EC00F2E645 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 374FD4922B4268EC00F2E645 /* RxCocoa */; };
 		374FD4952B4268EC00F2E645 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 374FD4942B4268EC00F2E645 /* RxRelay */; };
 		374FD4972B4268EC00F2E645 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 374FD4962B4268EC00F2E645 /* RxSwift */; };
@@ -57,6 +56,8 @@
 		3787D00F2B42AD6F00F054DD /* OnBoardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787D00E2B42AD6F00F054DD /* OnBoardingViewModel.swift */; };
 		3787D0132B42E0F000F054DD /* NickNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787D0122B42E0F000F054DD /* NickNameViewController.swift */; };
 		3789F5F62B7FB91700B8EADB /* MyInfoSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3789F5F52B7FB91700B8EADB /* MyInfoSettingViewController.swift */; };
+		3789F5FA2B7FCB5800B8EADB /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3789F5F92B7FCB5800B8EADB /* Config.xcconfig */; };
+		3789F5FC2B7FCFE400B8EADB /* MyInfoSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3789F5FB2B7FCFE400B8EADB /* MyInfoSettingViewModel.swift */; };
 		37A1E9862B6C821A0013FFD7 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = 37A1E9852B6C821A0013FFD7 /* RxGesture */; };
 		37A1E9882B6CB1DD0013FFD7 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A1E9872B6CB1DD0013FFD7 /* LoginService.swift */; };
 		37A1E98A2B6CB1F70013FFD7 /* LoginProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A1E9892B6CB1F70013FFD7 /* LoginProtocol.swift */; };
@@ -166,7 +167,6 @@
 		3BF02BD72B7E0B840079A091 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF02BD62B7E0B840079A091 /* MyPageViewController.swift */; };
 		3BF02BD92B7E0B970079A091 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF02BD82B7E0B970079A091 /* MyPageViewModel.swift */; };
 		3BF02BDC2B7E0DE00079A091 /* TopCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF02BDB2B7E0DE00079A091 /* TopCustomButton.swift */; };
-		3BF02BDE2B7E30400079A091 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3BF02BDD2B7E30400079A091 /* Config.xcconfig */; };
 		3BF02BE02B7E39DD0079A091 /* ListCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF02BDF2B7E39DD0079A091 /* ListCustomButton.swift */; };
 		3BF02BE32B7E46F10079A091 /* MyPageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF02BE22B7E46F10079A091 /* MyPageService.swift */; };
 /* End PBXBuildFile section */
@@ -198,7 +198,6 @@
 		371B9EBE2B5B075A006AC06D /* WriteImprovementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteImprovementViewController.swift; sourceTree = "<group>"; };
 		371B9EC22B5B076E006AC06D /* WriteLearnedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteLearnedViewModel.swift; sourceTree = "<group>"; };
 		371B9EC42B5B0B61006AC06D /* WriteLearnedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteLearnedViewController.swift; sourceTree = "<group>"; };
-		37225CF32B7DE7D300F06C2C /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		374FD49C2B4281E100F2E645 /* OnboardingCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCustomView.swift; sourceTree = "<group>"; };
 		374FD49E2B42825B00F2E645 /* CustomPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPageControl.swift; sourceTree = "<group>"; };
 		374FD4A32B4297BE00F2E645 /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
@@ -224,6 +223,8 @@
 		3787D00E2B42AD6F00F054DD /* OnBoardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewModel.swift; sourceTree = "<group>"; };
 		3787D0122B42E0F000F054DD /* NickNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameViewController.swift; sourceTree = "<group>"; };
 		3789F5F52B7FB91700B8EADB /* MyInfoSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoSettingViewController.swift; sourceTree = "<group>"; };
+		3789F5F92B7FCB5800B8EADB /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		3789F5FB2B7FCFE400B8EADB /* MyInfoSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoSettingViewModel.swift; sourceTree = "<group>"; };
 		37A1E9832B6C7FC60013FFD7 /* On_off_iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = On_off_iOS.entitlements; sourceTree = "<group>"; };
 		37A1E9872B6CB1DD0013FFD7 /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		37A1E9892B6CB1F70013FFD7 /* LoginProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginProtocol.swift; sourceTree = "<group>"; };
@@ -314,7 +315,6 @@
 		3BF02BD62B7E0B840079A091 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		3BF02BD82B7E0B970079A091 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		3BF02BDB2B7E0DE00079A091 /* TopCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopCustomButton.swift; sourceTree = "<group>"; };
-		3BF02BDD2B7E30400079A091 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		3BF02BDF2B7E39DD0079A091 /* ListCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCustomButton.swift; sourceTree = "<group>"; };
 		3BF02BE22B7E46F10079A091 /* MyPageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -619,6 +619,7 @@
 			isa = PBXGroup;
 			children = (
 				3789F5F52B7FB91700B8EADB /* MyInfoSettingViewController.swift */,
+				3789F5FB2B7FCFE400B8EADB /* MyInfoSettingViewModel.swift */,
 			);
 			path = MyInfoSetting;
 			sourceTree = "<group>";
@@ -990,7 +991,7 @@
 				3B0129C42B6242D400B191AD /* Extension */,
 				35E0C7282B68C7AC006BF427 /* Fonts */,
 				3B4230182B41572400D0B038 /* LaunchScreen.storyboard */,
-				3BF02BDD2B7E30400079A091 /* Config.xcconfig */,
+				3789F5F92B7FCB5800B8EADB /* Config.xcconfig */,
 				3B42301B2B41572400D0B038 /* Info.plist */,
 				37C161252B6BDAD0000E0B21 /* GoogleService-Info.plist */,
 				370826202B669BFC00FBCAAF /* UICalculate+Ex.swift */,
@@ -1267,7 +1268,7 @@
 				3B42301A2B41572400D0B038 /* LaunchScreen.storyboard in Resources */,
 				37C161262B6BDAD1000E0B21 /* GoogleService-Info.plist in Resources */,
 				376A4B592B55054D004FBB56 /* onBoarding.json in Resources */,
-				3BF02BDE2B7E30400079A091 /* Config.xcconfig in Resources */,
+				3789F5FA2B7FCB5800B8EADB /* Config.xcconfig in Resources */,
 				3B4230172B41572400D0B038 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1293,6 +1294,7 @@
 				374FD49F2B42825B00F2E645 /* CustomPageControl.swift in Sources */,
 				37C161232B6BD9F8000E0B21 /* LoginViewModel.swift in Sources */,
 				3BA89DF12B7FAF38002ACCCF /* WebViewController.swift in Sources */,
+				3789F5FC2B7FCFE400B8EADB /* MyInfoSettingViewModel.swift in Sources */,
 				355283122B68CB70002BBFFD /* Ext + UIFont.swift in Sources */,
 				37FED60D2B6E29070071BB23 /* BookmarkTableViewCell.swift in Sources */,
 				3B44BDEC2B7CF30100AE9170 /* StatisticsService.swift in Sources */,
@@ -1426,7 +1428,7 @@
 /* Begin XCBuildConfiguration section */
 		3B42301C2B41572400D0B038 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3BF02BDD2B7E30400079A091 /* Config.xcconfig */;
+			baseConfigurationReference = 3789F5F92B7FCB5800B8EADB /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1490,7 +1492,7 @@
 		};
 		3B42301D2B41572400D0B038 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3BF02BDD2B7E30400079A091 /* Config.xcconfig */;
+			baseConfigurationReference = 3789F5F92B7FCB5800B8EADB /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1547,7 +1549,7 @@
 		};
 		3B42301F2B41572400D0B038 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3BF02BDD2B7E30400079A091 /* Config.xcconfig */;
+			baseConfigurationReference = 3789F5F92B7FCB5800B8EADB /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1580,7 +1582,7 @@
 		};
 		3B4230202B41572400D0B038 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3BF02BDD2B7E30400079A091 /* Config.xcconfig */;
+			baseConfigurationReference = 3789F5F92B7FCB5800B8EADB /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

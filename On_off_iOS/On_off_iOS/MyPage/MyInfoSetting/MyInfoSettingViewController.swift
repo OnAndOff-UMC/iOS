@@ -176,19 +176,10 @@ final class MyInfoSettingViewController: UIViewController {
         return lineView
     }()
     
-    
-    /// 확인 버튼
-    private let checkButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("확인", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+    /// 완료 버튼 - 네비게이션 바
+    private lazy var saveButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "완료", style: .plain, target: nil, action: nil)
         return button
-    }()
-    
-    /// 확인버튼 뷰
-    private lazy var checkButtonView: UIView = {
-        let view = UIView()
-        return view
     }()
     
     private var viewModel: ProfileSettingViewModel
@@ -216,15 +207,8 @@ final class MyInfoSettingViewController: UIViewController {
     
     private func settingView(){
         view.backgroundColor = UIColor.white
-        setupCheckButtonView()
         view.backgroundColor = .white
-    }
-    
-    /// 시작  버튼 속성 설정
-    private func setupCheckButtonView(){
-        let cornerRadius = UICalculator.calculate(for: .longButtonCornerRadius, width: view.frame.width)
-        checkButtonView.layer.cornerRadius = cornerRadius
-        checkButtonView.layer.masksToBounds = true
+        navigationItem.rightBarButtonItems = [saveButton]
     }
     
     // 키보드내리기
@@ -258,8 +242,6 @@ final class MyInfoSettingViewController: UIViewController {
         view.addSubview(annualLine)
         
         view.addSubview(nickNameExplainLabel)
-        view.addSubview(checkButtonView)
-        checkButtonView.addSubview(checkButton)
         configureConstraints()
     }
     
@@ -277,6 +259,7 @@ final class MyInfoSettingViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.8)
         }
+        
         nickNameLine.snp.makeConstraints { make in
             make.top.equalTo(nickNameTextField.snp.bottom).offset(8)
             make.leading.trailing.equalToSuperview().inset(10)
@@ -323,6 +306,7 @@ final class MyInfoSettingViewController: UIViewController {
             make.top.equalTo(fieldOfWorkLine.snp.bottom).offset(50)
             make.leading.equalToSuperview().offset(10)
         }
+        
         jobTextField.snp.makeConstraints { make in
             make.top.equalTo(job.snp.bottom).offset(18)
             make.leading.trailing.equalToSuperview().inset(10)
@@ -364,22 +348,11 @@ final class MyInfoSettingViewController: UIViewController {
             make.height.equalTo(1)
             
         }
-     
-        
-        checkButtonView.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().inset(50)
-            make.height.equalTo(checkButtonView.snp.width).multipliedBy(0.15)
-            make.leading.trailing.equalToSuperview().inset(17)
-            
-            checkButton.snp.makeConstraints { make in
-                make.center.equalToSuperview()
-            }
-        }
     }
     
     /// 뷰모델과 setupBindings
     private func setupBindings() {
-        let input = ProfileSettingViewModel.Input(startButtonTapped: checkButton.rx.tap.asObservable(),
+        let input = ProfileSettingViewModel.Input(startButtonTapped: saveButton.rx.tap.asObservable(),
                                                   jobTextChanged: jobTextField.rx.text.orEmpty.asObservable())
         let output = viewModel.bind(input: input)
         
@@ -388,30 +361,12 @@ final class MyInfoSettingViewController: UIViewController {
             .map { "(\($0)/30)" }
             .bind(to: checkLenghtJobLabel.rx.text)
             .disposed(by: disposeBag)
-        
-        // 버튼 활성화 상태 및 색상 변경 바인딩
-        output.isCheckButtonEnabled
-            .observe(on: MainScheduler.instance)
-            .bind { [weak self] isEnabled in
-                guard let self = self else { return }
-                checkButton.isEnabled = isEnabled
-                checkButtonView.layer.borderColor = UIColor.OnOffMain.cgColor
-                checkButtonView.layer.borderWidth = 1
-                
-                checkButtonView.backgroundColor = isEnabled ? UIColor.OnOffMain : .white
-                checkButton.setTitleColor(isEnabled ? .white : UIColor.OnOffMain, for: .normal)
-            }
-            .disposed(by: disposeBag)
-        
-        output.success
-            .filter { $0 }
-            .subscribe(onNext: { [weak self] _ in
-                self?.moveToSelectTime()
-            })
-            .disposed(by: disposeBag)
-        
-        checkButton.rx.tap
+                        
+        saveButton.rx.tap
             .bind { [weak self] in
+                if let nickName = self?.nickNameTextField.text {
+                    _ = KeychainWrapper.saveItem(value: nickName, forKey: ProfileKeyChain.nickname.rawValue)
+                }
                 if let job = self?.jobTextField.text {
                     _ = KeychainWrapper.saveItem(value: job, forKey: ProfileKeyChain.job.rawValue)
                 }
@@ -452,7 +407,6 @@ final class MyInfoSettingViewController: UIViewController {
         let vc = SelectTimeViewController(viewModel: selectTimeViewModel)
         self.navigationController?.pushViewController(vc, animated: true)
     }
-    
 }
 
 /// extension : ModalSelectProfileDelegate : 모달창으로 부터 데이터 받기
