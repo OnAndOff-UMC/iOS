@@ -58,16 +58,15 @@ final class MyInfoSettingService: MyInfoSettingProtocol {
     /// 내정보 수정완료하기
     func saveMyInformation(userInfo: UserInfoRequest) -> Observable<Response<UserInfoResult>> {
         let url = Domain.RESTAPI + LoginPath.saveuserInfo.rawValue
+        let header = Header.header.getHeader()
+
         print(userInfo)
         return Observable.create { observer in
             AF.request(url,
                        method: .put,
-                       parameters: ["nickname": userInfo.nickname,
-                                    "fieldOfWork": userInfo.fieldOfWork,
-                                    "job": userInfo.job,
-                                    "experienceYear": userInfo.experienceYear],
-                       encoder: JSONParameterEncoder.default
-            )
+                       parameters: userInfo,
+                       encoder: JSONParameterEncoder.default,
+                       headers: header)
             .validate(statusCode: 200..<201)
             .responseDecodable(of: Response<UserInfoResult>.self) { response in
                 switch response.result {

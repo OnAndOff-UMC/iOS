@@ -23,7 +23,7 @@ enum LoginPath: String {
     case experienceYear = "/enums/experience-years"
     
     /// 마이페이지에서 수정할 정보
-    case saveuserInfo = "/users"
+    case saveuserInfo = "/users/"
     
 
 }
