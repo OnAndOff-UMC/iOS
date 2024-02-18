@@ -60,6 +60,13 @@ final class OnUIViewModel {
         input.selectedDate?
             .bind(to: output.selectedDate)
             .disposed(by: disposeBag)
+        
+        input.selectedDate?
+            .bind { [weak self] date in
+                guard let self = self else { return }
+                getWorkLogList(output: output)
+            }
+            .disposed(by: disposeBag)
     }
     
     /// Binding Success Add Worklog
