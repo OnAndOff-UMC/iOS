@@ -370,13 +370,28 @@ final class MyInfoSettingViewController: UIViewController {
     
     /// 뷰모델과 setupBindings
     private func setupBindings() {
-        let input = MyInfoSettingViewModel.Input(saveButtonTapped: PublishSubject<Void>(),
-                                                 jobTextChanged: jobTextField.rx.text.orEmpty.asObservable(),
-                                                 nickNameTextChanged: nickNameTextField.rx.text.orEmpty.asObservable(),
-                                                 nicknameValidationTrigger: nickNameTextField.rx.text.orEmpty.asObservable()
-                                                 )
+        let nickNameTextChanged = nickNameTextField.rx.text.orEmpty.asObservable()
+        let jobTextChanged = jobTextField.rx.text.orEmpty.asObservable()
+        let fieldOfWorkSelected = PublishSubject<String>()
+        let experienceYearSelected = PublishSubject<String>()
+        let saveButtonTapped = PublishSubject<Void>()
+        
+        // saveButton 이벤트를 saveButtonTapped에 바인딩
+        saveButton.rx.tap
+            .bind(to: saveButtonTapped)
+            .disposed(by: disposeBag)
+        
+        let input = MyInfoSettingViewModel.Input(
+            saveButtonTapped: saveButtonTapped,
+            jobTextChanged: jobTextChanged,
+            nickNameTextChanged: nickNameTextChanged,
+            nicknameValidationTrigger: nickNameTextChanged,
+            fieldOfWorkSelected: fieldOfWorkSelected,
+            experienceYearSelected: experienceYearSelected
+        )
+        
         let output = viewModel.bind(input: input)
-  
+        
         bindSaveButton(input: input, output: output)
         bindFieldOfWorkButton(output: output)
         bindNicknameValidationMessage(output: output)
@@ -395,46 +410,46 @@ final class MyInfoSettingViewController: UIViewController {
     
     private func saveButtonTappedEvent(input: MyInfoSettingViewModel.Input, output: MyInfoSettingViewModel.Output) {
         // 완료 버튼 탭 액션 처리
-           saveButton.rx.tap
-               .subscribe(onNext: { [weak self] _ in
-                   guard let self = self else { return }
-                   
-                   // Keychain에 저장
-                   if let nickname = self.nickNameTextField.text,
-                      let fieldOfWork = self.fieldOfWorkButton.titleLabel?.text,
-                      let job = self.jobTextField.text,
-                      let experienceYear = self.annualButton.titleLabel?.text {
-                       
-                       _ = KeychainWrapper.saveItem(value: nickname, forKey: ProfileKeyChain.nickname.rawValue)
-                       _ = KeychainWrapper.saveItem(value: fieldOfWork, forKey: ProfileKeyChain.fieldOfWork.rawValue)
-                       _ = KeychainWrapper.saveItem(value: job, forKey: ProfileKeyChain.job.rawValue)
-                       _ = KeychainWrapper.saveItem(value: experienceYear, forKey: ProfileKeyChain.experienceYear.rawValue)
-                   }
-                   
-                   input.saveButtonTapped.onNext(())
-               })
-               .disposed(by: disposeBag)
+        saveButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                
+                // Keychain에 저장
+                if let nickname = self.nickNameTextField.text,
+                   let fieldOfWork = self.fieldOfWorkButton.titleLabel?.text,
+                   let job = self.jobTextField.text,
+                   let experienceYear = self.annualButton.titleLabel?.text {
+                    
+                    _ = KeychainWrapper.saveItem(value: nickname, forKey: ProfileKeyChain.nickname.rawValue)
+                    _ = KeychainWrapper.saveItem(value: fieldOfWork, forKey: ProfileKeyChain.fieldOfWork.rawValue)
+                    _ = KeychainWrapper.saveItem(value: job, forKey: ProfileKeyChain.job.rawValue)
+                    _ = KeychainWrapper.saveItem(value: experienceYear, forKey: ProfileKeyChain.experienceYear.rawValue)
+                }
+                
+                input.saveButtonTapped.onNext(())
+            })
+            .disposed(by: disposeBag)
     }
     /// bindSaveButtone
     private func bindSaveButton(input: MyInfoSettingViewModel.Input, output: MyInfoSettingViewModel.Output) {
         output.isCheckButtonEnabled
-               .observe(on: MainScheduler.instance)
-               .bind(to: saveButton.rx.isEnabled)
-               .disposed(by: disposeBag)
+            .observe(on: MainScheduler.instance)
+            .bind(to: saveButton.rx.isEnabled)
+            .disposed(by: disposeBag)
         
         saveButton.rx.tap
-               .bind(to: input.saveButtonTapped)
-               .disposed(by: disposeBag)
+            .bind(to: input.saveButtonTapped)
+            .disposed(by: disposeBag)
         
         
         output.success
-             .filter { $0 }
-             .observe(on: MainScheduler.instance)
-             .subscribe(onNext: { [weak self] _ in
-                 self?.navigationController?.popViewController(animated: true)
-             })
-             .disposed(by: disposeBag)
-            }
+            .filter { $0 }
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
+            })
+            .disposed(by: disposeBag)
+    }
     
     /// bindFieldOfWorkButton
     private func bindFieldOfWorkButton(output: MyInfoSettingViewModel.Output) {
@@ -464,7 +479,7 @@ final class MyInfoSettingViewController: UIViewController {
     
     /// 닉네임 글자 수 출력 바인딩
     private func bindNickNameLength(output: MyInfoSettingViewModel.Output) {
-     
+        
         output.nickNameLength
             .map { "\($0)/10" }
             .observe(on: MainScheduler.instance)
@@ -486,7 +501,7 @@ final class MyInfoSettingViewController: UIViewController {
             .bind(to: nickNameTextField.rx.text)
             .disposed(by: disposeBag)
     }
-        
+    
     /// 닉네임에 정보 삽입
     private func bindNicknameValidationResult(output: MyInfoSettingViewModel.Output) {
         output.nicknameValidationResult
@@ -517,7 +532,7 @@ final class MyInfoSettingViewController: UIViewController {
             .bind(to: fieldOfWorkButton.rx.title(for: .normal))
             .disposed(by: disposeBag)
     }
-
+    
     /// 이모티콘 모달 띄우기
     private func presentModalForProfileSetting(dataType: ProfileDataType) {
         let viewModel = ModalSelectProfileViewModel()

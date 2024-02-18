@@ -20,7 +20,9 @@ final class MyInfoSettingViewModel: MyInfoSettingProtocol {
         let saveButtonTapped: PublishSubject<Void>
         let jobTextChanged: Observable<String>
         let nickNameTextChanged: Observable<String>
-        let nicknameValidationTrigger: Observable<String> // 닉네임 검증을 위한 새 입력
+        let nicknameValidationTrigger: Observable<String>
+        let fieldOfWorkSelected: PublishSubject<String>
+        let experienceYearSelected: PublishSubject<String>
     }
     
     /// Output
@@ -62,45 +64,62 @@ final class MyInfoSettingViewModel: MyInfoSettingProtocol {
         observeJobTextChanges(input.jobTextChanged, output: output)
         
         bindingSaveButtonTapped(input: input, output: output)
-
-        // 시작 버튼 탭 이벤트 처리
-      //  handleStartButtonTapped(input.saveButtonTapped, output: output)
+        
+        ///초기 완료버튼 가능하게
+        output.isCheckButtonEnabled.accept(true)
         
         return output
     }
     
+    /// 초기값 확인
+    private func fetchExistingUserInfo() {
+        var existingUserInfo: UserInfoRequest?
+        
+        myInfoSettingService.getMyInformation()
+            .subscribe(onNext: { [weak self] info in
+                existingUserInfo = UserInfoRequest(
+                    nickname: info.nickname,
+                    fieldOfWork: info.fieldOfWork,
+                    job: info.job,
+                    experienceYear: info.experienceYear
+                )
+            }).disposed(by: disposeBag)
+    }
+    
+    /// 저장 버튼 바인딩
     private func bindingSaveButtonTapped(input: Input, output: Output) {
         
         input.saveButtonTapped
-                   .flatMapLatest { [weak self] _ -> Observable<Response<UserInfoResult>> in
-                       guard let self = self else { return .empty() }
-                       // Keychain에서 값 로드
-                           let nickname = KeychainWrapper.loadItem(forKey: ProfileKeyChain.nickname.rawValue) ?? ""
-                           let fieldOfWork = KeychainWrapper.loadItem(forKey: ProfileKeyChain.fieldOfWork.rawValue) ?? ""
-                           let job = KeychainWrapper.loadItem(forKey: ProfileKeyChain.job.rawValue) ?? ""
-                           let experienceYear = KeychainWrapper.loadItem(forKey: ProfileKeyChain.experienceYear.rawValue) ?? ""
-
-                       let userInfo = UserInfoRequest(
-                           nickname: nickname,
-                           fieldOfWork: fieldOfWork,
-                           job: job,
-                           experienceYear: experienceYear
-                       )
-                       return self.myInfoSettingService.saveMyInformation(userInfo: userInfo)
-                   }
-                   .subscribe(onNext: { response in
-                       if response.isSuccess ?? false {
-                           output.success.onNext(true)
-                           print("저장 성공")
-                       } else {
-                           output.errorMessage.onNext(response.message ?? "Error")
-                           print("저장 실패")
-                       }
-                   }, onError: { error in
-                       output.errorMessage.onNext(error.localizedDescription)
-                       print("오류 발생: \(error.localizedDescription)")
-                   })
-                   .disposed(by: disposeBag)
+            .withLatestFrom(Observable.combineLatest(
+                input.nickNameTextChanged.startWith(""),
+                input.fieldOfWorkSelected.startWith(""),
+                input.jobTextChanged.startWith(""),
+                input.experienceYearSelected.startWith("")
+            )) { _, combine in
+                UserInfoRequest(
+                    nickname: combine.0,
+                    fieldOfWork: combine.1,
+                    job: combine.2,
+                    experienceYear: combine.3
+                )
+            }
+            .flatMapLatest { [weak self] userInfoRequest -> Observable<Response<UserInfoResult>> in
+                guard let self = self else { return .empty() }
+                return self.myInfoSettingService.saveMyInformation(userInfo: userInfoRequest)
+            }
+            .subscribe(onNext: { response in
+                if response.isSuccess ?? false {
+                    output.success.onNext(true)
+                    print("저장 성공")
+                } else {
+                    output.errorMessage.onNext(response.message ?? "Error")
+                    print("저장 실패")
+                }
+            }, onError: { error in
+                output.errorMessage.onNext(error.localizedDescription)
+                print("오류 발생: \(error.localizedDescription)")
+            })
+            .disposed(by: disposeBag)
     }
     
     /// Input Nick Name
@@ -114,7 +133,7 @@ final class MyInfoSettingViewModel: MyInfoSettingProtocol {
     }
     
     private func inputjob(info: MyInfo, output: Output) {
-        output.experienceYearRelay.accept(info.job ?? "")
+        output.jobRelay.accept(info.job ?? "")
     }
     
     private func inputexperienceYear(info: MyInfo, output: Output) {
@@ -129,16 +148,16 @@ final class MyInfoSettingViewModel: MyInfoSettingProtocol {
                 /// 정보 삽입
                 inputNickName(nickName: info.nickname ?? "", output: output)
                 inputfieldOfWork(info: info, output: output)
-                inputjob(info: info, output: output) 
+                inputjob(info: info, output: output)
                 inputexperienceYear(info: info, output: output)
-
+                
                 
             }, onError: { error in
                 print(#function, error)
             })
             .disposed(by: disposeBag)
     }
-
+    
     /// 1.글자수
     /// 2. 글자 유효
     /// 3. 내 기존 입력과 동일성
@@ -178,7 +197,7 @@ final class MyInfoSettingViewModel: MyInfoSettingProtocol {
                 output.nickNameLength.onNext(length)
             })
             .disposed(by: disposeBag)
-
+        
         output.nicknameValidationResult
             .map { $0 }
             .bind(to: output.isCheckButtonEnabled)
@@ -201,4 +220,3 @@ final class MyInfoSettingViewModel: MyInfoSettingProtocol {
             .disposed(by: disposeBag)
     }
 }
-
