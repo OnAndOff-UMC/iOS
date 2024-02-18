@@ -27,6 +27,8 @@ final class InsertWorkLogService {
                        encoder: JSONParameterEncoder.default,
                        headers: header)
 //            .validate(statusCode: 200..<201)
+//            .responseString { response in
+//            print(response) }
             .responseDecodable(of: Response<Worklog>.self) { response in
                 print(#function, response)
                 switch response.result {
