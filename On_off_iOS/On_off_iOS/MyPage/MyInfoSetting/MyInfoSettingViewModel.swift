@@ -129,6 +129,7 @@ final class MyInfoSettingViewModel: MyInfoSettingProtocol {
                 /// 정보 삽입
                 inputNickName(nickName: info.nickname ?? "", output: output)
                 inputfieldOfWork(info: info, output: output)
+                inputjob(info: info, output: output) 
                 inputexperienceYear(info: info, output: output)
 
                 

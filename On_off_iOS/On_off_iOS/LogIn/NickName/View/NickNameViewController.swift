@@ -57,6 +57,16 @@ final class NickNameViewController: UIViewController {
         return field
     }()
     
+    /// 닉네임 중복 검사 결과 라벨
+    private let nicknameValidationResultLabel: UILabel = {
+        let label = UILabel()
+        label.text = ""
+        label.font = UIFont.systemFont(ofSize: 13)
+        label.textAlignment = .right
+        return label
+    }()
+    
+    
     private lazy var nickNameLine: UIView = {
         let lineView = UIView()
         lineView.backgroundColor = .black
@@ -136,6 +146,8 @@ final class NickNameViewController: UIViewController {
         view.addSubview(welcomeLabel)
         view.addSubview(nickNameLabel)
         view.addSubview(nickNameTextField)
+        view.addSubview(nicknameValidationResultLabel)
+
         view.addSubview(nickNameLine)
         view.addSubview(checkLenghtLabel)
         
@@ -177,6 +189,11 @@ final class NickNameViewController: UIViewController {
             make.trailing.equalTo(nickNameLine.snp.trailing)
             make.centerY.equalTo(nickNameTextField.snp.centerY)
         }
+        nicknameValidationResultLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(nickNameTextField.snp.centerY)
+            make.trailing.equalTo(checkLenghtLabel.snp.leading).offset(-5)
+        }
+        
         checkButtonView.snp.makeConstraints { make in
             make.bottom.equalToSuperview().inset(50)
             make.height.equalTo(checkButtonView.snp.width).multipliedBy(0.15)
@@ -189,11 +206,13 @@ final class NickNameViewController: UIViewController {
     
     /// 뷰모델과 setupBindings
     private func setupBindings() {
+
         let input = NickNameViewModel.Input(startButtonTapped: checkButton.rx.tap.asObservable(),
-                                            nickNameTextChanged: nickNameTextField.rx.text.orEmpty.asObservable())
+                                            nickNameTextChanged: nickNameTextField.rx.text.orEmpty.asObservable(), nicknameValidationTrigger: nickNameTextField.rx.text.orEmpty.asObservable())
         
         let output = viewModel.bind(input: input)
-        
+
+        bindNicknameValidationResultAndMessage(output: output)
         /// 글자수 출력 바인딩
         bindNickNameLength()
         
@@ -202,6 +221,44 @@ final class NickNameViewController: UIViewController {
         
         // 버튼 활성화 상태 및 색상 변경 바인딩
         bindMoveToNext()
+        
+        bindNicknameValidationResult(output: output)
+    }
+    
+    
+    /// 닉네임에 정보 삽입
+    private func bindNicknameValidationResult(output: NickNameViewModel.Output) {
+        output.nicknameValidationResult
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] isValid in
+                self?.updateCheckButtonState(isEnabled: isValid)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func bindNicknameValidationResultAndMessage(output: NickNameViewModel.Output) {
+        output.nicknameValidationResult
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] isValid in
+                self?.updateCheckButtonState(isEnabled: isValid)
+
+                let textColor = isValid ? UIColor.blue : UIColor.red
+                self?.nicknameValidationResultLabel.textColor = textColor
+            })
+            .disposed(by: disposeBag)
+
+        output.nicknameValidationMessage
+            .bind(to: nicknameValidationResultLabel.rx.text)
+            .disposed(by: disposeBag)
+    }
+
+    private func updateCheckButtonState(isEnabled: Bool) {
+        checkButton.isEnabled = isEnabled
+        checkButtonView.layer.borderColor = UIColor.OnOffMain.cgColor
+        checkButtonView.layer.borderWidth = 1
+        
+        checkButtonView.backgroundColor = isEnabled ? UIColor.OnOffMain : .white
+        checkButton.setTitleColor(isEnabled ? .white : UIColor.OnOffMain, for: .normal)
     }
     
     private func bindNickNameLength() {
@@ -234,17 +291,8 @@ final class NickNameViewController: UIViewController {
     /// viewModelOutput 으로 치환후 output에 대입해서 사용할 함수
     private func viewModelOutput() -> NickNameViewModel.Output {
         let input = NickNameViewModel.Input(startButtonTapped: checkButton.rx.tap.asObservable(),
-                                            nickNameTextChanged: nickNameTextField.rx.text.orEmpty.asObservable())
+                                            nickNameTextChanged: nickNameTextField.rx.text.orEmpty.asObservable(), nicknameValidationTrigger: nickNameTextField.rx.text.orEmpty.asObservable())
         return viewModel.bind(input: input)
-    }
-    
-    private func updateCheckButtonState(isEnabled: Bool) {
-        checkButton.isEnabled = isEnabled
-        checkButtonView.layer.borderColor = UIColor.OnOffMain.cgColor
-        checkButtonView.layer.borderWidth = 1
-        
-        checkButtonView.backgroundColor = isEnabled ? UIColor.OnOffMain : .white
-        checkButton.setTitleColor(isEnabled ? .white : UIColor.OnOffMain, for: .normal)
     }
     
     /// 프로필설정으로 이동

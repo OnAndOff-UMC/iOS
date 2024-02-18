@@ -19,7 +19,6 @@ final class ProfileSettingViewModel {
     struct Input {
         let startButtonTapped: Observable<Void>
         let jobTextChanged: Observable<String>
-        
     }
     
     /// Output

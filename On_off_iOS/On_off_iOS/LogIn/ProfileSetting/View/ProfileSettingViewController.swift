@@ -359,6 +359,11 @@ final class ProfileSettingViewController: UIViewController {
     private func checkButtonTapped() {
         checkButton.rx.tap
             .bind { [weak self] in
+                if let jobText = self?.jobTextField.text, !jobText.isEmpty {
+                               _ = KeychainWrapper.saveItem(value: jobText, forKey: ProfileKeyChain.job.rawValue)
+                               print("직업 정보 저장됨: \(jobText)")
+                           }
+                
                 UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
                     DispatchQueue.main.async {
                         if granted {
