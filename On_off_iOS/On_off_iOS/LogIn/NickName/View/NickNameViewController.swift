@@ -17,7 +17,7 @@ final class NickNameViewController: UIViewController {
         label.numberOfLines = 0
         label.textAlignment = .left
         label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
-        
+        label.textColor = .black
         label.attributedText = .createAttributedText(
             mainText: "일의 성장과\n삶의 밸런스를 위한\n준비를 시작해볼까요?",
             highlightTexts: ["삶의 밸런스"],

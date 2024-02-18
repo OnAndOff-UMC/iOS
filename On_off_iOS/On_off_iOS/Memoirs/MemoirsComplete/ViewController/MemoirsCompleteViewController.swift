@@ -78,7 +78,7 @@ final class MemoirsCompleteViewController: UIViewController {
     }
     
     private func setupUI() {
-        view.backgroundColor = .OnOffMain
+        view.applyGradient(colors: [UIColor.OnOffMain, UIColor(hex: "BAA6FF")])
     }
     
     /// 확인 버튼 속성 설정

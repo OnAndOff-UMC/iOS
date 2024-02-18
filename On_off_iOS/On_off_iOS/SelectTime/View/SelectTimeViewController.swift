@@ -258,6 +258,7 @@ final class SelectTimeViewController : UIViewController {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .time
         datePicker.preferredDatePickerStyle = .wheels
+        datePicker.backgroundColor = .white
         datePicker.locale = Locale(identifier: "ko_KR")
         
         /// pickerContainer

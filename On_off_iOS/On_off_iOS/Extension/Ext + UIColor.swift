@@ -52,3 +52,17 @@ extension UIColor {
     }
 }
 
+/// 그라데이션 컬러
+extension UIView {
+    func applyGradient(colors: [UIColor]) {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = self.bounds
+        gradientLayer.colors = colors.map { $0.cgColor }
+        
+        // 그라데이션 방향 설정 (상단에서 하단으로)
+        gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
+        
+        self.layer.insertSublayer(gradientLayer, at: 0)
+    }
+}

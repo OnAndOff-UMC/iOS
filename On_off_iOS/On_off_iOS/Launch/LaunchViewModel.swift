@@ -24,7 +24,6 @@ final class LaunchViewModel {
     struct Output {
         /// 네비게이션 방향을 알리는 Observable
         let navigationSignal: Observable<LaunchNavigation>
-        
     }
     
     // MARK: - Init

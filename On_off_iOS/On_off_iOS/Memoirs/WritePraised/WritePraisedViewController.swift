@@ -32,6 +32,7 @@ final class WritePraisedViewController: UIViewController {
         label.text = MemoirsText.getText(for: .difficultyPrompt)
         label.numberOfLines = 0
         label.textAlignment = .center
+        label.textColor = .white
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         return label
     }()
@@ -42,6 +43,7 @@ final class WritePraisedViewController: UIViewController {
         label.text = MemoirsText.getText(for: .improvementPrompt)
         label.numberOfLines = 0
         label.textAlignment = .center
+        label.textColor = .white
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         return label
     }()
@@ -59,6 +61,7 @@ final class WritePraisedViewController: UIViewController {
         textView.textAlignment = .left
         textView.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         textView.backgroundColor = UIColor.clear
+        textView.textColor = .black
         textView.layer.borderWidth = 0
         textView.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         return textView
@@ -116,7 +119,8 @@ final class WritePraisedViewController: UIViewController {
     }
     
     private func settingView(){
-        view.backgroundColor = .OnOffLightMain
+        view.applyGradient(colors: [UIColor.OnOffMain, UIColor(hex: "BAA6FF")])
+
     }
     
     /// 확인 버튼 속성 설정
@@ -151,17 +155,17 @@ final class WritePraisedViewController: UIViewController {
         pageControlImage.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.width.equalTo(view.snp.width).multipliedBy(0.25)
-            make.top.equalTo(view.safeAreaLayoutGuide).inset(10)
+            make.top.equalTo(view.safeAreaLayoutGuide).inset(50)
             make.height.equalTo(pageControlImage.snp.width).multipliedBy(0.1)
         }
         
         welcomeUpperLabel.snp.makeConstraints { make in
-            make.top.equalTo(pageControlImage.snp.bottom).offset(10)
+            make.top.equalTo(pageControlImage.snp.bottom).offset(30)
             make.centerX.equalToSuperview()
         }
         
         welcomeBottomLabel.snp.makeConstraints { make in
-            make.top.equalTo(welcomeUpperLabel.snp.bottom).offset(10)
+            make.top.equalTo(welcomeUpperLabel.snp.bottom).offset(30)
             make.centerX.equalToSuperview()
         }
         

@@ -28,10 +28,10 @@ final class WriteLearnedViewController: UIViewController {
     /// 사용자 명
     private let userNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "조디"
+        label.text = KeychainWrapper.loadItem(forKey: ProfileKeyChain.nickname.rawValue)
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.textColor = .black
+        label.textColor = .white
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         return label
     }()
@@ -42,8 +42,7 @@ final class WriteLearnedViewController: UIViewController {
         label.text = MemoirsText.getText(for: .dailyReflection)
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.textColor = .black
-
+        label.textColor = .white
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         return label
     }()
@@ -59,6 +58,7 @@ final class WriteLearnedViewController: UIViewController {
     private let textView: UITextView = {
         let textView = UITextView()
         textView.textAlignment = .left
+        textView.textColor = .black
         textView.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         textView.backgroundColor = UIColor.clear
         textView.layer.borderWidth = 0
@@ -120,7 +120,7 @@ final class WriteLearnedViewController: UIViewController {
     }
     
     private func settingView(){
-        view.backgroundColor = .OnOffLightMain
+        view.applyGradient(colors: [UIColor.OnOffMain, UIColor(hex: "BAA6FF")])
     }
     
     /// 확인 버튼 속성 설정
@@ -156,17 +156,17 @@ final class WriteLearnedViewController: UIViewController {
         pageControlImage.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.width.equalTo(view.snp.width).multipliedBy(0.25)
-            make.top.equalTo(view.safeAreaLayoutGuide).inset(10)
+            make.top.equalTo(view.safeAreaLayoutGuide).inset(50)
             make.height.equalTo(pageControlImage.snp.width).multipliedBy(0.1)
         }
         
         userNameLabel.snp.makeConstraints { make in
-            make.top.equalTo(pageControlImage.snp.bottom).offset(10)
+            make.top.equalTo(pageControlImage.snp.bottom).offset(30)
             make.centerX.equalToSuperview()
         }
         
         welcomeLabel.snp.makeConstraints { make in
-            make.top.equalTo(userNameLabel.snp.bottom).offset(10)
+            make.top.equalTo(userNameLabel.snp.bottom).offset(30)
             make.centerX.equalToSuperview()
         }
         

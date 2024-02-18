@@ -84,7 +84,7 @@ final class StartToWriteViewController: UIViewController {
     }
     
     private func settingView(){
-        view.backgroundColor = .OnOffLightMain
+        view.applyGradient(colors: [UIColor.OnOffMain, UIColor(hex: "BAA6FF")])
     }
     
     /// 시작  버튼 속성 설정
@@ -114,7 +114,7 @@ final class StartToWriteViewController: UIViewController {
         pageControlImage.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.width.equalTo(view.snp.width).multipliedBy(0.25)
-            make.top.equalTo(view.safeAreaLayoutGuide).inset(10)
+            make.top.equalTo(view.safeAreaLayoutGuide).inset(50)
             make.height.equalTo(pageControlImage.snp.width).multipliedBy(0.1)
         }
         

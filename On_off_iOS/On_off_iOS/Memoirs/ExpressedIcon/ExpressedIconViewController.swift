@@ -32,6 +32,7 @@ final class ExpressedIconViewController: UIViewController {
         label.text = MemoirsText.getText(for: .iconSelection)
         label.numberOfLines = 0
         label.textAlignment = .center
+        label.textColor = .white
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         return label
     }()
@@ -96,7 +97,7 @@ final class ExpressedIconViewController: UIViewController {
     }
     
     private func settingView(){
-        view.backgroundColor = .OnOffLightMain
+        view.applyGradient(colors: [UIColor.OnOffMain, UIColor(hex: "BAA6FF")])
     }
     
     /// 확인 버튼 속성 설정
@@ -129,17 +130,17 @@ final class ExpressedIconViewController: UIViewController {
         pageControlImage.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.width.equalTo(view.snp.width).multipliedBy(0.25)
-            make.top.equalTo(view.safeAreaLayoutGuide).inset(10)
+            make.top.equalTo(view.safeAreaLayoutGuide).inset(40)
             make.height.equalTo(pageControlImage.snp.width).multipliedBy(0.1)
         }
         
         welcomeLabel.snp.makeConstraints { make in
-            make.top.equalTo(pageControlImage.snp.bottom).offset(10)
+            make.top.equalTo(pageControlImage.snp.bottom).offset(30)
             make.centerX.equalToSuperview()
         }
         
         textpageImage.snp.makeConstraints { make in
-            make.top.equalTo(welcomeLabel.snp.bottom).offset(10)
+            make.top.equalTo(welcomeLabel.snp.bottom).offset(30)
             make.leading.trailing.equalToSuperview().inset(10)
             make.height.equalTo(view.snp.height).multipliedBy(0.3)
         }

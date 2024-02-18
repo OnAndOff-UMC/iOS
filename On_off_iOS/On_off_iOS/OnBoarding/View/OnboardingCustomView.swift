@@ -19,8 +19,12 @@ final class OnboardingCustomView: UIView {
     }()
     
     /// 온보딩 글
-    private let titleLabel = UILabel()
-
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .black
+        label.font = .systemFont(ofSize: 22, weight: .bold)
+        return label
+    }()
     // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
