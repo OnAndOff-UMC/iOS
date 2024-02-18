@@ -17,13 +17,13 @@ final class MyInfoSettingViewModel: MyInfoSettingProtocol {
     
     /// Input
     struct Input {
-        let saveButtonTapped: PublishSubject<Void>
-        let jobTextChanged: Observable<String>
-        let nickNameTextChanged: Observable<String>
-        let nicknameValidationTrigger: Observable<String>
-        let fieldOfWorkSelected: PublishSubject<String>
-        let experienceYearSelected: PublishSubject<String>
+        let saveButtonTapped: PublishSubject<Void> = PublishSubject<Void>()
+        let jobTextChanged: BehaviorRelay<String> = BehaviorRelay<String>(value: "")
+        let nickNameTextChanged: BehaviorRelay<String> = BehaviorRelay<String>(value: "")
+        let fieldOfWorkSelected: BehaviorRelay<String?> = BehaviorRelay<String?>(value: nil)
+        let experienceYearSelected: BehaviorRelay<String?> = BehaviorRelay<String?>(value: nil)
     }
+    
     
     /// Output
     struct Output {
@@ -43,6 +43,7 @@ final class MyInfoSettingViewModel: MyInfoSettingProtocol {
         let success: PublishSubject<Bool> = PublishSubject<Bool>()
         let errorMessage: PublishSubject<String?> = PublishSubject<String?>()
         
+        
     }
     
     // MARK: - Init
@@ -54,19 +55,23 @@ final class MyInfoSettingViewModel: MyInfoSettingProtocol {
     /// - Parameter
     ///   - input: Input 구조체
     func bind(input: Input) -> Output {
+        
+        
         let output = Output()
+        
         getMyInformation(output: output)
         
         /// 닉네임필드 관찰후 유효문자,길이 판정
-        observeNickNameTextChanged(input.nickNameTextChanged, output: output)
+        observeNickNameTextChanged(input.nickNameTextChanged.asObservable(), output: output)
         
         // 텍스트 변경 관찰 및 유효성 검사
-        observeJobTextChanges(input.jobTextChanged, output: output)
+        observeJobTextChanges(input.jobTextChanged.asObservable(), output: output)
         
         bindingSaveButtonTapped(input: input, output: output)
         
         ///초기 완료버튼 가능하게
         output.isCheckButtonEnabled.accept(true)
+        
         
         return output
     }
@@ -88,25 +93,26 @@ final class MyInfoSettingViewModel: MyInfoSettingProtocol {
     
     /// 저장 버튼 바인딩
     private func bindingSaveButtonTapped(input: Input, output: Output) {
-        
         input.saveButtonTapped
-            .withLatestFrom(Observable.combineLatest(
-                input.nickNameTextChanged.startWith(""),
-                input.fieldOfWorkSelected.startWith(""),
-                input.jobTextChanged.startWith(""),
-                input.experienceYearSelected.startWith("")
-            )) { _, combine in
-                UserInfoRequest(
-                    nickname: combine.0,
-                    fieldOfWork: combine.1,
-                    job: combine.2,
-                    experienceYear: combine.3
+            .flatMapLatest { [weak self] _ -> Observable<Response<UserInfoResult>> in
+                guard let self = self else { return Observable.empty() }
+                
+                // 입력된 값이 없을 경우 기존 Output 값 사용
+                let nickname = !input.nickNameTextChanged.value.isEmpty ? input.nickNameTextChanged.value : output.nickNameRelay.value
+                let job = !input.jobTextChanged.value.isEmpty ? input.jobTextChanged.value : output.jobRelay.value
+                let fieldOfWork = input.fieldOfWorkSelected.value ?? output.fieldOfWorkRelay.value
+                let experienceYear = input.experienceYearSelected.value ?? output.experienceYearRelay.value
+                
+                let userInfoRequest = UserInfoRequest(
+                    nickname: nickname,
+                    fieldOfWork: fieldOfWork,
+                    job: job,
+                    experienceYear: experienceYear
                 )
-            }
-            .flatMapLatest { [weak self] userInfoRequest -> Observable<Response<UserInfoResult>> in
-                guard let self = self else { return .empty() }
+                
                 return self.myInfoSettingService.saveMyInformation(userInfo: userInfoRequest)
             }
+        
             .subscribe(onNext: { response in
                 if response.isSuccess ?? false {
                     output.success.onNext(true)

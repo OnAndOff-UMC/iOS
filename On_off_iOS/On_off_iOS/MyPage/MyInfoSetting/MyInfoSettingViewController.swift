@@ -370,28 +370,65 @@ final class MyInfoSettingViewController: UIViewController {
     
     /// 뷰모델과 setupBindings
     private func setupBindings() {
+        
         let nickNameTextChanged = nickNameTextField.rx.text.orEmpty.asObservable()
         let jobTextChanged = jobTextField.rx.text.orEmpty.asObservable()
+        let saveButtonTapped = PublishSubject<Void>()
+        
+        
         let fieldOfWorkSelected = PublishSubject<String>()
         let experienceYearSelected = PublishSubject<String>()
-        let saveButtonTapped = PublishSubject<Void>()
         
         // saveButton 이벤트를 saveButtonTapped에 바인딩
         saveButton.rx.tap
             .bind(to: saveButtonTapped)
             .disposed(by: disposeBag)
         
-        let input = MyInfoSettingViewModel.Input(
-            saveButtonTapped: saveButtonTapped,
-            jobTextChanged: jobTextChanged,
-            nickNameTextChanged: nickNameTextChanged,
-            nicknameValidationTrigger: nickNameTextChanged,
-            fieldOfWorkSelected: fieldOfWorkSelected,
-            experienceYearSelected: experienceYearSelected
-        )
+        let input = MyInfoSettingViewModel.Input()
         
         let output = viewModel.bind(input: input)
         
+        nickNameTextField.rx.text.orEmpty
+            .bind(to: input.nickNameTextChanged)
+            .disposed(by: disposeBag)
+        
+        jobTextField.rx.text.orEmpty
+            .bind(to: input.jobTextChanged)
+            .disposed(by: disposeBag)
+        
+        // 닉네임 텍스트 필드 변경 감지 및 ViewModel 입력으로 바인딩
+        nickNameTextField.rx.text.orEmpty
+            .bind(to: input.nickNameTextChanged)
+            .disposed(by: disposeBag)
+        
+        // 직업 텍스트 필드 변경 감지 및 ViewModel 입력으로 바인딩
+        jobTextField.rx.text.orEmpty
+            .bind(to: input.jobTextChanged)
+            .disposed(by: disposeBag)
+        
+        // 완료 버튼 탭 이벤트를 ViewModel 입력으로 바인딩
+        saveButton.rx.tap
+            .bind(to: input.saveButtonTapped)
+            .disposed(by: disposeBag)
+        
+        // ViewModel 출력과 ViewController UI 컴포넌트 바인딩
+        output.nickNameRelay
+            .bind(to: nickNameTextField.rx.text)
+            .disposed(by: disposeBag)
+        
+        output.jobRelay
+            .bind(to: jobTextField.rx.text)
+            .disposed(by: disposeBag)
+        
+        output.fieldOfWorkRelay
+            .bind(to: fieldOfWorkButton.rx.title(for: .normal))
+            .disposed(by: disposeBag)
+        
+        output.experienceYearRelay
+            .bind(to: annualButton.rx.title(for: .normal))
+            .disposed(by: disposeBag)
+        
+        ///
         bindSaveButton(input: input, output: output)
         bindFieldOfWorkButton(output: output)
         bindNicknameValidationMessage(output: output)

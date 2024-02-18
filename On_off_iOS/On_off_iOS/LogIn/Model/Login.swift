@@ -46,10 +46,10 @@ struct TokenResult: Codable {
 
 /// 회원정보 요청 시 사용
 struct UserInfoRequest: Codable {
-    let nickname: String?
-    let fieldOfWork: String?
+    let nickname: String
+    let fieldOfWork: String
     let job: String?
-    let experienceYear: String?
+    let experienceYear: String
 }
 
 /// 회원정보 응답에서 사용할 result 구조체
