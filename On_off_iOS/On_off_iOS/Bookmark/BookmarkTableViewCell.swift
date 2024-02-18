@@ -99,7 +99,8 @@ final class BookmarkTableViewCell: UITableViewCell {
     /// configure위치
     func configure(with memoir: Memoir, at indexPath: IndexPath) {
         dateLabel.text = memoir.date
-        
+        self.selectionStyle = .none
+
         if let url = URL(string: memoir.emoticonUrl ?? "") {
             iconImageView.kf.setImage(with: url)
         }

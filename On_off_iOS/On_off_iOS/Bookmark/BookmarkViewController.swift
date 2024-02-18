@@ -17,7 +17,6 @@ final class BookmarkViewController: UIViewController {
         tableView.backgroundColor = .white
         tableView.register(BookmarkTableViewCell.self,
                            forCellReuseIdentifier: CellIdentifier.BookmarkTableViewCell.rawValue)
-
         tableView.separatorStyle = .none
         return tableView
     }()
@@ -53,6 +52,7 @@ final class BookmarkViewController: UIViewController {
     private func settingView(){
         view.backgroundColor = .white
         setupNavigationBar()
+        
     }
     private func setupNavigationBar() {
         navigationController?.navigationBar.isHidden = false
@@ -92,6 +92,7 @@ final class BookmarkViewController: UIViewController {
                 cell.configure(with: memoir, at: IndexPath(row: index, section: 0))
             }
                                          .disposed(by: disposeBag)
+        
     }
     
     /// Binding Move Inquire Memoirs ViewController

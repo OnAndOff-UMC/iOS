@@ -48,14 +48,13 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
     /// scrollView 내부 contentView
     private lazy var contentView: UIView = {
         let view = UIView()
-        // 세 개의 뷰를 여기에 추가
         return view
     }()
     
     /// emoticon View
     private lazy var emoticonView: UIView = {
-        let label = UILabel()
-        return label
+        let uiView = UIView()
+        return uiView
     }()
     
     /// emoticon Button
@@ -66,6 +65,13 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
         return button
     }()
     
+    /// emoticon 이미지
+    private lazy var emoticonBackImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "이모티콘배경")
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
     /// emoticon 이미지
     private lazy var emoticonImage: UIImageView = {
         let imageView = UIImageView()
@@ -212,6 +218,7 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
         
         emoticonView.isUserInteractionEnabled = true
         emoticonImage.isUserInteractionEnabled = true
+        emoticonBackImage.isUserInteractionEnabled = true
         emoticonButton.isUserInteractionEnabled = true
         
     }
@@ -221,7 +228,9 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
         setupNavigationBar()
         view.addSubview(scrollView)
         
+        contentView.addSubview(emoticonBackImage)
         contentView.addSubview(emoticonView)
+
         emoticonView.addSubview(emoticonImage)
         emoticonView.addSubview(emoticonButton)
         
@@ -256,15 +265,22 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
             make.width.equalToSuperview()
         }
         
-        emoticonView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(15)
+        emoticonBackImage.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(8)
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(emoticonView.snp.width).multipliedBy(0.4)
         }
         
+        emoticonView.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(15)
+            make.center.equalTo(emoticonBackImage.snp.center)
+            make.height.equalTo(emoticonBackImage.snp.width).multipliedBy(0.4)
+        }
+        
+
         emoticonImage.snp.makeConstraints { make in
             make.center.equalToSuperview()
-            make.width.height.equalTo(emoticonView.snp.height).multipliedBy(0.8)
+            make.width.height.equalTo(emoticonView.snp.height).multipliedBy(0.6)
         }
         
         emoticonButton.snp.makeConstraints { make in
