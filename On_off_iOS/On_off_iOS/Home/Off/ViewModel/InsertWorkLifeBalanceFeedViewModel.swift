@@ -96,7 +96,7 @@ final class InsertWorkLifeBalanceFeedViewModel {
     
     /// Add Feed To Backend Server
     private func addFeed(output: Output) {
-        let feed: AddFeed = AddFeed(date: formatDate(date: Date()),
+        let feed: AddFeed = AddFeed(date: output.insertRelay.value?.date ?? "",
                                     content: output.textRelay.value)
         print(feed)
         service.addFeed(feed: feed)

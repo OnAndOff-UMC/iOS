@@ -17,8 +17,8 @@ final class InsertWorkLifeBalanceFeedService {
     func addFeed(feed: AddFeed) -> Observable<Bool> {
         let url = Domain.RESTAPI + FeedPath.workLifeBalacne.rawValue
         let header = Header.header.getHeader()
-        print(url)
-        
+        print(url, feed)
+
         return Observable.create { observer in
             AF.request(url,
                        method: .post,
@@ -27,6 +27,7 @@ final class InsertWorkLifeBalanceFeedService {
                        headers: header)
             .validate(statusCode: 200..<201)
             .responseDecodable(of: Response<Feed>.self) { response in
+                
                 print(#function, response)
                 switch response.result {
                 case .success(let data):
