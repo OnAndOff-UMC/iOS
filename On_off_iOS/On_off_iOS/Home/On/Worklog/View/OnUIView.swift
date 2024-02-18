@@ -88,6 +88,7 @@ final class OnUIView: UIView {
     var successAddWorklog: PublishSubject<Void> = PublishSubject()
     var selectedWorklogTableViewCell: PublishSubject<Worklog> = PublishSubject()
     private var loadWLFeed: PublishSubject<Void> = PublishSubject()
+    var moveStartToWriteViewController: PublishSubject<String> = PublishSubject()
     private var clickCheckMarkOfWLFeed: PublishSubject<Worklog> = PublishSubject()
     
     
@@ -107,18 +108,6 @@ final class OnUIView: UIView {
         loadWLFeed.onNext(())
     }
     
-    /// Add View
-    //    private func addSubViews(output: OnUIViewModel.Output) {
-    //        addSubview(scrollView)
-    //        scrollView.addSubview(contentView)
-    //        contentView.addSubview(feedlabelBackgroundUIView)
-    //        contentView.addSubview(feedTitleButton)
-    //        feedlabelBackgroundUIView.addSubview(feedPlusIconImageButton)
-    //        contentView.addSubview(feedUITableView)
-    //        contentView.addSubview(dateLabel)
-    //
-    //        constraints(output: output)
-    //    }
     /// Add View
     private func addSubViews(output: OnUIViewModel.Output) {
         addSubview(scrollView)
@@ -200,6 +189,13 @@ final class OnUIView: UIView {
     
     // Worklog 제목 버튼 및 이미지 버튼
     private func bindFeedEvents() {
+        feedTitleButton.rx.tap
+            .bind { [weak self] in
+                guard let self = self else { return }
+                clickedAddWorklogButton.onNext(())
+            }
+            .disposed(by: disposeBag)
+        
         feedPlusIconImageButton.rx.tap
             .subscribe(onNext: { [weak self] in
                 guard let self = self else { return }

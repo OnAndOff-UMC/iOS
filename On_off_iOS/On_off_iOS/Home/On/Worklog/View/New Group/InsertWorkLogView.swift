@@ -66,7 +66,6 @@ final class InsertWorkLogView: DimmedViewController {
     // MARK: - Init
     init() {
         super.init(durationTime: 0.3, alpha: 0.7)
-        print("InsertWorkLogView initialized") // Add this line for debugging
         addSubviews()
         bind()
         setupKeyboardEvent()
