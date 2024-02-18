@@ -82,7 +82,7 @@ final class HomeViewController: UIViewController {
         return view
     }()
     
-    /// On UIViewr
+    /// On UIView
     private lazy var onUIView: OnUIView = {
         let view = OnUIView(frame: CGRect(x: .zero, y: .zero, width: view.safeAreaLayoutGuide.layoutFrame.width, height: .zero))
         view.backgroundColor = .white
@@ -95,7 +95,7 @@ final class HomeViewController: UIViewController {
         
         return view
     }()
-   
+    
     /// Off UIView
     private lazy var offUIView: OffUIView = {
         let view = OffUIView(frame: CGRect(x: .zero, y: .zero, width: view.safeAreaLayoutGuide.layoutFrame.width, height: .zero))
@@ -128,7 +128,7 @@ final class HomeViewController: UIViewController {
     
     // MARK: - View Will Appear
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)     
+        super.viewWillAppear(animated)
         // ViewModel을 통해 선택된 날짜를 가져와 설정
         if let selectedDate = viewModel.getSelectedDateAsString() {
             offUIView.selectedDate.onNext(selectedDate)
@@ -285,6 +285,8 @@ final class HomeViewController: UIViewController {
         bindSelectedFeedTableViewCell()
         bindCheckToday(output: output)
         bindMoveInquireMemoirsViewController()
+        bindAddWorkLogButton()
+        bindSelectedWorklogTableViewCell()
     }
     
     /// Binding Day CollectionView Cell
@@ -459,6 +461,16 @@ final class HomeViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
+    /// 업무일지 피드 추가 버튼
+    private func bindAddWorkLogButton() {
+        onUIView.clickedAddWorklogButton
+            .bind { [weak self] in
+                guard let self = self else { return }
+                presentInsertWorkLogView(insertFeed: nil)
+            }
+            .disposed(by: disposeBag)
+    }
+    
     /// 워라벨 피드 추가 버튼
     private func bindAddWorkLifeBalanceFeedButton() {
         offUIView.clickedAddfeedButton
@@ -468,6 +480,33 @@ final class HomeViewController: UIViewController {
             }
             .disposed(by: disposeBag)
     }
+    
+    /// 업무일지 클릭한 경우
+    /// Worklog 클릭한 경우
+    private func bindSelectedWorklogTableViewCell() {
+        onUIView.selectedWorklogTableViewCell
+            .bind { [weak self] Worklog in
+                guard let self = self else { return }
+                let ClickWorklogView = ClickWorklogView()
+                ClickWorklogView.feedSubject.onNext(Worklog)
+                ClickWorklogView.successConnect
+                    .bind { [weak self] in
+                        guard let self = self else { return }
+                        OnUIView().successAddWorklog.onNext(())
+                    }
+                    .disposed(by: disposeBag)
+                
+                ClickWorklogView.insertFeedSubject
+                    .bind { [weak self] feed in
+                        guard let self = self else { return }
+                        presentInsertWorkLogView(insertFeed: feed)
+                    }
+                    .disposed(by: disposeBag)
+                present(ClickWorklogView, animated: true)
+            }
+            .disposed(by: disposeBag)
+    }
+    
     
     /// 워라벨 피드 클릭한 경우
     private func bindSelectedFeedTableViewCell() {
@@ -535,6 +574,22 @@ final class HomeViewController: UIViewController {
             .disposed(by: disposeBag)
         present(insertWorkLifeBalanceFeedView, animated: true)
     }
+    
+    /// presentInsertWorkLogView
+    private func presentInsertWorkLogView(insertFeed: Worklog?) {
+        let InsertWorkLogView = InsertWorkLogView()
+        if let insertFeed = insertFeed {
+            InsertWorkLogView.insertFeed.onNext(insertFeed)
+        }
+        InsertWorkLogView.successAddWorklogSubject
+            .bind { [weak self] in
+                guard let self = self else { return }
+                OnUIView().successAddWorklog.onNext(())
+            }
+            .disposed(by: disposeBag)
+        present(InsertWorkLogView, animated: true)
+    }
+    
     
     /// 사진 접근 권한 설정
     private func photoAuth(isCamera: Bool, viewController: UIViewController, completion: @escaping () -> ()) {
