@@ -73,6 +73,8 @@ final class HomeViewModel {
         
         var futureRelay: BehaviorRelay<Bool> = BehaviorRelay(value: false)
         
+        var successLoadWeek: PublishRelay<Void> = PublishRelay()
+        
         /// 오늘 날짜인지 확인
         /// True: 오늘, False: 오늘 아님
         var checkToday: PublishRelay<Bool> = PublishRelay()
@@ -317,9 +319,11 @@ final class HomeViewModel {
         checkToday(output: output)
         if output.toggleOnOffButtonRelay.value {
             output.monthRelay.accept(formatSelectedMonth(monthColor: .OnOffMain, output: output))
+            output.successLoadWeek.accept(())
             return
         }
         output.monthRelay.accept(formatSelectedMonth(monthColor: .white, output: output))
+//        output.successLoadWeek.accept(())
     }
     
     /// 오늘 날짜 확인해서 선택된 효과 발생

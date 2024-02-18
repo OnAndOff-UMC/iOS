@@ -288,6 +288,7 @@ final class HomeViewController: UIViewController {
 //        bindMoveTodayResolutionViewController()
         bindAddWorkLogButton()
         bindSelectedWorklogTableViewCell()
+        bindSuccessLoadWeek(output: output)
     }
     
     /// Binding Day CollectionView Cell
@@ -398,12 +399,26 @@ final class HomeViewController: UIViewController {
                 if check && !output.futureRelay.value {
                     offUIView.removeFromSuperview()
                     addOnSubViews()
+                    print(#function, output.dayListRelay.value)
+                    print(#function, output.selectedDayIndex.value.row)
                 } else if !output.futureRelay.value {
                     onUIView.removeFromSuperview()
                     addOffSubViews()
                     print("👍\(output.dayListRelay.value[output.selectedDayIndex.value.row])")
                     offUIView.selectedDate.onNext(output.dayListRelay.value[output.selectedDayIndex.value.row].totalDate ?? "")
                 }
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    ///
+    private func bindSuccessLoadWeek(output: HomeViewModel.Output) {
+        output.successLoadWeek
+            .bind { [weak self] in
+                guard let self = self else { return }
+                guard let date = output.dayListRelay.value[output.selectedDayIndex.value.row].totalDate else { return }
+                print(#function, date)
+                onUIView.selectedDate.onNext(date)
             }
             .disposed(by: disposeBag)
     }
@@ -598,7 +613,7 @@ final class HomeViewController: UIViewController {
         InsertWorkLogView.successAddWorklogSubject
             .bind { [weak self] in
                 guard let self = self else { return }
-                OnUIView().successAddWorklog.onNext(())
+                onUIView.successAddWorklog.onNext(())
             }
             .disposed(by: disposeBag)
         present(InsertWorkLogView, animated: true)
