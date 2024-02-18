@@ -83,7 +83,6 @@ final class SelectTimeViewController : UIViewController {
     private lazy var selectedTimeButton: UIButton = {
         let button = UIButton()
         button.setTitle("오후 00:00", for: .normal)
-        button.backgroundColor = .white
         button.layer.cornerRadius = 10
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.lightGray.cgColor
@@ -258,7 +257,6 @@ final class SelectTimeViewController : UIViewController {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .time
         datePicker.preferredDatePickerStyle = .wheels
-        datePicker.backgroundColor = .white
         datePicker.locale = Locale(identifier: "ko_KR")
         
         /// pickerContainer

@@ -113,6 +113,10 @@ final class MyInfoSettingViewModel: MyInfoSettingProtocol {
         output.fieldOfWorkRelay.accept(info.fieldOfWork ?? "")
     }
     
+    private func inputjob(info: MyInfo, output: Output) {
+        output.experienceYearRelay.accept(info.job ?? "")
+    }
+    
     private func inputexperienceYear(info: MyInfo, output: Output) {
         output.experienceYearRelay.accept(info.experienceYear ?? "")
     }

@@ -198,7 +198,8 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
         setupView()
         addSubviews()
         setupBindings()
-
+        setupNavigationBar()
+        setupNavigationBarButton()
         /// 탭 제스처 리코그나이저를 뷰에 추가 (  키보드 숨기기 이슈 )
         let tapGesture = UITapGestureRecognizer()
         view.addGestureRecognizer(tapGesture)
@@ -222,7 +223,11 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
         emoticonButton.isUserInteractionEnabled = true
         
     }
-    
+    private func setupNavigationBar() {
+          navigationController?.navigationBar.isHidden = false
+          navigationController?.navigationBar.tintColor = .black
+          navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
+      }
     /// addSubviews
     private func addSubviews(){
         setupNavigationBar()
@@ -549,7 +554,7 @@ final class InquireMemoirsViewController: UIViewController, UITextFieldDelegate 
     }
     
     /// 네비게이션 바
-    private func setupNavigationBar() {
+    private func setupNavigationBarButton() {
         navigationItem.rightBarButtonItems = [menuButton, bookmarkButton]
     }
     

@@ -9,6 +9,7 @@ import Foundation
 
 struct MyInfo: Codable {
     let nickname: String?
+    let job: String?
     let fieldOfWork: String?
     let experienceYear: String?
 }

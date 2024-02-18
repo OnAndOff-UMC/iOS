@@ -144,8 +144,11 @@ final class MemoirsCompleteViewController: UIViewController {
     }
     
     private func navigateToTabbar() {
-        if let navigationController = self.navigationController {
-            navigationController.popToRootViewController(animated: true)
+        if let tabBarController = UIApplication.shared.keyWindow?.rootViewController as? UITabBarController {
+            tabBarController.selectedIndex = 0 // 첫 번째 탭으로 이동
+            if let navigationController = tabBarController.selectedViewController as? UINavigationController {
+                navigationController.popToRootViewController(animated: true)
+            }
         }
     }
 }

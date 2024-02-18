@@ -390,7 +390,7 @@ final class MyInfoSettingViewController: UIViewController {
         bindNicknameValidationMessage(output: output)
         bindJopRelay(output: output)
         bindFieldOfWorkRelay(output: output)
-        
+        bindJopRelay(output: output)
     }
     
     private func saveButtonTappedEvent(input: MyInfoSettingViewModel.Input, output: MyInfoSettingViewModel.Output) {

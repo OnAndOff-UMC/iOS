@@ -48,33 +48,53 @@ final class NickNameViewModel {
         return output
     }
     
+    ///글자수 세
+    private func observeNickNameLengthTextChanged(_ nickNameTextChanged: Observable<String>, output: Output) {
+        nickNameTextChanged
+            .map { $0.count }
+            .bind(to: output.nickNameLength)
+            .disposed(by: disposeBag)
+    }
+
     private func observeNickNameTextChanged(_ nickNameTextChanged: Observable<String>, output: Output) {
         nickNameTextChanged
-            .map { [weak self] nickName -> (String, Bool) in
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] nickName in
+                // 닉네임 길이 업데이트
+                
+                output.nickNameLength.onNext(nickName.count)
+                
                 let isValidLength = nickName.count >= 2 && nickName.count <= 10
                 let isValidNickName = self?.isValidNickName(nickName) ?? false
-                return (nickName, isValidLength && isValidNickName)
-            }
-            .filter { _, isValid -> Bool in
-                return isValid
-            }
-                    .map { nickname, _ in nickname }
-                    .distinctUntilChanged()
-                    .flatMapLatest { [weak self] nickname -> Observable<Response<String>> in
-                        guard let self = self else { return .empty() }
-                        return self.nickNameService.nicknameDuplicate(nickname: nickname)
-                            .catchAndReturn(Response(isSuccess: false, code: "Error", message: "사용 불가능한 닉네임입니다.", result: "사용 불가능한 닉네임입니다."))
-                    }
-                    .subscribe(onNext: { response in
-                        let isSuccess = response.isSuccess ?? false
-                        let message = response.result ?? "오류 발생"
-                     
-                    }, onError: { error in
-print("네트워크 오류")
-                    })
-                    .disposed(by: disposeBag)
+                let isValid = isValidLength && isValidNickName
                 
-            }
+                /// 닉네임 유효성 검사 결과에 따라 버튼 활성화 상태 업데이트
+                output.isCheckButtonEnabled.accept(isValid)
+                
+                if isValid {
+                    /// 닉네임 중복 검사
+                    self?.checkNickNameDuplicate(nickName, output: output)
+                }
+            }).disposed(by: disposeBag)
+    }
+
+    private func checkNickNameDuplicate(_ nickName: String, output: Output) {
+        nickNameService.nicknameDuplicate(nickname: nickName)
+            .subscribe(on: MainScheduler.instance)
+            .subscribe(onNext: { response in
+                let isSuccess = response.isSuccess ?? false
+                let isAvailable = isSuccess && (response.result == "사용 가능한 닉네임입니다.")
+
+                output.isCheckButtonEnabled.accept(isAvailable)
+                if !isSuccess {
+
+                    print(response.message ?? "오류 발생")
+                }
+            }, onError: { error in
+                print("네트워크 오류")
+
+            }).disposed(by: disposeBag)
+    }
     
     private func handleStartButtonTapped(_ startButtonTapped: Observable<Void>, nickNameTextChanged: Observable<String>, output: Output) {
         startButtonTapped
