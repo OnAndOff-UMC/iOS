@@ -36,10 +36,10 @@ final class ModalSelectProfileViewModel {
                 guard let self = self else { return .empty() }
                 switch dataType {
                 case .fieldOfWork:
-                    return self.loginService.fetchJobOptions().map { $0.result }.catchAndReturn([])
+                    return self.loginService.fetchJobOptions().map { $0.result ?? [] }.catchAndReturn([])
                     
                 case .experienceYear:
-                    return self.loginService.fetchExperienceYearsOptions().map { $0.result }.catchAndReturn([])
+                    return self.loginService.fetchExperienceYearsOptions().map { $0.result ?? [] }.catchAndReturn([])
                 }
             }
         let labelText = Observable.just(dataType == .fieldOfWork ? "업무 분야" : "연차")

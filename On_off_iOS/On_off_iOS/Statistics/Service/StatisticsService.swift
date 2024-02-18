@@ -13,7 +13,7 @@ final class StatisticsService {
     
     /// 이번 주 성공 비율
     /// - Returns: WeekStatistics
-    func getWeekAchieveRate() -> Observable<WeekStatistics> {
+    func getWeekAchieveRate() -> Observable<WeekStatistics?> {
         let url = Domain.RESTAPI + StatisticsPath.week.rawValue
         let header = Header.header.getHeader()
         
@@ -38,7 +38,7 @@ final class StatisticsService {
     
     /// 이번 달 성공 비율
     /// - Returns: WeekStatistics
-    func getMonthAchieveRate() -> Observable<MonthArchive> {
+    func getMonthAchieveRate() -> Observable<MonthArchive?> {
         let url = Domain.RESTAPI + StatisticsPath.month.rawValue
         let header = Header.header.getHeader()
         
@@ -63,7 +63,7 @@ final class StatisticsService {
     
     /// 이전 달 성공 비율
     /// - Returns: WeekStatistics
-    func getPrevMonthAchieveRate(date: String) -> Observable<MonthArchive> {
+    func getPrevMonthAchieveRate(date: String) -> Observable<MonthArchive?> {
         let url = Domain.RESTAPI + StatisticsPath.prevMonth.rawValue
         let parameters: Parameters = ["date": date]
         let header = Header.header.getHeader()
@@ -91,7 +91,7 @@ final class StatisticsService {
     
     /// 다음 달 성공 비율
     /// - Returns: WeekStatistics
-    func getNextMonthAchieveRate(date: String) -> Observable<MonthArchive> {
+    func getNextMonthAchieveRate(date: String) -> Observable<MonthArchive?> {
         let url = Domain.RESTAPI + StatisticsPath.nextMonth.rawValue
         let parameters: Parameters = ["date": date]
         let header = Header.header.getHeader()

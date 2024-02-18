@@ -63,6 +63,16 @@ enum StatisticsPath: String {
     case nextMonth = "/stats/month/next"
 }
 
+enum WorklogPath: String {
+    case Worklog = "/on/worklog/worklogId" //체크,수정,삭제,내일로 미루기
+    case addWorklog = "/on/worklog/" //조회 및 추가
+
+}
+
+enum OnPath: String {
+    case On = "/on"
+}
+
 enum AlertPath: String {
     case alertStatus = "/users/pushNotification"
 }

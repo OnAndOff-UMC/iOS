@@ -7,10 +7,33 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3542F2AA2B82013D00DB15A9 /* TodayResolutionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3542F2A92B82013D00DB15A9 /* TodayResolutionTableViewCell.swift */; };
+		3542F2AC2B8211B500DB15A9 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3542F2AB2B8211B500DB15A9 /* Config.xcconfig */; };
 		355283122B68CB70002BBFFD /* Ext + UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355283112B68CB70002BBFFD /* Ext + UIFont.swift */; };
 		355283142B68CC94002BBFFD /* Ext + UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355283132B68CC94002BBFFD /* Ext + UIColor.swift */; };
 		3584F3AC2B5A5CC7007ACB57 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		3584F3AE2B5A5FEB007ACB57 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		3587D4602B81E0C90068CAFD /* TodayResolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3587D45F2B81E0C90068CAFD /* TodayResolution.swift */; };
+		3587D4622B81E0F40068CAFD /* AddWriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3587D4612B81E0F40068CAFD /* AddWriteViewModel.swift */; };
+		3587D4642B81E11F0068CAFD /* MenuModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3587D4632B81E11F0068CAFD /* MenuModalViewModel.swift */; };
+		3587D4662B81E1360068CAFD /* ResolutionWriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3587D4652B81E1360068CAFD /* ResolutionWriteViewModel.swift */; };
+		3587D4682B81E14D0068CAFD /* TodayResolutionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3587D4672B81E14D0068CAFD /* TodayResolutionViewModel.swift */; };
+		3587D46A2B81E1780068CAFD /* AddWriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3587D4692B81E1780068CAFD /* AddWriteViewController.swift */; };
+		3587D46C2B81E18D0068CAFD /* MenuModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3587D46B2B81E18D0068CAFD /* MenuModalViewController.swift */; };
+		3587D46E2B81E1A10068CAFD /* ResolutionWriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3587D46D2B81E1A10068CAFD /* ResolutionWriteViewController.swift */; };
+		3587D4702B81E1B90068CAFD /* TodayResolutionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3587D46F2B81E1B90068CAFD /* TodayResolutionViewController.swift */; };
+		358DE3762B80AFB100A1FDA0 /* Worklog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 358DE3752B80AFB100A1FDA0 /* Worklog.swift */; };
+		358DE37A2B80B01400A1FDA0 /* OnUIViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 358DE3792B80B01400A1FDA0 /* OnUIViewModel.swift */; };
+		358DE37C2B80B03600A1FDA0 /* InsertWorkLogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 358DE37B2B80B03600A1FDA0 /* InsertWorkLogViewModel.swift */; };
+		358DE37E2B80B05200A1FDA0 /* ClickWorklogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 358DE37D2B80B05200A1FDA0 /* ClickWorklogViewModel.swift */; };
+		358DE3812B80B09300A1FDA0 /* OnUIViewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 358DE3802B80B09300A1FDA0 /* OnUIViewService.swift */; };
+		358DE3832B80B0AE00A1FDA0 /* InsertWorkLogService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 358DE3822B80B0AE00A1FDA0 /* InsertWorkLogService.swift */; };
+		358DE3852B80B0C700A1FDA0 /* ClickWorklogService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 358DE3842B80B0C700A1FDA0 /* ClickWorklogService.swift */; };
+		358DE3872B80B0EA00A1FDA0 /* OnUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 358DE3862B80B0EA00A1FDA0 /* OnUIView.swift */; };
+		358DE3892B80B10600A1FDA0 /* LogOptionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 358DE3882B80B10600A1FDA0 /* LogOptionButton.swift */; };
+		358DE38B2B80B12000A1FDA0 /* InsertWorkLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 358DE38A2B80B12000A1FDA0 /* InsertWorkLogView.swift */; };
+		358DE38D2B80B15400A1FDA0 /* ClickWorklogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 358DE38C2B80B15400A1FDA0 /* ClickWorklogView.swift */; };
+		358DE38F2B80B17400A1FDA0 /* WorkLogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 358DE38E2B80B17400A1FDA0 /* WorkLogTableViewCell.swift */; };
 		35AC0F502B64025300AB0A6B /* TabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35AC0F4F2B64025300AB0A6B /* TabItem.swift */; };
 		35AC0F522B64030400AB0A6B /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35AC0F512B64030400AB0A6B /* TabBarController.swift */; };
 		3708261B2B66962000FBCAAF /* ExpressedIconModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3708261A2B66962000FBCAAF /* ExpressedIconModel.swift */; };
@@ -175,8 +198,31 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3542F2A92B82013D00DB15A9 /* TodayResolutionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayResolutionTableViewCell.swift; sourceTree = "<group>"; };
+		3542F2AB2B8211B500DB15A9 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Config.xcconfig; path = ../../../Downloads/Config.xcconfig; sourceTree = "<group>"; };
 		355283112B68CB70002BBFFD /* Ext + UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext + UIFont.swift"; sourceTree = "<group>"; };
 		355283132B68CC94002BBFFD /* Ext + UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext + UIColor.swift"; sourceTree = "<group>"; };
+		3587D45F2B81E0C90068CAFD /* TodayResolution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayResolution.swift; sourceTree = "<group>"; };
+		3587D4612B81E0F40068CAFD /* AddWriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWriteViewModel.swift; sourceTree = "<group>"; };
+		3587D4632B81E11F0068CAFD /* MenuModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuModalViewModel.swift; sourceTree = "<group>"; };
+		3587D4652B81E1360068CAFD /* ResolutionWriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolutionWriteViewModel.swift; sourceTree = "<group>"; };
+		3587D4672B81E14D0068CAFD /* TodayResolutionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayResolutionViewModel.swift; sourceTree = "<group>"; };
+		3587D4692B81E1780068CAFD /* AddWriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWriteViewController.swift; sourceTree = "<group>"; };
+		3587D46B2B81E18D0068CAFD /* MenuModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuModalViewController.swift; sourceTree = "<group>"; };
+		3587D46D2B81E1A10068CAFD /* ResolutionWriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolutionWriteViewController.swift; sourceTree = "<group>"; };
+		3587D46F2B81E1B90068CAFD /* TodayResolutionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayResolutionViewController.swift; sourceTree = "<group>"; };
+		358DE3752B80AFB100A1FDA0 /* Worklog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Worklog.swift; sourceTree = "<group>"; };
+		358DE3792B80B01400A1FDA0 /* OnUIViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnUIViewModel.swift; sourceTree = "<group>"; };
+		358DE37B2B80B03600A1FDA0 /* InsertWorkLogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertWorkLogViewModel.swift; sourceTree = "<group>"; };
+		358DE37D2B80B05200A1FDA0 /* ClickWorklogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickWorklogViewModel.swift; sourceTree = "<group>"; };
+		358DE3802B80B09300A1FDA0 /* OnUIViewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnUIViewService.swift; sourceTree = "<group>"; };
+		358DE3822B80B0AE00A1FDA0 /* InsertWorkLogService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertWorkLogService.swift; sourceTree = "<group>"; };
+		358DE3842B80B0C700A1FDA0 /* ClickWorklogService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickWorklogService.swift; sourceTree = "<group>"; };
+		358DE3862B80B0EA00A1FDA0 /* OnUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnUIView.swift; sourceTree = "<group>"; };
+		358DE3882B80B10600A1FDA0 /* LogOptionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogOptionButton.swift; sourceTree = "<group>"; };
+		358DE38A2B80B12000A1FDA0 /* InsertWorkLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertWorkLogView.swift; sourceTree = "<group>"; };
+		358DE38C2B80B15400A1FDA0 /* ClickWorklogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickWorklogView.swift; sourceTree = "<group>"; };
+		358DE38E2B80B17400A1FDA0 /* WorkLogTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkLogTableViewCell.swift; sourceTree = "<group>"; };
 		35AC0F4F2B64025300AB0A6B /* TabItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItem.swift; sourceTree = "<group>"; };
 		35AC0F512B64030400AB0A6B /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		35E0C7292B68C7E3006BF427 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
@@ -364,6 +410,115 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3587D45B2B81E0750068CAFD /* TodayResolution */ = {
+			isa = PBXGroup;
+			children = (
+				3587D4732B81E27E0068CAFD /* Service */,
+				3587D45E2B81E0AF0068CAFD /* View */,
+				3587D45D2B81E09F0068CAFD /* ViewModel */,
+				3587D45C2B81E0980068CAFD /* Model */,
+			);
+			path = TodayResolution;
+			sourceTree = "<group>";
+		};
+		3587D45C2B81E0980068CAFD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3587D45F2B81E0C90068CAFD /* TodayResolution.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		3587D45D2B81E09F0068CAFD /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				3587D4612B81E0F40068CAFD /* AddWriteViewModel.swift */,
+				3587D4632B81E11F0068CAFD /* MenuModalViewModel.swift */,
+				3587D4652B81E1360068CAFD /* ResolutionWriteViewModel.swift */,
+				3587D4672B81E14D0068CAFD /* TodayResolutionViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		3587D45E2B81E0AF0068CAFD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3587D4692B81E1780068CAFD /* AddWriteViewController.swift */,
+				3587D46B2B81E18D0068CAFD /* MenuModalViewController.swift */,
+				3587D46D2B81E1A10068CAFD /* ResolutionWriteViewController.swift */,
+				3587D46F2B81E1B90068CAFD /* TodayResolutionViewController.swift */,
+				3542F2A92B82013D00DB15A9 /* TodayResolutionTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3587D4732B81E27E0068CAFD /* Service */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		358DE3722B80AF7B00A1FDA0 /* On */ = {
+			isa = PBXGroup;
+			children = (
+				3587D45B2B81E0750068CAFD /* TodayResolution */,
+				358DE3732B80AF8C00A1FDA0 /* Worklog */,
+			);
+			path = On;
+			sourceTree = "<group>";
+		};
+		358DE3732B80AF8C00A1FDA0 /* Worklog */ = {
+			isa = PBXGroup;
+			children = (
+				358DE37F2B80B06400A1FDA0 /* Service */,
+				358DE3742B80AF9E00A1FDA0 /* Model */,
+				358DE3782B80AFE600A1FDA0 /* ViewModel */,
+				358DE3772B80AFC600A1FDA0 /* View */,
+			);
+			path = Worklog;
+			sourceTree = "<group>";
+		};
+		358DE3742B80AF9E00A1FDA0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				358DE3752B80AFB100A1FDA0 /* Worklog.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		358DE3772B80AFC600A1FDA0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				358DE3862B80B0EA00A1FDA0 /* OnUIView.swift */,
+				358DE3882B80B10600A1FDA0 /* LogOptionButton.swift */,
+				358DE38A2B80B12000A1FDA0 /* InsertWorkLogView.swift */,
+				358DE38C2B80B15400A1FDA0 /* ClickWorklogView.swift */,
+				358DE38E2B80B17400A1FDA0 /* WorkLogTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		358DE3782B80AFE600A1FDA0 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				358DE3792B80B01400A1FDA0 /* OnUIViewModel.swift */,
+				358DE37B2B80B03600A1FDA0 /* InsertWorkLogViewModel.swift */,
+				358DE37D2B80B05200A1FDA0 /* ClickWorklogViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		358DE37F2B80B06400A1FDA0 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				358DE3802B80B09300A1FDA0 /* OnUIViewService.swift */,
+				358DE3822B80B0AE00A1FDA0 /* InsertWorkLogService.swift */,
+				358DE3842B80B0C700A1FDA0 /* ClickWorklogService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		35984F222B63EE8000A5F6F2 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -700,6 +855,7 @@
 		37BD57F22B7F562E0078B9D0 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				37DC38A62B79E548003CBBFB /* InquireMemoirsViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -805,7 +961,6 @@
 				37BD57F22B7F562E0078B9D0 /* ViewModel */,
 				372F690A2B7A1EED00273952 /* Modal */,
 				37DC38A42B79E543003CBBFB /* InquireMemoirsViewController.swift */,
-				37DC38A62B79E548003CBBFB /* InquireMemoirsViewModel.swift */,
 			);
 			path = InquireMemoirs;
 			sourceTree = "<group>";
@@ -849,6 +1004,7 @@
 		3B0129C12B623BA900B191AD /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				358DE3722B80AF7B00A1FDA0 /* On */,
 				3B3576452B78FD11008464AA /* Off */,
 				3B0129CF2B62BA8100B191AD /* Base */,
 			);
@@ -1003,7 +1159,7 @@
 				35E0C7282B68C7AC006BF427 /* Fonts */,
 				37DFBE9A2B81BA4D00E98608 /* GoogleService-Info.plist */,
 				3B4230182B41572400D0B038 /* LaunchScreen.storyboard */,
-				3789F5F92B7FCB5800B8EADB /* Config.xcconfig */,
+				3542F2AB2B8211B500DB15A9 /* Config.xcconfig */,
 				3B42301B2B41572400D0B038 /* Info.plist */,
 				370826202B669BFC00FBCAAF /* UICalculate+Ex.swift */,
 			);
@@ -1278,6 +1434,7 @@
 				376A4B572B5504FE004FBB56 /* Lotties.xcassets in Resources */,
 				3B42301A2B41572400D0B038 /* LaunchScreen.storyboard in Resources */,
 				376A4B592B55054D004FBB56 /* onBoarding.json in Resources */,
+				3542F2AC2B8211B500DB15A9 /* Config.xcconfig in Resources */,
 				3B4230172B41572400D0B038 /* Assets.xcassets in Resources */,
 				37DFBE9B2B81BA4D00E98608 /* GoogleService-Info.plist in Resources */,
 			);
@@ -1296,19 +1453,23 @@
 				378140612B42E83100F2AA5A /* NickNameViewModel.swift in Sources */,
 				3787D0132B42E0F000F054DD /* NickNameViewController.swift in Sources */,
 				3708261B2B66962000FBCAAF /* ExpressedIconModel.swift in Sources */,
+				358DE3832B80B0AE00A1FDA0 /* InsertWorkLogService.swift in Sources */,
 				376879F22B7C75FB00833623 /* DeletedMemoirsPopUpView.swift in Sources */,
 				370826212B669BFC00FBCAAF /* UICalculate+Ex.swift in Sources */,
 				3787D00F2B42AD6F00F054DD /* OnBoardingViewModel.swift in Sources */,
 				371B9EC32B5B076E006AC06D /* WriteLearnedViewModel.swift in Sources */,
 				3B26CF462B7919C100E05581 /* InsertWorkLifeBalanceFeedView.swift in Sources */,
+				358DE3892B80B10600A1FDA0 /* LogOptionButton.swift in Sources */,
 				374FD49F2B42825B00F2E645 /* CustomPageControl.swift in Sources */,
 				37C161232B6BD9F8000E0B21 /* LoginViewModel.swift in Sources */,
 				3BA89DF12B7FAF38002ACCCF /* WebViewController.swift in Sources */,
 				3789F5FC2B7FCFE400B8EADB /* MyInfoSettingViewModel.swift in Sources */,
 				355283122B68CB70002BBFFD /* Ext + UIFont.swift in Sources */,
+				358DE38B2B80B12000A1FDA0 /* InsertWorkLogView.swift in Sources */,
 				37FED60D2B6E29070071BB23 /* BookmarkTableViewCell.swift in Sources */,
 				3B44BDEC2B7CF30100AE9170 /* StatisticsService.swift in Sources */,
 				3B26CF502B79FDC600E05581 /* WorkLifeBalanceTableViewCell.swift in Sources */,
+				3587D4602B81E0C90068CAFD /* TodayResolution.swift in Sources */,
 				355283142B68CC94002BBFFD /* Ext + UIColor.swift in Sources */,
 				3769A6862B58563000D79C33 /* SelectTimeViewModel.swift in Sources */,
 				374FD4A42B4297BE00F2E645 /* OnBoardingViewController.swift in Sources */,
@@ -1320,7 +1481,9 @@
 				37C70B422B714C8B004CB0F6 /* Ext + NSAttributedString.swift in Sources */,
 				3BF02BD72B7E0B840079A091 /* MyPageViewController.swift in Sources */,
 				378140662B42F0AB00F2AA5A /* ProfileSettingViewModel.swift in Sources */,
+				358DE3762B80AFB100A1FDA0 /* Worklog.swift in Sources */,
 				37C1613C2B6BE519000E0B21 /* Login.swift in Sources */,
+				3587D46E2B81E1A10068CAFD /* ResolutionWriteViewController.swift in Sources */,
 				3B1658F72B4D8559004EFBC3 /* WeekChartCustomView.swift in Sources */,
 				378588EF2B707EED004E262F /* ModalSelectProfileViewController.swift in Sources */,
 				37D606FD2B7783E20092F113 /* LaunchModel.swift in Sources */,
@@ -1332,15 +1495,18 @@
 				371B9EBB2B5B0737006AC06D /* WritePraisedViewController.swift in Sources */,
 				3769A68E2B585B6600D79C33 /* DayButton.swift in Sources */,
 				3BEFD3172B7BAE8500EE6EFF /* MemoirPreview.swift in Sources */,
+				358DE37E2B80B05200A1FDA0 /* ClickWorklogViewModel.swift in Sources */,
 				3BD415C82B7A54CF00BAB0DC /* ClickWorkLifeBalanceFeedViewModel.swift in Sources */,
 				3B35764B2B78FDAB008464AA /* DeletedImagePopUpView.swift in Sources */,
 				37CC77792B6FA864007999E5 /* ModalEmoticonDelegate.swift in Sources */,
 				3B0129CE2B624E8D00B191AD /* DayCollectionViewCell.swift in Sources */,
+				3587D46A2B81E1780068CAFD /* AddWriteViewController.swift in Sources */,
 				37CFD3022B66534400E00D92 /* ExpressedIconViewModel.swift in Sources */,
 				3769A6912B585BDE00D79C33 /* DayModel.swift in Sources */,
 				37B890742B6A1ECD008A8BBC /* Domain.swift in Sources */,
 				3B0129CC2B624D6000B191AD /* Home.swift in Sources */,
 				3B2D93042B77CB9800D88787 /* ImageCollectionViewCell.swift in Sources */,
+				3542F2AA2B82013D00DB15A9 /* TodayResolutionTableViewCell.swift in Sources */,
 				37DFBE972B818D6500E98608 /* NickNameService.swift in Sources */,
 				371B9EBF2B5B075A006AC06D /* WriteImprovementViewController.swift in Sources */,
 				3B26CF4A2B79EF2600E05581 /* InsertWorkLifeBalanceFeedViewModel.swift in Sources */,
@@ -1348,6 +1514,7 @@
 				3BB806D82B5024BC00555E58 /* MonthStatistics.swift in Sources */,
 				3789F6002B80C24000B8EADB /* MyInfoSettingProtocol.swift in Sources */,
 				3BEFD30D2B7AF53F00EE6EFF /* HomeViewService.swift in Sources */,
+				3587D46C2B81E18D0068CAFD /* MenuModalViewController.swift in Sources */,
 				37CC77752B6F9620007999E5 /* KeyChain.swift in Sources */,
 				3B26CF3F2B7908D500E05581 /* DeletedImagePopUpViewModel.swift in Sources */,
 				3BEFD3132B7BA2D700EE6EFF /* FutureUIView.swift in Sources */,
@@ -1358,11 +1525,14 @@
 				3B0129C82B6246E900B191AD /* Ext + UIImage.swift in Sources */,
 				378588F22B707F0A004E262F /* ModalSelectProfileViewModel.swift in Sources */,
 				3B26CF4E2B79F44A00E05581 /* InsertWorkLifeBalanceFeedService.swift in Sources */,
+				358DE37C2B80B03600A1FDA0 /* InsertWorkLogViewModel.swift in Sources */,
 				3BEFD3112B7B13CE00EE6EFF /* MyInfo.swift in Sources */,
 				3B4230102B41572200D0B038 /* SceneDelegate.swift in Sources */,
 				3584F3AC2B5A5CC7007ACB57 /* (null) in Sources */,
+				3587D4662B81E1360068CAFD /* ResolutionWriteViewModel.swift in Sources */,
 				371B9EAC2B5AFD37006AC06D /* StartToWriteViewController.swift in Sources */,
 				37A1E9882B6CB1DD0013FFD7 /* LoginService.swift in Sources */,
+				358DE37A2B80B01400A1FDA0 /* OnUIViewModel.swift in Sources */,
 				378140632B42F07A00F2AA5A /* ProfileSettingViewController.swift in Sources */,
 				37DC38A52B79E543003CBBFB /* InquireMemoirsViewController.swift in Sources */,
 				37B890762B6A1EDC008A8BBC /* Endpoint.swift in Sources */,
@@ -1383,12 +1553,14 @@
 				3789F5F62B7FB91700B8EADB /* MyInfoSettingViewController.swift in Sources */,
 				37AEB1EE2B6CF3F400A6CDD6 /* ModalEmoticonViewModel.swift in Sources */,
 				3B2D93022B77C91B00D88787 /* OffUIViewModel.swift in Sources */,
+				358DE38D2B80B15400A1FDA0 /* ClickWorklogView.swift in Sources */,
 				3B26CF442B790A4700E05581 /* Image.swift in Sources */,
 				378588F92B708F99004E262F /* ModalSelectProfileTableViewCell.swift in Sources */,
 				3787D00A2B429F1700F054DD /* LaunchViewController.swift in Sources */,
 				3BD552682B58FCF70043920E /* CalendarCell.swift in Sources */,
 				35AC0F522B64030400AB0A6B /* TabBarController.swift in Sources */,
 				37A1E98A2B6CB1F70013FFD7 /* LoginProtocol.swift in Sources */,
+				358DE3812B80B09300A1FDA0 /* OnUIViewService.swift in Sources */,
 				37FED6072B6E23560071BB23 /* BookmarkViewController.swift in Sources */,
 				37DFBE992B818DAC00E98608 /* NickNameProtocol.swift in Sources */,
 				3BD552662B58FA8C0043920E /* RateFillView.swift in Sources */,
@@ -1401,6 +1573,7 @@
 				3B9C89D12B4AED7C0083CF44 /* StatisticsViewController.swift in Sources */,
 				37AEB1F52B6CFE6C00A6CDD6 /* MemoirsProtocol.swift in Sources */,
 				375F52572B7F04320034A960 /* DeletedMemoirsPopUpDelegate.swift in Sources */,
+				358DE3852B80B0C700A1FDA0 /* ClickWorklogService.swift in Sources */,
 				37DC38AB2B79F950003CBBFB /* ModalMenuOptionViewController.swift in Sources */,
 				37A1E9942B6CDAD70013FFD7 /* ModalEmoticonViewController.swift in Sources */,
 				3BF02BE02B7E39DD0079A091 /* ListCustomButton.swift in Sources */,
@@ -1409,14 +1582,20 @@
 				3BF02BE32B7E46F10079A091 /* MyPageService.swift in Sources */,
 				3BA89DF32B7FB30A002ACCCF /* User.swift in Sources */,
 				3B3576442B78F5B1008464AA /* WatchPictureController.swift in Sources */,
+				358DE38F2B80B17400A1FDA0 /* WorkLogTableViewCell.swift in Sources */,
 				3B0129C62B6242F800B191AD /* Ext + ViewController.swift in Sources */,
 				3B26CF4C2B79F3F800E05581 /* Feed.swift in Sources */,
+				358DE3872B80B0EA00A1FDA0 /* OnUIView.swift in Sources */,
 				3B3576492B78FD72008464AA /* DimmedViewController.swift in Sources */,
 				371B9EC52B5B0B61006AC06D /* WriteLearnedViewController.swift in Sources */,
 				3BB806D02B5012F400555E58 /* DayChartCustomView.swift in Sources */,
+				3587D4682B81E14D0068CAFD /* TodayResolutionViewModel.swift in Sources */,
 				3BB7D07F2B64EB31002F1860 /* OffUIView.swift in Sources */,
 				3B0129CA2B624CAE00B191AD /* HomeViewModel.swift in Sources */,
+				3587D4702B81E1B90068CAFD /* TodayResolutionViewController.swift in Sources */,
+				3587D4622B81E0F40068CAFD /* AddWriteViewModel.swift in Sources */,
 				37FED6092B6E235D0071BB23 /* BookmarkViewModel.swift in Sources */,
+				3587D4642B81E11F0068CAFD /* MenuModalViewModel.swift in Sources */,
 				37A1E98D2B6CCC020013FFD7 /* Memoirs.swift in Sources */,
 				37DC38A72B79E548003CBBFB /* InquireMemoirsViewModel.swift in Sources */,
 				3BB806D62B50228100555E58 /* DayStatistics.swift in Sources */,
@@ -1442,7 +1621,7 @@
 /* Begin XCBuildConfiguration section */
 		3B42301C2B41572400D0B038 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3789F5F92B7FCB5800B8EADB /* Config.xcconfig */;
+			baseConfigurationReference = 3542F2AB2B8211B500DB15A9 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1506,7 +1685,7 @@
 		};
 		3B42301D2B41572400D0B038 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3789F5F92B7FCB5800B8EADB /* Config.xcconfig */;
+			baseConfigurationReference = 3542F2AB2B8211B500DB15A9 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1563,7 +1742,7 @@
 		};
 		3B42301F2B41572400D0B038 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3789F5F92B7FCB5800B8EADB /* Config.xcconfig */;
+			baseConfigurationReference = 3542F2AB2B8211B500DB15A9 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1596,7 +1775,7 @@
 		};
 		3B4230202B41572400D0B038 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3789F5F92B7FCB5800B8EADB /* Config.xcconfig */;
+			baseConfigurationReference = 3542F2AB2B8211B500DB15A9 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

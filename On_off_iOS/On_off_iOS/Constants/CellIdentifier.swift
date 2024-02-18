@@ -22,6 +22,11 @@ enum CellIdentifier: String {
     case ImageCollectionView
     case WorkLifeBalanceTableViewCell
     
+    // MARK: - On UIView
+    case WorkLogTableViewCell
+    case TodayResolutionTableViewCell
+    
     // MARK: - Calendar
     case CalendarCell
+    
 }

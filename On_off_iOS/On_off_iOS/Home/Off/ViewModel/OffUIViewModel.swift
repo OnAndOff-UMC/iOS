@@ -178,7 +178,7 @@ final class OffUIViewModel {
     private func getWorkLifeBalanceList(output: Output) {
         service.getWLBFeedList(date: output.selectedDate.value)
             .subscribe(onNext: { list in
-                output.workLifeBalanceRelay.accept(list)
+                output.workLifeBalanceRelay.accept(list ?? [])
             }, onError: { error in
                 // 업로드 실패
                 print(#function, error)

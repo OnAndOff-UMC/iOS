@@ -73,6 +73,8 @@ final class HomeViewModel {
         
         var futureRelay: BehaviorRelay<Bool> = BehaviorRelay(value: false)
         
+        var successLoadWeek: PublishRelay<Void> = PublishRelay()
+        
         /// 오늘 날짜인지 확인
         /// True: 오늘, False: 오늘 아님
         var checkToday: PublishRelay<Bool> = PublishRelay()
@@ -295,7 +297,7 @@ final class HomeViewModel {
     private func dayListRelay(output: Output) {
         service.weekDayInit()
             .subscribe(onNext: { [weak self] weekDay in
-                guard let self = self else { return }
+                guard let self = self, let weekDay = weekDay else { return }
                 changeWeekType(weekDay: weekDay, output: output)
             }, onError: { error in
                 print(#function, error)
@@ -318,9 +320,11 @@ final class HomeViewModel {
         checkToday(output: output)
         if output.toggleOnOffButtonRelay.value {
             output.monthRelay.accept(formatSelectedMonth(monthColor: .OnOffMain, output: output))
+            output.successLoadWeek.accept(())
             return
         }
         output.monthRelay.accept(formatSelectedMonth(monthColor: .white, output: output))
+//        output.successLoadWeek.accept(())
     }
     
     /// 오늘 날짜 확인해서 선택된 효과 발생
@@ -364,7 +368,7 @@ final class HomeViewModel {
     private func movePrevWeek(output: Output) {
         service.movePrevWeek(date: output.dayListRelay.value[output.selectedDayIndex.value.row].totalDate ?? "")
             .subscribe(onNext: { [weak self] weekDay in
-                guard let self = self else { return }
+                guard let self = self, let weekDay = weekDay else { return }
                 changeWeekType(weekDay: weekDay, output: output)
                 checkFutureDay(indexPath: output.selectedDayIndex.value, output: output)
             }, onError: { error in
@@ -377,7 +381,7 @@ final class HomeViewModel {
     private func moveNextWeek(output: Output) {
         service.moveNextWeek(date: output.dayListRelay.value[output.selectedDayIndex.value.row].totalDate ?? "")
             .subscribe(onNext: { [weak self] weekDay in
-                guard let self = self else { return }
+                guard let self = self, let weekDay = weekDay else { return }
                 changeWeekType(weekDay: weekDay, output: output)
                 checkFutureDay(indexPath: output.selectedDayIndex.value, output: output)
             }, onError: { error in

@@ -82,9 +82,9 @@ final class HomeViewController: UIViewController {
         return view
     }()
     
-    /// On UIViewr
-    private lazy var onUIView: UIView = {
-        let view = UIView()
+    /// On UIView
+    private lazy var onUIView: OnUIView = {
+        let view = OnUIView(frame: CGRect(x: .zero, y: .zero, width: view.safeAreaLayoutGuide.layoutFrame.width, height: .zero))
         view.backgroundColor = .white
         view.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
         view.layer.cornerRadius = 25
@@ -128,7 +128,7 @@ final class HomeViewController: UIViewController {
     
     // MARK: - View Will Appear
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)     
+        super.viewWillAppear(animated)
         // ViewModel을 통해 선택된 날짜를 가져와 설정
         if let selectedDate = viewModel.getSelectedDateAsString() {
             offUIView.selectedDate.onNext(selectedDate)
@@ -285,6 +285,10 @@ final class HomeViewController: UIViewController {
         bindSelectedFeedTableViewCell()
         bindCheckToday(output: output)
         bindMoveInquireMemoirsViewController()
+//        bindMoveTodayResolutionViewController()
+        bindAddWorkLogButton()
+        bindSelectedWorklogTableViewCell()
+        bindSuccessLoadWeek(output: output)
     }
     
     /// Binding Day CollectionView Cell
@@ -395,12 +399,26 @@ final class HomeViewController: UIViewController {
                 if check && !output.futureRelay.value {
                     offUIView.removeFromSuperview()
                     addOnSubViews()
+                    print(#function, output.dayListRelay.value)
+                    print(#function, output.selectedDayIndex.value.row)
                 } else if !output.futureRelay.value {
                     onUIView.removeFromSuperview()
                     addOffSubViews()
                     print("👍\(output.dayListRelay.value[output.selectedDayIndex.value.row])")
                     offUIView.selectedDate.onNext(output.dayListRelay.value[output.selectedDayIndex.value.row].totalDate ?? "")
                 }
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    ///
+    private func bindSuccessLoadWeek(output: HomeViewModel.Output) {
+        output.successLoadWeek
+            .bind { [weak self] in
+                guard let self = self else { return }
+                guard let date = output.dayListRelay.value[output.selectedDayIndex.value.row].totalDate else { return }
+                print(#function, date)
+                onUIView.selectedDate.onNext(date)
             }
             .disposed(by: disposeBag)
     }
@@ -459,6 +477,16 @@ final class HomeViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
+    /// 업무일지 피드 추가 버튼
+    private func bindAddWorkLogButton() {
+        onUIView.clickedAddWorklogButton
+            .bind { [weak self] in
+                guard let self = self else { return }
+                presentInsertWorkLogView(insertFeed: nil)
+            }
+            .disposed(by: disposeBag)
+    }
+    
     /// 워라벨 피드 추가 버튼
     private func bindAddWorkLifeBalanceFeedButton(output: HomeViewModel.Output) {
         offUIView.clickedAddfeedButton
@@ -471,6 +499,33 @@ final class HomeViewController: UIViewController {
             }
             .disposed(by: disposeBag)
     }
+    
+    /// 업무일지 클릭한 경우
+    /// Worklog 클릭한 경우
+    private func bindSelectedWorklogTableViewCell() {
+        onUIView.selectedWorklogTableViewCell
+            .bind { [weak self] Worklog in
+                guard let self = self else { return }
+                let ClickWorklogView = ClickWorklogView()
+                ClickWorklogView.feedSubject.onNext(Worklog)
+                ClickWorklogView.successConnect
+                    .bind { [weak self] in
+                        guard let self = self else { return }
+                        onUIView.successAddWorklog.onNext(())
+                    }
+                    .disposed(by: disposeBag)
+                
+                ClickWorklogView.insertFeedSubject
+                    .bind { [weak self] feed in
+                        guard let self = self else { return }
+                        presentInsertWorkLogView(insertFeed: feed)
+                    }
+                    .disposed(by: disposeBag)
+                present(ClickWorklogView, animated: true)
+            }
+            .disposed(by: disposeBag)
+    }
+    
     
     /// 워라벨 피드 클릭한 경우
     private func bindSelectedFeedTableViewCell() {
@@ -524,6 +579,19 @@ final class HomeViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
+//    /// Binding Move Inquire Memoirs ViewController
+//    private func bindMoveTodayResolutionViewController() {
+//        onUIView.moveTodayResolutionViewController
+//            .bind { [weak self] date in
+//                guard let self = self else { return }
+//                let TodayResolutionViewController = TodayResolutionViewController(viewModel: TodayResolutionViewModel())
+//                TodayResolutionViewController.todayDate = date
+//                navigationController?.pushViewController(TodayResolutionViewController, animated: true)
+//            }
+//            .disposed(by: disposeBag)
+//    }
+    
+    
     /// Present Insert W.L.B Feed View
     private func presentInsertWLBFeedView(insertFeed: Feed?) {
         let insertWorkLifeBalanceFeedView = InsertWorkLifeBalanceFeedView()
@@ -538,6 +606,22 @@ final class HomeViewController: UIViewController {
             .disposed(by: disposeBag)
         present(insertWorkLifeBalanceFeedView, animated: true)
     }
+    
+    /// presentInsertWorkLogView
+    private func presentInsertWorkLogView(insertFeed: WorkGetlogDTO?) {
+        let InsertWorkLogView = InsertWorkLogView()
+        if let insertFeed = insertFeed {
+            InsertWorkLogView.insertFeed.onNext(insertFeed)
+        }
+        InsertWorkLogView.successAddWorklogSubject
+            .bind { [weak self] in
+                guard let self = self else { return }
+                onUIView.successAddWorklog.onNext(())
+            }
+            .disposed(by: disposeBag)
+        present(InsertWorkLogView, animated: true)
+    }
+    
     
     /// 사진 접근 권한 설정
     private func photoAuth(isCamera: Bool, viewController: UIViewController, completion: @escaping () -> ()) {

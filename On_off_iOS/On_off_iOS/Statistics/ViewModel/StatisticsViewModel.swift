@@ -141,7 +141,7 @@ final class StatisticsViewModel {
     private func getWeekArchieve(output: Output) {
         service.getWeekAchieveRate()
             .subscribe(onNext: { [weak self] result in
-                guard let self = self else { return }
+                guard let self = self, let result = result else { return }
                 inputWeekArchieveRate(result: result, output: output)
                 inputMonthArchieveRate(result: result, output: output)
             }, onError: { error in
@@ -154,7 +154,7 @@ final class StatisticsViewModel {
     private func getMonthArchieve(output: Output) {
         service.getMonthAchieveRate()
             .subscribe(onNext: { [weak self] result in
-                guard let self = self else { return }
+                guard let self = self, let result = result else { return }
                 monthWriteRate(result: result, output: output)
                 getCalendarList(result: result, output: output)
             }, onError: { error in
@@ -167,7 +167,7 @@ final class StatisticsViewModel {
     private func getPrevMonthArchieve(output: Output) {
         service.getPrevMonthAchieveRate(date: output.todayDateRelay.value ?? "")
             .subscribe(onNext: { [weak self] result in
-                guard let self = self else { return }
+                guard let self = self, let result = result else { return }
                 getCalendarList(result: result, output: output)
             }, onError: { error in
                 print(#function, error)
@@ -179,7 +179,7 @@ final class StatisticsViewModel {
     private func getNextMonthArchieve(output: Output) {
         service.getNextMonthAchieveRate(date: output.todayDateRelay.value ?? "")
             .subscribe(onNext: { [weak self] result in
-                guard let self = self else { return }
+                guard let self = self, let result = result else { return }
                 getCalendarList(result: result, output: output)
             }, onError: { error in
                 print(#function, error)
