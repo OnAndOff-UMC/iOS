@@ -23,7 +23,7 @@ final class ClickWorklogService {
             AF.request(url,
                        method: .patch,
                        headers: header)
-            .responseDecodable(of: Response<Worklog>.self) { response in
+            .responseDecodable(of: Response<delaylog>.self) { response in
                 print(#function, response)
                 switch response.result {
                 case .success(let data):

@@ -86,10 +86,10 @@ final class OnUIView: UIView {
     /// 선택한 날짜
     var selectedDate: PublishSubject<String> = PublishSubject()
     var successAddWorklog: PublishSubject<Void> = PublishSubject()
-    var selectedWorklogTableViewCell: PublishSubject<Worklog> = PublishSubject()
+    var selectedWorklogTableViewCell: PublishSubject<WorkGetlogDTO> = PublishSubject()
     private var loadWLFeed: PublishSubject<Void> = PublishSubject()
     var moveStartToWriteViewController: PublishSubject<String> = PublishSubject()
-    private var clickCheckMarkOfWLFeed: PublishSubject<Worklog> = PublishSubject()
+    private var clickCheckMarkOfWLFeed: PublishSubject<WorkGetlogDTO> = PublishSubject()
     
     
     // MARK: - Init

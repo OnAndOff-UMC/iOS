@@ -7,60 +7,66 @@
 
 import Foundation
 
-struct Worklog: Codable {
+/// 업무일지 조회
+struct WorkGetlogDTO: Codable {
     let worklogId: Int?
+    let date: String?
     let content: String?
     let isChecked: Bool?
-    let date: String?
-    let createdAt: String?
-
 }
 
-struct AddWorklog: Codable {
+/// 업무일지 추가 request
+struct AddWorklogRequest: Codable {
     let date: String?
     let content: String?
 }
 
-struct On: Codable {
+/// 업무일지 추가 response
+struct AddWorklogResponse: Codable {
+    let worklogId: Int?
+    let date: String?
+    let content: String?
+    let isChecked: Bool?
+    let createdAt: String?
+}
+
+/// 업무일지 수정하기 request
+struct ModifyWorklogRequest: Codable {
+    let content: String?
+}
+
+/// 업무일지 수정하기 response
+struct ModifyWorklogResponse: Codable {
+    let worklogId: Int?
+    let date: String?
+    let content: String?
+    let isChecked: Bool?
+    let createdAt: String?
+}
+
+/// 업무일지 체크하기
+struct CheckWorklog: Codable {
+    let worklogId: Int?
+    let date: String?
+    let content: String?
+    let isChecked: Bool?
+    let createdAt: String?
+}
+
+/// 업무일지 삭제하기
+struct DeleteWorklog: Codable {
     let isSuccess: Bool?
     let code: String?
     let message: String?
+    let result: Int?
 }
 
-struct Result: Codable {
-    let userId: Int?
-    let date: String?
-    let week: Week?
-    let resolutionDTOList: [ResolutionDTO]
-    let worklogDTOList: [WorklogDTO]
-}
-
-struct Week: Codable {
-    let today: String?
-    let on: Int?
-    let off: Int?
-    let weekOfMonth: Int?
-    let weekStatsDTO: WeekStatsDTO
-}
-
-struct WeekStatsDTO: Codable {
-    let mon: Int?
-    let tue: Int?
-    let wed: Int?
-    let thu: Int?
-    let fri: Int?
-    let sat: Int?
-    let sun: Int?
-}
-
-struct ResolutionDTO: Codable {
-    let resolutionId: Int?
-    let order: Int?
-    let content: String?
-}
-
-struct WorklogDTO: Codable {
+/// 업무일지 미루기
+struct delaylog: Codable {
     let worklogId: Int?
+    let date: String?
     let content: String?
     let isChecked: Bool?
+    let createdAt: String?
+    let updatedAt: String?
 }

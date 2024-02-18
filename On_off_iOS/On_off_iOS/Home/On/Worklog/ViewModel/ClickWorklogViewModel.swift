@@ -16,11 +16,11 @@ final class ClickWorklogViewModel {
     struct Input {
         let completeDelayButtonEvents: ControlEvent<Void>?
         let deleteButtonEvents: ControlEvent<Void>?
-        let selectedWorklog: Observable<Worklog>?
+        let selectedWorklog: Observable<WorkGetlogDTO>?
     }
     
     struct Output {
-        var selectedWorkRelay: BehaviorRelay<Worklog?> = BehaviorRelay(value: nil)
+        var selectedWorkRelay: BehaviorRelay<WorkGetlogDTO?> = BehaviorRelay(value: nil)
         var successConnectRelay: PublishRelay<Bool> = PublishRelay()
         var nextDay: BehaviorRelay<String> = BehaviorRelay(value: "")
     }

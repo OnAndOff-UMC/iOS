@@ -15,7 +15,7 @@ final class InsertWorkLogService {
     /// Add Worklog
     /// - Parameter Worklog: 추가할 log
     /// - Returns: worklog
-    func addWorklog(worklog: AddWorklog) -> Observable<Bool> {
+    func addWorklog(worklog: AddWorklogRequest) -> Observable<Bool> {
         let url = Domain.RESTAPI + WorklogPath.addWorklog.rawValue
         let header = Header.header.getHeader()
         print(url)
@@ -26,10 +26,10 @@ final class InsertWorkLogService {
                        parameters: worklog,
                        encoder: JSONParameterEncoder.default,
                        headers: header)
-//            .validate(statusCode: 200..<201)
+            .validate(statusCode: 200..<201)
 //            .responseString { response in
 //            print(response) }
-            .responseDecodable(of: Response<Worklog>.self) { response in
+            .responseDecodable(of: Response<AddWorklogResponse?>.self) { response in
                 print(#function, response)
                 switch response.result {
                 case .success(let data):
@@ -38,8 +38,8 @@ final class InsertWorkLogService {
                     observer.onError(error)
                 }
             }
-            print("\(worklog) 되고 있니?")
-            print("\(url)/제대로 나오렴...")
+//            print("\(worklog) 되고 있니?")
+//            print("\(url)/제대로 나오렴...")
             return Disposables.create()
         }
     }
@@ -61,7 +61,7 @@ final class InsertWorkLogService {
                        encoding: JSONEncoding.default,
                        headers: header)
             .validate(statusCode: 200..<201)
-            .responseDecodable(of: Response<Worklog>.self) { response in
+            .responseDecodable(of: Response<AddWorklogResponse>.self) { response in
                 print(#function, response)
                 switch response.result {
                 case .success(let data):

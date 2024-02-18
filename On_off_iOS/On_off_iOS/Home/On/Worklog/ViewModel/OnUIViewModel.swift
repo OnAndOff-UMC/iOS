@@ -18,14 +18,14 @@ final class OnUIViewModel {
     
     struct Input {
         let loadWLFeed: Observable<Void>?
-        let clickCheckMarkOfWLFeed: Observable<Worklog>?
+        let clickCheckMarkOfWLFeed: Observable<WorkGetlogDTO>?
         let selectedDate: Observable<String>?
         let successAddWorklog: Observable<Void>?
     }
     
     struct Output {
         var tableViewHeightConstraint: BehaviorRelay<Constraint?> = BehaviorRelay(value: nil)
-        var workLogRelay: BehaviorRelay<[Worklog]> = BehaviorRelay(value: [])
+        var workLogRelay: BehaviorRelay<[WorkGetlogDTO]> = BehaviorRelay(value: [])
         var successCheckWLRelay: PublishRelay<Bool> = PublishRelay()
         var selectedDate: BehaviorRelay<String> = BehaviorRelay(value: "")
     }

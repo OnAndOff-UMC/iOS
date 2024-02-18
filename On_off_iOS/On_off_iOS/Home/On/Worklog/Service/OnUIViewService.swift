@@ -17,18 +17,20 @@ final class OnUIViewService {
     /// Worklog 목록 불러오기
     /// - Parameter date: 선택한 날짜
     /// - Returns: Feed List
-    func getWLList(date: String) -> Observable<[Worklog]> {
+    func getWLList(date: String) -> Observable<[WorkGetlogDTO]> {
         let url = Domain.RESTAPI + WorklogPath.addWorklog.rawValue
-            .replacingOccurrences(of: "DATE", with: "\(date)")
+        let parameters: Parameters = ["date": date]
         let header = Header.header.getHeader()
-        print(url)
+        print(#function, url)
         
         return Observable.create { observer in
             AF.request(url,
                        method: .get,
+                       parameters: parameters,
+                       encoding: URLEncoding.default,
                        headers: header)
             .validate(statusCode: 200..<201)
-            .responseDecodable(of: Response<[Worklog]>.self) { response in
+            .responseDecodable(of: Response<[WorkGetlogDTO]>.self) { response in
                 print(#function, response)
                 switch response.result {
                 case .success(let data):
@@ -49,12 +51,13 @@ final class OnUIViewService {
             .replacingOccurrences(of: "worklogid", with: "\(worklogid)")
         let header = Header.header.getHeader()
         print(url)
+        
         return Observable.create { observer in
             AF.request(url,
                        method: .patch,
                        headers: header)
             .validate(statusCode: 200..<201)
-            .responseDecodable(of: Response<Worklog>.self) { response in
+            .responseDecodable(of: Response<CheckWorklog>.self) { response in
                 print(#function, response)
                 switch response.result {
                 case .success(let data):

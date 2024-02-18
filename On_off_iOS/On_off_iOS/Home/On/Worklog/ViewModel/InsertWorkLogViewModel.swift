@@ -18,14 +18,14 @@ final class InsertWorkLogViewModel {
     struct Input {
         let textFieldEvents: ControlProperty<String>?
         let doneButtonEvents: ControlEvent<Void>?
-        let insertWorklog: Observable<Worklog>
+        let insertWorklog: Observable<WorkGetlogDTO>
     }
     
     struct Output {
         var textRelay: BehaviorRelay<String> = BehaviorRelay(value: "")
         var textCountRelay: BehaviorRelay<Int> = BehaviorRelay(value: 0)
         var successAddWorklogRelay: PublishRelay<Bool> = PublishRelay()
-        var insertRelay: BehaviorRelay<Worklog?> = BehaviorRelay(value: nil)
+        var insertRelay: BehaviorRelay<WorkGetlogDTO?> = BehaviorRelay(value: nil)
     }
     
     /// Create Output
@@ -96,9 +96,8 @@ final class InsertWorkLogViewModel {
     
     /// Add Feed To Backend Server
     private func addWorklog(output: Output) {
-        let Worklog: AddWorklog = AddWorklog(date: formatDate(date: Date()),
+        let Worklog: AddWorklogRequest = AddWorklogRequest(date: formatDate(date: Date()),
                                     content: output.textRelay.value)
-        print(Worklog)
         service.addWorklog(worklog: Worklog)
             .subscribe(onNext: { check in
                 if check {

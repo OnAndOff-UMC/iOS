@@ -61,7 +61,7 @@ final class InsertWorkLogView: DimmedViewController {
     private let disposeBag = DisposeBag()
     private let viewModel = InsertWorkLogViewModel()
     var successAddWorklogSubject: PublishSubject<Void> = PublishSubject<Void>()
-    var insertFeed: PublishSubject<Worklog> = PublishSubject<Worklog>()
+    var insertFeed: PublishSubject<WorkGetlogDTO> = PublishSubject<WorkGetlogDTO>()
     
     // MARK: - Init
     init() {

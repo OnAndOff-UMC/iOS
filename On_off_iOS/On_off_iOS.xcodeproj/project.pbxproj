@@ -375,14 +375,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3587D45A2B81D48D0068CAFD /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-				358DE38A2B80B12000A1FDA0 /* InsertWorkLogView.swift */,
-			);
-			path = "New Group";
-			sourceTree = "<group>";
-		};
 		3587D45B2B81E0750068CAFD /* TodayResolution */ = {
 			isa = PBXGroup;
 			children = (
@@ -464,7 +456,7 @@
 			children = (
 				358DE3862B80B0EA00A1FDA0 /* OnUIView.swift */,
 				358DE3882B80B10600A1FDA0 /* LogOptionButton.swift */,
-				3587D45A2B81D48D0068CAFD /* New Group */,
+				358DE38A2B80B12000A1FDA0 /* InsertWorkLogView.swift */,
 				358DE38C2B80B15400A1FDA0 /* ClickWorklogView.swift */,
 				358DE38E2B80B17400A1FDA0 /* WorkLogTableViewCell.swift */,
 			);

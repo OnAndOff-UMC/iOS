@@ -149,9 +149,9 @@ final class ClickWorklogView: DimmedViewController {
         return view
     }()
     
-    var feedSubject: PublishSubject<Worklog> = PublishSubject()
+    var feedSubject: PublishSubject<WorkGetlogDTO> = PublishSubject()
     var successConnect: PublishSubject<Void> = PublishSubject()
-    var insertFeedSubject: PublishSubject<Worklog> = PublishSubject()
+    var insertFeedSubject: PublishSubject<WorkGetlogDTO> = PublishSubject()
     private let disposeBag = DisposeBag()
     private let viewModel = ClickWorklogViewModel()
     

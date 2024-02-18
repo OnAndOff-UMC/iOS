@@ -576,7 +576,7 @@ final class HomeViewController: UIViewController {
     }
     
     /// presentInsertWorkLogView
-    private func presentInsertWorkLogView(insertFeed: Worklog?) {
+    private func presentInsertWorkLogView(insertFeed: WorkGetlogDTO?) {
         let InsertWorkLogView = InsertWorkLogView()
         if let insertFeed = insertFeed {
             InsertWorkLogView.insertFeed.onNext(insertFeed)
