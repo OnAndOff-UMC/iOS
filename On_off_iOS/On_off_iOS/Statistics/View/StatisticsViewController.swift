@@ -60,12 +60,12 @@ final class StatisticsViewController: UIViewController {
     /// 일간 그래프
     private lazy var weekChartUIView: WeekChartCustomView = {
         let view = WeekChartCustomView(frame: CGRect(x: 0, y: 0,
-                                        width: Int(view.safeAreaLayoutGuide.layoutFrame.width),
-                                        height: Int(view.safeAreaLayoutGuide.layoutFrame.width)))
+                                                     width: Int(view.safeAreaLayoutGuide.layoutFrame.width),
+                                                     height: Int(view.safeAreaLayoutGuide.layoutFrame.width)))
         view.backgroundColor = .clear
         return view
     }()
-     
+    
     /// 회고 작성 비율
     private lazy var writeRateUIView: UIView = {
         let view = UIView()
@@ -149,7 +149,7 @@ final class StatisticsViewController: UIViewController {
         view.appearance.headerDateFormat = "YYYY년 MM월"
         
         view.appearance.titleFont = .pretendard(size: 18, weight: .medium)
-
+        
         view.register(CalendarCell.self, forCellReuseIdentifier: CellIdentifier.CalendarCell.rawValue)
         return view
     }()
@@ -333,9 +333,8 @@ final class StatisticsViewController: UIViewController {
         output.moveMonthRelay
             .bind { [weak self] move in
                 guard let self = self else { return }
-                var dateComponents = DateComponents()
-                dateComponents.month = move
-                calendarView.currentPage = Calendar.current.date(byAdding: dateComponents, to: calendarView.currentPage) ?? Date()
+                output.movedMonthRelay.accept("\(formattingDate(date: calendarView.currentPage))")
+                calendarView.currentPage = Calendar.current.date(byAdding: .month, value: move, to: calendarView.currentPage) ?? Date()
                 calendarView.setCurrentPage(calendarView.currentPage, animated: true)
                 calendarView.reloadData()
             }

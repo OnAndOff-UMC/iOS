@@ -45,6 +45,9 @@ final class StatisticsViewModel {
         
         /// 오늘 날짜
         var todayDateRelay: BehaviorRelay<String?> = BehaviorRelay(value: nil)
+        
+        /// 옮긴 달 저장하는 Relay
+        var movedMonthRelay: BehaviorRelay<String?> = BehaviorRelay(value: nil)
     }
     
     /// Create Output
@@ -165,7 +168,7 @@ final class StatisticsViewModel {
     
     /// 이전달 성공 비율
     private func getPrevMonthArchieve(output: Output) {
-        service.getPrevMonthAchieveRate(date: output.todayDateRelay.value ?? "")
+        service.getPrevMonthAchieveRate(date: output.movedMonthRelay.value ?? "")
             .subscribe(onNext: { [weak self] result in
                 guard let self = self, let result = result else { return }
                 getCalendarList(result: result, output: output)
@@ -177,7 +180,7 @@ final class StatisticsViewModel {
     
     /// 다음달 성공 비율
     private func getNextMonthArchieve(output: Output) {
-        service.getNextMonthAchieveRate(date: output.todayDateRelay.value ?? "")
+        service.getNextMonthAchieveRate(date: output.movedMonthRelay.value ?? "")
             .subscribe(onNext: { [weak self] result in
                 guard let self = self, let result = result else { return }
                 getCalendarList(result: result, output: output)
