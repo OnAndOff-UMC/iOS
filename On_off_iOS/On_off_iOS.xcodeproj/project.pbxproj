@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3542F2AA2B82013D00DB15A9 /* TodayResolutionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3542F2A92B82013D00DB15A9 /* TodayResolutionTableViewCell.swift */; };
 		355283122B68CB70002BBFFD /* Ext + UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355283112B68CB70002BBFFD /* Ext + UIFont.swift */; };
 		355283142B68CC94002BBFFD /* Ext + UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355283132B68CC94002BBFFD /* Ext + UIColor.swift */; };
 		358013DB2B7FCBBC0095BA7D /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 358013DA2B7FCBBB0095BA7D /* Config.xcconfig */; };
@@ -181,6 +182,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3542F2A92B82013D00DB15A9 /* TodayResolutionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayResolutionTableViewCell.swift; sourceTree = "<group>"; };
 		355283112B68CB70002BBFFD /* Ext + UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext + UIFont.swift"; sourceTree = "<group>"; };
 		355283132B68CC94002BBFFD /* Ext + UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext + UIColor.swift"; sourceTree = "<group>"; };
 		358013DA2B7FCBBB0095BA7D /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Config.xcconfig; path = ../../../Downloads/Config.xcconfig; sourceTree = "<group>"; };
@@ -412,6 +414,7 @@
 				3587D46B2B81E18D0068CAFD /* MenuModalViewController.swift */,
 				3587D46D2B81E1A10068CAFD /* ResolutionWriteViewController.swift */,
 				3587D46F2B81E1B90068CAFD /* TodayResolutionViewController.swift */,
+				3542F2A92B82013D00DB15A9 /* TodayResolutionTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -806,6 +809,7 @@
 		37BD57F22B7F562E0078B9D0 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				37DC38A62B79E548003CBBFB /* InquireMemoirsViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -911,7 +915,6 @@
 				37BD57F22B7F562E0078B9D0 /* ViewModel */,
 				372F690A2B7A1EED00273952 /* Modal */,
 				37DC38A42B79E543003CBBFB /* InquireMemoirsViewController.swift */,
-				37DC38A62B79E548003CBBFB /* InquireMemoirsViewModel.swift */,
 			);
 			path = InquireMemoirs;
 			sourceTree = "<group>";
@@ -1352,6 +1355,7 @@
 				37B890742B6A1ECD008A8BBC /* Domain.swift in Sources */,
 				3B0129CC2B624D6000B191AD /* Home.swift in Sources */,
 				3B2D93042B77CB9800D88787 /* ImageCollectionViewCell.swift in Sources */,
+				3542F2AA2B82013D00DB15A9 /* TodayResolutionTableViewCell.swift in Sources */,
 				371B9EBF2B5B075A006AC06D /* WriteImprovementViewController.swift in Sources */,
 				3B26CF4A2B79EF2600E05581 /* InsertWorkLifeBalanceFeedViewModel.swift in Sources */,
 				374FD49D2B4281E100F2E645 /* OnboardingCustomView.swift in Sources */,

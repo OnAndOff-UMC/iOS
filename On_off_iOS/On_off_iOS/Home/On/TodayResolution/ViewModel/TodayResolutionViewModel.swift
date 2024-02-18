@@ -11,6 +11,7 @@ import RxRelay
 import RxCocoa
 import UIKit
 
+///TodayResolutionViewModel
 final class TodayResolutionViewModel {
     private let disposeBag = DisposeBag()
     var navigationController: UINavigationController

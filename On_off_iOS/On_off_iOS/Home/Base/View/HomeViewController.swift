@@ -285,6 +285,7 @@ final class HomeViewController: UIViewController {
         bindSelectedFeedTableViewCell()
         bindCheckToday(output: output)
         bindMoveInquireMemoirsViewController()
+//        bindMoveTodayResolutionViewController()
         bindAddWorkLogButton()
         bindSelectedWorklogTableViewCell()
     }
@@ -559,6 +560,19 @@ final class HomeViewController: UIViewController {
             }
             .disposed(by: disposeBag)
     }
+    
+//    /// Binding Move Inquire Memoirs ViewController
+//    private func bindMoveTodayResolutionViewController() {
+//        onUIView.moveTodayResolutionViewController
+//            .bind { [weak self] date in
+//                guard let self = self else { return }
+//                let TodayResolutionViewController = TodayResolutionViewController(viewModel: TodayResolutionViewModel())
+//                TodayResolutionViewController.todayDate = date
+//                navigationController?.pushViewController(TodayResolutionViewController, animated: true)
+//            }
+//            .disposed(by: disposeBag)
+//    }
+    
     
     /// Present Insert W.L.B Feed View
     private func presentInsertWLBFeedView(insertFeed: Feed?) {

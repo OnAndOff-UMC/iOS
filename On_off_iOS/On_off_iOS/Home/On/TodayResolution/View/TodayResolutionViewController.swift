@@ -11,7 +11,17 @@ import RxCocoa
 import UIKit
 import SnapKit
 
-final class TodayResolutionViewController: UIViewController {
+final class TodayResolutionViewController: UIViewController, UITextFieldDelegate {
+    
+    /// 네비게이션 바 
+    private lazy var bookmarkButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: UIImage(systemName: MemoirsImage.bookmark.rawValue),
+                                     style: .plain,
+                                     target: nil,
+                                     action: nil)
+        
+        return button
+    }()
     
     /// 스크롤 뷰
     private lazy var scrollView: UIScrollView = {

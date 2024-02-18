@@ -83,6 +83,8 @@ final class OnUIView: UIView {
     
     var clickedAddWorklogButton: PublishSubject<Void> = PublishSubject()
     
+    var moveTodayResolutionViewController: PublishSubject<String> = PublishSubject()
+    
     /// 선택한 날짜
     var selectedDate: PublishSubject<String> = PublishSubject()
     var successAddWorklog: PublishSubject<Void> = PublishSubject()

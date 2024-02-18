@@ -24,6 +24,7 @@ enum CellIdentifier: String {
     
     // MARK: - On UIView
     case WorkLogTableViewCell
+    case TodayResolutionTableViewCell
     
     // MARK: - Calendar
     case CalendarCell
