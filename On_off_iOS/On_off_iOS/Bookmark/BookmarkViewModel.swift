@@ -71,7 +71,7 @@ final class BookmarkViewModel {
                     print("Error")
                     return
                 }
-                self.handleBookmarkResponse(response.result, output: output)
+                self.handleBookmarkResponse(response.result ?? BookMarkListResponse(memoirList: [], pageNumber: 0, pageSize: 0, totalPages: 0, totalElements: 0, isFirst: false, isLast: false), output: output)
             }, onError: { error in
                 print("Error fetching bookmarks")
             })

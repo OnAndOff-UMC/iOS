@@ -26,7 +26,7 @@ final class MyPageService {
                 print(#function, response)
                 switch response.result {
                 case .success(let data):
-                    observer.onNext(data.result)
+                    observer.onNext(data.result ?? MyInfo(nickname: nil, job: nil, fieldOfWork: nil, experienceYear: nil))
                 case .failure(let error):
                     observer.onError(error)
                 }

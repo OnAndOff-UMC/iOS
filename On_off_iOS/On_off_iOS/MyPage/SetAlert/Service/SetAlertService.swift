@@ -26,7 +26,7 @@ final class SetAlertService {
                 print(#function, response)
                 switch response.result {
                 case .success(let data):
-                    observer.onNext(data.result)
+                    observer.onNext(data.result ?? Alert(pushNotificationTime: "", receivePushNotification: false))
                 case .failure(let error):
                     observer.onError(error)
                 }
