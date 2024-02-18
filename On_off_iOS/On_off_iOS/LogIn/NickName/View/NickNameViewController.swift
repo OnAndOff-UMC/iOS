@@ -52,6 +52,7 @@ final class NickNameViewController: UIViewController {
         field.textAlignment = .left
         field.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         field.backgroundColor = UIColor.clear
+        field.textColor = .black
         field.layer.borderWidth = 0
         return field
     }()

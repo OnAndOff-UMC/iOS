@@ -12,6 +12,15 @@ import Kingfisher
 /// BookmarkTableViewCell
 final class BookmarkTableViewCell: UITableViewCell {
     
+    /// 셀 배경
+    private lazy var uiView: UIView = {
+        let view = UIView()
+        view.layer.cornerRadius = 10
+        view.layer.masksToBounds = true
+        view.backgroundColor = .OnOffMain
+        return view
+    }()
+    
     private lazy var iconImageView: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFit
@@ -22,7 +31,7 @@ final class BookmarkTableViewCell: UITableViewCell {
     private lazy var bookmarkButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
-        button.tintColor = .OnOffMain
+        button.tintColor = .white
         return button
     }()
     
@@ -31,6 +40,7 @@ final class BookmarkTableViewCell: UITableViewCell {
         let label = UILabel()
         label.numberOfLines = 0
         label.textAlignment = .center
+        label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 22, weight: .bold)
         return label
     }()
@@ -52,18 +62,27 @@ final class BookmarkTableViewCell: UITableViewCell {
     
     /// addSubviews
     private func addSubviews() {
-        addSubview(iconImageView)
-        addSubview(dateLabel)
-        addSubview(bookmarkButton)
+        addSubview(uiView)
+        uiView.addSubview(iconImageView)
+        uiView.addSubview(dateLabel)
+        uiView.addSubview(bookmarkButton)
         
         configureContraints()
+        
+        backgroundColor = .white
     }
     
     /// configureContraints
     private func configureContraints() {
+        
+        uiView.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview().inset(8)
+            make.verticalEdges.equalToSuperview().inset(5)
+        }
+        
         iconImageView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.height.width.equalToSuperview().multipliedBy(0.8)
+            make.height.width.equalToSuperview().multipliedBy(0.5)
         }
         
         dateLabel.snp.makeConstraints { make in
@@ -90,9 +109,9 @@ final class BookmarkTableViewCell: UITableViewCell {
             make.height.width.equalToSuperview().multipliedBy(0.8)
             
             if let remain = memoir.remain, remain % 2 == 0 {
-                make.leading.equalToSuperview().inset(-10)
+                make.leading.equalToSuperview()
             } else {
-                make.trailing.equalToSuperview().inset(-10)
+                make.trailing.equalToSuperview()
             }
         }
         

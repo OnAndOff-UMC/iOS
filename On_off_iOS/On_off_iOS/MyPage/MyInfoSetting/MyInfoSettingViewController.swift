@@ -26,6 +26,7 @@ final class MyInfoSettingViewController: UIViewController {
     private let nickNameTextField: UITextField = {
         let field = UITextField()
         field.textAlignment = .left
+        field.textColor = .black
         field.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         field.backgroundColor = UIColor.clear
         field.layer.borderWidth = 0
@@ -213,9 +214,16 @@ final class MyInfoSettingViewController: UIViewController {
     }
     
     private func settingView(){
-        view.backgroundColor = UIColor.white
         view.backgroundColor = .white
-        navigationItem.rightBarButtonItems = [saveButton]
+        setupNavigationBar()
+    }
+    
+    private func setupNavigationBar() {
+        navigationController?.navigationBar.isHidden = false
+        navigationItem.title = "마이페이지"
+        navigationItem.rightBarButtonItem = saveButton
+        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
     }
     
     // 키보드내리기

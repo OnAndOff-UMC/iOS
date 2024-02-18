@@ -12,7 +12,15 @@ import SnapKit
 
 final class BookmarkViewController: UIViewController {
     
-    private lazy var tableView = UITableView()
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.backgroundColor = .white
+        tableView.register(BookmarkTableViewCell.self,
+                           forCellReuseIdentifier: CellIdentifier.BookmarkTableViewCell.rawValue)
+
+        tableView.separatorStyle = .none
+        return tableView
+    }()
     
     private let viewModel: BookmarkViewModel
     private let disposeBag = DisposeBag()
@@ -38,10 +46,20 @@ final class BookmarkViewController: UIViewController {
     // MARK: - View Will Appear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        settingView()
         loadDataSubject.onNext(())
         tableView.reloadData()
-        //        reloadBookmarksData()
+    }
+    private func settingView(){
+        view.backgroundColor = .white
+        setupNavigationBar()
+    }
+    private func setupNavigationBar() {
+        navigationController?.navigationBar.isHidden = false
+        navigationController?.navigationBar.barTintColor = .white
+        navigationItem.title = "북마크"
+        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
     }
     
     private func setupTableView() {
@@ -49,7 +67,6 @@ final class BookmarkViewController: UIViewController {
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        tableView.register(BookmarkTableViewCell.self, forCellReuseIdentifier: CellIdentifier.BookmarkTableViewCell.rawValue)
         
         tableView.rx.setDelegate(self).disposed(by: disposeBag)
     }

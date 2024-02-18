@@ -14,6 +14,7 @@ final class ModalSelectProfileTableViewCell: UITableViewCell {
         let label = UILabel()
         label.numberOfLines = 1
         label.textAlignment = .left
+        label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         return label
     }()
@@ -34,6 +35,7 @@ final class ModalSelectProfileTableViewCell: UITableViewCell {
         label.snp.makeConstraints { make in
             make.edges.equalToSuperview().inset(10)
         }
+        contentView.backgroundColor = .white
     }
     
     func configure(with text: String) {

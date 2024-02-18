@@ -56,7 +56,6 @@
 		3787D00F2B42AD6F00F054DD /* OnBoardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787D00E2B42AD6F00F054DD /* OnBoardingViewModel.swift */; };
 		3787D0132B42E0F000F054DD /* NickNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787D0122B42E0F000F054DD /* NickNameViewController.swift */; };
 		3789F5F62B7FB91700B8EADB /* MyInfoSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3789F5F52B7FB91700B8EADB /* MyInfoSettingViewController.swift */; };
-		3789F5FA2B7FCB5800B8EADB /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3789F5F92B7FCB5800B8EADB /* Config.xcconfig */; };
 		3789F5FC2B7FCFE400B8EADB /* MyInfoSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3789F5FB2B7FCFE400B8EADB /* MyInfoSettingViewModel.swift */; };
 		3789F5FE2B80C1B200B8EADB /* MyInfoSettingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3789F5FD2B80C1B200B8EADB /* MyInfoSettingService.swift */; };
 		3789F6002B80C24000B8EADB /* MyInfoSettingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3789F5FF2B80C24000B8EADB /* MyInfoSettingProtocol.swift */; };
@@ -1234,7 +1233,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1500;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 1520;
 				TargetAttributes = {
 					3B4230092B41572200D0B038 = {
 						CreatedOnToolsVersion = 15.0.1;
@@ -1279,7 +1278,6 @@
 				376A4B572B5504FE004FBB56 /* Lotties.xcassets in Resources */,
 				3B42301A2B41572400D0B038 /* LaunchScreen.storyboard in Resources */,
 				376A4B592B55054D004FBB56 /* onBoarding.json in Resources */,
-				3789F5FA2B7FCB5800B8EADB /* Config.xcconfig in Resources */,
 				3B4230172B41572400D0B038 /* Assets.xcassets in Resources */,
 				37DFBE9B2B81BA4D00E98608 /* GoogleService-Info.plist in Resources */,
 			);
