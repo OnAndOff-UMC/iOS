@@ -67,7 +67,7 @@ final class MyInfoSettingService: MyInfoSettingProtocol {
                        parameters: userInfo,
                        encoder: JSONParameterEncoder.default,
                        headers: header)
-            .validate(statusCode: 200..<201)
+            .validate()
             .responseDecodable(of: Response<UserInfoResult>.self) { response in
                 switch response.result {
                 case .success(let data):

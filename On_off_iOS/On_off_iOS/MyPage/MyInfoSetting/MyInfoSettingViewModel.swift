@@ -78,11 +78,11 @@ final class MyInfoSettingViewModel: MyInfoSettingProtocol {
     
     /// 초기값 확인
     private func fetchExistingUserInfo() {
-        var existingUserInfo: UserInfoRequest?
+        var existingUserInfo: UserInfoResult?
         
         myInfoSettingService.getMyInformation()
             .subscribe(onNext: { [weak self] info in
-                existingUserInfo = UserInfoRequest(
+                existingUserInfo = UserInfoResult(
                     nickname: info.nickname,
                     fieldOfWork: info.fieldOfWork,
                     job: info.job,
