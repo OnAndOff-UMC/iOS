@@ -25,13 +25,20 @@ final class MyInfoSettingViewController: UIViewController {
     ///닉네임 textField
     private let nickNameTextField: UITextField = {
         let field = UITextField()
-        field.attributedPlaceholder = NSAttributedString(string: "닉네임을 입력하세요",
-                                                         attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         field.textAlignment = .left
-        field.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+        field.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         field.backgroundColor = UIColor.clear
         field.layer.borderWidth = 0
         return field
+    }()
+    
+    /// 닉네임 중복 검사 결과 라벨
+    private let nicknameValidationResultLabel: UILabel = {
+        let label = UILabel()
+        label.text = ""
+        label.font = UIFont.systemFont(ofSize: 13)
+        label.textAlignment = .right
+        return label
     }()
     
     /// 닉네임 라인
@@ -116,7 +123,7 @@ final class MyInfoSettingViewController: UIViewController {
         field.backgroundColor = UIColor.clear
         field.layer.cornerRadius = 10
         field.layer.borderWidth = 1
-        field.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+        field.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         field.layer.borderColor = UIColor.clear.cgColor
         field.textColor = .black
         
@@ -182,11 +189,11 @@ final class MyInfoSettingViewController: UIViewController {
         return button
     }()
     
-    private var viewModel: ProfileSettingViewModel
+    private var viewModel: MyInfoSettingViewModel
     private let disposeBag = DisposeBag()
     
     // MARK: - Init
-    init(viewModel: ProfileSettingViewModel) {
+    init(viewModel: MyInfoSettingViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -223,6 +230,7 @@ final class MyInfoSettingViewController: UIViewController {
         
         view.addSubview(nickName)
         view.addSubview(nickNameTextField)
+        view.addSubview(nicknameValidationResultLabel)
         view.addSubview(nickNameLine)
         view.addSubview(checkLenghtLabel)
         
@@ -256,8 +264,7 @@ final class MyInfoSettingViewController: UIViewController {
         
         nickNameTextField.snp.makeConstraints { make in
             make.top.equalTo(nickName.snp.bottom).offset(50)
-            make.centerX.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(0.8)
+            make.leading.equalToSuperview().offset(10)
         }
         
         nickNameLine.snp.makeConstraints { make in
@@ -269,6 +276,11 @@ final class MyInfoSettingViewController: UIViewController {
         checkLenghtLabel.snp.makeConstraints { make in
             make.trailing.equalTo(jobLine.snp.trailing)
             make.centerY.equalTo(nickNameTextField.snp.centerY)
+        }
+        
+        nicknameValidationResultLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(nickNameTextField.snp.centerY)
+            make.trailing.equalTo(checkLenghtLabel.snp.leading).offset(-10)
         }
         
         nickNameExplainLabel.snp.makeConstraints { make in
@@ -285,7 +297,6 @@ final class MyInfoSettingViewController: UIViewController {
         fieldOfWorkButton.snp.makeConstraints { make in
             make.top.equalTo(fieldOfWork.snp.bottom).offset(18)
             make.leading.trailing.equalToSuperview().inset(10)
-            make.width.equalToSuperview().multipliedBy(0.8)
             make.height.equalTo(fieldOfWorkButton.snp.width).multipliedBy(0.1)
         }
         
@@ -310,7 +321,6 @@ final class MyInfoSettingViewController: UIViewController {
         jobTextField.snp.makeConstraints { make in
             make.top.equalTo(job.snp.bottom).offset(18)
             make.leading.trailing.equalToSuperview().inset(10)
-            make.width.equalToSuperview().multipliedBy(0.8)
         }
         
         checkLenghtJobLabel.snp.makeConstraints { make in
@@ -352,33 +362,70 @@ final class MyInfoSettingViewController: UIViewController {
     
     /// 뷰모델과 setupBindings
     private func setupBindings() {
-        let input = ProfileSettingViewModel.Input(startButtonTapped: saveButton.rx.tap.asObservable(),
-                                                  jobTextChanged: jobTextField.rx.text.orEmpty.asObservable())
+        let input = MyInfoSettingViewModel.Input(saveButtonTapped: PublishSubject<Void>(),
+                                                 jobTextChanged: jobTextField.rx.text.orEmpty.asObservable(),
+                                                 nickNameTextChanged: nickNameTextField.rx.text.orEmpty.asObservable(),
+                                                 nicknameValidationTrigger: nickNameTextField.rx.text.orEmpty.asObservable()
+                                                 )
         let output = viewModel.bind(input: input)
+  
+        bindSaveButton(input: input, output: output)
+        bindFieldOfWorkButton(output: output)
+        bindNicknameValidationMessage(output: output)
+        bindAnnualButton(output: output)
+        bindNickNameLength(output: output)
+        bindJobLength(output: output)
+        bindNickNameRelay(output: output)
+        bindNicknameValidationResult(output: output)
+        bindExperienceYearRelay(output: output)
         
-        /// 글자수 출력 바인딩
-        output.jobLength
-            .map { "(\($0)/30)" }
-            .bind(to: checkLenghtJobLabel.rx.text)
-            .disposed(by: disposeBag)
-                        
+        bindNicknameValidationMessage(output: output)
+        bindJopRelay(output: output)
+        bindFieldOfWorkRelay(output: output)
+        
+    }
+    
+    /// bindSaveButtone
+    private func bindSaveButton(input: MyInfoSettingViewModel.Input, output: MyInfoSettingViewModel.Output) {
+        output.isCheckButtonEnabled
+               .observe(on: MainScheduler.instance)
+               .bind(to: saveButton.rx.isEnabled)
+               .disposed(by: disposeBag)
+        
+        
         saveButton.rx.tap
-            .bind { [weak self] in
-                if let nickName = self?.nickNameTextField.text {
-                    _ = KeychainWrapper.saveItem(value: nickName, forKey: ProfileKeyChain.nickname.rawValue)
-                }
-                if let job = self?.jobTextField.text {
-                    _ = KeychainWrapper.saveItem(value: job, forKey: ProfileKeyChain.job.rawValue)
-                }
+               .bind(to: input.saveButtonTapped)
+               .disposed(by: disposeBag)
+        
+        
+        output.success
+             .filter { $0 }
+             .observe(on: MainScheduler.instance)
+             .subscribe(onNext: { [weak self] _ in
+                 self?.navigationController?.popViewController(animated: true)
+             })
+             .disposed(by: disposeBag)
             }
-            .disposed(by: disposeBag)
+    
+    /// bindFieldOfWorkButton
+    private func bindFieldOfWorkButton(output: MyInfoSettingViewModel.Output) {
         
         fieldOfWorkButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.presentModalForProfileSetting(dataType: .fieldOfWork)
             })
             .disposed(by: disposeBag)
-        
+    }
+    
+    /// bindAnnualButton
+    private func bindNicknameValidationMessage(output: MyInfoSettingViewModel.Output) {
+        output.nicknameValidationMessage
+            .bind(to: nicknameValidationResultLabel.rx.text)
+            .disposed(by: disposeBag)
+    }
+    
+    /// bindAnnualButton
+    private func bindAnnualButton(output: MyInfoSettingViewModel.Output) {
         annualButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.presentModalForProfileSetting(dataType: .experienceYear)
@@ -386,6 +433,60 @@ final class MyInfoSettingViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
+    /// 닉네임 글자 수 출력 바인딩
+    private func bindNickNameLength(output: MyInfoSettingViewModel.Output) {
+        output.nickNameLength
+            .map { "(\($0)/10)" }
+            .bind(to: checkLenghtLabel.rx.text)
+            .disposed(by: disposeBag)
+    }
+    
+    /// 직업 글자수 출력 바인딩
+    private func bindJobLength(output: MyInfoSettingViewModel.Output) {
+        output.jobLength
+            .map { "(\($0)/30)" }
+            .bind(to: checkLenghtJobLabel.rx.text)
+            .disposed(by: disposeBag)
+    }
+    
+    /// 닉네임 글자 출력 바인딩
+    private func bindNickNameRelay(output: MyInfoSettingViewModel.Output) {
+        output.nickNameRelay
+            .bind(to: nickNameTextField.rx.text)
+            .disposed(by: disposeBag)
+    }
+        
+    /// 닉네임에 정보 삽입
+    private func bindNicknameValidationResult(output: MyInfoSettingViewModel.Output) {
+        output.nicknameValidationResult
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] isValid in
+                self?.nicknameValidationResultLabel.textColor = isValid ? .blue : .red
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    /// 경력에 정보 삽입
+    private func bindExperienceYearRelay(output: MyInfoSettingViewModel.Output) {
+        output.experienceYearRelay
+            .bind(to: annualButton.rx.title(for: .normal))
+            .disposed(by: disposeBag)
+    }
+    
+    /// 직업에 정보 삽입
+    private func bindJopRelay(output: MyInfoSettingViewModel.Output) {
+        output.jobRelay
+            .bind(to: jobTextField.rx.text)
+            .disposed(by: disposeBag)
+    }
+    
+    /// 분야에 정보 삽입
+    private func bindFieldOfWorkRelay(output: MyInfoSettingViewModel.Output) {
+        output.fieldOfWorkRelay
+            .bind(to: fieldOfWorkButton.rx.title(for: .normal))
+            .disposed(by: disposeBag)
+    }
+
     /// 이모티콘 모달 띄우기
     private func presentModalForProfileSetting(dataType: ProfileDataType) {
         let viewModel = ModalSelectProfileViewModel()

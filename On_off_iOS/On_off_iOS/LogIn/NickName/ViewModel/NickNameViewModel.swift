@@ -12,7 +12,7 @@ import UIKit
 
 final class NickNameViewModel {
     private let disposeBag = DisposeBag()
-    
+    private let nickNameService: NickNameService
     /// Input
     struct Input {
         let startButtonTapped: Observable<Void>
@@ -25,6 +25,11 @@ final class NickNameViewModel {
         let nickNameLength: PublishSubject<Int> = PublishSubject<Int>()
         let isCheckButtonEnabled: BehaviorRelay<Bool> = BehaviorRelay<Bool>(value: true)
         let moveToNext = PublishSubject<Void>()
+    }
+    
+    // MARK: - Init
+    init(nickNameService: NickNameService) {
+        self.nickNameService = nickNameService
     }
     
     /// binding Input
@@ -45,16 +50,31 @@ final class NickNameViewModel {
     
     private func observeNickNameTextChanged(_ nickNameTextChanged: Observable<String>, output: Output) {
         nickNameTextChanged
-            .map { [weak self] nickName in
-                return (nickName.count, self?.isValidNickName(nickName) ?? false)
+            .map { [weak self] nickName -> (String, Bool) in
+                let isValidLength = nickName.count >= 2 && nickName.count <= 10
+                let isValidNickName = self?.isValidNickName(nickName) ?? false
+                return (nickName, isValidLength && isValidNickName)
             }
-            .do(onNext: { (length, isValid) in
-                output.isCheckButtonEnabled.accept(length >= 2 && length <= 10 && isValid)
-            })
-            .map { $0.0 }
-            .bind(to: output.nickNameLength)
-            .disposed(by: disposeBag)
-    }
+            .filter { _, isValid -> Bool in
+                return isValid
+            }
+                    .map { nickname, _ in nickname }
+                    .distinctUntilChanged()
+                    .flatMapLatest { [weak self] nickname -> Observable<Response<String>> in
+                        guard let self = self else { return .empty() }
+                        return self.nickNameService.nicknameDuplicate(nickname: nickname)
+                            .catchAndReturn(Response(isSuccess: false, code: "Error", message: "사용 불가능한 닉네임입니다.", result: "사용 불가능한 닉네임입니다."))
+                    }
+                    .subscribe(onNext: { response in
+                        let isSuccess = response.isSuccess ?? false
+                        let message = response.result ?? "오류 발생"
+                     
+                    }, onError: { error in
+print("네트워크 오류")
+                    })
+                    .disposed(by: disposeBag)
+                
+            }
     
     private func handleStartButtonTapped(_ startButtonTapped: Observable<Void>, nickNameTextChanged: Observable<String>, output: Output) {
         startButtonTapped

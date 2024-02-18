@@ -323,7 +323,7 @@ final class MyPageViewController: UIViewController {
         myInfoButton.rx.tap
             .bind { [weak self] in
                 guard let self = self else { return }
-                let myInfoSettingViewController = MyInfoSettingViewController(viewModel: ProfileSettingViewModel(loginService: LoginService()))
+                let myInfoSettingViewController = MyInfoSettingViewController(viewModel: MyInfoSettingViewModel(myInfoSettingService: MyInfoSettingService()))
                 myInfoSettingViewController.navigationItem.title = "마이페이지"
                 navigationController?.pushViewController(myInfoSettingViewController, animated: true)
             }

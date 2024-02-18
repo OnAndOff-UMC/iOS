@@ -198,7 +198,7 @@ final class LoginViewController: UIViewController {
     /// 닉네임 설정으로 이동
     private func moveToNickName() {
         print("이동해야함")
-        let nickNameViewModel = NickNameViewModel()
+        let nickNameViewModel = NickNameViewModel(nickNameService: NickNameService())
         let nickNameViewController =  NickNameViewController(viewModel: nickNameViewModel)
         self.navigationController?.pushViewController(nickNameViewController, animated: true)
     }
@@ -206,7 +206,7 @@ final class LoginViewController: UIViewController {
     /// 메인 화면으로 이동
     private func moveToMain() {
         print("이동해야함")
-        let nickNameViewModel = NickNameViewModel()
+        let nickNameViewModel = NickNameViewModel(nickNameService: NickNameService())
         let nickNameViewController =  NickNameViewController(viewModel: nickNameViewModel)
         self.navigationController?.pushViewController(nickNameViewController, animated: true)
     }

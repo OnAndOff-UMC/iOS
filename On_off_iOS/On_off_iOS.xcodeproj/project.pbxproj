@@ -58,6 +58,8 @@
 		3789F5F62B7FB91700B8EADB /* MyInfoSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3789F5F52B7FB91700B8EADB /* MyInfoSettingViewController.swift */; };
 		3789F5FA2B7FCB5800B8EADB /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3789F5F92B7FCB5800B8EADB /* Config.xcconfig */; };
 		3789F5FC2B7FCFE400B8EADB /* MyInfoSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3789F5FB2B7FCFE400B8EADB /* MyInfoSettingViewModel.swift */; };
+		3789F5FE2B80C1B200B8EADB /* MyInfoSettingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3789F5FD2B80C1B200B8EADB /* MyInfoSettingService.swift */; };
+		3789F6002B80C24000B8EADB /* MyInfoSettingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3789F5FF2B80C24000B8EADB /* MyInfoSettingProtocol.swift */; };
 		37A1E9862B6C821A0013FFD7 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = 37A1E9852B6C821A0013FFD7 /* RxGesture */; };
 		37A1E9882B6CB1DD0013FFD7 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A1E9872B6CB1DD0013FFD7 /* LoginService.swift */; };
 		37A1E98A2B6CB1F70013FFD7 /* LoginProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A1E9892B6CB1F70013FFD7 /* LoginProtocol.swift */; };
@@ -107,6 +109,8 @@
 		37DC38AD2B79FC39003CBBFB /* ModalMenuOptionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DC38AC2B79FC39003CBBFB /* ModalMenuOptionDelegate.swift */; };
 		37DEF20D2B66B31D00AF47DB /* MemoirsCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DEF20C2B66B31D00AF47DB /* MemoirsCompleteViewController.swift */; };
 		37DEF20F2B66B32A00AF47DB /* MemoirsCompleteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DEF20E2B66B32A00AF47DB /* MemoirsCompleteViewModel.swift */; };
+		37DFBE972B818D6500E98608 /* NickNameService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DFBE962B818D6500E98608 /* NickNameService.swift */; };
+		37DFBE992B818DAC00E98608 /* NickNameProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DFBE982B818DAC00E98608 /* NickNameProtocol.swift */; };
 		37FED6032B6E15000071BB23 /* MemoirsImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FED6022B6E15000071BB23 /* MemoirsImage.swift */; };
 		37FED6072B6E23560071BB23 /* BookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FED6062B6E23560071BB23 /* BookmarkViewController.swift */; };
 		37FED6092B6E235D0071BB23 /* BookmarkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FED6082B6E235D0071BB23 /* BookmarkViewModel.swift */; };
@@ -225,6 +229,8 @@
 		3789F5F52B7FB91700B8EADB /* MyInfoSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoSettingViewController.swift; sourceTree = "<group>"; };
 		3789F5F92B7FCB5800B8EADB /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		3789F5FB2B7FCFE400B8EADB /* MyInfoSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoSettingViewModel.swift; sourceTree = "<group>"; };
+		3789F5FD2B80C1B200B8EADB /* MyInfoSettingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoSettingService.swift; sourceTree = "<group>"; };
+		3789F5FF2B80C24000B8EADB /* MyInfoSettingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoSettingProtocol.swift; sourceTree = "<group>"; };
 		37A1E9832B6C7FC60013FFD7 /* On_off_iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = On_off_iOS.entitlements; sourceTree = "<group>"; };
 		37A1E9872B6CB1DD0013FFD7 /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		37A1E9892B6CB1F70013FFD7 /* LoginProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginProtocol.swift; sourceTree = "<group>"; };
@@ -255,6 +261,8 @@
 		37DC38AC2B79FC39003CBBFB /* ModalMenuOptionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalMenuOptionDelegate.swift; sourceTree = "<group>"; };
 		37DEF20C2B66B31D00AF47DB /* MemoirsCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoirsCompleteViewController.swift; sourceTree = "<group>"; };
 		37DEF20E2B66B32A00AF47DB /* MemoirsCompleteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoirsCompleteViewModel.swift; sourceTree = "<group>"; };
+		37DFBE962B818D6500E98608 /* NickNameService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameService.swift; sourceTree = "<group>"; };
+		37DFBE982B818DAC00E98608 /* NickNameProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameProtocol.swift; sourceTree = "<group>"; };
 		37FED6022B6E15000071BB23 /* MemoirsImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoirsImage.swift; sourceTree = "<group>"; };
 		37FED6062B6E23560071BB23 /* BookmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewController.swift; sourceTree = "<group>"; };
 		37FED6082B6E235D0071BB23 /* BookmarkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewModel.swift; sourceTree = "<group>"; };
@@ -559,6 +567,7 @@
 			children = (
 				376A4B5E2B551659004FBB56 /* ViewModel */,
 				378140642B42F08400F2AA5A /* View */,
+				37DFBE962B818D6500E98608 /* NickNameService.swift */,
 			);
 			path = NickName;
 			sourceTree = "<group>";
@@ -567,6 +576,7 @@
 			isa = PBXGroup;
 			children = (
 				3787D0122B42E0F000F054DD /* NickNameViewController.swift */,
+				37DFBE982B818DAC00E98608 /* NickNameProtocol.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -620,6 +630,8 @@
 			children = (
 				3789F5F52B7FB91700B8EADB /* MyInfoSettingViewController.swift */,
 				3789F5FB2B7FCFE400B8EADB /* MyInfoSettingViewModel.swift */,
+				3789F5FD2B80C1B200B8EADB /* MyInfoSettingService.swift */,
+				3789F5FF2B80C24000B8EADB /* MyInfoSettingProtocol.swift */,
 			);
 			path = MyInfoSetting;
 			sourceTree = "<group>";
@@ -1331,10 +1343,12 @@
 				37B890742B6A1ECD008A8BBC /* Domain.swift in Sources */,
 				3B0129CC2B624D6000B191AD /* Home.swift in Sources */,
 				3B2D93042B77CB9800D88787 /* ImageCollectionViewCell.swift in Sources */,
+				37DFBE972B818D6500E98608 /* NickNameService.swift in Sources */,
 				371B9EBF2B5B075A006AC06D /* WriteImprovementViewController.swift in Sources */,
 				3B26CF4A2B79EF2600E05581 /* InsertWorkLifeBalanceFeedViewModel.swift in Sources */,
 				374FD49D2B4281E100F2E645 /* OnboardingCustomView.swift in Sources */,
 				3BB806D82B5024BC00555E58 /* MonthStatistics.swift in Sources */,
+				3789F6002B80C24000B8EADB /* MyInfoSettingProtocol.swift in Sources */,
 				3BEFD30D2B7AF53F00EE6EFF /* HomeViewService.swift in Sources */,
 				37CC77752B6F9620007999E5 /* KeyChain.swift in Sources */,
 				3B26CF3F2B7908D500E05581 /* DeletedImagePopUpViewModel.swift in Sources */,
@@ -1366,6 +1380,7 @@
 				378588F72B708701004E262F /* ProfileDataType.swift in Sources */,
 				3BEFD30F2B7AF56300EE6EFF /* WeekDay.swift in Sources */,
 				37BD17702B764B2800A4EA46 /* LaunchViewModel.swift in Sources */,
+				3789F5FE2B80C1B200B8EADB /* MyInfoSettingService.swift in Sources */,
 				37CFD3002B66533900E00D92 /* ExpressedIconViewController.swift in Sources */,
 				3789F5F62B7FB91700B8EADB /* MyInfoSettingViewController.swift in Sources */,
 				37AEB1EE2B6CF3F400A6CDD6 /* ModalEmoticonViewModel.swift in Sources */,
@@ -1377,6 +1392,7 @@
 				35AC0F522B64030400AB0A6B /* TabBarController.swift in Sources */,
 				37A1E98A2B6CB1F70013FFD7 /* LoginProtocol.swift in Sources */,
 				37FED6072B6E23560071BB23 /* BookmarkViewController.swift in Sources */,
+				37DFBE992B818DAC00E98608 /* NickNameProtocol.swift in Sources */,
 				3BD552662B58FA8C0043920E /* RateFillView.swift in Sources */,
 				376879F42B7C76DD00833623 /* DeletedMemoirsPopUpViewModel.swift in Sources */,
 				35AC0F502B64025300AB0A6B /* TabItem.swift in Sources */,
