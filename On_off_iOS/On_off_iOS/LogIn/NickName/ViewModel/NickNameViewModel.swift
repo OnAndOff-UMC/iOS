@@ -81,17 +81,17 @@ final class NickNameViewModel {
     
     private func observeNickNameTextChanged(_ nickNameTextChanged: Observable<String>, output: Output) {
         nickNameTextChanged
-            .flatMapLatest { [unowned self] nickname -> Observable<(Bool, String)> in
+            .flatMapLatest { [unowned self] nickname -> Observable<(Bool, String, Int)> in
                 // 글자수 검사
                 let isValidLength = nickname.count >= 2 && nickname.count <= 10
                 if !isValidLength {
-                    return .just((false, "사용 불가능한 닉네임입니다."))
+                    return .just((false, "사용 불가능한 닉네임입니다.", nickname.count))
                 }
                 
                 // 닉네임 유효성 검사
                 let isValidNickName = self.isValidNickName(nickname)
                 if !isValidNickName {
-                    return .just((false, "사용 불가능한 닉네임입니다."))
+                    return .just((false, "사용 불가능한 닉네임입니다.", nickname.count))
                 }
 
                 // 중복 검사 수행
@@ -99,14 +99,15 @@ final class NickNameViewModel {
                     .map { response in
                         let isSuccess = response.isSuccess ?? false
                         let message = isSuccess ? "사용 가능한 닉네임입니다." : "이미 사용 중인 닉네임입니다."
-                        return (isSuccess, message)
+                        return (isSuccess, message, nickname.count)
                     }
-                    .catchAndReturn((false, "네트워크 오류 또는 기타 오류입니다."))
+                    .catchAndReturn((false, "이미 사용 중인 닉네임입니다.", nickname.count))
             }
-            .subscribe(onNext: { isValid, message in
-                output.nicknameValidationResult.accept(isValid)
-                output.nicknameValidationMessage.accept(message)
-            })
+            .subscribe(onNext: { isValid, message, length in
+                      output.nicknameValidationResult.accept(isValid)
+                      output.nicknameValidationMessage.accept(message)
+                      output.nickNameLength.onNext(length)
+                  })
             .disposed(by: disposeBag)
     }
     

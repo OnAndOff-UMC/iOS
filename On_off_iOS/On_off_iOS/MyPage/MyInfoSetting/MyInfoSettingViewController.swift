@@ -422,7 +422,6 @@ final class MyInfoSettingViewController: UIViewController {
                .bind(to: saveButton.rx.isEnabled)
                .disposed(by: disposeBag)
         
-        
         saveButton.rx.tap
                .bind(to: input.saveButtonTapped)
                .disposed(by: disposeBag)
@@ -465,8 +464,10 @@ final class MyInfoSettingViewController: UIViewController {
     
     /// 닉네임 글자 수 출력 바인딩
     private func bindNickNameLength(output: MyInfoSettingViewModel.Output) {
+     
         output.nickNameLength
-            .map { "(\($0)/10)" }
+            .map { "\($0)/10" }
+            .observe(on: MainScheduler.instance)
             .bind(to: checkLenghtLabel.rx.text)
             .disposed(by: disposeBag)
     }

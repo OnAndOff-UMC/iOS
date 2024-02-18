@@ -144,40 +144,45 @@ final class MyInfoSettingViewModel: MyInfoSettingProtocol {
     /// 3. 내 기존 입력과 동일성
     private func observeNickNameTextChanged(_ nickNameTextChanged: Observable<String>, output: Output) {
         nickNameTextChanged
-                .flatMapLatest { [weak self] nickname -> Observable<(Bool, String)> in
-                    guard let self = self else { return .just((false, "검증 오류")) }
-                    
-                    /// 글자수 및 글자 포맷 검사
-                    let isValidLength = nickname.count >= 2 && nickname.count <= 10
-                    let isValidFormat = self.isValidNickName(nickname)
-                    /// 현재 닉네임과 비교
-                    let currentNickname = output.nickNameRelay.value
-                    
-                    if nickname == currentNickname {
-                        return .just((true, ""))
-                    }
-                    if !isValidLength || !isValidFormat {
-                        return .just((false, "유효하지 않은 닉네임입니다."))
-                    }
-                    
-                        /// 중복 검사 수행
-                        return self.myInfoSettingService.nicknameDuplicate(nickname: nickname)
-                            .map { response in
-                                (response.isSuccess ?? false, response.isSuccess ?? false ? "사용 가능한 닉네임입니다." : "이미 사용 중인 닉네임입니다.")
-                            }
-                            .catchAndReturn((false, "네트워크 오류 또는 기타 오류"))
-                    
+            .flatMapLatest { [weak self] nickname -> Observable<(Bool, String)> in
+                guard let self = self else { return .just((false, "검증 오류")) }
+                
+                // 글자수 및 글자 포맷 검사
+                let isValidLength = nickname.count >= 2 && nickname.count <= 10
+                let isValidFormat = self.isValidNickName(nickname)
+                // 현재 닉네임과 비교
+                let currentNickname = output.nickNameRelay.value
+                
+                if nickname == currentNickname {
+                    return .just((true, ""))
                 }
-                .subscribe(onNext: { isValid, message in
-                    output.nicknameValidationResult.accept(isValid)
-                    output.nicknameValidationMessage.accept(message)
-                })
-                .disposed(by: disposeBag)
-        
+                if !isValidLength || !isValidFormat {
+                    return .just((false, "유효하지 않은 닉네임입니다."))
+                }
+                
+                // 중복 검사 수행
+                return self.myInfoSettingService.nicknameDuplicate(nickname: nickname)
+                    .map { response in
+                        (response.isSuccess ?? false, response.isSuccess ?? false ? "사용 가능한 닉네임입니다." : "이미 사용 중인 닉네임입니다.")
+                    }
+                    .catchAndReturn((false, "유효하지 않은 닉네임입니다."))
+            }
+            .do(onNext: { isValid, message in
+                output.nicknameValidationResult.accept(isValid)
+                output.nicknameValidationMessage.accept(message)
+            })
+            .withLatestFrom(nickNameTextChanged) { ($0.0, $0.1, $1.count) }
+            .subscribe(onNext: { isValid, message, length in
+                
+                /// 글자수 변화를 Output에
+                output.nickNameLength.onNext(length)
+            })
+            .disposed(by: disposeBag)
+
         output.nicknameValidationResult
-               .map { $0 }
-               .bind(to: output.isCheckButtonEnabled)
-               .disposed(by: disposeBag)
+            .map { $0 }
+            .bind(to: output.isCheckButtonEnabled)
+            .disposed(by: disposeBag)
     }
     
     /// 정규식을 사용해서 조건에 맞는지 확인
