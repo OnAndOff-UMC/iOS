@@ -41,7 +41,7 @@ struct ModifyWorklogResponse: Codable {
     let date: String?
     let content: String?
     let isChecked: Bool?
-    let createdAt: String?
+    let updatedAt: String?
 }
 
 /// 업무일지 체크하기
@@ -50,7 +50,7 @@ struct CheckWorklog: Codable {
     let date: String?
     let content: String?
     let isChecked: Bool?
-    let createdAt: String?
+    let updatedAt: String?
 }
 
 /// 업무일지 삭제하기

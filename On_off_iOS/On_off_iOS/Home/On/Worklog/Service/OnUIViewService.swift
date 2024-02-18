@@ -34,7 +34,7 @@ final class OnUIViewService {
                 print(#function, response)
                 switch response.result {
                 case .success(let data):
-                    observer.onNext(data.result)
+                    observer.onNext(data.result ?? [])
                 case .failure(let error):
                     observer.onError(error)
                 }
@@ -46,15 +46,15 @@ final class OnUIViewService {
     /// Check Worklog
     /// - Parameter worklogId: worklog Id
     /// - Returns: 성공 여부
-    func checkWL(worklogid: Int) -> Observable<Bool> {
+    func checkWL(worklogId: Int) -> Observable<Bool> {
         let url = Domain.RESTAPI + WorklogPath.Worklog.rawValue
-            .replacingOccurrences(of: "worklogid", with: "\(worklogid)")
+            .replacingOccurrences(of: "worklogId", with: "\(worklogId)")
         let header = Header.header.getHeader()
         print(url)
         
         return Observable.create { observer in
             AF.request(url,
-                       method: .patch,
+                       method: .put,
                        headers: header)
             .validate(statusCode: 200..<201)
             .responseDecodable(of: Response<CheckWorklog>.self) { response in

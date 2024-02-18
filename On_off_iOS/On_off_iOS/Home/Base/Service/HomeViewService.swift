@@ -14,7 +14,7 @@ final class HomeViewService {
     
     /// 일주일 날짜 초기 가져오기
     /// - Returns: Week Day
-    func weekDayInit() -> Observable<WeekDay> {
+    func weekDayInit() -> Observable<WeekDay?> {
         let url = Domain.RESTAPI + WeekDayPath.weekdayInit.rawValue
         let header = Header.header.getHeader()
         return Observable.create { observer in
@@ -26,7 +26,7 @@ final class HomeViewService {
                 print(#function, response)
                 switch response.result {
                 case .success(let data):
-                    observer.onNext(data.result)
+                    observer.onNext(data.result )
                 case .failure(let error):
                     observer.onError(error)
                 }
@@ -51,7 +51,7 @@ final class HomeViewService {
                 print(#function, response)
                 switch response.result {
                 case .success(let data):
-                    observer.onNext(data.result.nickname ?? "")
+                    observer.onNext(data.result?.nickname ?? "")
                 case .failure(let error):
                     observer.onError(error)
                 }
@@ -64,7 +64,7 @@ final class HomeViewService {
     /// 이전 일주일 날짜 가져오기
     /// - Returns: Week Day
     /// - Parameter date: 선택한 날짜
-    func movePrevWeek(date: String) -> Observable<WeekDay> {
+    func movePrevWeek(date: String) -> Observable<WeekDay?> {
         let url = Domain.RESTAPI + WeekDayPath.prevWeek.rawValue
         let parameters: Parameters = ["date": date]
         let header = Header.header.getHeader()
@@ -93,7 +93,7 @@ final class HomeViewService {
     /// 다음 일주일 날짜 가져오기
     /// - Returns: Week Day
     /// - Parameter date: 선택한 날짜
-    func moveNextWeek(date: String) -> Observable<WeekDay> {
+    func moveNextWeek(date: String) -> Observable<WeekDay?> {
         let url = Domain.RESTAPI + WeekDayPath.nextWeek.rawValue
         let parameters: Parameters = ["date": date]
         let header = Header.header.getHeader()

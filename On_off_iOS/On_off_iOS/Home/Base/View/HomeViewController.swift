@@ -508,7 +508,7 @@ final class HomeViewController: UIViewController {
                 ClickWorklogView.successConnect
                     .bind { [weak self] in
                         guard let self = self else { return }
-                        OnUIView().successAddWorklog.onNext(())
+                        onUIView.successAddWorklog.onNext(())
                     }
                     .disposed(by: disposeBag)
                 

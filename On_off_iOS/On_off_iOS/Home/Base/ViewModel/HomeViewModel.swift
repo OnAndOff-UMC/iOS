@@ -296,7 +296,7 @@ final class HomeViewModel {
     private func dayListRelay(output: Output) {
         service.weekDayInit()
             .subscribe(onNext: { [weak self] weekDay in
-                guard let self = self else { return }
+                guard let self = self, let weekDay = weekDay else { return }
                 changeWeekType(weekDay: weekDay, output: output)
             }, onError: { error in
                 print(#function, error)
@@ -367,7 +367,7 @@ final class HomeViewModel {
     private func movePrevWeek(output: Output) {
         service.movePrevWeek(date: output.dayListRelay.value[output.selectedDayIndex.value.row].totalDate ?? "")
             .subscribe(onNext: { [weak self] weekDay in
-                guard let self = self else { return }
+                guard let self = self, let weekDay = weekDay else { return }
                 changeWeekType(weekDay: weekDay, output: output)
                 checkFutureDay(indexPath: output.selectedDayIndex.value, output: output)
             }, onError: { error in
@@ -380,7 +380,7 @@ final class HomeViewModel {
     private func moveNextWeek(output: Output) {
         service.moveNextWeek(date: output.dayListRelay.value[output.selectedDayIndex.value.row].totalDate ?? "")
             .subscribe(onNext: { [weak self] weekDay in
-                guard let self = self else { return }
+                guard let self = self, let weekDay = weekDay else { return }
                 changeWeekType(weekDay: weekDay, output: output)
                 checkFutureDay(indexPath: output.selectedDayIndex.value, output: output)
             }, onError: { error in

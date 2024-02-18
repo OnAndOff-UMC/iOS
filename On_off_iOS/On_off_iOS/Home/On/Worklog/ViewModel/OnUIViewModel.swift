@@ -118,7 +118,7 @@ final class OnUIViewModel {
     ///   - worklogId: Worklog Id
     ///   - output: Output
     private func checkWL(worklogId: Int, input: Input, output: Output) {
-        service.checkWL(worklogid: worklogId)
+        service.checkWL(worklogId: worklogId)
             .subscribe(onNext: { [weak self] Worklog in
                 guard let self = self else { return }
                 if Worklog {

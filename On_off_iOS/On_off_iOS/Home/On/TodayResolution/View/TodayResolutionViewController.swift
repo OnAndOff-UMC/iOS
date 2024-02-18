@@ -13,29 +13,39 @@ import SnapKit
 
 final class TodayResolutionViewController: UIViewController, UITextFieldDelegate {
     
-    /// 네비게이션 바 
-    private lazy var bookmarkButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: UIImage(systemName: MemoirsImage.bookmark.rawValue),
+    /// 메뉴 버튼 - 네비게이션 바
+    private lazy var menuButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: UIImage(systemName: MemoirsImage.ellipsis.rawValue)?.rotated(by: .pi / 2),
                                      style: .plain,
                                      target: nil,
                                      action: nil)
-        
         return button
     }()
     
-    /// 스크롤 뷰
-    private lazy var scrollView: UIScrollView = {
-        let view = UIScrollView()
-        view.backgroundColor = .clear
-        return view
+    /// 저장 버튼 - 네비게이션 바
+    private lazy var saveButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "저장", style: .plain, target: nil, action: nil)
+        return button
     }()
     
-    //contentView
+    /// 삭제 버튼 - 네비게이션 바
+    private lazy var deleteButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "삭제", style: .plain, target: nil, action: nil)
+        return button
+    }()
+    
+    /// 전체 스크롤 뷰
+    private lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.addSubview(contentView)
+        return scrollView
+    }()
+    
+    /// scrollView 내부 contentView
     private lazy var contentView: UIView = {
         let view = UIView()
-        view.backgroundColor = .clear
+       //오늘의 다짐 tableview여기에 추가
         return view
-        
     }()
     
     //오늘의 다짐 타이틀 + 버튼 넣는 View
@@ -56,33 +66,35 @@ final class TodayResolutionViewController: UIViewController, UITextFieldDelegate
         return label
     }()
     
-    //오늘의 다짐 네비게이션 버튼
-    private lazy var todayResolutionButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = .OnOffLightPurple
-        button.tintColor = .OnOffPurple
-        button.setImage(UIImage(systemName: "chevron.right"), for: .normal)
-        return button
+//    /// 오늘의 다짐 네비게이션 버튼
+//    private lazy var todayResolutionButton: UIButton = {
+//        let button = UIButton()
+//        button.backgroundColor = .OnOffLightPurple
+//        button.tintColor = .OnOffPurple
+//        button.setImage(UIImage(systemName: "chevron.right"), for: .normal)
+//        return button
+//    }()
+//
+    
+    /// resolutionTextField
+    private lazy var resolutionTextField: UITextField = {
+        let field = UITextField()
+        field.textAlignment = .left
+        field.backgroundColor = UIColor.clear
+        field.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+        field.layer.borderColor = UIColor.clear.cgColor
+        field.isEnabled = false
+        field.textColor = .black
+        
+        return field
     }()
     
-    /// 오늘의 다짐 띄워주는 뷰
-    private lazy var resolutioncontentView: UIView = {
-        let view = UIView()
-        view.layoutIfNeeded()
-        view.layer.cornerRadius = 20
-        view.clipsToBounds = true
-        view.backgroundColor = .OnOffLightPurple
-        return view
-    }()
-    
-    //오늘의 다짐안에 들어갈 초기문구
-    private var resolutionwriteLabel: UILabel = {
-        let label = UILabel()
-        label.text = "오늘 지키고 싶은 다짐을 적어보세요!"
-        label.backgroundColor = .clear
-        label.font = UIFont.pretendard(size: 15, weight: .medium)
-        label.textColor = .lightGray
-        return label
+    /// resolutionView
+    private lazy var resolutionView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "오늘의다짐뷰")
+        imageView.contentMode = .scaleAspectFit
+        return imageView
     }()
     
     private let viewModel: TodayResolutionViewModel
@@ -106,23 +118,22 @@ final class TodayResolutionViewController: UIViewController, UITextFieldDelegate
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        addSubViews()
+//        addSubViews()
         constraints()
-        setupBindings()
+//        setupBindings()
     }
     
-    /// Add SubViews
-    private func addSubViews() {
-        view.addSubview(scrollView)
-        scrollView.addSubview(contentView)
-        contentView.addSubview(todayscontentView)
-        todayscontentView.addSubview(todayResolutionTitleLabel)
-        todayscontentView.addSubview(todayResolutionButton)
-        contentView.addSubview(resolutioncontentView)
-        resolutioncontentView.addSubview(resolutionwriteLabel)
-        
-        
-    }
+//    /// Add SubViews
+//    private func addSubViews() {
+//        view.addSubview(scrollView)
+//        scrollView.addSubview(contentView)
+//        contentView.addSubview(todayscontentView)
+//        todayscontentView.addSubview(todayResolutionTitleLabel)
+//        contentView.addSubview(resolutionTextField)
+//        resolutionView.addSubview(resolutionTextField)
+//
+//        
+//    }
     
     /// Set Constraints
     private func constraints() {
@@ -148,33 +159,33 @@ final class TodayResolutionViewController: UIViewController, UITextFieldDelegate
             make.top.leading.equalTo(todayscontentView).offset(20)
         }
         
-        todayResolutionButton.snp.makeConstraints { make in
-            make.leading.equalTo(todayResolutionTitleLabel.snp.trailing).offset(10)
-            make.centerY.equalTo(todayResolutionTitleLabel)
-        }
-        
-        
-        resolutioncontentView.snp.makeConstraints { make in
-            make.top.equalTo(todayscontentView.snp.bottom).offset(10)
-            make.leading.equalTo(todayscontentView).offset(20)
-            make.trailing.equalTo(todayscontentView).offset(-20)
-            make.height.equalTo(200)
-        }
-        
-        resolutionwriteLabel.snp.makeConstraints { make in
-            make.centerX.centerY.equalTo(resolutioncontentView)
-        }
+//        todayResolutionButton.snp.makeConstraints { make in
+//            make.leading.equalTo(todayResolutionTitleLabel.snp.trailing).offset(10)
+//            make.centerY.equalTo(todayResolutionTitleLabel)
+//        }
+//        
+//        
+//        resolutioncontentView.snp.makeConstraints { make in
+//            make.top.equalTo(todayscontentView.snp.bottom).offset(10)
+//            make.leading.equalTo(todayscontentView).offset(20)
+//            make.trailing.equalTo(todayscontentView).offset(-20)
+//            make.height.equalTo(200)
+//        }
+//        
+//        resolutionwriteLabel.snp.makeConstraints { make in
+//            make.centerX.centerY.equalTo(resolutioncontentView)
+//        }
         
     }
-    
-    /// ViewModel과 bind
-    private func setupBindings() {
-        
-        let input = TodayResolutionViewModel.Input(
-            buttonTapped: todayResolutionButton.rx.tap.asObservable()
-        )
-        viewModel.bind(input: input)
-    }
-    
+//    
+//    /// ViewModel과 bind
+//    private func setupBindings() {
+//        
+//        let input = TodayResolutionViewModel.Input(
+//            buttonTapped: todayResolutionButton.rx.tap.asObservable()
+//        )
+//        viewModel.bind(input: input)
+//    }
+//    
     
 }

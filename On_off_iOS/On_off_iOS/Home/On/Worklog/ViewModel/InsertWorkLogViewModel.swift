@@ -111,7 +111,7 @@ final class InsertWorkLogViewModel {
     
     /// Insert Worklog
     private func insertWorklog(worklogId: Int, output: Output) {
-        service.insertlog(worklogid: worklogId,content: output.textRelay.value)
+        service.insertlog(worklogId: worklogId,content: output.textRelay.value)
             .subscribe(onNext: { check in
                 if check {
                     output.successAddWorklogRelay.accept(check)

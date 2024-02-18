@@ -29,7 +29,7 @@ final class OffUIViewService {
                 print(#function, response)
                 switch response.result {
                 case .success(let data):
-                    observer.onNext(data.result)
+                    observer.onNext(data.result ?? [])
                 case .failure(let error):
                     observer.onError(error)
                 }
@@ -98,7 +98,7 @@ final class OffUIViewService {
     /// 워라벨 피드 목록 불러오기
     /// - Parameter date: 선택한 날짜
     /// - Returns: Feed List
-    func getWLBFeedList(date: String) -> Observable<[Feed]> {
+    func getWLBFeedList(date: String) -> Observable<[Feed]?> {
         let url = Domain.RESTAPI + FeedPath.workLifeBalacne.rawValue
         let parameters: Parameters = ["date": date]
         let header = Header.header.getHeader()
@@ -154,7 +154,7 @@ final class OffUIViewService {
     /// Check Memoirs Preview
     /// - Parameter feedId: Feed Id
     /// - Returns: 성공 여부
-    func checkMemoirsPreview(date: String) -> Observable<MemoirPreview> {
+    func checkMemoirsPreview(date: String) -> Observable<MemoirPreview?> {
         let url = Domain.RESTAPI + MemoirsPath.preview.rawValue
         let parameters: Parameters = ["date": date]
         let header = Header.header.getHeader()

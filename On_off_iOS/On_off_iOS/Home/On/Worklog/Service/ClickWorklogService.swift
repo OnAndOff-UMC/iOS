@@ -14,9 +14,9 @@ final class ClickWorklogService {
     /// 내일로 미루기
     /// - Parameter worklogid: worklog id
     /// - Returns: true false
-    func delayTomorrow(worklogid: Int) -> Observable<Bool> {
+    func delayTomorrow(worklogId: Int) -> Observable<Bool> {
         let url = Domain.RESTAPI + WorklogPath.Worklog.rawValue
-            .replacingOccurrences(of: "worklogid", with: "\(worklogid)")
+            .replacingOccurrences(of: "worklogId", with: "\(worklogId)")
         let header = Header.header.getHeader()
         
         return Observable.create { observer in
@@ -40,11 +40,11 @@ final class ClickWorklogService {
     /// 피드 삭제
     /// - Parameter WorklogId: Worklog Id
     /// - Returns: true false
-    func deletelog(worklogid: Int) -> Observable<Bool> {
+    func deletelog(worklogId: Int) -> Observable<Bool> {
         let url = Domain.RESTAPI + WorklogPath.Worklog.rawValue
-            .replacingOccurrences(of: "worklogid", with: "\(worklogid)")
+            .replacingOccurrences(of: "worklogId", with: "\(worklogId)")
         let header = Header.header.getHeader()
-        
+        print(url)
         return Observable.create { observer in
             AF.request(url,
                        method: .delete,
