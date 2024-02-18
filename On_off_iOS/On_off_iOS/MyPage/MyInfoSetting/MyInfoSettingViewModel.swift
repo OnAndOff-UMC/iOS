@@ -68,16 +68,23 @@ final class MyInfoSettingViewModel: MyInfoSettingProtocol {
         
         return output
     }
+    
     private func bindingSaveButtonTapped(input: Input, output: Output) {
         
         input.saveButtonTapped
                    .flatMapLatest { [weak self] _ -> Observable<Response<UserInfoResult>> in
                        guard let self = self else { return .empty() }
-                       let userInfo = UserInfoResult(
-                           nickname: output.nickNameRelay.value,
-                           fieldOfWork: output.fieldOfWorkRelay.value,
-                           job: output.jobRelay.value,
-                           experienceYear: output.experienceYearRelay.value
+                       // Keychain에서 값 로드
+                           let nickname = KeychainWrapper.loadItem(forKey: ProfileKeyChain.nickname.rawValue) ?? ""
+                           let fieldOfWork = KeychainWrapper.loadItem(forKey: ProfileKeyChain.fieldOfWork.rawValue) ?? ""
+                           let job = KeychainWrapper.loadItem(forKey: ProfileKeyChain.job.rawValue) ?? ""
+                           let experienceYear = KeychainWrapper.loadItem(forKey: ProfileKeyChain.experienceYear.rawValue) ?? ""
+
+                       let userInfo = UserInfoRequest(
+                           nickname: nickname,
+                           fieldOfWork: fieldOfWork,
+                           job: job,
+                           experienceYear: experienceYear
                        )
                        return self.myInfoSettingService.saveMyInformation(userInfo: userInfo)
                    }
@@ -105,6 +112,7 @@ final class MyInfoSettingViewModel: MyInfoSettingProtocol {
     private func inputfieldOfWork(info: MyInfo, output: Output) {
         output.fieldOfWorkRelay.accept(info.fieldOfWork ?? "")
     }
+    
     private func inputexperienceYear(info: MyInfo, output: Output) {
         output.experienceYearRelay.accept(info.experienceYear ?? "")
     }
@@ -182,29 +190,5 @@ final class MyInfoSettingViewModel: MyInfoSettingProtocol {
             .bind(to: output.jobLength)
             .disposed(by: disposeBag)
     }
-    
-//    private func handleStartButtonTapped(_ startButtonTapped: Observable<Void>, output: Output) {
-//        startButtonTapped
-//                .flatMapLatest { [weak self] _ -> Observable<Response<UserInfoResult>> in
-//                    guard let self = self else { return .empty() }
-//                    let userInfo = UserInfoResult(
-//                        nickname: output.nickNameRelay.value,
-//                        fieldOfWork: output.fieldOfWorkRelay.value,
-//                        job: output.jobRelay.value,
-//                        experienceYear: output.experienceYearRelay.value
-//                    )
-//                    return self.myInfoSettingService.saveMyInformation(userInfo: userInfo)
-//                }
-//                .subscribe(onNext: { response in
-//                    if response.isSuccess ?? false {
-//                        output.success.onNext(true)
-//                    } else {
-//                        output.errorMessage.onNext(response.message ?? "Error")
-//                    }
-//                }, onError: { error in
-//                    output.errorMessage.onNext(error.localizedDescription)
-//                })
-//               .disposed(by: disposeBag)
-//        }
 }
 

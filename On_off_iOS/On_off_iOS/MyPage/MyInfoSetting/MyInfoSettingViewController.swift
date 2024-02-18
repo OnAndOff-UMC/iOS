@@ -385,6 +385,28 @@ final class MyInfoSettingViewController: UIViewController {
         
     }
     
+    private func saveButtonTappedEvent(input: MyInfoSettingViewModel.Input, output: MyInfoSettingViewModel.Output) {
+        // 완료 버튼 탭 액션 처리
+           saveButton.rx.tap
+               .subscribe(onNext: { [weak self] _ in
+                   guard let self = self else { return }
+                   
+                   // Keychain에 저장
+                   if let nickname = self.nickNameTextField.text,
+                      let fieldOfWork = self.fieldOfWorkButton.titleLabel?.text,
+                      let job = self.jobTextField.text,
+                      let experienceYear = self.annualButton.titleLabel?.text {
+                       
+                       _ = KeychainWrapper.saveItem(value: nickname, forKey: ProfileKeyChain.nickname.rawValue)
+                       _ = KeychainWrapper.saveItem(value: fieldOfWork, forKey: ProfileKeyChain.fieldOfWork.rawValue)
+                       _ = KeychainWrapper.saveItem(value: job, forKey: ProfileKeyChain.job.rawValue)
+                       _ = KeychainWrapper.saveItem(value: experienceYear, forKey: ProfileKeyChain.experienceYear.rawValue)
+                   }
+                   
+                   input.saveButtonTapped.onNext(())
+               })
+               .disposed(by: disposeBag)
+    }
     /// bindSaveButtone
     private func bindSaveButton(input: MyInfoSettingViewModel.Input, output: MyInfoSettingViewModel.Output) {
         output.isCheckButtonEnabled

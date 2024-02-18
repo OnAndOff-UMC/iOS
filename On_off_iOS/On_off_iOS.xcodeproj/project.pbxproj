@@ -75,7 +75,6 @@
 		37BD17702B764B2800A4EA46 /* LaunchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BD176F2B764B2800A4EA46 /* LaunchViewModel.swift */; };
 		37C161232B6BD9F8000E0B21 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C161202B6BD9F7000E0B21 /* LoginViewModel.swift */; };
 		37C161242B6BD9F8000E0B21 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C161222B6BD9F7000E0B21 /* LoginViewController.swift */; };
-		37C161262B6BDAD1000E0B21 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 37C161252B6BDAD0000E0B21 /* GoogleService-Info.plist */; };
 		37C161292B6BDECF000E0B21 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 37C161282B6BDECF000E0B21 /* Alamofire */; };
 		37C1612C2B6BDEF8000E0B21 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C1612B2B6BDEF8000E0B21 /* Header.swift */; };
 		37C161312B6BDF59000E0B21 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C161302B6BDF59000E0B21 /* KeychainWrapper.swift */; };
@@ -111,6 +110,7 @@
 		37DEF20F2B66B32A00AF47DB /* MemoirsCompleteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DEF20E2B66B32A00AF47DB /* MemoirsCompleteViewModel.swift */; };
 		37DFBE972B818D6500E98608 /* NickNameService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DFBE962B818D6500E98608 /* NickNameService.swift */; };
 		37DFBE992B818DAC00E98608 /* NickNameProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DFBE982B818DAC00E98608 /* NickNameProtocol.swift */; };
+		37DFBE9B2B81BA4D00E98608 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 37DFBE9A2B81BA4D00E98608 /* GoogleService-Info.plist */; };
 		37FED6032B6E15000071BB23 /* MemoirsImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FED6022B6E15000071BB23 /* MemoirsImage.swift */; };
 		37FED6072B6E23560071BB23 /* BookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FED6062B6E23560071BB23 /* BookmarkViewController.swift */; };
 		37FED6092B6E235D0071BB23 /* BookmarkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FED6082B6E235D0071BB23 /* BookmarkViewModel.swift */; };
@@ -245,7 +245,6 @@
 		37BD176F2B764B2800A4EA46 /* LaunchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewModel.swift; sourceTree = "<group>"; };
 		37C161202B6BD9F7000E0B21 /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		37C161222B6BD9F7000E0B21 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		37C161252B6BDAD0000E0B21 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		37C1612B2B6BDEF8000E0B21 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		37C161302B6BDF59000E0B21 /* KeychainWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		37C1613B2B6BE519000E0B21 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
@@ -263,6 +262,7 @@
 		37DEF20E2B66B32A00AF47DB /* MemoirsCompleteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoirsCompleteViewModel.swift; sourceTree = "<group>"; };
 		37DFBE962B818D6500E98608 /* NickNameService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameService.swift; sourceTree = "<group>"; };
 		37DFBE982B818DAC00E98608 /* NickNameProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameProtocol.swift; sourceTree = "<group>"; };
+		37DFBE9A2B81BA4D00E98608 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		37FED6022B6E15000071BB23 /* MemoirsImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoirsImage.swift; sourceTree = "<group>"; };
 		37FED6062B6E23560071BB23 /* BookmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewController.swift; sourceTree = "<group>"; };
 		37FED6082B6E235D0071BB23 /* BookmarkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewModel.swift; sourceTree = "<group>"; };
@@ -1002,10 +1002,10 @@
 				376A4B552B5504AB004FBB56 /* Assets */,
 				3B0129C42B6242D400B191AD /* Extension */,
 				35E0C7282B68C7AC006BF427 /* Fonts */,
+				37DFBE9A2B81BA4D00E98608 /* GoogleService-Info.plist */,
 				3B4230182B41572400D0B038 /* LaunchScreen.storyboard */,
 				3789F5F92B7FCB5800B8EADB /* Config.xcconfig */,
 				3B42301B2B41572400D0B038 /* Info.plist */,
-				37C161252B6BDAD0000E0B21 /* GoogleService-Info.plist */,
 				370826202B669BFC00FBCAAF /* UICalculate+Ex.swift */,
 			);
 			path = On_off_iOS;
@@ -1278,10 +1278,10 @@
 			files = (
 				376A4B572B5504FE004FBB56 /* Lotties.xcassets in Resources */,
 				3B42301A2B41572400D0B038 /* LaunchScreen.storyboard in Resources */,
-				37C161262B6BDAD1000E0B21 /* GoogleService-Info.plist in Resources */,
 				376A4B592B55054D004FBB56 /* onBoarding.json in Resources */,
 				3789F5FA2B7FCB5800B8EADB /* Config.xcconfig in Resources */,
 				3B4230172B41572400D0B038 /* Assets.xcassets in Resources */,
+				37DFBE9B2B81BA4D00E98608 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
