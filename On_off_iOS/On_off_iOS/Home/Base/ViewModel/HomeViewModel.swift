@@ -177,10 +177,10 @@ final class HomeViewModel {
         output.dayImageRelay.accept(UIImage(named: "sun"))
         output.buttonOnOffRelay.accept(UIImage(named: "on"))
         output.backgroundColorRelay.accept(.white)
-        output.blankUIViewShadowColorRelay.accept(.OnOffMain)
-        output.dayCollectionViewBackgroundColorRelay.accept(.cyan)
+        output.blankUIViewShadowColorRelay.accept(UIColor(hex: "#6495ED"))
+        output.dayCollectionViewBackgroundColorRelay.accept(UIColor(hex: "#0041C2"))
         output.dayCollectionTextColorRelay.accept(.white)
-        output.selectedDayCollectionViewBackgroundColorRelay.accept(.OnOffMain)
+        output.selectedDayCollectionViewBackgroundColorRelay.accept(UIColor(hex: "#6495ED"))
         output.selectedDayCollectionTextColorRelay.accept(.white)
     }
     
@@ -188,11 +188,11 @@ final class HomeViewModel {
     private func setUpWhenOff(output: Output) {
         output.dayImageRelay.accept(UIImage(named: "moon"))
         output.buttonOnOffRelay.accept(UIImage(named: "off"))
-        output.backgroundColorRelay.accept(.blue)
-        output.dayCollectionViewBackgroundColorRelay.accept(UIColor(hex: "#4417B8"))
-        output.dayCollectionTextColorRelay.accept(UIColor(hex: "#AB8AFF"))
+        output.backgroundColorRelay.accept(UIColor(hex: "#6A5ACD"))
+        output.dayCollectionViewBackgroundColorRelay.accept(UIColor(hex: "#3C41CD"))
+        output.dayCollectionTextColorRelay.accept(UIColor(hex: "#3C41CD"))
         output.selectedDayCollectionViewBackgroundColorRelay.accept(.white)
-        output.selectedDayCollectionTextColorRelay.accept(.OnOffMain)
+        output.selectedDayCollectionTextColorRelay.accept(UIColor(hex: "#6495ED"))
         output.blankUIViewShadowColorRelay.accept(.white)
     }
     
@@ -319,7 +319,7 @@ final class HomeViewModel {
         output.dayListRelay.accept(list)
         checkToday(output: output)
         if output.toggleOnOffButtonRelay.value {
-            output.monthRelay.accept(formatSelectedMonth(monthColor: .OnOffMain, output: output))
+            output.monthRelay.accept(formatSelectedMonth(monthColor: UIColor(hex: "#123456"), output: output))
             output.successLoadWeek.accept(())
             return
         }
@@ -350,12 +350,12 @@ final class HomeViewModel {
             .subscribe(onNext: { [weak self] nickName in
                 guard let self = self else { return }
                 if output.toggleOnOffButtonRelay.value {
-                    output.titleRelay.accept(setTitleOptions(nickName: nickName, nickNameColor: .purple,
+                    output.titleRelay.accept(setTitleOptions(nickName: nickName, nickNameColor:  UIColor(hex: "#0041C2"),
                                                              subTitle: "님,\n오늘 하루도 파이팅!", subTitleColor: .black,
                                                              output: output))
                     return
                 }
-                output.titleRelay.accept(setTitleOptions(nickName: nickName, nickNameColor: .cyan,
+                output.titleRelay.accept(setTitleOptions(nickName: nickName, nickNameColor: UIColor(hex: "#6495ED"),
                                                          subTitle: "님,\n오늘 하루도 고생하셨어요", subTitleColor: .white,
                                                          output: output))
             }, onError: { error in

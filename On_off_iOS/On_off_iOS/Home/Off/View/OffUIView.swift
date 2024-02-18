@@ -91,6 +91,7 @@ final class OffUIView: UIView {
     /// 오늘의 회고 완료한 경우 이모지
     private lazy var memoirImageView: UIImageView = {
         let view = UIImageView()
+        view.contentMode = .scaleAspectFit
         view.backgroundColor = .clear
         return view
     }()
