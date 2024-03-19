@@ -30,6 +30,62 @@ final class OnUIView: UIView {
         return view
     }()
     
+    //오늘의 다짐 제목 버튼
+    private lazy var todayResolutionButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("오늘의 다짐", for: .normal)
+        button.backgroundColor = .clear
+        button.setTitleColor(.OnOffMain, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
+        return button
+    }()
+    
+    /// 제목 옆 벡터 아이콘 배경
+    private lazy var todayResolutionLabelBackgroundUIView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .OnOffPurple
+        view.alpha = 0.4
+        return view
+    }()
+    
+    /// 오늘의 다짐 제목 옆 벡터 아이콘 >
+    private lazy var todayResolutionIconImageButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "greaterthan"), for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
+        button.tintColor = .black
+        button.backgroundColor = .clear
+        return button
+    }()
+
+    /// 오늘의 다짐 작성 했는지 안했는지 확인하는 UIView
+    private lazy var todayResolutionUIView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .OnOffLightMain
+        view.layer.cornerRadius = 20
+        return view
+    }()
+    
+    /// 오늘의 회고 제목
+    private lazy var resolutionTitleLabel: UILabel = {
+        let label = UILabel()
+        label.backgroundColor = .clear
+        label.textColor = .black
+        label.font = .systemFont(ofSize: 14, weight: .bold)
+        label.textAlignment = .center
+        return label
+    }()
+    
+    //오늘의 회고 완료한 경우 TableViewCell
+    private lazy var todayresolutionDoneTableView: UITableView = {
+        let view = UITableView()
+        view.backgroundColor = .OnOffLightMain
+        view.layer.cornerRadius = 20
+        view.register(TodayResolutionTableViewCell.self,
+                      forCellReuseIdentifier: CellIdentifier.TodayResolutionTableViewCell.rawValue)
+        return view
+    }()
+    
     /// 업무일지제목
     private lazy var feedTitleButton: UIButton = {
         let button = UIButton()
@@ -68,15 +124,15 @@ final class OnUIView: UIView {
         return view
     }()
     
-    /// 날짜 라벨
-    private lazy var dateLabel: UILabel = {
-        let label = UILabel()
-        label.text = "2024 - November"
-        label.backgroundColor = .clear
-        label.textColor = .OnOffMain
-        label.font = .systemFont(ofSize: 18, weight: .bold)
-        return label
-    }()
+//    /// 날짜 라벨
+//    private lazy var dateLabel: UILabel = {
+//        let label = UILabel()
+//        label.text = "2024 - November"
+//        label.backgroundColor = .clear
+//        label.textColor = .OnOffMain
+//        label.font = .systemFont(ofSize: 18, weight: .bold)
+//        return label
+//    }()
     
     private let disposeBag = DisposeBag()
     private let viewModel = OnUIViewModel()
@@ -88,9 +144,16 @@ final class OnUIView: UIView {
     /// 선택한 날짜
     var selectedDate: PublishSubject<String> = PublishSubject()
     var successAddWorklog: PublishSubject<Void> = PublishSubject()
+    var successAddResolution: PublishSubject<Void> = PublishSubject()
     var selectedWorklogTableViewCell: PublishSubject<WorkGetlogDTO> = PublishSubject()
+    
+    //Resolution 부분 데이터 바뀔 수도 있어서 수정필요
+    var selectedResolutionTableViewCell:
+    PublishSubject<Resolution> = PublishSubject()
+    
     private var loadWLFeed: PublishSubject<Void> = PublishSubject()
     var moveStartToWriteViewController: PublishSubject<String> = PublishSubject()
+    var loadTRFeed: PublishSubject<Void> = PublishSubject()
     private var clickCheckMarkOfWLFeed: PublishSubject<WorkGetlogDTO> = PublishSubject()
     
     
@@ -108,17 +171,23 @@ final class OnUIView: UIView {
         super.willMove(toWindow: newWindow)
         print(#function)
         loadWLFeed.onNext(())
+        loadTRFeed.onNext(())
     }
     
     /// Add View
     private func addSubViews(output: OnUIViewModel.Output) {
         addSubview(scrollView)
         scrollView.addSubview(contentView)
+        contentView.addSubview(todayResolutionButton)
+        contentView.addSubview(todayResolutionLabelBackgroundUIView)
+        todayResolutionLabelBackgroundUIView.addSubview(todayResolutionIconImageButton)
+        contentView.addSubview(todayResolutionUIView)
+        contentView.addSubview(todayresolutionDoneTableView)
         contentView.addSubview(feedlabelBackgroundUIView)
         contentView.addSubview(feedTitleButton)
         feedlabelBackgroundUIView.addSubview(feedPlusIconImageButton)
         contentView.addSubview(feedUITableView)
-        contentView.addSubview(dateLabel)
+//        contentView.addSubview(dateLabel)
         
         constraints(output: output)
     }
@@ -128,22 +197,63 @@ final class OnUIView: UIView {
     private func constraints(output: OnUIViewModel.Output) {
         scrollView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
+            
+//            make.top.equalToSuperview()
+//            make.horizontalEdges.equalToSuperview()
+//            make.bottom.equalToSuperview()
         }
         
         contentView.snp.makeConstraints { make in
-            //            make.top.equalTo(scrollView.snp.top)
-            //            make.leading.equalTo(scrollView.snp.leading)
-            //            make.trailing.equalTo(scrollView.snp.trailing)
-            ////            make.bottom.equalTo(scrollView.snp.bottom)
-            //            make.width.equalTo(scrollView.snp.width)
             make.edges.equalToSuperview()
             make.height.equalTo(1000)
             make.width.equalTo(scrollView.snp.width)
+            
+//            make.top.equalTo(scrollView.snp.top)
+//            make.leading.equalTo(scrollView.snp.leading)
+//            make.trailing.equalTo(scrollView.snp.trailing)
+//            make.bottom.equalTo(scrollView.snp.bottom)
+//            make.width.equalTo(scrollView.snp.width)
         }
         
+        todayResolutionButton.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(20)
+            make.leading.equalToSuperview().offset(10)
+        }
+        
+        todayResolutionLabelBackgroundUIView.snp.makeConstraints { make in
+            make.height.equalTo(todayResolutionButton.snp.height).multipliedBy(0.5)
+            make.leading.equalTo(todayResolutionButton.snp.trailing).offset(10)
+            make.centerY.equalTo(todayResolutionButton.snp.centerY)
+            make.width.equalTo(todayResolutionLabelBackgroundUIView.snp.height)
+        }
+        
+        todayResolutionLabelBackgroundUIView.layoutIfNeeded()
+        todayResolutionLabelBackgroundUIView.layer.cornerRadius = todayResolutionLabelBackgroundUIView.frame.height * 0.65
+        
+        todayResolutionIconImageButton.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview()
+            make.center.equalToSuperview()
+        }
+        
+        todayResolutionUIView.snp.makeConstraints { make in
+            make.top.equalTo(todayResolutionButton.snp.bottom).offset(10)
+            make.leading.equalTo(todayResolutionButton.snp.leading)
+            make.trailing.equalToSuperview().offset(-20)
+            make.height.equalTo(200)
+        }
+        
+        todayresolutionDoneTableView.snp.makeConstraints {
+            make in
+            make.top.equalTo(todayResolutionButton.snp.bottom).offset(10)
+            make.leading.equalTo(todayResolutionButton.snp.leading)
+            make.trailing.equalToSuperview().offset(-20)
+            output.tableViewHeightConstraint.accept(make.height.equalTo(200).constraint)
+        }
+        
+        
         feedTitleButton.snp.makeConstraints { make in
-            make.top.equalTo(contentView.snp.top).offset(30)
-            make.leading.equalTo(contentView.snp.leading).offset(10)
+            make.top.equalTo(todayResolutionUIView.snp.bottom).offset(20)
+            make.leading.equalTo(todayResolutionButton.snp.leading)
         }
         
         feedlabelBackgroundUIView.snp.makeConstraints { make in
@@ -168,10 +278,10 @@ final class OnUIView: UIView {
             output.tableViewHeightConstraint.accept(make.height.equalTo(200).constraint)
         }
         
-        dateLabel.snp.makeConstraints { make in
-            make.top.equalTo(feedUITableView.snp.bottom).offset(20)
-            make.leading.equalToSuperview().offset(10)
-        }
+//        dateLabel.snp.makeConstraints { make in
+//            make.top.equalTo(feedUITableView.snp.bottom).offset(20)
+//            make.leading.equalToSuperview().offset(10)
+//        }
         
     }
     
@@ -185,7 +295,7 @@ final class OnUIView: UIView {
         bindTableView(output: output)
         bindTableViewHeight(output: output)
         bindClickTableViewCell(output: output)
-        bindSelectedMonth(output: output)
+//        bindSelectedMonth(output: output)
         bindFeedEvents()
     }
     
@@ -254,15 +364,15 @@ final class OnUIView: UIView {
             .disposed(by: disposeBag)
     }
     
-    /// Bind Selected Month
-    private func bindSelectedMonth(output: OnUIViewModel.Output) {
-        output.selectedDate
-            .bind { [weak self] date in
-                guard let self = self else { return }
-                dateLabel.text = date
-            }
-            .disposed(by: disposeBag)
-    }
+//    /// Bind Selected Month
+//    private func bindSelectedMonth(output: OnUIViewModel.Output) {
+//        output.selectedDate
+//            .bind { [weak self] date in
+//                guard let self = self else { return }
+//                dateLabel.text = date
+//            }
+//            .disposed(by: disposeBag)
+//    }
 }
 
 extension OnUIView: UITableViewDelegate {
