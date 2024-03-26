@@ -17,6 +17,9 @@ final class OnUIViewModel {
     private let service = OnUIViewService()
     
     struct Input {
+        let todayResolutionButtonEvents:ControlEvent<Void>?
+        let todayResolutionIconImageButtonEvents:ControlEvent<Void>?
+       
         let loadWLFeed: Observable<Void>?
         let clickCheckMarkOfWLFeed: Observable<WorkGetlogDTO>?
         let selectedDate: Observable<String>?
@@ -24,10 +27,15 @@ final class OnUIViewModel {
     }
     
     struct Output {
+        var checkTRPreview: BehaviorRelay<TodayResolution?> = BehaviorRelay(value: nil)
+
+        var clickPlusImageButton:BehaviorSubject<Void> = BehaviorSubject(value: ())
+        var todayResolutionRelay: BehaviorRelay<[TodayResolution]> = BehaviorRelay(value: [])
         var tableViewHeightConstraint: BehaviorRelay<Constraint?> = BehaviorRelay(value: nil)
         var workLogRelay: BehaviorRelay<[WorkGetlogDTO]> = BehaviorRelay(value: [])
         var successCheckWLRelay: PublishRelay<Bool> = PublishRelay()
         var selectedDate: BehaviorRelay<String> = BehaviorRelay(value: "")
+    
     }
     
     /// Create Output
@@ -44,7 +52,20 @@ final class OnUIViewModel {
         
         return output
     }
-        
+    
+    /// Get TodayResolution Preview
+    private func getTRPreview(output: Output) {
+        service.checkTRPreview(date: output.selectedDate.value)
+            .subscribe(onNext: { preview in
+                output.checkTRPreview.accept(preview)
+            }, onError: { error in
+                // 업로드 실패
+                print(#function, error)
+            })
+            .disposed(by: disposeBag)
+     
+    }
+    
     /// Binding Load W.L.
     private func bindLoadWLFeed(input: Input, output: Output) {
         input.loadWLFeed?

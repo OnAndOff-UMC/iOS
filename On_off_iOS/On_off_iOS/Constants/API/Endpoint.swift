@@ -64,3 +64,8 @@ enum WorklogPath: String {
 enum OnPath: String {
     case On = "/on"
 }
+
+enum ResolutionPath: String {
+    case Resolution = "/on/resolution/" //조회,수정,추가
+    case deleteResolution = "/on/resolution/resolutionId"
+}

@@ -7,14 +7,49 @@
 
 import Foundation
 
-struct Resolution: Codable {
+//조회 Response
+struct TodayResolution: Codable {
+    let date: String?
+    let resolutionDTOList: [ResolutionDTOList]?
+}
+
+struct ResolutionDTOList: Codable {
     let resolutionID: Int?
     let order: Int?
     let content: String?
 }
 
-//추가
-struct AddResolution: Codable {
+//수정 request
+struct ModifyResolutionRequest: Codable {
+    let date: String?
+    let resolutionDTOList : [ResolutionDTOList]?
+}
+
+//수정 Response
+struct ModifyResolutionResponse: Codable {
+    let date: String?
+    let resolutionDTOList: [ResolutionDTOList]?
+}
+
+//추가 Request
+struct AddResolutionRequest: Codable {
     let date: String?
     let content: String?
+}
+
+//추가 Response
+struct AddResolutionResponse: Codable {
+    let worklogId:  Int?
+    let date: String?
+    let content: String?
+    let isChecked: Bool?
+    let createdAt: String?
+}
+
+//삭제 Response
+struct DeleteResolution: Codable {
+    let isSuccess: Bool?
+    let code: String?
+    let message: String?
+    let result: Int?
 }

@@ -149,7 +149,7 @@ final class OnUIView: UIView {
     
     //Resolution 부분 데이터 바뀔 수도 있어서 수정필요
     var selectedResolutionTableViewCell:
-    PublishSubject<Resolution> = PublishSubject()
+    PublishSubject<TodayResolution> = PublishSubject()
     
     private var loadWLFeed: PublishSubject<Void> = PublishSubject()
     var moveStartToWriteViewController: PublishSubject<String> = PublishSubject()
@@ -235,6 +235,11 @@ final class OnUIView: UIView {
             make.center.equalToSuperview()
         }
         
+//        resolutionTitleLabel.snp.makeConstraints { make in
+//            make.top.equalTo(todayResolutionUIView.snp.bottom).offset(20)
+//            make.leading.equalTo(todayResolutionButton.snp.leading)
+//        }
+        
         todayResolutionUIView.snp.makeConstraints { make in
             make.top.equalTo(todayResolutionButton.snp.bottom).offset(10)
             make.leading.equalTo(todayResolutionButton.snp.leading)
@@ -287,7 +292,7 @@ final class OnUIView: UIView {
     
     /// Binding
     private func bind() {
-        let output = viewModel.createOutput(input: OnUIViewModel.Input(loadWLFeed: loadWLFeed,
+        let output = viewModel.createOutput(input: OnUIViewModel.Input(todayResolutionButtonEvents: todayResolutionButton.rx.tap,todayResolutionIconImageButtonEvents: todayResolutionIconImageButton.rx.tap,loadWLFeed: loadWLFeed,
                                                                        clickCheckMarkOfWLFeed: clickCheckMarkOfWLFeed,
                                                                        selectedDate: selectedDate,
                                                                        successAddWorklog: successAddWorklog))
@@ -296,9 +301,23 @@ final class OnUIView: UIView {
         bindTableViewHeight(output: output)
         bindClickTableViewCell(output: output)
 //        bindSelectedMonth(output: output)
+//        bindCheckTRPreview(output: output)
+        bindTodayResolutionEvents(output: output)
         bindFeedEvents()
     }
     
+     /// Bind TodayResolution Events
+    private func bindTodayResolutionEvents(output: OnUIViewModel.Output) {
+        Observable.merge(todayResolutionButton.rx.tap.asObservable(),
+                         todayResolutionIconImageButton.rx.tap.asObservable())
+        .bind { [weak self] _ in
+            guard let self = self else { return }
+            print(#function)
+            moveTodayResolutionViewController.onNext(output.selectedDate.value)
+        }
+        .disposed(by: disposeBag)
+    }
+
     // Worklog 제목 버튼 및 이미지 버튼
     private func bindFeedEvents() {
         feedTitleButton.rx.tap
@@ -311,7 +330,6 @@ final class OnUIView: UIView {
         feedPlusIconImageButton.rx.tap
             .subscribe(onNext: { [weak self] in
                 guard let self = self else { return }
-                print("Button tapped")
                 self.clickedAddWorklogButton.onNext(())
             })
             .disposed(by: disposeBag)

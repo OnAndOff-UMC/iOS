@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		35041ABF2BB2944800EEFBA6 /* TodayResolutionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35041ABE2BB2944800EEFBA6 /* TodayResolutionService.swift */; };
 		3542F2AA2B82013D00DB15A9 /* TodayResolutionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3542F2A92B82013D00DB15A9 /* TodayResolutionTableViewCell.swift */; };
 		3542F2AC2B8211B500DB15A9 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3542F2AB2B8211B500DB15A9 /* Config.xcconfig */; };
 		355283122B68CB70002BBFFD /* Ext + UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355283112B68CB70002BBFFD /* Ext + UIFont.swift */; };
@@ -182,6 +183,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		35041ABE2BB2944800EEFBA6 /* TodayResolutionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayResolutionService.swift; sourceTree = "<group>"; };
 		3542F2A92B82013D00DB15A9 /* TodayResolutionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayResolutionTableViewCell.swift; sourceTree = "<group>"; };
 		3542F2AB2B8211B500DB15A9 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Config.xcconfig; path = ../../../Downloads/Config.xcconfig; sourceTree = "<group>"; };
 		355283112B68CB70002BBFFD /* Ext + UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext + UIFont.swift"; sourceTree = "<group>"; };
@@ -380,10 +382,10 @@
 		3587D45B2B81E0750068CAFD /* TodayResolution */ = {
 			isa = PBXGroup;
 			children = (
+				3587D45C2B81E0980068CAFD /* Model */,
 				3587D4732B81E27E0068CAFD /* Service */,
 				3587D45E2B81E0AF0068CAFD /* View */,
 				3587D45D2B81E09F0068CAFD /* ViewModel */,
-				3587D45C2B81E0980068CAFD /* Model */,
 			);
 			path = TodayResolution;
 			sourceTree = "<group>";
@@ -422,6 +424,7 @@
 		3587D4732B81E27E0068CAFD /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				35041ABE2BB2944800EEFBA6 /* TodayResolutionService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1331,6 +1334,7 @@
 				3787D0082B429C1100F054DD /* OnboardingModel.swift in Sources */,
 				37C70B422B714C8B004CB0F6 /* Ext + NSAttributedString.swift in Sources */,
 				378140662B42F0AB00F2AA5A /* ProfileSettingViewModel.swift in Sources */,
+				35041ABF2BB2944800EEFBA6 /* TodayResolutionService.swift in Sources */,
 				358DE3762B80AFB100A1FDA0 /* Worklog.swift in Sources */,
 				37C1613C2B6BE519000E0B21 /* Login.swift in Sources */,
 				3587D46E2B81E1A10068CAFD /* ResolutionWriteViewController.swift in Sources */,
